@@ -1,0 +1,51 @@
+title: "<gradient:#f59e0b:#d97706>Rewards Roadmap: {job_name}</gradient>"
+size: 54
+
+fillers:
+  glass:
+    material: "GRAY_STAINED_GLASS_PANE"
+    name: " "
+    slots: [0, 1, 2, 3, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 51, 52, 53]
+
+items:
+  player_status:
+    slot: 4
+    material: "PLAYER_HEAD"
+    skull-owner: "%player_name%"
+    name: "<green>%player_name% - Progression Roadmap</green>"
+    lore:
+      - "<gray>Profession: <white>{job_name}</white>"
+      - "<gray>Current Level: <gold>{level}</gold>"
+      - "<gray>XP: <yellow>{xp} / {required_xp}</yellow>"
+      - ""
+      - "<yellow>▶ Click to refresh status</yellow>"
+    actions:
+      - "[REFRESH]"
+
+  previous_page:
+    slot: 48
+    material: "ARROW"
+    name: "<yellow>◀ Previous Page</yellow>"
+    lore:
+      - "<gray>Click to return to the previous page.</gray>"
+    actions:
+      - "[PREV_PAGE]"
+
+  back_button:
+    slot: 49
+    material: "BARRIER"
+    name: "<red>Back to Orders Board</red>"
+    actions:
+      - "[BACK]"
+
+  next_page:
+    slot: 50
+    material: "ARROW"
+    name: "<yellow>Next Page ▶</yellow>"
+    lore:
+      - "<gray>Click to view higher level progression tiers.</gray>"
+    actions:
+      - "[NEXT_PAGE]"
+
+# Dynamic slots where level tier cards are placed (21 slots per page)
+level-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]

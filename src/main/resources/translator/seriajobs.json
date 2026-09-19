@@ -1,0 +1,156 @@
+{
+  "items": [
+    {
+      "key": "seriajobs.gui.main_title",
+      "languages": {
+        "en_GB": "<gradient:#1e3a8a:#3b82f6>Seria Jobs Exchange</gradient>",
+        "en_US": "<gradient:#1e3a8a:#3b82f6>Seria Jobs Exchange</gradient>",
+        "id_ID": "<gradient:#1e3a8a:#3b82f6>Bursa Pekerjaan Seria</gradient>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.orders_title",
+      "languages": {
+        "en_GB": "<gradient:#2c3e50:#3498db>Job Orders: %job%</gradient>",
+        "en_US": "<gradient:#2c3e50:#3498db>Job Orders: %job%</gradient>",
+        "id_ID": "<gradient:#2c3e50:#3498db>Bursa Kerja: %job%</gradient>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.deposit_all",
+      "languages": {
+        "en_GB": "<gold><bold>Deposit All Commodities</bold></gold>",
+        "en_US": "<gold><bold>Deposit All Commodities</bold></gold>",
+        "id_ID": "<gold><bold>Setor Semua Komoditas</bold></gold>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.deposit_all_lore",
+      "languages": {
+        "en_GB": "<gray>Click to automatically scan and deposit all active contract items from your inventory.",
+        "en_US": "<gray>Click to automatically scan and deposit all active contract items from your inventory.",
+        "id_ID": "<gray>Klik untuk otomatis memindai dan menyetor semua item kontrak aktif dari inventaris Anda."
+      }
+    },
+    {
+      "key": "seriajobs.gui.refresh_display",
+      "languages": {
+        "en_GB": "<aqua><bold>Refresh Display</bold></aqua>",
+        "en_US": "<aqua><bold>Refresh Display</bold></aqua>",
+        "id_ID": "<aqua><bold>Segarkan Tampilan (Refresh)</bold></aqua>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.back_button",
+      "languages": {
+        "en_GB": "<red>Back to Main Board</red>",
+        "en_US": "<red>Back to Main Board</red>",
+        "id_ID": "<red>Kembali ke Papan Utama</red>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.back_orders",
+      "languages": {
+        "en_GB": "<red>Back to Orders Board</red>",
+        "en_US": "<red>Back to Orders Board</red>",
+        "id_ID": "<red>Kembali ke Kontrak Pasokan</red>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.close_button",
+      "languages": {
+        "en_GB": "<red>Close Menu</red>",
+        "en_US": "<red>Close Menu</red>",
+        "id_ID": "<red>Tutup Menu</red>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.roadmap_button",
+      "languages": {
+        "en_GB": "<gold><bold>Level Rewards Roadmap</bold></gold>",
+        "en_US": "<gold><bold>Level Rewards Roadmap</bold></gold>",
+        "id_ID": "<gold><bold>Roadmap Hadiah Level</bold></gold>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.prev_page",
+      "languages": {
+        "en_GB": "<yellow>◀ Previous Page</yellow>",
+        "en_US": "<yellow>◀ Previous Page</yellow>",
+        "id_ID": "<yellow>◀ Halaman Sebelumnya</yellow>"
+      }
+    },
+    {
+      "key": "seriajobs.gui.next_page",
+      "languages": {
+        "en_GB": "<yellow>Next Page ▶</yellow>",
+        "en_US": "<yellow>Next Page ▶</yellow>",
+        "id_ID": "<yellow>Halaman Berikutnya ▶</yellow>"
+      }
+    },
+    {
+      "key": "seriajobs.job.farmer_name",
+      "languages": {
+        "en_GB": "<gradient:#2ecc71:#27ae60><bold>Royal Farmer</bold></gradient>",
+        "en_US": "<gradient:#2ecc71:#27ae60><bold>Royal Farmer</bold></gradient>",
+        "id_ID": "<gradient:#2ecc71:#27ae60><bold>Petani Kerajaan</bold></gradient>"
+      }
+    },
+    {
+      "key": "seriajobs.job.alchemist_name",
+      "languages": {
+        "en_GB": "<gradient:#9b59b6:#8e44ad><bold>Royal Alchemist</bold></gradient>",
+        "en_US": "<gradient:#9b59b6:#8e44ad><bold>Royal Alchemist</bold></gradient>",
+        "id_ID": "<gradient:#9b59b6:#8e44ad><bold>Ahli Alkimia</bold></gradient>"
+      }
+    },
+    {
+      "key": "seriajobs.msg.join_success",
+      "languages": {
+        "en_GB": "<green>Congratulations! You have joined the <white>{job}</white> job!</green>",
+        "en_US": "<green>Congratulations! You have joined the <white>{job}</white> job!</green>",
+        "id_ID": "<green>Selamat! Anda telah bergabung ke dalam pekerjaan <white>{job}</white>!</green>"
+      }
+    },
+    {
+      "key": "seriajobs.msg.leave_success",
+      "languages": {
+        "en_GB": "<gray>You have resigned from <white>{job}</white>. Your job slot is now freed.</gray>",
+        "en_US": "<gray>You have resigned from <white>{job}</white>. Your job slot is now freed.</gray>",
+        "id_ID": "<gray>Anda telah mengundurkan diri dari pekerjaan <white>{job}</white>. Slot kini tersedia kembali.</gray>"
+      }
+    },
+    {
+      "key": "seriajobs.msg.deposit_success",
+      "languages": {
+        "en_GB": "<green>Successfully deposited <yellow>{amount}x</yellow> {item} for work order <white>{order}</white>!</green>",
+        "en_US": "<green>Successfully deposited <yellow>{amount}x</yellow> {item} for work order <white>{order}</white>!</green>",
+        "id_ID": "<green>Berhasil menyetor <yellow>{amount}x</yellow> {item} untuk pesanan <white>{order}</white>!</green>"
+      }
+    },
+    {
+      "key": "seriajobs.msg.deposit_none",
+      "languages": {
+        "en_GB": "<red>You do not have any matching items in your inventory to deposit!</red>",
+        "en_US": "<red>You do not have any matching items in your inventory to deposit!</red>",
+        "id_ID": "<red>Anda tidak memiliki item yang sesuai di inventaris untuk disetorkan!</red>"
+      }
+    },
+    {
+      "key": "seriajobs.msg.order_completed",
+      "languages": {
+        "en_GB": "<gradient:#10b981:#34d399><bold>CONTRACT FULFILLED!</bold></gradient> <gray>Contract <gold>{order}</gold> completed! Rewards have been added to your account.</gray>",
+        "en_US": "<gradient:#10b981:#34d399><bold>CONTRACT FULFILLED!</bold></gradient> <gray>Contract <gold>{order}</gold> completed! Rewards have been added to your account.</gray>",
+        "id_ID": "<gradient:#10b981:#34d399><bold>KONTRAK TERPENUHI!</bold></gradient> <gray>Kontrak <gold>{order}</gold> selesai! Reward telah diberikan ke akun Anda.</gray>"
+      }
+    },
+    {
+      "key": "seriajobs.msg.slot_full",
+      "languages": {
+        "en_GB": "<red>Your job slots are full (<yellow>{active}/{max}</yellow>)! Upgrade your rank or resign from another job first.</red>",
+        "en_US": "<red>Your job slots are full (<yellow>{active}/{max}</yellow>)! Upgrade your rank or resign from another job first.</red>",
+        "id_ID": "<red>Slot pekerjaan Anda penuh (<yellow>{active}/{max}</yellow>)! Tingkatkan rank atau tinggalkan pekerjaan lain terlebih dahulu.</red>"
+      }
+    }
+  ]
+}

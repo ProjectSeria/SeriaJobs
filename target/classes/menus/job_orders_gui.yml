@@ -1,0 +1,90 @@
+title: "<gradient:#2c3e50:#3498db>Job Orders: {job_name}</gradient>"
+size: 45
+
+fillers:
+  glass:
+    material: "GRAY_STAINED_GLASS_PANE"
+    name: " "
+    slots: [0, 1, 2, 3, 5, 6, 7, 8, 36, 40, 42, 43, 44]
+
+items:
+  player_status:
+    slot: 4
+    material: "PLAYER_HEAD"
+    skull-owner: "%player_name%"
+    name: "<green>%player_name% - Worker Profile</green>"
+    lore:
+      - "<gray>Profession: <white>{job_name}</white>"
+      - "<gray>Level: <gold>{level}</gold>"
+      - "<gray>XP: <yellow>{xp} / {required_xp}</yellow>"
+      - "<gray>Job Slots: <yellow>%seriajobs_active_jobs_count% / %seriajobs_max_slots%</yellow>"
+      - "<gray>Next Shift: <gold>%seriajobs_rotation_countdown%</gold>"
+      - ""
+      - "<yellow>▶ Click to refresh status</yellow>"
+    actions:
+      - "[REFRESH]"
+
+  refresh_button:
+    slot: 37
+    material: "CLOCK"
+    name: "<aqua><bold>Refresh Display</bold></aqua>"
+    lore:
+      - "<gray>Click to update contract progress,"
+      - "<gray>shift countdown, and inventory states."
+    actions:
+      - "[REFRESH]"
+
+  rewards_roadmap_button:
+    slot: 38
+    material: "EXPERIENCE_BOTTLE"
+    name: "<gold><bold>Level Rewards Roadmap</bold></gold>"
+    lore:
+      - "<gray>Click to view milestones and rewards"
+      - "<gray>unlocked across each profession level."
+      - ""
+      - "<yellow>▶ Click to open roadmap</yellow>"
+    actions:
+      - "[OPEN_PROGRESSION]"
+
+  quick_deposit_all:
+    slot: 39
+    material: "HOPPER"
+    name: "<gold><bold>Deposit All Commodities</bold></gold>"
+    lore:
+      - "<gray>Click to automatically scan and deposit"
+      - "<gray>all active contract items from your inventory."
+    actions:
+      - "[DEPOSIT_ALL]"
+      - "[REFRESH]"
+
+  back_button:
+    slot: 41
+    material: "BARRIER"
+    name: "<red>Back to Main Board</red>"
+    actions:
+      - "[OPEN_MENU] main_jobs_menu.yml"
+
+# Dynamic slots for active order cards
+order-slots: [20, 22, 24]
+
+order-card:
+  incomplete:
+    name: "{order_display_name}"
+    lore:
+      - "{order_lore}"
+      - ""
+      - "<gray>Requirement: <white>{required_amount}x {item_name}</white>"
+      - "<gray>Progress: <yellow>{progress} / {required_amount}</yellow> <dark_gray>({percentage}%)</dark_gray>"
+      - "{progress_bar}"
+      - ""
+      - "<yellow><bold>Contract Rewards:</bold></yellow>"
+      - "{rewards_list}"
+      - ""
+      - "<green>▶ Click to deposit items from your inventory</green>"
+  completed:
+    name: "{order_display_name} <green>[COMPLETED]</green>"
+    lore:
+      - "{order_lore}"
+      - ""
+      - "<green>✔ You have fulfilled this contract!</green>"
+      - "<gray>Await the next market shift for new work orders.</gray>"

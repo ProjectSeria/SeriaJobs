@@ -1,0 +1,75 @@
+# ==============================================================
+# SeriaJobs - Main Jobs Menu
+# Tips for calling external items:
+#   mmoitem: "TYPE:ID" (e.g. "SWORD:SILVER_SWORD")
+#   mythicitem: "ID" (e.g. "SkeletonKingSword")
+#   customfishing: "ID" (e.g. "golden_carp")
+#   magicbundle: "ID" (e.g. "seed_bundle")
+#   seriacrafting: "ID" (e.g. "refined_shield")
+# ==============================================================
+
+title: "<gradient:#1e3a8a:#3b82f6>Seria Jobs Exchange</gradient>"
+size: 54
+
+fillers:
+  glass:
+    material: "GRAY_STAINED_GLASS_PANE"
+    name: " "
+    slots: [0, 1, 2, 3, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 48, 51, 52, 53]
+
+items:
+  player_status:
+    slot: 4
+    material: "PLAYER_HEAD"
+    skull-owner: "%player_name%"
+    name: "<green><bold>%player_name%</bold></green>"
+    lore:
+      - "<gray>Job Slots: <yellow>%seriajobs_active_jobs_count% / %seriajobs_max_slots%</yellow>"
+      - "<gray>Next Market Shift: <gold>%seriajobs_rotation_countdown%</gold>"
+      - ""
+      - "<dark_gray>Select a profession to inspect open contracts.</dark_gray>"
+      - "<yellow>▶ Click to refresh menu</yellow>"
+    actions:
+      - "[REFRESH]"
+
+  refresh_button:
+    slot: 50
+    material: "CLOCK"
+    name: "<aqua><bold>Refresh Display</bold></aqua>"
+    lore:
+      - "<gray>Click to refresh job statuses and slot allocations.</gray>"
+    actions:
+      - "[REFRESH]"
+
+  close_button:
+    slot: 49
+    material: "BARRIER"
+    name: "<red>Close Menu</red>"
+    actions:
+      - "[CLOSE]"
+
+# Dynamic slots where job cards are populated
+job-slots: [20, 21, 22, 23, 24, 29, 30, 31, 32, 33]
+
+# Template for professions the player has ALREADY joined
+job-item-joined:
+  name: "{display_name} <green>[ACTIVE]</green>"
+  lore:
+    - "{description}"
+    - ""
+    - "<gray>Level: <gold>{level}</gold> <dark_gray>(Max: {max_level})</dark_gray>"
+    - "<gray>XP: <yellow>{xp} / {required_xp}</yellow>"
+    - ""
+    - "<green>▶ Left-Click:</green> <white>Open Supply Work Orders</white>"
+    - "<red>▶ Right-Click:</red> <white>Resign from this Job</white>"
+
+# Template for professions AVAILABLE to join
+job-item-available:
+  name: "{display_name} <yellow>[AVAILABLE]</yellow>"
+  lore:
+    - "{description}"
+    - ""
+    - "<gray>Stored Level: <gold>{level}</gold>"
+    - "<gray>Status: <white>Not Active</white>"
+    - ""
+    - "<green>▶ Left-Click:</green> <white>Join this Profession</white>"

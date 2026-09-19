@@ -1,0 +1,243 @@
+package id.seria.jobs.ui;
+
+import id.seria.jobs.SeriaJobs;
+import id.seria.jobs.model.Job;
+import id.seria.jobs.model.JobProfile;
+import id.seria.jobs.model.reward.Reward;
+import id.seria.jobs.utils.TextUtil;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class JobProgressionMenu extends BaseMenu {
+
+    private final Job job;
+    private int page;
+
+    public JobProgressionMenu(SeriaJobs plugin, Player player, Job job) {
+        this(plugin, player, job, 1);
+    }
+
+    public JobProgressionMenu(SeriaJobs plugin, Player player, Job job, int page) {
+        super(plugin, player, "job_progression_gui.yml");
+        this.job = job;
+        this.page = Math.max(1, page);
+    }
+
+    @Override
+    protected String replacePlaceholders(String text) {
+        if (text == null) return null;
+        if (job == null) return text;
+        int level = 1;
+        int xp = 0;
+        int reqXp = 100;
+        if (player != null && plugin.getPlayerDataManager() != null) {
+            JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+            if (profile != null) {
+                level = profile.getJobLevel(job.getId());
+                xp = profile.getJobXp(job.getId());
+                reqXp = job.getRequiredXp(level);
+            }
+        }
+        return text.replace("{job_name}", job.getDisplayName())
+                .replace("%job_name%", job.getDisplayName())
+                .replace("{job}", job.getDisplayName())
+                .replace("%job%", job.getDisplayName())
+                .replace("{job_title}", job.getDisplayName())
+                .replace("%job_title%", job.getDisplayName())
+                .replace("{job_id}", job.getId())
+                .replace("%job_id%", job.getId())
+                .replace("<job_id>", job.getId())
+                .replace("{level}", String.valueOf(level))
+                .replace("%level%", String.valueOf(level))
+                .replace("{job_level}", String.valueOf(level))
+                .replace("%job_level%", String.valueOf(level))
+                .replace("{xp}", String.valueOf(xp))
+                .replace("%xp%", String.valueOf(xp))
+                .replace("{job_xp}", String.valueOf(xp))
+                .replace("%job_xp%", String.valueOf(xp))
+                .replace("{required_xp}", String.valueOf(reqXp))
+                .replace("%required_xp%", String.valueOf(reqXp))
+                .replace("{req_xp}", String.valueOf(reqXp))
+                .replace("%req_xp%", String.valueOf(reqXp))
+                .replace("{page}", String.valueOf(page))
+                .replace("%page%", String.valueOf(page));
+    }
+
+    @Override
+    public void build() {
+        createInventory(54, "<gradient:#f59e0b:#d97706>Roadmap Hadiah: " + job.getDisplayName() + "</gradient>");
+        applyFillers();
+        applyCustomStaticItems();
+
+        List<Integer> slots = menuConfig != null && menuConfig.isList("level-slots")
+                ? menuConfig.getIntegerList("level-slots")
+                : List.of(10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34);
+
+        int perPage = slots.size();
+        int maxLevel = job.getMaxLevel();
+        int maxPage = Math.max(1, (int) Math.ceil((double) maxLevel / perPage));
+        if (page > maxPage) page = maxPage;
+
+        JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+        int currentLevel = profile.getJobLevel(job.getId());
+        int currentXp = profile.getJobXp(job.getId());
+
+        int startLevel = (page - 1) * perPage + 1;
+
+        for (int i = 0; i < perPage; i++) {
+            int slot = slots.get(i);
+            int level = startLevel + i;
+            if (level > maxLevel) {
+                // Empty remaining slots on last page
+                inventory.setItem(slot, null);
+                clickActions.remove(slot);
+                continue;
+            }
+
+            boolean isReached = level <= currentLevel;
+            boolean isNext = level == currentLevel + 1;
+            int requiredXp = job.getRequiredXp(level);
+            boolean hasMilestone = job.hasRewardsForLevel(level);
+
+            // Material selection based on status & milestone
+            Material mat;
+            if (isReached) {
+                mat = hasMilestone ? Material.EMERALD : Material.LIME_STAINED_GLASS_PANE;
+            } else if (isNext) {
+                mat = hasMilestone ? Material.GOLD_BLOCK : Material.YELLOW_STAINED_GLASS_PANE;
+            } else {
+                mat = hasMilestone ? Material.CHEST : Material.GRAY_STAINED_GLASS_PANE;
+            }
+
+            ItemStack item = new ItemStack(mat, Math.min(64, Math.max(1, level)));
+            ItemMeta meta = item.getItemMeta();
+
+            if (meta != null) {
+                String title;
+                if (isReached) {
+                    title = "<green><bold>Level " + level + "</bold></green> <dark_gray>[TERCAPAI]</dark_gray>";
+                } else if (isNext) {
+                    title = "<yellow><bold>Level " + level + "</bold></yellow> <gold>[LEVEL BERIKUTNYA]</gold>";
+                } else {
+                    title = "<gray>Level " + level + "</gray> <dark_gray>[TERKUNCI]</dark_gray>";
+                }
+                meta.displayName(TextUtil.parseForPlayer(player, title));
+
+                List<Component> lore = new ArrayList<>();
+                lore.add(TextUtil.parseForPlayer(player, "<gray>Kebutuhan XP: <white>" + (level == 1 ? 0 : requiredXp) + " XP</white></gray>"));
+
+                if (isNext) {
+                    int needed = Math.max(0, requiredXp - currentXp);
+                    lore.add(TextUtil.parseForPlayer(player, "<gray>Progres Anda: <yellow>" + currentXp + " / " + requiredXp + " XP</yellow> <dark_gray>(Sisa: " + needed + " XP)</dark_gray>"));
+                }
+
+                lore.add(Component.empty().decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
+                if (hasMilestone) {
+                    lore.add(TextUtil.parseForPlayer(player, "<gold><bold>Hadiah Milestone Khusus:</bold></gold>"));
+                    List<Reward> rewards = job.getRewardsForLevel(level);
+                    if (rewards != null) {
+                        for (Reward r : rewards) {
+                            lore.add(TextUtil.parseForPlayer(player, "  " + r.getFormattedDisplay()));
+                        }
+                    }
+                } else {
+                    lore.add(TextUtil.parseForPlayer(player, "<dark_gray>Tidak ada reward khusus di level ini.</dark_gray>"));
+                }
+
+                lore.add(Component.empty().decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
+                if (isReached) {
+                    lore.add(TextUtil.parseForPlayer(player, "<green>✔ Anda sudah mencapai level ini!</green>"));
+                } else if (isNext) {
+                    lore.add(TextUtil.parseForPlayer(player, "<yellow>▶ Selesaikan kontrak kerja untuk naik ke level ini!</yellow>"));
+                } else {
+                    lore.add(TextUtil.parseForPlayer(player, "<red>✖ Capai level sebelumnya terlebih dahulu.</red>"));
+                }
+
+                meta.lore(lore);
+                item.setItemMeta(meta);
+            }
+
+            inventory.setItem(slot, item);
+            clickActions.put(slot, e -> e.setCancelled(true));
+        }
+
+        // Apply page info to pagination buttons if configured
+        int finalMaxPage = maxPage;
+        if (menuConfig != null) {
+            int prevSlot = menuConfig.getInt("items.previous_page.slot", 48);
+            int nextSlot = menuConfig.getInt("items.next_page.slot", 50);
+
+            if (page > 1) {
+                clickActions.put(prevSlot, e -> {
+                    e.setCancelled(true);
+                    page--;
+                    refresh();
+                });
+            } else {
+                clickActions.put(prevSlot, e -> e.setCancelled(true));
+            }
+
+            if (page < finalMaxPage) {
+                clickActions.put(nextSlot, e -> {
+                    e.setCancelled(true);
+                    page++;
+                    refresh();
+                });
+            } else {
+                clickActions.put(nextSlot, e -> e.setCancelled(true));
+            }
+        }
+    }
+
+    private void applyCustomStaticItems() {
+        applyStaticItems();
+
+        if (menuConfig != null && menuConfig.isConfigurationSection("items")) {
+            for (String key : menuConfig.getConfigurationSection("items").getKeys(false)) {
+                int slot = menuConfig.getInt("items." + key + ".slot", -1);
+                List<String> actions = menuConfig.getStringList("items." + key + ".actions");
+
+                if (actions.contains("[BACK]")) {
+                    clickActions.put(slot, e -> {
+                        e.setCancelled(true);
+                        new OrderDepositMenu(plugin, player, job).open();
+                    });
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void handleActions(List<String> actions) {
+        if (actions == null) return;
+        for (String act : actions) {
+            String trimmed = act.trim();
+            if (trimmed.equalsIgnoreCase("[BACK]")) {
+                new OrderDepositMenu(plugin, player, job).open();
+                return;
+            } else if (trimmed.equalsIgnoreCase("[PREV_PAGE]")) {
+                if (page > 1) {
+                    page--;
+                    refresh();
+                }
+                return;
+            } else if (trimmed.equalsIgnoreCase("[NEXT_PAGE]")) {
+                int perPage = menuConfig != null && menuConfig.isList("level-slots")
+                        ? menuConfig.getIntegerList("level-slots").size() : 21;
+                int maxPage = Math.max(1, (int) Math.ceil((double) job.getMaxLevel() / perPage));
+                if (page < maxPage) {
+                    page++;
+                    refresh();
+                }
+                return;
+            }
+        }
+        super.handleActions(actions);
+    }
+}

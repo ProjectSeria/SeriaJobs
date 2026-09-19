@@ -1,0 +1,40 @@
+name: SeriaJobs
+version: 2.0.0
+main: id.seria.jobs.SeriaJobs
+api-version: '1.20'
+author: Seria Network
+description: Supply-Chain Fulfillment and Market Work Order plugin for Seria Network
+
+softdepend:
+  - Vault
+  - ExcellentEconomy
+  - PlaceholderAPI
+  - LuckPerms
+  - AuraSkills
+  - MMOItems
+  - MythicLib
+  - MythicMobs
+  - CustomFishing
+  - SeriaCore
+  - SeriaTranslator
+  - SeriaMagicBundle
+  - MagicBundle
+  - SeriaCrafting
+
+commands:
+  seriajobs:
+    description: Perintah utama sistem pekerjaan SeriaJobs
+    aliases: [jobs, job]
+    permission: seriajobs.use
+    usage: /<command> [join|leave|admin]
+
+permissions:
+  seriajobs.use:
+    description: Memberikan izin membuka menu bursa kerja dan menyetor pesanan
+    default: true
+  seriajobs.admin:
+    description: Memberikan akses ke perintah administratif SeriaJobs
+    default: op
+  seriajobs.slots.*:
+    description: Memperbolehkan pemain mengambil seluruh pekerjaan tanpa batasan kuota
+    default: false

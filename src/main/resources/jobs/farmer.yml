@@ -1,0 +1,228 @@
+id: "farmer"
+display-name: "<gradient:#2ecc71:#27ae60><bold>Royal Farmer</bold></gradient>"
+icon: "WHEAT"
+description:
+  - "<gray>Supplies crops and agricultural commodities"
+  - "<gray>to fulfill server market supply chains."
+  - ""
+  - "<yellow>Click to view open work orders!</yellow>"
+
+# Job leveling settings
+leveling:
+  max-level: 50
+  base-xp: 100
+  multiplier: 1.25
+
+# Number of active work orders selected per market shift
+active-orders-count: 3
+
+# Milestone rewards unlocked at specific level tiers
+level-rewards:
+  5:
+    rewards:
+      - type: "VAULT"
+        amount: 1500.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 800
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "give %player% emerald 8"
+  10:
+    rewards:
+      - type: "VAULT"
+        amount: 3500.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 2000
+      - type: "ITEM"
+        material: "GOLDEN_CARROT"
+        amount: 32
+  25:
+    rewards:
+      - type: "VAULT"
+        amount: 10000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 5000
+      - type: "MAGICBUNDLE"
+        bundle-id: "FarmerHarvestBundle"
+        amount: 1
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "give %player% diamond 16"
+  50:
+    rewards:
+      - type: "VAULT"
+        amount: 50000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 25000
+      - type: "MYTHICITEM"
+        mythic-id: "AncientCornucopia"
+        amount: 1
+      - type: "CRAFTING"
+        crafting-id: "MasterHoe"
+        amount: 1
+
+# Work orders pool rolled randomly each shift
+orders-pool:
+  bulk_wheat_delivery:
+    display-name: "<gold>Spring Wheat Shipment</gold>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Wheat</yellow>"
+      - "<gray>Deliver your finest harvested agricultural crops."
+    required-item:
+      source: "VANILLA" # Source options: VANILLA, MMOITEMS, MYTHICMOBS, CUSTOMFISHING, SERIAMAGICBUNDLE, SERIACRAFTING
+      material: "WHEAT"
+      amount: 192 # 3 Stacks
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 500.0
+      - type: "JOB_XP"
+        amount: 80
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "give %player% bone_meal 16"
+
+  refined_baked_bread:
+    display-name: "<aqua>Bakery Rations</aqua>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Bread</yellow>"
+      - "<gray>Sweet baked bread needed for city logistics."
+    required-item:
+      source: "VANILLA"
+      material: "BREAD"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1200.0
+      - type: "JOB_XP"
+        amount: 200
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 600
+      - type: "ITEM"
+        material: "EMERALD"
+        amount: 5
+
+  carrot_supply:
+    display-name: "<yellow>Fresh Carrot Supply</yellow>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Carrots</yellow>"
+      - "<gray>Fresh root vegetables for royal granaries."
+    required-item:
+      source: "VANILLA"
+      material: "CARROT"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 400.0
+      - type: "JOB_XP"
+        amount: 70
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 200
+
+  # MythicMobs Item Integration
+  mythic_fertilizer_order:
+    display-name: "<light_purple>Mystic Organic Fertilizer</light_purple>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Mystic Fertilizer</yellow>"
+      - "<gray>Deliver organic essence collected from mythological creatures."
+    required-item:
+      source: "MYTHICMOBS"
+      mythic-id: "MythicFertilizer"
+      amount: 4
+    rewards:
+      - type: "VAULT"
+        amount: 2500.0
+      - type: "JOB_XP"
+        amount: 350
+      - type: "MYTHICITEM"
+        item-id: "GoldenSeedling"
+        amount: 2
+
+  # Custom-Fishing Integration
+  aquatic_algae_order:
+    display-name: "<aqua>Golden Lake Carp</aqua>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Golden Carp</yellow>"
+      - "<gray>Premium freshwater fish caught from serene lakes."
+    required-item:
+      source: "CUSTOMFISHING"
+      fishing-id: "golden_carp"
+      amount: 2
+    rewards:
+      - type: "VAULT"
+        amount: 3000.0
+      - type: "JOB_XP"
+        amount: 400
+      - type: "CUSTOMFISHING"
+        item-id: "enchanted_bait"
+        amount: 5
+
+  # SeriaMagicBundle Integration
+  magic_seed_bundle_order:
+    display-name: "<green>Magic Seed Bundle</green>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Seed Bundle</yellow>"
+      - "<gray>Magic bundle containing assorted rare crop seeds."
+    required-item:
+      source: "SERIAMAGICBUNDLE"
+      bundle-id: "rare_seed_bundle"
+      amount: 1
+    rewards:
+      - type: "VAULT"
+        amount: 4000.0
+      - type: "JOB_XP"
+        amount: 500
+      - type: "MAGICBUNDLE"
+        bundle-id: "farmer_delight_bundle"
+        amount: 1
+
+  # SeriaCrafting Integration
+  refined_compost_order:
+    display-name: "<gold>Refined Synthesis Compost</gold>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Refined Compost</yellow>"
+      - "<gray>Formulated through SeriaCrafting alchemy stations."
+    required-item:
+      source: "SERIACRAFTING"
+      crafting-id: "refined_compost"
+      amount: 3
+    rewards:
+      - type: "VAULT"
+        amount: 3500.0
+      - type: "JOB_XP"
+        amount: 450
+      - type: "CRAFTING"
+        crafting-id: "golden_sickle"
+        amount: 1
+
+  # MMOItems Integration
+  mmo_golden_wheat_order:
+    display-name: "<yellow>Premium Golden Wheat (MMOItems)</yellow>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Golden Wheat</yellow>"
+      - "<gray>High-tier agricultural commodity from MMOItems."
+    required-item:
+      source: "MMOITEMS"
+      mmoitem-type: "MATERIAL"
+      mmoitem-id: "GOLDEN_WHEAT"
+      amount: 16
+    rewards:
+      - type: "VAULT"
+        amount: 2800.0
+      - type: "JOB_XP"
+        amount: 380
+      - type: "MMOITEM"
+        mmoitem-type: "CONSUMABLE"
+        mmoitem-id: "FARMER_ELIXIR"
+        amount: 2
