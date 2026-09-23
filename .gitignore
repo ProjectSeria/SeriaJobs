@@ -1,0 +1,68 @@
+# ==============================================================================
+# Project Seria Workspace - Root .gitignore
+# ==============================================================================
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+
+# Temporary / Scratch / Decompiled sources
+clean-src/
+scratch/
+.system_generated/
+.gemini/
+.agents/
+
+# Build outputs & caches
+target/
+**/target/
+build/
+**/build/
+bin/
+**/bin/
+out/
+**/out/
+.gradle/
+**/.gradle/
+
+# Maven / Gradle artifacts
+dependency-reduced-pom.xml
+**/dependency-reduced-pom.xml
+*.jar
+*.war
+*.ear
+*.class
+
+# Logs & OS generated files
+*.log
+*.log.*
+hs_err_pid*
+replay_pid*
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Nested Sub-repositories (Each Seria plugin is managed by its own Git repo)
+SeriaAEFusion/
+SeriaBooster/
+SeriaCollection/
+SeriaCore/
+SeriaCrafting/
+SeriaCrate/
+SeriaFarm/
+SeriaFortune/
+SeriaGens/
+SeriaJobs/
+SeriaMagicBundle/
+SeriaMinions/
+SeriaPrestige/
+SeriaTranslator/
+SeriaTree/
+SeriaWardrobe/
