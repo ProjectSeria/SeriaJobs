@@ -1,5 +1,6 @@
 package id.seria.jobs.model;
 
+import id.seria.core.gui.menu.MenuRequirementEvaluator;
 import id.seria.jobs.model.reward.Reward;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -18,9 +19,15 @@ public class Job {
     private final int baseXp;
     private final double multiplier;
 
+    private final String levelingProgressionEquation;
+    private final String incomeProgressionEquation;
+    private final String pointsProgressionEquation;
+    private final String experienceProgressionEquation;
+
     private final int activeOrdersCount;
     private final Map<String, JobOrder> ordersPool;
     private final Map<Integer, List<Reward>> levelRewards;
+    private final Map<Integer, List<String>> levelDisplayRewards;
 
     public Job(@NotNull String id,
                @NotNull String displayName,
@@ -29,9 +36,14 @@ public class Job {
                int maxLevel,
                int baseXp,
                double multiplier,
+               @Nullable String levelingProgressionEquation,
+               @Nullable String incomeProgressionEquation,
+               @Nullable String pointsProgressionEquation,
+               @Nullable String experienceProgressionEquation,
                int activeOrdersCount,
                @NotNull Map<String, JobOrder> ordersPool,
-               @NotNull Map<Integer, List<Reward>> levelRewards) {
+               @NotNull Map<Integer, List<Reward>> levelRewards,
+               @NotNull Map<Integer, List<String>> levelDisplayRewards) {
         this.id = id;
         this.displayName = displayName;
         this.icon = icon;
@@ -39,9 +51,14 @@ public class Job {
         this.maxLevel = maxLevel;
         this.baseXp = baseXp;
         this.multiplier = multiplier;
+        this.levelingProgressionEquation = levelingProgressionEquation;
+        this.incomeProgressionEquation = incomeProgressionEquation;
+        this.pointsProgressionEquation = pointsProgressionEquation;
+        this.experienceProgressionEquation = experienceProgressionEquation;
         this.activeOrdersCount = activeOrdersCount;
         this.ordersPool = ordersPool;
         this.levelRewards = levelRewards;
+        this.levelDisplayRewards = levelDisplayRewards;
     }
 
     @NotNull
@@ -76,6 +93,26 @@ public class Job {
         return multiplier;
     }
 
+    @Nullable
+    public String getLevelingProgressionEquation() {
+        return levelingProgressionEquation;
+    }
+
+    @Nullable
+    public String getIncomeProgressionEquation() {
+        return incomeProgressionEquation;
+    }
+
+    @Nullable
+    public String getPointsProgressionEquation() {
+        return pointsProgressionEquation;
+    }
+
+    @Nullable
+    public String getExperienceProgressionEquation() {
+        return experienceProgressionEquation;
+    }
+
     public int getActiveOrdersCount() {
         return activeOrdersCount;
     }
@@ -95,9 +132,19 @@ public class Job {
         return Collections.unmodifiableMap(levelRewards);
     }
 
+    @NotNull
+    public Map<Integer, List<String>> getLevelDisplayRewards() {
+        return Collections.unmodifiableMap(levelDisplayRewards);
+    }
+
     @Nullable
     public List<Reward> getRewardsForLevel(int level) {
         return levelRewards.get(level);
+    }
+
+    @Nullable
+    public List<String> getDisplayRewardsForLevel(int level) {
+        return levelDisplayRewards.get(level);
     }
 
     public boolean hasRewardsForLevel(int level) {
@@ -106,12 +153,24 @@ public class Job {
 
     /**
      * Calculates the required XP to reach the next level.
-     * Formula: baseXp * multiplier^(level - 1)
+     * Evaluates polynomial levelingProgressionEquation if present, otherwise defaults to exponential.
      */
     public int getRequiredXp(int level) {
         if (level >= maxLevel) {
             return Integer.MAX_VALUE;
         }
+
+        if (levelingProgressionEquation != null && !levelingProgressionEquation.isBlank()) {
+            try {
+                String expr = levelingProgressionEquation.replace("joblevel", String.valueOf(level));
+                String eval = MenuRequirementEvaluator.evaluateMathExpressions("$e(" + expr + ")");
+                double val = Double.parseDouble(eval.trim());
+                if (val > 0) {
+                    return (int) Math.round(val);
+                }
+            } catch (Exception ignored) {}
+        }
+
         return (int) Math.round(baseXp * Math.pow(multiplier, Math.max(0, level - 1)));
     }
 }

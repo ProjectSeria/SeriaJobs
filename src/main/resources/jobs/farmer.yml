@@ -1,228 +1,1371 @@
-id: "farmer"
-display-name: "<gradient:#2ecc71:#27ae60><bold>Royal Farmer</bold></gradient>"
-icon: "WHEAT"
-description:
-  - "<gray>Supplies crops and agricultural commodities"
-  - "<gray>to fulfill server market supply chains."
-  - ""
-  - "<yellow>Click to view open work orders!</yellow>"
+# JOB NAME #
+job-name: "farmer"
+job-display-name: "<title-color>Farmer"
 
-# Job leveling settings
-leveling:
-  max-level: 50
-  base-xp: 100
-  multiplier: 1.25
+# JOB PROGRESSION : LEVEL / MONEY / POINTS / EXP / MAX LEVEL #
+leveling-progression-equation: "(joblevel>=0&joblevel<1)*10+(joblevel>=1&joblevel<13)*(1.54+2.11*(joblevel*2-1)+0.0774*(joblevel*2-1)^2+0.00256*(joblevel*2-1)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=13&joblevel<25)*(129+13*(joblevel*2-25)+(-0.546)*(joblevel*2-25)^2+0.0427*(joblevel*2-25)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=25&joblevel<38)*(774+67.9*(joblevel*2-50)+1.71*(joblevel*2-50)^2+0.0171*(joblevel*2-50)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=38&joblevel<50)*(3864+212*(joblevel*2-75)+3.65*(joblevel*2-75)^2+0.051*(joblevel*2-75)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=50&joblevel<63)*(12252+522*(joblevel*2-100)+2.89*(joblevel*2-100)^2+0.222*(joblevel*2-100)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=63&joblevel<75)*(30465+1039*(joblevel*2-125)+12.4*(joblevel*2-125)^2+0.212*(joblevel*2-125)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=75&joblevel<88)*(67641+1996*(joblevel*2-150)+31.6*(joblevel*2-150)^2+0.17*(joblevel*2-150)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=88&joblevel<95)*(140250+4023*(joblevel*2-175)+(-108)*(joblevel*2-175)^2+28.1*(joblevel*2-175)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=95&joblevel<100)*(269101+16924*(joblevel*2-190)+931*(joblevel*2-190)^2+(-21.9)*(joblevel*2-190)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=100)*680000*(1+(1*(joblevel*2-1)*0.08))"
+income-progression-equation: baseincome+(baseincome*(joblevel-1)*0.58)-((baseincome+(baseincome*(joblevel-1)*0.01))*((3-1)*0.01))
+points-progression-equation: basepoints+(basepoints*(joblevel-1)*0.01)-((basepoints+(basepoints*(joblevel-1)*0.01))    * ((numjobs-1)*0.05))
+experience-progression-equation: baseexperience*(1+(joblevel-1)*0.08)
+max-level: 100
+ia-action-bar-symbol: ""
 
-# Number of active work orders selected per market shift
-active-orders-count: 3
-
-# Milestone rewards unlocked at specific level tiers
-level-rewards:
+# JOB LEVEL REWARDS #
+reward-levels:
+  1:
+    display-rewards:
+      - ""
+      - "<lore-color>Progress in your job"
+      - "<lore-color>to get rewards!"
+      - ""
+    messages: []
+    commands: []
+  2:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>4.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 4000"
+  3:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>6.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <common-color>Apple Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 6000"
+      - "pets foodgive %player% common-apple 1"
+  4:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>8.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 8000"
   5:
-    rewards:
-      - type: "VAULT"
-        amount: 1500.0
-      - type: "AURASKILLS_XP"
-        skill: "farming"
-        amount: 800
-      - type: "COMMAND"
-        executor: "CONSOLE"
-        command: "give %player% emerald 8"
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>10.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 10000"
+      - "squidceco give %player% gems 10"
+  6:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>12.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 12000"
+  7:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>14.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <common-color>Apple Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 14000"
+      - "pets foodgive %player% common-apple 2"
+  8:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>16.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 16000"
+  9:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>18.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 18000"
   10:
-    rewards:
-      - type: "VAULT"
-        amount: 3500.0
-      - type: "AURASKILLS_XP"
-        skill: "farming"
-        amount: 2000
-      - type: "ITEM"
-        material: "GOLDEN_CARROT"
-        amount: 32
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>20.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ %stackproviders_items_bundle_farmer_name% <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 20000"
+      - "items give bundle_farmer %player% 1"
+  11:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>22.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 22000"
+  12:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>24.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 24000"
+  13:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>26.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <rare-color>Blueberry Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 26000"
+      - "pets foodgive %player% rare-blueberry 1"
+  14:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>28.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 28000"
+  15:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>30.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 30000"
+      - "squidceco give %player% gems 10"
+  16:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>32.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 32000"
+  17:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>34.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 34000"
+  18:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>36.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <common-color>Apple Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 36000"
+      - "pets foodgive %player% common-apple 3"
+  19:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>38,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 38000"
+  20:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>40.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ %stackproviders_items_farmer_tools_basic_name%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 40000"
+      - "items give farmer_tools_basic %player% 1"
+  21:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>42.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 42000"
+  22:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>44.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 44000"
+  23:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>46,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 46000"
+  24:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>48.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <rare-color>Blueberry Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 48000"
+      - "pets foodgive %player% rare-blueberry 2"
   25:
-    rewards:
-      - type: "VAULT"
-        amount: 10000.0
-      - type: "AURASKILLS_XP"
-        skill: "farming"
-        amount: 5000
-      - type: "MAGICBUNDLE"
-        bundle-id: "FarmerHarvestBundle"
-        amount: 1
-      - type: "COMMAND"
-        executor: "CONSOLE"
-        command: "give %player% diamond 16"
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>50.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - " <lore-color>▪ <accentuation-color>Netherite Upgrade <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 50000"
+      - "squidceco give %player% gems 10"
+      - "give netherite_upgrade_smithing_template 1 %player%"
+  26:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>52,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 52000"
+  27:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>54.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 54000"
+  28:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>56.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 56000"
+  29:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>58,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 58000"
+  30:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>60.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Farmer Economy Booster x1.25 <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 60000"
+      - "items give booster_farmer_1_money %player% 1"
+  31:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>62.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <epic-color>Grape Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 62000"
+      - "pets foodgive %player% epic-grapes 1"
+  32:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>64.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 64000"
+  33:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>66.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 66000"
+  34:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>68.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 68000"
+  35:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>70.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 70000"
+      - "squidceco give %player% gems 10"
+  36:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>72.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 72000"
+  37:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>74,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 74000"
+  38:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>76.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 76000"
+  39:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>78.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <rare-color>Blueberry Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 78000"
+      - "pets foodgive %player% rare-blueberry 3"
+  40:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>80,000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Feather of Flight 30m <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 80000"
+      - "items give feather_of_fly_30m %player% 1"
+  41:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>82.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 82000"
+  42:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>84.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 84000"
+  43:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>86.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 86000"
+  44:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>88.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 88000"
+  45:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>90.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 90000"
+      - "squidceco give %player% gems 10"
+  46:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>92.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 92000"
+  47:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>94.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <epic-color>Grape Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 94000"
+      - "pets foodgive %player% epic-grapes 2"
+  48:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>96.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 96000"
+  49:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>98.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 98000"
   50:
-    rewards:
-      - type: "VAULT"
-        amount: 50000.0
-      - type: "AURASKILLS_XP"
-        skill: "farming"
-        amount: 25000
-      - type: "MYTHICITEM"
-        mythic-id: "AncientCornucopia"
-        amount: 1
-      - type: "CRAFTING"
-        crafting-id: "MasterHoe"
-        amount: 1
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>100.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <rare-color>Mending Book <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 100000"
+      - "minecraft:give %player% enchanted_book[stored_enchantments={mending:1}] 1"
+  51:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>102.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 102000"
+  52:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>104.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 104000"
+  53:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>106.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <epic-color>Grape Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 106000"
+      - "pets foodgive %player% epic-grapes 3"
+  54:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>108.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 108000"
+  55:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>110.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 110000"
+      - "squidceco give %player% gems 10"
+  56:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>112.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 112000"
+  57:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>114.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 114000"
+  58:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>116.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 116000"
+  59:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>118.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 118000"
+  60:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>120.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Farmer Economy Booster x1.75 <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 120000"
+      - "items give booster_farmer_2_money %player% 1"
+  61:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>122.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 122000"
+  62:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>124.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <legendary-color>Orange Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 124000"
+      - "pets foodgive %player% legendary-orange 1"
+  63:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>126.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 126000"
+  64:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>128.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 128000"
+  65:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>130.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 130000"
+      - "squidceco give %player% gems 10"
+  66:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>132.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 132000"
+  67:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>134,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 134000"
+  68:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>136.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 136000"
+  69:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>138.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 138000"
+  70:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>140,000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Fly Feather 30m <gray>(x4)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 140000"
+      - "items give feather_fly_30m %player% 4"
+  71:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>142.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <legendary-color>Orange Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 142000"
+      - "pets foodgive %player% legendary-orange 2"
+  72:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>144.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 144000"
+  73:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>146.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 146000"
+  74:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>148.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 148000"
+  75:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>150.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - " <lore-color>▪ <accentuation-color>Mending Book <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 150000"
+      - "squidceco give %player% gems 10"
+      - "minecraft:give %player% enchanted_book[stored_enchantments={mending:1}] 1"
+  76:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>152.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 152000"
+  77:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>154.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 154000"
+  78:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>156.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 156000"
+  79:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>158.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <legendary-color>Orange Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 158000"
+      - "pets foodgive %player% legendary-orange 3"
+  80:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>160.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ %stackproviders_items_farmer_tools_expert_name%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 160000"
+      - "items give farmer_tools_expert %player% 1"
+  81:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>162.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 162000"
+  82:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>164.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 164000"
+  83:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>166.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 166000"
+  84:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>168.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 168000"
+  85:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>170.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 170000"
+      - "squidceco give %player% gems 10"
+  86:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>172.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <mythic-color>Strawberry Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 172000"
+      - "pets foodgive %player% mythic-strawberry 1"
+  87:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>174.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 174000"
+  88:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>176.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 176000"
+  89:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>178.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 178000"
+  90:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>180.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Economy Booster x2.5 Farmer <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 180000"
+      - "items give booster_farmer_3_money %player% 1"
+  91:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>182.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 182000"
+  92:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>184.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 184000"
+  93:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>186.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <mythic-color>Strawberry Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 186000"
+      - "pets foodgive %player% mythic-strawberry 2"
+  94:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>188.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 188000"
+  95:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>190.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 190000"
+      - "squidceco give %player% gems 10"
+  96:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>192.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 192000"
+  97:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>194.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <mythic-color>Strawberry Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 194000"
+      - "pets foodgive %player% mythic-strawberry 3"
+  98:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>196,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 196000"
+  99:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>198.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 198000"
+  100:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>200.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Tag <green>Farmer"
+      - " <lore-color>▪ <mythic-color>Strawberry Candy <gray>(x5)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 200000"
+      - "lp user %player% permission set tags.farmer true"
+      - "pets foodgive %player% mythic-strawberry 5"
 
-# Work orders pool rolled randomly each shift
-orders-pool:
-  bulk_wheat_delivery:
-    display-name: "<gold>Spring Wheat Shipment</gold>"
-    lore:
-      - "<gray>Status: <yellow>{progress}/{required} Wheat</yellow>"
-      - "<gray>Deliver your finest harvested agricultural crops."
-    required-item:
-      source: "VANILLA" # Source options: VANILLA, MMOITEMS, MYTHICMOBS, CUSTOMFISHING, SERIAMAGICBUNDLE, SERIACRAFTING
-      material: "WHEAT"
-      amount: 192 # 3 Stacks
-      strict-nbt: false
-    rewards:
-      - type: "VAULT"
-        amount: 500.0
-      - type: "JOB_XP"
-        amount: 80
-      - type: "AURASKILLS_XP"
-        skill: "farming"
-        amount: 250
-      - type: "COMMAND"
-        executor: "CONSOLE"
-        command: "give %player% bone_meal 16"
 
-  refined_baked_bread:
-    display-name: "<aqua>Bakery Rations</aqua>"
-    lore:
-      - "<gray>Status: <yellow>{progress}/{required} Bread</yellow>"
-      - "<gray>Sweet baked bread needed for city logistics."
-    required-item:
-      source: "VANILLA"
-      material: "BREAD"
-      amount: 32
-      strict-nbt: false
-    rewards:
-      - type: "VAULT"
-        amount: 1200.0
-      - type: "JOB_XP"
-        amount: 200
-      - type: "AURASKILLS_XP"
-        skill: "farming"
-        amount: 600
-      - type: "ITEM"
-        material: "EMERALD"
-        amount: 5
+# AVAILABLE JOB ACTIONS #
+display-action-mapping:
+  BREAK:
+    material: IRON_HOE
+    name: "<title-color><title-color>Mine"
+  PLACE:
+    material: DIRT
+    name: "<title-color><title-color>Place"
+  COLLECT:
+    material: STONE_HOE
+    name: "<title-color><title-color>Harvest"
 
-  carrot_supply:
-    display-name: "<yellow>Fresh Carrot Supply</yellow>"
-    lore:
-      - "<gray>Status: <yellow>{progress}/{required} Carrots</yellow>"
-      - "<gray>Fresh root vegetables for royal granaries."
-    required-item:
-      source: "VANILLA"
-      material: "CARROT"
-      amount: 128
-      strict-nbt: false
-    rewards:
-      - type: "VAULT"
-        amount: 400.0
-      - type: "JOB_XP"
-        amount: 70
-      - type: "AURASKILLS_XP"
-        skill: "farming"
-        amount: 200
+# JOB ACTIONS #
+actions:
+  BREAK:
+    # Break Wheat
+    WHEAT:
+      type: VANILLA
+      resource: WHEAT-7
+      display:
+        material: WHEAT
+        name: "<title-color>Wheat"
+      0-200:
+        income: 0.05345
+        point: 0
+        experience: 0.11352
+    # Break Potato
+    POTATO:
+      type: VANILLA
+      resource: POTATOES-7
+      display:
+        material: POTATO
+        name: "<title-color>Potato"
+      0-200:
+        income: 0.04811
+        point: 0
+        experience: 0.10217
+    # Break Carrot
+    CARROT:
+      type: VANILLA
+      resource: CARROTS-7
+      display:
+        material: CARROT
+        name: "<title-color>Carrot"
+      0-200:
+        income: 0.05078
+        point: 0
+        experience: 0.10785
+    # Break Beetroot
+    BEETROOT:
+      type: VANILLA
+      resource: BEETROOTS-3
+      display:
+        material: BEETROOT
+        name: "<title-color>Beetroot"
+      0-200:
+        income: 0.04276
+        point: 0
+        experience: 0.09082
+    # Break Melon
+    MELON:
+      type: VANILLA
+      resource: MELON
+      display:
+        material: MELON
+        name: "<title-color>Melon"
+      0-200:
+        income: 0.13212
+        point: 0
+        experience: 0.28059
+    # Break Pumpkin
+    PUMPKIN:
+      type: VANILLA
+      resource: PUMPKIN
+      display:
+        material: PUMPKIN
+        name: "<title-color>Pumpkin"
+      0-200:
+        income: 0.13212
+        point: 0
+        experience: 0.28059
+    # Break Sugar Cane
+    SUGAR_CANE:
+      type: VANILLA
+      resource: SUGAR_CANE
+      display:
+        material: SUGAR_CANE
+        name: "<title-color>Sugar Cane"
+      0-200:
+        income: 0.08705
+        point: 0
+        experience: 0.18489
+    # Break Cactus
+    CACTUS:
+      type: VANILLA
+      resource: CACTUS
+      display:
+        material: CACTUS
+        name: "<title-color>Cactus"
+      0-200:
+        income: 1.06909
+        point: 0
+        experience: 2.27050
+    # Break Cocoa Beans
+    COCOA_BEANS:
+      type: VANILLA
+      resource: COCOA-2
+      display:
+        material: COCOA_BEANS
+        name: "<title-color>Cocoa Beans"
+      0-200:
+        income: 0.85550
+        point: 0
+        experience: 1.81688
+    # Break Vines
+    VINE:
+      type: VANILLA
+      resource: VINE
+      display:
+        material: VINE
+        name: "<title-color>Vines"
+      0-200:
+        income: 0.28742
+        point: 0
+        experience: 0.61041
+    # Break Brown Mushroom
+    BROWN_MUSHROOM:
+      type: VANILLA
+      resource: BROWN_MUSHROOM
+      display:
+        material: BROWN_MUSHROOM
+        name: "<title-color>Brown Mushroom"
+      0-200:
+        income: 0.52932
+        point: 0
+        experience: 1.12415
+    # Break Red Mushroom
+    RED_MUSHROOM:
+      type: VANILLA
+      resource: RED_MUSHROOM
+      display:
+        material: RED_MUSHROOM
+        name: "<title-color>Red Mushroom"
+      0-200:
+        income: 0.52932
+        point: 0
+        experience: 1.12415
+    # Break Red Mushroom Block
+    RED_MUSHROOM_BLOCK:
+      type: VANILLA
+      resource: RED_MUSHROOM_BLOCK
+      display:
+        material: RED_MUSHROOM_BLOCK
+        name: "<title-color>Red Mushroom Block"
+      0-200:
+        income: 0.27335
+        point: 0
+        experience: 0.58052
+    # Break Brown Mushroom Block
+    BROWN_MUSHROOM_BLOCK:
+      type: VANILLA
+      resource: BROWN_MUSHROOM_BLOCK
+      display:
+        material: BROWN_MUSHROOM_BLOCK
+        name: "<title-color>Brown Mushroom Block"
+      0-200:
+        income: 0.27335
+        point: 0
+        experience: 0.58052
+    # Break Mushroom Stem
+    MUSHROOM_STEM:
+      type: VANILLA
+      resource: MUSHROOM_STEM
+      display:
+        material: MUSHROOM_STEM
+        name: "<title-color>Mushroom Stem"
+      0-200:
+        income: 0.27335
+        point: 0
+        experience: 0.58052
+    # Break Nether Wart
+    NETHER_WART:
+      type: VANILLA
+      resource: NETHER_WART-3
+      display:
+        material: NETHER_WART
+        name: "<title-color>Nether Wart"
+      0-200:
+        income: 0.05078
+        point: 0
+        experience: 0.10785
+    # Break Bamboo
+    BAMBOO:
+      type: VANILLA
+      resource: BAMBOO
+      display:
+        material: BAMBOO
+        name: "<title-color>Bamboo"
+      0-200:
+        income: 0.02486
+        point: 0
+        experience: 0.05279
 
-  # MythicMobs Item Integration
-  mythic_fertilizer_order:
-    display-name: "<light_purple>Mystic Organic Fertilizer</light_purple>"
-    lore:
-      - "<gray>Status: <yellow>{progress}/{required} Mystic Fertilizer</yellow>"
-      - "<gray>Deliver organic essence collected from mythological creatures."
-    required-item:
-      source: "MYTHICMOBS"
-      mythic-id: "MythicFertilizer"
-      amount: 4
-    rewards:
-      - type: "VAULT"
-        amount: 2500.0
-      - type: "JOB_XP"
-        amount: 350
-      - type: "MYTHICITEM"
-        item-id: "GoldenSeedling"
-        amount: 2
-
-  # Custom-Fishing Integration
-  aquatic_algae_order:
-    display-name: "<aqua>Golden Lake Carp</aqua>"
-    lore:
-      - "<gray>Status: <yellow>{progress}/{required} Golden Carp</yellow>"
-      - "<gray>Premium freshwater fish caught from serene lakes."
-    required-item:
-      source: "CUSTOMFISHING"
-      fishing-id: "golden_carp"
-      amount: 2
-    rewards:
-      - type: "VAULT"
-        amount: 3000.0
-      - type: "JOB_XP"
-        amount: 400
-      - type: "CUSTOMFISHING"
-        item-id: "enchanted_bait"
-        amount: 5
-
-  # SeriaMagicBundle Integration
-  magic_seed_bundle_order:
-    display-name: "<green>Magic Seed Bundle</green>"
-    lore:
-      - "<gray>Status: <yellow>{progress}/{required} Seed Bundle</yellow>"
-      - "<gray>Magic bundle containing assorted rare crop seeds."
-    required-item:
-      source: "SERIAMAGICBUNDLE"
-      bundle-id: "rare_seed_bundle"
-      amount: 1
-    rewards:
-      - type: "VAULT"
-        amount: 4000.0
-      - type: "JOB_XP"
-        amount: 500
-      - type: "MAGICBUNDLE"
-        bundle-id: "farmer_delight_bundle"
-        amount: 1
-
-  # SeriaCrafting Integration
-  refined_compost_order:
-    display-name: "<gold>Refined Synthesis Compost</gold>"
-    lore:
-      - "<gray>Status: <yellow>{progress}/{required} Refined Compost</yellow>"
-      - "<gray>Formulated through SeriaCrafting alchemy stations."
-    required-item:
-      source: "SERIACRAFTING"
-      crafting-id: "refined_compost"
-      amount: 3
-    rewards:
-      - type: "VAULT"
-        amount: 3500.0
-      - type: "JOB_XP"
-        amount: 450
-      - type: "CRAFTING"
-        crafting-id: "golden_sickle"
-        amount: 1
-
-  # MMOItems Integration
-  mmo_golden_wheat_order:
-    display-name: "<yellow>Premium Golden Wheat (MMOItems)</yellow>"
-    lore:
-      - "<gray>Status: <yellow>{progress}/{required} Golden Wheat</yellow>"
-      - "<gray>High-tier agricultural commodity from MMOItems."
-    required-item:
-      source: "MMOITEMS"
-      mmoitem-type: "MATERIAL"
-      mmoitem-id: "GOLDEN_WHEAT"
-      amount: 16
-    rewards:
-      - type: "VAULT"
-        amount: 2800.0
-      - type: "JOB_XP"
-        amount: 380
-      - type: "MMOITEM"
-        mmoitem-type: "CONSUMABLE"
-        mmoitem-id: "FARMER_ELIXIR"
-        amount: 2
+  PLACE:
+    # Plant Wheat Seeds
+    WHEAT_SEEDS:
+      type: VANILLA
+      resource: WHEAT
+      display:
+        material: WHEAT_SEEDS
+        name: "<title-color>Wheat Seeds"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Potato
+    POTATO:
+      type: VANILLA
+      resource: POTATOES
+      display:
+        material: POTATO
+        name: "<title-color>Potato"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Carrot
+    CARROT:
+      type: VANILLA
+      resource: CARROTS
+      display:
+        material: CARROT
+        name: "<title-color>Carrot"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Beetroot Seeds
+    BEETROOT_SEEDS:
+      type: VANILLA
+      resource: BEETROOTS
+      display:
+        material: BEETROOT_SEEDS
+        name: "<title-color>Beetroot Seeds"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Melon Seeds
+    MELON_SEEDS:
+      type: VANILLA
+      resource: MELON_STEM
+      display:
+        material: MELON_SEEDS
+        name: "<title-color>Melon Seeds"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Pumpkin Seeds
+    PUMPKIN_SEEDS:
+      type: VANILLA
+      resource: PUMPKIN_STEM
+      display:
+        material: PUMPKIN_SEEDS
+        name: "<title-color>Pumpkin Seeds"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Sugar Cane
+    SUGAR_CANE:
+      type: VANILLA
+      resource: SUGAR_CANE
+      display:
+        material: SUGAR_CANE
+        name: "<title-color>Sugar Cane"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Cactus
+    CACTUS:
+      type: VANILLA
+      resource: CACTUS
+      display:
+        material: CACTUS
+        name: "<title-color>Cactus"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Cocoa Beans
+    COCOA_BEANS:
+      type: VANILLA
+      resource: COCOA
+      display:
+        material: COCOA_BEANS
+        name: "<title-color>Cocoa Beans"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Vines
+    VINE:
+      type: VANILLA
+      resource: VINE
+      display:
+        material: VINE
+        name: "<title-color>Vines"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Brown Mushroom
+    BROWN_MUSHROOM:
+      type: VANILLA
+      resource: BROWN_MUSHROOM
+      display:
+        material: BROWN_MUSHROOM
+        name: "<title-color>Brown Mushroom"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Red Mushroom
+    RED_MUSHROOM:
+      type: VANILLA
+      resource: RED_MUSHROOM
+      display:
+        material: RED_MUSHROOM
+        name: "<title-color>Red Mushroom"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Glow Berries
+    GLOW_BERRIES:
+      type: VANILLA
+      resource: CAVE_VINES
+      display:
+        material: GLOW_BERRIES
+        name: "<title-color>Glow Berries"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Sweet Berries
+    SWEET_BERRIES:
+      type: VANILLA
+      resource: SWEET_BERRY_BUSH
+      display:
+        material: SWEET_BERRIES
+        name: "<title-color>Sweet Berries"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Nether Wart
+    NETHER_WART:
+      type: VANILLA
+      resource: NETHER_WART
+      display:
+        material: NETHER_WART
+        name: "<title-color>Nether Wart"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709
+    # Plant Bamboo
+    BAMBOO:
+      type: VANILLA
+      resource: BAMBOO_SAPLING
+      display:
+        material: BAMBOO
+        name: "<title-color>Bamboo"
+      0-200:
+        income: 0.01069
+        point: 0
+        experience: 0.06709

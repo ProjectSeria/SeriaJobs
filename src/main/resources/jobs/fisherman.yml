@@ -1,0 +1,1959 @@
+# JOB NAME #
+job-name: "fisherman"
+job-display-name: "<title-color>Fisherman"
+
+# JOB PROGRESSION : LEVEL / MONEY / POINTS / EXP / MAX LEVEL #
+leveling-progression-equation: "(joblevel>=0&joblevel<1)*10+(joblevel>=1&joblevel<13)*(1.54+2.11*(joblevel*2-1)+0.0774*(joblevel*2-1)^2+0.00256*(joblevel*2-1)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=13&joblevel<25)*(129+13*(joblevel*2-25)+(-0.546)*(joblevel*2-25)^2+0.0427*(joblevel*2-25)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=25&joblevel<38)*(774+67.9*(joblevel*2-50)+1.71*(joblevel*2-50)^2+0.0171*(joblevel*2-50)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=38&joblevel<50)*(3864+212*(joblevel*2-75)+3.65*(joblevel*2-75)^2+0.051*(joblevel*2-75)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=50&joblevel<63)*(12252+522*(joblevel*2-100)+2.89*(joblevel*2-100)^2+0.222*(joblevel*2-100)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=63&joblevel<75)*(30465+1039*(joblevel*2-125)+12.4*(joblevel*2-125)^2+0.212*(joblevel*2-125)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=75&joblevel<88)*(67641+1996*(joblevel*2-150)+31.6*(joblevel*2-150)^2+0.17*(joblevel*2-150)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=88&joblevel<95)*(140250+4023*(joblevel*2-175)+(-108)*(joblevel*2-175)^2+28.1*(joblevel*2-175)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=95&joblevel<100)*(269101+16924*(joblevel*2-190)+931*(joblevel*2-190)^2+(-21.9)*(joblevel*2-190)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=100)*680000*(1+(1*(joblevel*2-1)*0.08))"
+income-progression-equation: baseincome+(baseincome*(joblevel-1)*0.58)-((baseincome+(baseincome*(joblevel-1)*0.01))*((3-1)*0.01))
+points-progression-equation: basepoints+(basepoints*(joblevel-1)*0.01)-((basepoints+(basepoints*(joblevel-1)*0.01))    * ((numjobs-1)*0.05))
+experience-progression-equation: baseexperience*(1+(joblevel-1)*0.08)
+max-level: 100
+ia-action-bar-symbol: ""
+
+# JOB LEVEL REWARDS #
+reward-levels:
+  1:
+    display-rewards:
+      - ""
+      - "<lore-color>Progress in your job"
+      - "<lore-color>to earn rewards!"
+      - ""
+    messages: []
+    commands: []
+  2:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>4.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 4000"
+  3:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>6.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <common-color>Apple Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 6000"
+      - "pets foodgive %player% common-apple 1"
+  4:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>8.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 8000"
+  5:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>10.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 10000"
+      - "squidceco give %player% gems 10"
+  6:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>12.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 12000"
+  7:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>14.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <common-color>Apple Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 14000"
+      - "pets foodgive %player% common-apple 2"
+  8:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>16.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 16000"
+  9:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>18.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 18000"
+  10:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>20.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ %stackproviders_items_bundle_fisherman_name% <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 20000"
+      - "items give bundle_fisherman %player% 1"
+  11:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>22.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 22000"
+  12:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>24.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 24000"
+  13:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>26.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <rare-color>Blueberry Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 26000"
+      - "pets foodgive %player% rare-blueberry 1"
+  14:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>28.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 28000"
+  15:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>30.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 30000"
+      - "squidceco give %player% gems 10"
+  16:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>32.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 32000"
+  17:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>34.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 34000"
+  18:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>36.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <common-color>Apple Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 36000"
+      - "pets foodgive %player% common-apple 3"
+  19:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>38.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 38000"
+  20:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>40,000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ %stackproviders_items_fisherman_tools_basic_name%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 40000"
+      - "items give fisherman_tools_basic %player% 1"
+  21:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>42.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 42000"
+  22:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>44.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 44000"
+  23:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>46.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 46000"
+  24:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>48.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <rare-color>Blueberry Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 48000"
+      - "pets foodgive %player% rare-blueberry 2"
+  25:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>50.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - " <lore-color>▪ <accentuation-color>Netherite Upgrade <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 50000"
+      - "squidceco give %player% gems 10"
+      - "give netherite_upgrade_smithing_template 1 %player%"
+  26:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>52.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 52000"
+  27:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>54.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 54000"
+  28:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>56.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 56000"
+  29:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>58.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 58000"
+  30:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>60.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Fisherman Economy Booster x1.25 <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 60000"
+      - "items give booster_fisherman_1_money %player% 1"
+  31:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>62.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <epic-color>Grape Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 62000"
+      - "pets foodgive %player% epic-grapes 1"
+  32:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>64.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 64000"
+  33:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>66.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 66000"
+  34:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>68.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 68000"
+  35:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>70.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 70000"
+      - "squidceco give %player% gems 10"
+  36:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>72.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 72000"
+  37:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>74.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 74000"
+  38:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>76.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 76000"
+  39:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>78.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <rare-color>Blueberry Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 78000"
+      - "pets foodgive %player% rare-blueberry 3"
+  40:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>80.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Fly Feather 30m <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 80000"
+      - "items give feather_of_fly_30m %player% 1"
+  41:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>82.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 82000"
+  42:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>84.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 84000"
+  43:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>86.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 86000"
+  44:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>88.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 88000"
+  45:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>90.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 90000"
+      - "squidceco give %player% gems 10"
+  46:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>92.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 92000"
+  47:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>94.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <epic-color>Grape Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 94000"
+      - "pets foodgive %player% epic-grapes 2"
+  48:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>96,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 96000"
+  49:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>98.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 98000"
+  50:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>100.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Mending Book <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 100000"
+      - "minecraft:give %player% enchanted_book[stored_enchantments={mending:1}] 1"
+  51:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>102.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 102000"
+  52:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>104,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 104000"
+  53:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>106.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <epic-color>Grape Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 106000"
+      - "pets foodgive %player% epic-grapes 3"
+  54:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>108.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 108000"
+  55:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>110.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 110000"
+      - "squidceco give %player% gems 10"
+  56:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>112.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 112000"
+  57:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>114.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 114000"
+  58:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>116.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 116000"
+  59:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>118.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 118000"
+  60:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>120,000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Fisherman Economy Booster x1.75 <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 120000"
+      - "items give booster_fisherman_2_money %player% 1"
+  61:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>122.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 122000"
+  62:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>124.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <legendary-color>Orange Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 124000"
+      - "pets foodgive %player% legendary-orange 1"
+  63:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>126.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 126000"
+  64:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>128.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 128000"
+  65:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>130.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 130000"
+      - "squidceco give %player% gems 10"
+  66:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>132.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 132000"
+  67:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>134.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 134000"
+  68:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>136.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 136000"
+  69:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>138.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 138000"
+  70:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>140.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Feather Fly 30m <gray>(x4)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 140000"
+      - "items give feather_fly_30m %player% 4"
+  71:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>142.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <legendary-color>Orange Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 142000"
+      - "pets foodgive %player% legendary-orange 2"
+  72:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>144.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 144000"
+  73:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>146.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 146000"
+  74:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>148,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 148000"
+  75:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>150,000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - " <lore-color>▪ <accentuation-color>Mending Book <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 150000"
+      - "squidceco give %player% gems 10"
+      - "minecraft:give %player% enchanted_book[stored_enchantments={mending:1}] 1"
+  76:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>152.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 152000"
+  77:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>154.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 154000"
+  78:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>156.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 156000"
+  79:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>158.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <legendary-color>Orange Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 158000"
+      - "pets foodgive %player% legendary-orange 3"
+  80:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>160.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ %stackproviders_items_fisherman_tools_expert_name%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 160000"
+      - "items give fisherman_tools_expert %player% 1"
+  81:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>162.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 162000"
+  82:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>164.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 164000"
+  83:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>166.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 166000"
+  84:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>168,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 168000"
+  85:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>170.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 170000"
+      - "squidceco give %player% gems 10"
+  86:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>172.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <mythic-color>Strawberry Candy <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 172000"
+      - "pets foodgive %player% mythic-strawberry 1"
+  87:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>174,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 174000"
+  88:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>176.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 176000"
+  89:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>178.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 178000"
+  90:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>180,000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Fisherman Economy Booster x2.5 <gray>(x1)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 180000"
+      - "items give booster_fisherman_3_money %player% 1"
+  91:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>182.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 182000"
+  92:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>184.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 184000"
+  93:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>186.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <mythic-color>Strawberry Candy <gray>(x2)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 186000"
+      - "pets foodgive %player% mythic-strawberry 2"
+  94:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>188.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 188000"
+  95:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>190.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <gem-color>10 %squideconomy_symbol_gems%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 190000"
+      - "squidceco give %player% gems 10"
+  96:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>192.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 192000"
+  97:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>194.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <mythic-color>Strawberry Candy <gray>(x3)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 194000"
+      - "pets foodgive %player% mythic-strawberry 3"
+  98:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>196.000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 196000"
+  99:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>198,000 %squideconomy_symbol_default%"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 198000"
+  100:
+    display-rewards:
+      - ""
+      - "<sub-title-color>Reward:"
+      - " <lore-color>▪ <money-color>200.000 %squideconomy_symbol_default%"
+      - " <lore-color>▪ <accentuation-color>Tag <blue>Fisherman"
+      - " <lore-color>▪ <mythic-color>Strawberry Candy <gray>(x5)"
+      - ""
+    messages: []
+    commands:
+      - "squidceco give %player% default 200000"
+      - "lp user %player% permission set tags.fisherman true"
+      - "pets foodgive %player% mythic-strawberry 5"
+
+# AVAILABLE JOB ACTIONS #
+display-action-mapping:
+  FISHING:
+    material: FISHING_ROD
+    name: "<title-color>Fishing"
+  SMELT:
+    material: FURNACE
+    name: "<title-color>Smelt"
+
+# JOB ACTIONS #
+actions:
+  FISHING:
+    # Fish Cod
+    COD:
+      type: VANILLA
+      resource: COD
+      display:
+        material: COD
+        name: "<title-color>Cod"
+      0-200:
+        income: 0.44486
+        point: 0
+        experience: 3.14929
+    # Fish Salmon
+    SALMON:
+      type: VANILLA
+      resource: SALMON
+      display:
+        material: SALMON
+        name: "<title-color>Salmon"
+      0-200:
+        income: 1.06808
+        point: 0
+        experience: 7.56118
+    # Fish Pufferfish
+    PUFFERFISH:
+      type: VANILLA
+      resource: PUFFERFISH
+      display:
+        material: PUFFERFISH
+        name: "<title-color>Pufferfish"
+      0-200:
+        income: 2.05421
+        point: 0
+        experience: 14.54219
+    # Fish Tropical Fish
+    TROPICAL_FISH:
+      type: VANILLA
+      resource: TROPICAL_FISH
+      display:
+        material: TROPICAL_FISH
+        name: "<title-color>Tropical Fish"
+      0-200:
+        income: 13.38603
+        point: 0
+        experience: 94.76262
+    # Fish Lily Pad
+    LILY_PAD:
+      type: VANILLA
+      resource: LILY_PAD
+      display:
+        material: LILY_PAD
+        name: "<title-color>Lily Pad"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Bowl
+    BOWL:
+      type: VANILLA
+      resource: BOWL
+      display:
+        material: BOWL
+        name: "<title-color>Bowl"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Leather
+    LEATHER:
+      type: VANILLA
+      resource: LEATHER
+      display:
+        material: LEATHER
+        name: "<title-color>Leather"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Leather Boots
+    LEATHER_BOOTS:
+      type: VANILLA
+      resource: LEATHER_BOOTS
+      display:
+        material: LEATHER_BOOTS
+        name: "<title-color>Leather Boots"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Rotten Flesh
+    ROTTEN_FLESH:
+      type: VANILLA
+      resource: ROTTEN_FLESH
+      display:
+        material: ROTTEN_FLESH
+        name: "<title-color>Rotten Flesh"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Stick
+    STICK:
+      type: VANILLA
+      resource: STICK
+      display:
+        material: STICK
+        name: "<title-color>Stick"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish String
+    STRING:
+      type: VANILLA
+      resource: STRING
+      display:
+        material: STRING
+        name: "<title-color>String"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Water Bottle
+    POTION:
+      type: VANILLA
+      resource: POTION
+      display:
+        material: POTION
+        name: "<title-color>Water Bottle"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Bone
+    BONE:
+      type: VANILLA
+      resource: BONE
+      display:
+        material: BONE
+        name: "<title-color>Bone"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Ink Sac
+    INK_SAC:
+      type: VANILLA
+      resource: INK_SAC
+      display:
+        material: INK_SAC
+        name: "<title-color>Ink Sac"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Hook
+    TRIPWIRE_HOOK:
+      type: VANILLA
+      resource: TRIPWIRE_HOOK
+      display:
+        material: TRIPWIRE_HOOK
+        name: "<title-color>Hook"
+      0-200:
+        income: 0.53404
+        point: 0
+        experience: 3.78059
+    # Fish Bow
+    BOW:
+      type: VANILLA
+      resource: BOW
+      display:
+        material: BOW
+        name: "<title-color>Bow"
+      0-200:
+        income: 2.55571
+        point: 0
+        experience: 18.09239
+    # Fish Enchanted Book
+    ENCHANTED_BOOK:
+      type: VANILLA
+      resource: ENCHANTED_BOOK
+      display:
+        material: ENCHANTED_BOOK
+        name: "<title-color>Enchanted Book"
+      0-200:
+        income: 2.55571
+        point: 0
+        experience: 18.09239
+    # Fish Fishing Rod
+    FISHING_ROD:
+      type: VANILLA
+      resource: FISHING_ROD
+      display:
+        material: FISHING_ROD
+        name: "<title-color>Fishing Rod"
+      0-200:
+        income: 2.55571
+        point: 0
+        experience: 18.09239
+    # Fish Label
+    NAME_TAG:
+      type: VANILLA
+      resource: NAME_TAG
+      display:
+        material: NAME_TAG
+        name: "<title-color>Label"
+      0-200:
+        income: 2.55571
+        point: 0
+        experience: 18.09239
+    # Fish Nautilus Shell
+    NAUTILUS_SHELL:
+      type: VANILLA
+      resource: NAUTILUS_SHELL
+      display:
+        material: NAUTILUS_SHELL
+        name: "<title-color>Nautilus Shell"
+      0-200:
+        income: 2.55571
+        point: 0
+        experience: 18.09239
+    # Fish Saddle
+    SADDLE:
+      type: VANILLA
+      resource: SADDLE
+      display:
+        material: SADDLE
+        name: "<title-color>Saddle"
+      0-200:
+        income: 2.55571
+        point: 0
+        experience: 18.09239
+
+    # Fish Shrimp
+    SHRIMP:
+      type: MOREFISH
+      resource: SHRIMP
+      display:
+        material: COD
+        model-data: 1
+        name: "<title-color>Shrimp"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Silver Salmon
+    SILVER_SALMON:
+      type: MOREFISH
+      resource: SILVER_SALMON
+      display:
+        material: COD
+        model-data: 2
+        name: "<title-color>Silver Salmon"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Tuna
+    TUNA:
+      type: MOREFISH
+      resource: TUNA
+      display:
+        material: COD
+        model-data: 3
+        name: "<title-color>Tuna"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Sturgeon
+    STURGEON:
+      type: MOREFISH
+      resource: STURGEON
+      display:
+        material: COD
+        model-data: 4
+        name: "<title-color>Sturgeon"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Herring
+    HERRING:
+      type: MOREFISH
+      resource: HERRING
+      display:
+        material: COD
+        model-data: 5
+        name: "<title-color>Herring"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Sardine
+    SARDINE:
+      type: MOREFISH
+      resource: SARDINE
+      display:
+        material: COD
+        model-data: 6
+        name: "<title-color>Sardine"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Anchovy
+    ANCHOVY:
+      type: MOREFISH
+      resource: ANCHOVY
+      display:
+        material: COD
+        model-data: 7
+        name: "<title-color>Anchovy"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Albacore
+    ALBACORE:
+      type: MOREFISH
+      resource: ALBACORE
+      display:
+        material: COD
+        model-data: 8
+        name: "<title-color>Albacore"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Lobster
+    LOBSTER:
+      type: MOREFISH
+      resource: LOBSTER
+      display:
+        material: COD
+        model-data: 9
+        name: "<title-color>Lobster"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Bream
+    BREAM:
+      type: MOREFISH
+      resource: BREAM
+      display:
+        material: COD
+        model-data: 10
+        name: "<title-color>Bream"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Catfish
+    BARBOTTE:
+      type: MOREFISH
+      resource: BARBOTTE
+      display:
+        material: COD
+        model-data: 11
+        name: "<title-color>Catfish"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Chub
+    CHUB:
+      type: MOREFISH
+      resource: CHUB
+      display:
+        material: COD
+        model-data: 12
+        name: "<title-color>Chub"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Walleye
+    WALLEYE:
+      type: MOREFISH
+      resource: WALLEYE
+      display:
+        material: COD
+        model-data: 13
+        name: "<title-color>Walleye"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Stone Fish
+    STONE_FISH:
+      type: MOREFISH
+      resource: STONE_FISH
+      display:
+        material: COD
+        model-data: 14
+        name: "<title-color>Stone Fish"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Roach
+    ROACH:
+      type: MOREFISH
+      resource: ROACH
+      display:
+        material: COD
+        model-data: 15
+        name: "<title-color>Roach"
+      0-200:
+        income: 0.60000
+        experience: 4.25000
+        point: 0
+
+    # Fish Fugu
+    FUGU:
+      type: MOREFISH
+      resource: FUGU
+      display:
+        material: COD
+        model-data: 101
+        name: "<title-color>Fugu"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Shad
+    SHAD:
+      type: MOREFISH
+      resource: SHAD
+      display:
+        material: COD
+        model-data: 102
+        name: "<title-color>Shad"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Halibut
+    HALIBUT:
+      type: MOREFISH
+      resource: HALIBUT
+      display:
+        material: COD
+        model-data: 103
+        name: "<title-color>Halibut"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Pike
+    PIKE:
+      type: MOREFISH
+      resource: PIKE
+      display:
+        material: COD
+        model-data: 104
+        name: "<title-color>Pike"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Crayfish
+    CRAYFISH:
+      type: MOREFISH
+      resource: CRAYFISH
+      display:
+        material: COD
+        model-data: 105
+        name: "<title-color>Crayfish"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Octopus
+    OCTOPUS:
+      type: MOREFISH
+      resource: OCTOPUS
+      display:
+        material: COD
+        model-data: 106
+        name: "<title-color>Octopus"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Squid
+    SQUID:
+      type: MOREFISH
+      resource: SQUID
+      display:
+        material: COD
+        model-data: 107
+        name: "<title-color>Squid"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Red Mullet
+    RED_MULLET:
+      type: MOREFISH
+      resource: RED_MULLET
+      display:
+        material: COD
+        model-data: 108
+        name: "<title-color>Red Mullet"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Tilapia
+    TILAPIA:
+      type: MOREFISH
+      resource: TILAPIA
+      display:
+        material: COD
+        model-data: 109
+        name: "<title-color>Tilapia"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Sawfish
+    SAWFISH:
+      type: MOREFISH
+      resource: SAWFISH
+      display:
+        material: COD
+        model-data: 110
+        name: "<title-color>Sawfish"
+      0-200:
+        income: 1.50000
+        experience: 10.60000
+        point: 0
+
+    # Fish Ling
+    COD_LING:
+      type: MOREFISH
+      resource: COD_LING
+      display:
+        material: COD
+        model-data: 201
+        name: "<title-color>Ling"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Carp
+    CARP:
+      type: MOREFISH
+      resource: CARP
+      display:
+        material: COD
+        model-data: 202
+        name: "<title-color>Carp"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Eel
+    EEL:
+      type: MOREFISH
+      resource: EEL
+      display:
+        material: COD
+        model-data: 203
+        name: "<title-color>Eel"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Catfish
+    CATFISH:
+      type: MOREFISH
+      resource: CATFISH
+      display:
+        material: COD
+        model-data: 204
+        name: "<title-color>Catfish"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Crab
+    CRAB:
+      type: MOREFISH
+      resource: CRAB
+      display:
+        material: COD
+        model-data: 205
+        name: "<title-color>Crab"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Ray
+    STINGRAY:
+      type: MOREFISH
+      resource: STINGRAY
+      display:
+        material: COD
+        model-data: 206
+        name: "<title-color>Ray"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Blue Discus
+    BLUE_DISCUS:
+      type: MOREFISH
+      resource: BLUE_DISCUS
+      display:
+        material: COD
+        model-data: 207
+        name: "<title-color>Blue Discus"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Rainbow Trout
+    RAINBOW_TROUT:
+      type: MOREFISH
+      resource: RAINBOW_TROUT
+      display:
+        material: COD
+        model-data: 208
+        name: "<title-color>Rainbow Trout"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Tiger Trout
+    TIGER_TROUT:
+      type: MOREFISH
+      resource: TIGER_TROUT
+      display:
+        material: COD
+        model-data: 209
+        name: "<title-color>Tiger Trout"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Goblin Shark
+    GOBLIN_SHARK:
+      type: MOREFISH
+      resource: GOBLIN_SHARK
+      display:
+        material: COD
+        model-data: 210
+        name: "<title-color>Goblin Shark"
+      0-200:
+        income: 8.00000
+        experience: 56.60000
+        point: 0
+
+    # Fish Butterfly Fish
+    BUTTERFLY_FISH:
+      type: MOREFISH
+      resource: BUTTERFLY_FISH
+      display:
+        material: COD
+        model-data: 401
+        name: "<title-color>Butterfly Fish"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Perch
+    PERCH:
+      type: MOREFISH
+      resource: PERCH
+      display:
+        material: COD
+        model-data: 402
+        name: "<title-color>Perch"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Scorpion Carp
+    SCORPION_CARP:
+      type: MOREFISH
+      resource: SCORPION_CARP
+      display:
+        material: COD
+        model-data: 403
+        name: "<title-color>Scorpion Carp"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Wildfish
+    FOREST_FISH:
+      type: MOREFISH
+      resource: FOREST_FISH
+      display:
+        material: COD
+        model-data: 404
+        name: "<title-color>Wildfish"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Sand Fish
+    SAND_FISH:
+      type: MOREFISH
+      resource: SAND_FISH
+      display:
+        material: COD
+        model-data: 405
+        name: "<title-color>Sand Fish"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Dorado
+    SEA_BREAM:
+      type: MOREFISH
+      resource: SEA_BREAM
+      display:
+        material: COD
+        model-data: 406
+        name: "<title-color>Dorado"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Frostfish
+    ICE_FISH:
+      type: MOREFISH
+      resource: ICE_FISH
+      display:
+        material: COD
+        model-data: 407
+        name: "<title-color>Frostfish"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Lava Eel
+    LAVA_EEL:
+      type: MOREFISH
+      resource: LAVA_EEL
+      display:
+        material: COD
+        model-data: 408
+        name: "<title-color>Lava Eel"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Red Snapper
+    RED_SNAPPER:
+      type: MOREFISH
+      resource: RED_SNAPPER
+      display:
+        material: COD
+        model-data: 409
+        name: "<title-color>Red Snapper"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Moonfish
+    MOONFISH:
+      type: MOREFISH
+      resource: MOONFISH
+      display:
+        material: COD
+        model-data: 410
+        name: "<title-color>Moonfish"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Oarfish
+    OARFISH:
+      type: MOREFISH
+      resource: OARFISH
+      display:
+        material: COD
+        model-data: 411
+        name: "<title-color>Oarfish"
+      0-200:
+        income: 13.40000
+        experience: 95.00000
+        point: 0
+
+    # Fish Lanternfish
+    LANTERN_FISH:
+      type: MOREFISH
+      resource: LANTERN_FISH
+      display:
+        material: COD
+        model-data: 501
+        name: "<title-color>Lanternfish"
+      0-200:
+        income: 20.00000
+        experience: 142.00000
+        point: 0
+
+    # Fish Glacial Fish
+    GLACIER_FISH:
+      type: MOREFISH
+      resource: GLACIER_FISH
+      display:
+        material: COD
+        model-data: 502
+        name: "<title-color>Glacial Fish"
+      0-200:
+        income: 20.00000
+        experience: 142.00000
+        point: 0
+
+    # Fish Scarlet Fish
+    SCARLET_FISH:
+      type: MOREFISH
+      resource: SCARLET_FISH
+      display:
+        material: COD
+        model-data: 503
+        name: "<title-color>Scarlet Fish"
+      0-200:
+        income: 20.00000
+        experience: 142.00000
+        point: 0
+
+    # Fish Elf Fish
+    ELF_FISH:
+      type: MOREFISH
+      resource: ELF_FISH
+      display:
+        material: COD
+        model-data: 504
+        name: "<title-color>Elf Fish"
+      0-200:
+        income: 20.00000
+        experience: 142.00000
+        point: 0
+
+    # Fish Black Dragonfish
+    BLACK_DRAGONFISH:
+      type: MOREFISH
+      resource: BLACK_DRAGONFISH
+      display:
+        material: COD
+        model-data: 505
+        name: "<title-color>Black Dragonfish"
+      0-200:
+        income: 20.00000
+        experience: 142.00000
+        point: 0
+
+    # Fish Deep Sea Squid
+    DEEPWATER_SQUID:
+      type: MOREFISH
+      resource: DEEPWATER_SQUID
+      display:
+        material: COD
+        model-data: 301
+        name: "<title-color>Deep Sea Squid"
+      0-200:
+        income: 20.00000
+        experience: 142.00000
+        point: 0
+
+    # Fish Blobfish
+    BLOBFISH:
+      type: MOREFISH
+      resource: BLOBFISH
+      display:
+        material: COD
+        model-data: 302
+        name: "<title-color>Blobfish"
+      0-200:
+        income: 20.00000
+        experience: 142.00000
+        point: 0
+
+    # Fish Abyssal Carp
+    DEEPWATER_CARP:
+      type: MOREFISH
+      resource: DEEPWATER_CARP
+      display:
+        material: COD
+        model-data: 303
+        name: "<title-color>Abyssal Carp"
+      0-200:
+        income: 20.00000
+        experience: 142.00000
+        point: 0
+
+  SMELT:
+    # Smelt Cod
+    COD:
+      type: VANILLA
+      resource: COD
+      display:
+        material: COD
+        name: "<title-color>Cod"
+      0-200:
+        income: 0.01109
+        point: 0
+        experience: 0.09429
+    # Smelt Salmon
+    SALMON:
+      type: VANILLA
+      resource: SALMON
+      display:
+        material: SALMON
+        name: "<title-color>Salmon"
+      0-200:
+        income: 0.01109
+        point: 0
+        experience: 0.09429

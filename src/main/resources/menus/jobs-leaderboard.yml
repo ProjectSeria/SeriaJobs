@@ -1,0 +1,661 @@
+id: "jobs-leaderboard"
+title: 'Jobs ▸ %placeholders_get-job-name%'
+size: 54
+
+menu-parameter:
+  parameters:
+    job: "Job"
+    jobs-name:
+      type: string
+      default: farmer
+    jobs-button:
+      type: string
+      default: leaderboard
+  player-usable: false
+
+variables:
+  action:
+    type: "string"
+    default: "first"
+
+items:
+
+  items:
+
+  ##############################
+  #           NAVBAR           #
+  ##############################
+
+  filler-navbar:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    slots: [10, 11, 12, 13, 14, 15, 16, 17, 1, 10, 19, 28, 37, 46]
+    hide-tooltip: true
+    priority: 0
+
+  selected-navbar:
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+    slot: "%placeholders_get-selected-navbar-slot%"
+    hide-tooltip: true
+    priority: 1
+
+  job-display:
+    material: BOOK
+    name: "<title-color>%placeholders_get-job-name%"
+    slot: 9
+    lore:
+      - ""
+      - "<lore-color>Level: <accentuation-color>%placeholders_get-level-for-jobs%"
+      - "<lore-color>%placeholders_get-exp-for-jobs% %placeholders_get-xp-job-progress% %placeholders_get-maxexp-for-jobs%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  job-rewards:
+    material: CHEST
+    name: "<title-color>Rewards"
+    slot: 18
+    lore:
+      - ""
+      - "<lore-color>Discover the different rewards"
+      - "<lore-color>that you can unlock by leveling up"
+      - "<lore-color>in your profession."
+      - ""
+      - "<action-icon> <action-color>Access"
+    click-actions:
+      - "[open-menu] jobs-menu %parameters_job_internal-name%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  job-actions:
+    material: EMERALD
+    name: "<title-color>Actions"
+    slot: 27
+    lore:
+      - ""
+      - "<lore-color>Access your profession actions"
+      - "<lore-color>and gain experience."
+      - ""
+      - "<action-icon> <action-color>Access"
+    click-actions:
+      - "[open-menu] jobs-actions %parameters_job_internal-name%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  classement:
+    material: MAP
+    name: "<title-color>Leaderboard"
+    slot: 36
+    lore:
+      - ""
+      - "<lore-color>Discover the best"
+      - "<lore-color>players of each job."
+      - ""
+      - "<action-icon> <action-color>Access"
+    click-actions:
+      - "[open-menu] jobs-leaderboard %parameters_job_internal-name%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  ##############################
+  #         TAB - JOBS         #
+  ##############################
+
+  farmer-job-button:
+    material: DIAMOND_HOE
+    name: "<title-color>Farmer"
+    slot: 3
+    lore:
+      - ""
+      - "<lore-color>Plant seeds, and harvest"
+      - "<lore-color>everything the earth gives you."
+      - "%placeholders_get-farmer-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "farmer"
+    click-actions:
+      - "[open-menu] jobs-leaderboard farmer"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  miner-job-button:
+    material: DIAMOND_PICKAXE
+    name: "<title-color>Miner"
+    slot: 4
+    lore:
+      - ""
+      - "<lore-color>Dig to find ore"
+      - "<lore-color>and collect useful resources."
+      - "%placeholders_get-miner-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "miner"
+    click-actions:
+      - "[open-menu] jobs-leaderboard miner"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  lumberjack-job-button:
+    material: DIAMOND_AXE
+    name: "<title-color>Lumberjack"
+    slot: 5
+    lore:
+      - ""
+      - "<lore-color>Collect wood, strip trees"
+      - "<lore-color>or burn wood to gain experience."
+      - "%placeholders_get-lumberjack-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "lumberjack"
+    click-actions:
+      - "[open-menu] jobs-leaderboard lumberjack"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  hunter-job-button:
+    material: DIAMOND_SWORD
+    name: "<title-color>Hunter"
+    slot: 6
+    lore:
+      - ""
+      - "<lore-color>Hunt creatures and gather"
+      - "<lore-color>their precious loot."
+      - "%placeholders_get-hunter-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "hunter"
+    click-actions:
+      - "[open-menu] jobs-leaderboard hunter"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  fisherman-job-button:
+    material: FISHING_ROD
+    name: "<title-color>Fisherman"
+    slot: 7
+    lore:
+      - ""
+      - "<lore-color>Cast your line, catch fish…"
+      - "<lore-color>and sometimes surprising items."
+      - "%placeholders_get-fisherman-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "fisherman"
+    click-actions:
+      - "[open-menu] jobs-leaderboard fisherman"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+
+##################################
+#          LEADERBOARD           #
+##################################
+
+  top1-10:
+    material: "%placeholders_get-material-for-top1-10%"
+    slot: 30
+    name: "<title-color>Top 1 to 10"
+    lore:
+      - ""
+      - "&7[<sub-title-color>#1&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_1_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_1_formatted-value%"
+      - "&7[<sub-title-color>#2&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_2_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_2_formatted-value%"
+      - "&7[<sub-title-color>#3&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_3_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_3_formatted-value%"
+      - "&7[<sub-title-color>#4&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_4_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_4_formatted-value%"
+      - "&7[<sub-title-color>#5&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_5_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_5_formatted-value%"
+      - "&7[<sub-title-color>#6&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_6_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_6_formatted-value%"
+      - "&7[<sub-title-color>#7&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_7_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_7_formatted-value%"
+      - "&7[<sub-title-color>#8&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_8_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_8_formatted-value%"
+      - "&7[<sub-title-color>#9&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_9_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_9_formatted-value%"
+      - "&7[<sub-title-color>#10&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_10_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_10_formatted-value%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  top11-20:
+    material: "%placeholders_get-material-for-top11-20%"
+    slot: 31
+    name: "<title-color>Top 11 to 20"
+    lore:
+      - ""
+      - "&7[<sub-title-color>#11&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_11_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_11_formatted-value%"
+      - "&7[<sub-title-color>#12&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_12_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_12_formatted-value%"
+      - "&7[<sub-title-color>#13&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_13_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_13_formatted-value%"
+      - "&7[<sub-title-color>#14&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_14_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_14_formatted-value%"
+      - "&7[<sub-title-color>#15&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_15_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_15_formatted-value%"
+      - "&7[<sub-title-color>#16&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_16_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_16_formatted-value%"
+      - "&7[<sub-title-color>#17&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_17_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_17_formatted-value%"
+      - "&7[<sub-title-color>#18&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_18_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_18_formatted-value%"
+      - "&7[<sub-title-color>#19&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_19_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_19_formatted-value%"
+      - "&7[<sub-title-color>#20&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_20_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_20_formatted-value%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  top21-30:
+    material: "%placeholders_get-material-for-top21-30%"
+    slot: 32
+    name: "<title-color>Top 21 to 30"
+    lore:
+      - ""
+      - "&7[<sub-title-color>#21&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_21_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_21_formatted-value%"
+      - "&7[<sub-title-color>#22&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_22_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_22_formatted-value%"
+      - "&7[<sub-title-color>#23&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_23_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_23_formatted-value%"
+      - "&7[<sub-title-color>#24&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_24_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_24_formatted-value%"
+      - "&7[<sub-title-color>#25&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_25_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_25_formatted-value%"
+      - "&7[<sub-title-color>#26&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_26_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_26_formatted-value%"
+      - "&7[<sub-title-color>#27&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_27_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_27_formatted-value%"
+      - "&7[<sub-title-color>#28&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_28_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_28_formatted-value%"
+      - "&7[<sub-title-color>#29&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_29_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_29_formatted-value%"
+      - "&7[<sub-title-color>#30&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_30_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_30_formatted-value%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  top31-40:
+    material: "%placeholders_get-material-for-top31-40%"
+    slot: 33
+    name: "<title-color>Top 31 to 40"
+    lore:
+      - ""
+      - "&7[<sub-title-color>#31&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_31_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_31_formatted-value%"
+      - "&7[<sub-title-color>#32&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_32_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_32_formatted-value%"
+      - "&7[<sub-title-color>#33&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_33_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_33_formatted-value%"
+      - "&7[<sub-title-color>#34&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_34_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_34_formatted-value%"
+      - "&7[<sub-title-color>#35&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_35_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_35_formatted-value%"
+      - "&7[<sub-title-color>#36&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_36_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_36_formatted-value%"
+      - "&7[<sub-title-color>#37&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_37_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_37_formatted-value%"
+      - "&7[<sub-title-color>#38&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_38_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_38_formatted-value%"
+      - "&7[<sub-title-color>#39&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_39_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_39_formatted-value%"
+      - "&7[<sub-title-color>#40&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_40_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_40_formatted-value%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  top41-50:
+    material: "%placeholders_get-material-for-top41-50%"
+    slot: 34
+    name: "<title-color>Top 41 to 50"
+    lore:
+      - ""
+      - "&7[<sub-title-color>#41&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_41_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_41_formatted-value%"
+      - "&7[<sub-title-color>#42&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_42_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_42_formatted-value%"
+      - "&7[<sub-title-color>#43&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_43_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_43_formatted-value%"
+      - "&7[<sub-title-color>#44&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_44_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_44_formatted-value%"
+      - "&7[<sub-title-color>#45&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_45_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_45_formatted-value%"
+      - "&7[<sub-title-color>#46&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_46_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_46_formatted-value%"
+      - "&7[<sub-title-color>#47&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_47_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_47_formatted-value%"
+      - "&7[<sub-title-color>#48&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_48_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_48_formatted-value%"
+      - "&7[<sub-title-color>#49&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_49_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_49_formatted-value%"
+      - "&7[<sub-title-color>#50&7] <lore-color>%boardmaster_boards_{parameters_job_internal-name}_top_50_name% <white>- <accentuation-color>%boardmaster_boards_{parameters_job_internal-name}_top_50_formatted-value%"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+
+###################################
+#             REWARDS             #
+###################################
+
+  reward-unlocked:
+    name: "<title-color>Level %layout_index_paged%"
+    material: "BROWN_DYE"
+    lore:
+      - "%reward_reward_display%"
+      - "<lore-color>Status: <success-color>Unlocked <lore-color>(/jobs claim)"
+    taints:
+      rewards-item: true
+    view-requirement:
+      requirements:
+        1:
+          type: placeholder
+          input: "%reward_unlocked%"
+          comparison: "=="
+          output: "true"
+        2:
+          type: placeholder
+          input: "%layout_index_paged%"
+          comparison: "<="
+          output: "200"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  rewards-locked:
+    name: "<title-color>Level %layout_index_paged%"
+    material: "BROWN_DYE"
+    lore:
+      - "%reward_reward_display%"
+      - "<lore-color>Status: <error-color>Locked"
+    taints:
+      rewards-item: true
+    view-requirement:
+      requirements:
+        1:
+          type: placeholder
+          input: "%reward_unlocked%"
+          comparison: "=="
+          output: "false"
+        2:
+          type: placeholder
+          input: "%layout_index_paged%"
+          comparison: "<="
+          output: "200"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+##################################
+#           NAVIGATION           #
+##################################
+  close:
+    material: RED_DYE
+    name: "<error-color>Close"
+    slot: 50
+    click-actions:
+      - "[close]"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+placeholders:
+
+  get-selected-navbar-slot:
+    type: "function"
+    function: "short-track"
+    input: "%parameters_job_internal-name%"
+    tracks:
+      "==farmer": 12
+      "==miner": 13
+      "==lumberjack": 14
+      "==hunter": 15
+      "==fisherman": 16
+
+###########################
+#           MENU          #
+###########################
+  get-job-name:
+    type: "transform"
+    transform: "component-wrapper"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": "Farmer"
+        "==miner": "Miner"
+        "==lumberjack": "Lumberjack"
+        "==fisherman": "Fisherman"
+        "==hunter": "Hunter"
+        "!=a": "Unknown"
+
+##################################
+#           JOB FARMER           #
+##################################
+
+  get-farmer-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": []
+        "!=farmer":
+          - ""
+          - "<action-icon><action-color> Access"
+
+#################################
+#           JOB MINER           #
+#################################
+
+  get-miner-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==miner": []
+        "!=miner":
+          - ""
+          - "<action-icon><action-color> Access"
+
+###################################
+#         JOB LUMBERJACK          #
+###################################
+
+  get-lumberjack-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==lumberjack": []
+        "!=lumberjack":
+          - ""
+          - "<action-icon><action-color> Access"
+
+#################################
+#          JOB HUNTER           #
+#################################
+
+  get-hunter-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==hunter": []
+        "!=hunter":
+          - ""
+          - "<action-icon><action-color> Access"
+
+#################################
+#         JOB FISHERMAN         #
+#################################
+
+  get-fisherman-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==fisherman": []
+        "!=fisherman":
+          - ""
+          - "<action-icon><action-color> Access"
+
+#################################
+#          LEADERBOARD          #
+#################################
+
+  'get-material-for-top1-10':
+    type: "transform"
+    transform: "string"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": "NETHERITE_HOE"
+        "==miner": "NETHERITE_PICKAXE"
+        "==lumberjack": "NETHERITE_AXE"
+        "==fisherman": "TROPICAL_FISH"
+        "==hunter": "NETHERITE_SWORD"
+        "!=a": "NETHERITE_INGOT"
+
+  'get-material-for-top11-20':
+    type: "transform"
+    transform: "string"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": "DIAMOND_HOE"
+        "==miner": "DIAMOND_PICKAXE"
+        "==lumberjack": "DIAMOND_AXE"
+        "==fisherman": "PUFFERFISH"
+        "==hunter": "DIAMOND_SWORD"
+        "!=a": "DIAMOND"
+
+  'get-material-for-top21-30':
+    type: "transform"
+    transform: "string"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": "GOLDEN_HOE"
+        "==miner": "GOLDEN_PICKAXE"
+        "==lumberjack": "GOLDEN_AXE"
+        "==fisherman": "SALMON"
+        "==hunter": "GOLDEN_SWORD"
+        "!=a": "GOLD_INGOT"
+
+  'get-material-for-top31-40':
+    type: "transform"
+    transform: "string"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": "IRON_HOE"
+        "==miner": "IRON_PICKAXE"
+        "==lumberjack": "IRON_AXE"
+        "==fisherman": "COD"
+        "==hunter": "IRON_SWORD"
+        "!=a": "IRON_INGOT"
+
+  'get-material-for-top41-50':
+    type: "transform"
+    transform: "string"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": "STONE_HOE"
+        "==miner": "STONE_PICKAXE"
+        "==lumberjack": "STONE_AXE"
+        "==fisherman": "SEAGRASS"
+        "==hunter": "STONE_SWORD"
+        "!=a": "STONE"
+
+#######################
+#    PROGRESS BAR     #
+#######################
+
+  'get-xp-job-progress':
+    type: "function"
+    function: "progress"
+
+    first-remaining: "<lore-color>|"
+    first-completing: "<#ccf095>|"
+    first-character: "<#98e12a>|"
+    remaining: "<lore-color>|"
+    completing: "<#ccf095>|"
+    character: "<#98e12a>|"
+    last-remaining: "<lore-color>|"
+    last-completing: "<#ccf095>|"
+    last-character: "<#98e12a>|"
+    value: "%placeholders_get-exp-for-jobs%"
+    max: "%placeholders_get-maxexp-for-jobs%"
+    length: 40
+
+##############################
+#    JOBS - INTERNALNAME     #
+##############################
+
+  get-level-for-jobs:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%jobs_user-jlevel_{parameters_job_internal-name}%"
+  get-level-for-jobs-item-progress:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%math_0_{placeholders_get-level-for-jobs}/2%"
+
+  get-exp-for-jobs:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%jobs_user-jexp_{parameters_job_internal-name}%"
+
+  get-maxexp-for-jobs:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%jobs_user-jmaxexp_{parameters_job_internal-name}%"
+
+  get-current-xp:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%jobs_user-jlevel_{parameters_job_internal-name}%"

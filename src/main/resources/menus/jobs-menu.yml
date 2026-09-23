@@ -1,0 +1,536 @@
+id: "jobs-menu"
+title: 'Jobs ▸ %placeholders_get-job-name%'
+size: 54
+
+menu-parameter:
+  parameters:
+    job: "Job"
+    jobs-name:
+      type: string
+      default: farmer
+    jobs-button:
+      type: string
+      default: main
+  player-usable: false
+
+variables:
+  action:
+    type: "string"
+    default: "first"
+
+layout:
+  rewards:
+    slots: [20, 21, 22, 23, 24, 25, 26, 29, 30, 31, 32, 33, 34, 35, 38, 39, 40, 41, 42, 43, 44]
+    item-provider: "%parameters_job_rewards%"
+    selector:
+      requirements:
+        1:
+          taint: "rewards-item"
+          comparison: "=="
+          value: true
+
+items:
+
+  ##############################
+  #           NAVBAR           #
+  ##############################
+
+  filler-navbar:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    slots: [10, 11, 12, 13, 14, 15, 16, 17, 1, 10, 19, 28, 37, 46]
+    hide-tooltip: true
+    priority: 0
+
+  selected-navbar:
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+    slot: "%placeholders_get-selected-navbar-slot%"
+    hide-tooltip: true
+    priority: 1
+
+  job-display:
+    material: BOOK
+    name: "<title-color>%placeholders_get-job-name%"
+    slot: 9
+    lore:
+      - ""
+      - "<lore-color>Level: <accentuation-color>%placeholders_get-level-for-jobs%"
+      - "<lore-color>%placeholders_get-exp-for-jobs% %placeholders_get-xp-job-progress% %placeholders_get-maxexp-for-jobs%"
+
+  job-rewards:
+    material: CHEST
+    name: "<title-color>Rewards"
+    slot: 18
+    lore:
+      - ""
+      - "<lore-color>Discover the different rewards"
+      - "<lore-color>that you can unlock by leveling up"
+      - "<lore-color>in your profession."
+      - ""
+      - "<action-icon> <action-color>Access"
+    click-actions:
+      - "[open-menu] jobs-menu %parameters_job_internal-name%"
+
+  job-actions:
+    material: EMERALD
+    name: "<title-color>Actions"
+    slot: 27
+    lore:
+      - ""
+      - "<lore-color>Access your job actions"
+      - "<lore-color>and earn experience."
+      - ""
+      - "<action-icon> <action-color>Access"
+    click-actions:
+      - "[open-menu] jobs-actions %parameters_job_internal-name%"
+
+  classement:
+    material: MAP
+    name: "<title-color>Leaderboard"
+    slot: 36
+    lore:
+      - ""
+      - "<lore-color>Discover the best"
+      - "<lore-color>players in each profession."
+      - ""
+      - "<action-icon> <action-color>Access"
+    click-actions:
+      - "[open-menu] jobs-leaderboard %parameters_job_internal-name%"
+
+  ##############################
+  #         TAB - JOBS         #
+  ##############################
+
+  farmer-job-button:
+    material: DIAMOND_HOE
+    name: "<title-color>Farmer"
+    slot: 3
+    lore:
+      - ""
+      - "<lore-color>Plant seeds, and harvest"
+      - "<lore-color>everything the earth gives you."
+      - "%placeholders_get-farmer-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "farmer"
+    click-actions:
+      - "[open-menu] jobs-menu farmer"
+      - "[reset-layout-page] rewards"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+
+  miner-job-button:
+    material: DIAMOND_PICKAXE
+    name: "<title-color>Miner"
+    slot: 4
+    lore:
+      - ""
+      - "<lore-color>Dig to find ore"
+      - "<lore-color>and harvest useful resources."
+      - "%placeholders_get-miner-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "miner"
+    click-actions:
+      - "[open-menu] jobs-menu miner"
+      - "[reset-layout-page] rewards"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+
+  lumberjack-job-button:
+    material: DIAMOND_AXE
+    name: "<title-color>Lumberjack"
+    slot: 5
+    lore:
+      - ""
+      - "<lore-color>Gather wood, strip tree bark"
+      - "<lore-color>or burn wood to gain experience."
+      - "%placeholders_get-lumberjack-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "lumberjack"
+    click-actions:
+      - "[open-menu] jobs-menu lumberjack"
+      - "[reset-layout-page] rewards"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+
+  hunter-job-button:
+    material: DIAMOND_SWORD
+    name: "<title-color>Hunter"
+    slot: 6
+    lore:
+      - ""
+      - "<lore-color>Hunt creatures, and harvest"
+      - "<lore-color>their precious loot."
+      - "%placeholders_get-hunter-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "hunter"
+    click-actions:
+      - "[open-menu] jobs-menu hunter"
+      - "[reset-layout-page] rewards"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+
+  fisherman-job-button:
+    material: FISHING_ROD
+    name: "<title-color>Fisherman"
+    slot: 7
+    lore:
+      - ""
+      - "<lore-color>Cast your line, catch fish…"
+      - "<lore-color>and sometimes surprising items."
+      - "%placeholders_get-fisherman-action-lore%"
+    click-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%parameters_job_internal-name%"
+          comparison: "!="
+          output: "fisherman"
+    click-actions:
+      - "[open-menu] jobs-menu fisherman"
+      - "[reset-layout-page] rewards"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+
+  ###################################
+  #          TAB - REWARDS          #
+  ###################################
+
+  reward-unlocked:
+    name: "<title-color>Level %layout_index_paged%"
+    material: MINECART
+    priority: 1
+    lore:
+      - "%reward_reward_display%"
+      - "<lore-color>Status: <success-color>Unlocked"
+      - ""
+      - "<action-icon><action-color> Claim"
+    taints:
+      rewards-item: true
+    view-requirement:
+      requirements:
+        2:
+          type: placeholder
+          input: "%reward_unlocked%"
+          comparison: "=="
+          output: "true"
+        3:
+          type: placeholder
+          input: "%layout_index_paged%"
+          comparison: "<="
+          output: "200"
+    click-actions:
+      - "[player] jobs claim"
+      - "[close]"
+
+  rewards-locked:
+    name: "<title-color>Level %layout_index_paged%"
+    material: CHEST_MINECART
+    priority: 1
+    lore:
+      - "%reward_reward_display%"
+      - "<lore-color>Status: <error-color>Locked"
+    taints:
+      rewards-item: true
+    view-requirement:
+      requirements:
+        2:
+          type: placeholder
+          input: "%reward_unlocked%"
+          comparison: "=="
+          output: "false"
+        3:
+          type: placeholder
+          input: "%layout_index_paged%"
+          comparison: "<="
+          output: "200"
+
+  ##################################
+  #           NAVIGATION           #
+  ##################################
+
+  close:
+    material: RED_DYE
+    name: "<error-color>Close"
+    slot: 50
+    click-actions:
+      - "[close]"
+
+  previous-page-ON:
+    material: TIPPED_ARROW
+    potion:
+      red: 81
+      green: 142
+      blue: 255
+    name: "<title-color>Previous Page"
+    slot: 49
+    priority: 1
+    click-actions:
+      - "[previous-page] rewards"
+      - "[refresh delay=0.25] 49"
+      - "[refresh delay=0.25] 51"
+    view-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%layouts_rewards_page%"
+          comparison: "!="
+          output: "1"
+    item-flags:
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  previous-page-OFF:
+    material: TIPPED_ARROW
+    potion:
+      red: 199
+      green: 210
+      blue: 214
+    name: "<lore-color>Previous page"
+    slot: 49
+    priority: 0
+    item-flags:
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  next-page-ON:
+    material: TIPPED_ARROW
+    potion:
+      red: 81
+      green: 142
+      blue: 255
+    name: "<title-color>Next Page"
+    slot: 51
+    priority: 1
+    click-actions:
+      - "[next-page] rewards"
+      - "[refresh delay=0.25] 49"
+      - "[refresh delay=0.25] 51"
+    view-requirement:
+      requirements:
+        1:
+          type: "placeholder"
+          input: "%layouts_rewards_page%"
+          comparison: "!="
+          output: "%layouts_rewards_maxpage%"
+    item-flags:
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  next-page-OFF:
+    material: TIPPED_ARROW
+    potion:
+      red: 199
+      green: 210
+      blue: 214
+    name: "<lore-color>Next page"
+    slot: 51
+    priority: 0
+    item-flags:
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+placeholders:
+
+  get-selected-navbar-slot:
+    type: "function"
+    function: "short-track"
+    input: "%parameters_job_internal-name%"
+    tracks:
+      "==farmer": 12
+      "==miner": 13
+      "==lumberjack": 14
+      "==hunter": 15
+      "==fisherman": 16
+
+##################################
+#           JOB FARMER           #
+##################################
+
+  get-farmer-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": []
+        "!=farmer":
+          - ""
+          - "<action-icon><action-color> Access"
+
+#################################
+#           JOB MINER           #
+#################################
+
+  get-miner-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==miner": []
+        "!=miner":
+          - ""
+          - "<action-icon><action-color> Access"
+
+###################################
+#         JOB LUMBERJACK          #
+###################################
+
+  get-lumberjack-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==lumberjack": []
+        "!=lumberjack":
+          - ""
+          - "<action-icon><action-color> Access"
+
+#################################
+#         JOB FISHERMAN         #
+#################################
+
+  get-fisherman-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==fisherman": []
+        "!=fisherman":
+          - ""
+          - "<action-icon><action-color> Access"
+
+#################################
+#          JOB HUNTER           #
+#################################
+
+  get-hunter-action-lore:
+    type: "transform"
+    transform: "list<component-wrapper>"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==hunter": []
+        "!=hunter":
+          - ""
+          - "<action-icon><action-color> Access"
+
+##############################
+#    JOBS - INTERNALNAME     #
+##############################
+
+  get-job-name:
+    type: "transform"
+    transform: "component-wrapper"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%parameters_job_internal-name%"
+      tracks:
+        "==farmer": "Farmer"
+        "==miner": "Miner"
+        "==lumberjack": "Lumberjack"
+        "==fisherman": "Fisherman"
+        "==hunter": "Hunter"
+        "!=a": "Unknown"
+
+  get-level-for-jobs:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%jobs_user-jlevel_{parameters_job_internal-name}%"
+
+  get-level-for-jobs-item-progress:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%math_0_{placeholders_get-level-for-jobs}/2%"
+
+  get-exp-for-jobs:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%jobs_user-jexp_{parameters_job_internal-name}%"
+
+  get-maxexp-for-jobs:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%jobs_user-jmaxexp_{parameters_job_internal-name}%"
+
+  get-current-xp:
+    type: "function"
+    function: "track"
+    track-type: "SINGLE"
+    tracks:
+      1:
+        track:
+          type: "transform"
+          transform: "string-wrapper"
+          value: "%jobs_user-jlevel_{parameters_job_internal-name}%"
+
+  'get-xp-job-progress':
+    type: "function"
+    function: "progress"
+
+    first-remaining: "<lore-color>|"
+    first-completing: "<#ccf095>|"
+    first-character: "<#98e12a>|"
+    remaining: "<lore-color>|"
+    completing: "<#ccf095>|"
+    character: "<#98e12a>|"
+    last-remaining: "<lore-color>|"
+    last-completing: "<#ccf095>|"
+    last-character: "<#98e12a>|"
+    value: "%placeholders_get-exp-for-jobs%"
+    max: "%placeholders_get-maxexp-for-jobs%"
+    length: 40

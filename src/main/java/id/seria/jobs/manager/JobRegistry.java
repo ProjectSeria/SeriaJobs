@@ -62,21 +62,26 @@ public class JobRegistry {
 
     private Job loadJobFromFile(File file) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-        String id = config.getString("id");
+        String id = config.getString("job-name", config.getString("id"));
         if (id == null || id.isEmpty()) {
             id = file.getName().replace(".yml", "").replace(".yaml", "");
         }
 
-        String displayName = config.getString("display-name", id);
+        String displayName = config.getString("job-display-name", config.getString("display-name", id));
         String iconName = config.getString("icon", "STONE");
         Material icon = Material.matchMaterial(iconName);
         if (icon == null) icon = Material.BOOK;
 
         List<String> description = config.getStringList("description");
 
-        int maxLevel = config.getInt("leveling.max-level", 50);
+        int maxLevel = config.getInt("max-level", config.getInt("leveling.max-level", 100));
         int baseXp = config.getInt("leveling.base-xp", 100);
         double multiplier = config.getDouble("leveling.multiplier", 1.25);
+
+        String levelingEquation = config.getString("leveling-progression-equation", null);
+        String incomeEquation = config.getString("income-progression-equation", null);
+        String pointsEquation = config.getString("points-progression-equation", null);
+        String expEquation = config.getString("experience-progression-equation", null);
 
         int activeOrdersCount = config.getInt("active-orders-count", 3);
 
@@ -119,21 +124,40 @@ public class JobRegistry {
             }
         }
 
-        // Parse level progression milestone rewards
+        // Parse level progression milestone rewards (supports both level-rewards and reward-levels)
         Map<Integer, List<Reward>> levelRewards = new LinkedHashMap<>();
-        ConfigurationSection rewardsSec = config.getConfigurationSection("level-rewards");
+        Map<Integer, List<String>> levelDisplayRewards = new LinkedHashMap<>();
+
+        ConfigurationSection rewardsSec = config.getConfigurationSection("reward-levels");
+        if (rewardsSec == null) {
+            rewardsSec = config.getConfigurationSection("level-rewards");
+        }
+
         if (rewardsSec != null) {
             for (String lvlKey : rewardsSec.getKeys(false)) {
                 try {
                     int lvl = Integer.parseInt(lvlKey);
-                    List<Reward> rList;
-                    if (rewardsSec.isConfigurationSection(lvlKey) && rewardsSec.contains(lvlKey + ".rewards")) {
-                        rList = parseRewardsList(rewardsSec.getMapList(lvlKey + ".rewards"));
+                    List<Reward> rList = new ArrayList<>();
+
+                    if (rewardsSec.isConfigurationSection(lvlKey)) {
+                        ConfigurationSection singleLvl = rewardsSec.getConfigurationSection(lvlKey);
+                        if (singleLvl != null) {
+                            if (singleLvl.contains("display-rewards")) {
+                                levelDisplayRewards.put(lvl, singleLvl.getStringList("display-rewards"));
+                            }
+                            if (singleLvl.contains("commands")) {
+                                for (String cmd : singleLvl.getStringList("commands")) {
+                                    rList.add(new CommandReward("CONSOLE", cmd));
+                                }
+                            }
+                            if (singleLvl.contains("rewards")) {
+                                rList.addAll(parseRewardsList(singleLvl.getMapList("rewards")));
+                            }
+                        }
                     } else if (rewardsSec.isList(lvlKey)) {
                         rList = parseRewardsList(rewardsSec.getMapList(lvlKey));
-                    } else {
-                        rList = Collections.emptyList();
                     }
+
                     if (!rList.isEmpty()) {
                         levelRewards.put(lvl, rList);
                     }
@@ -141,7 +165,9 @@ public class JobRegistry {
             }
         }
 
-        return new Job(id, displayName, icon, description, maxLevel, baseXp, multiplier, activeOrdersCount, ordersMap, levelRewards);
+        return new Job(id, displayName, icon, description, maxLevel, baseXp, multiplier,
+                levelingEquation, incomeEquation, pointsEquation, expEquation,
+                activeOrdersCount, ordersMap, levelRewards, levelDisplayRewards);
     }
 
     public List<Reward> parseRewardsList(List<Map<?, ?>> rewardList) {
