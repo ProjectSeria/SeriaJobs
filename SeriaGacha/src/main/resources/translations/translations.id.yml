@@ -1,0 +1,1442 @@
+id:
+  error-processing:
+    - "&cTerjadi kesalahan saat memproses aksi ini (Periksa konsol):"
+    - "&7%message%"
+  unknown-argument: "&cArgumen Tidak Dikenal!"
+  no-permission: "&cAnda tidak diizinkan melakukan ini!"
+  command-not-allowed: "&cAnda tidak diperbolehkan mengeksekusi perintah ini!"
+  only-ingame-players: "&cPerintah hanya diizinkan untuk pemain di dalam permainan."
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: Terakhir
+    swap-option: Tukar opsi
+    option: Opsi
+    item: Item
+    all: Semua
+    go-back: Kembali
+    navigate: Navigasi
+    reload: Muat Ulang
+    switch-state: Ganti Status
+    state: Status
+    empty: "&7(Kosong)"
+    default: "&7(Bawaan)"
+    undefined: "&7Tak Terdefinisi"
+    yes-word: "&aYa"
+    no-word: "&cTidak"
+    location: Lokasi
+    region: Wilayah
+    material: Material
+    # Others
+    menu: Menu
+    enabled: Diaktifkan
+    disabled: Dinonaktifkan
+    range: Jangkauan
+    multiplier: Pengali
+    cooldown: Cooldown
+    receive-crate: Terima peti
+    receive-key: Terima kunci
+    identifier: Pengidentifikasi
+    display-name: Nama Tampilan
+    line: Garis
+    swap-engine: Tukar mesin
+    edit-engine: Edit mesin
+    documentation: Dokumentasi
+    not-installed: Belum Diinstal
+    not-available: Tidak Tersedia
+    not-enabled: Tidak Diaktifkan
+    command: perintah
+    none: Tidak ada
+    action: Aksi
+    color: Warna
+    flag: Bendera
+    pattern: Pola
+    enchant: Enchant
+    effect: Efek
+    value: Nilai
+    red: Merah
+    green: Hijau
+    blue: Biru
+    item-model: Model Item
+    tooltip-style: Gaya Tooltip
+    trim-material: Material Trim
+    trim-pattern: Pola Trim
+    model-data: Data Model
+    title: Judul
+    particle: Partikel
+    velocity: Kecepatan
+    spread: Sebaran
+    offset-x: Offset X
+    offset-y: Offset Y
+    offset-z: Offset Z
+    change-amount-money: Ubah jumlah uang
+    money-necessary: Uang Diperlukan
+    vault-installed: Vault terinstal
+    points-installed: PlayerPoints terpasang
+    swap-cost-engine: Mesin biaya swap
+    set-cost-amount: Tetapkan jumlah biaya
+    cost-amount: Jumlah Biaya
+    required: Diperlukan
+    permission: Izin
+    crate: Kotak
+    key: Kunci
+    reward: Hadiah
+    multiple-rewards: Berbagai Hadiah
+    items: Item
+    cancel: Batalkan
+    animation: Animasi
+    limited-time-offer: Penawaran Waktu Terbatas
+    see-more: Lihat Lebih Banyak
+    attach-block: Pasang Blok
+    reorder-reward: Atur Ulang Hadiah
+    set-as-default-display-name: Atur sebagai nama tampilan bawaan
+    set-as-default-display-lore: Atur sebagai lore tampilan bawaan
+    update-block: "Perbarui Blok"
+    percentage: Persentase
+    weight: "Bobot"
+    chance: Peluang
+    win-limit: Batas Menang
+    global-win-limit: Batas Menang Global
+    win-limit-cooldown: Cooldown Batas Menang
+    global-win-limit-cooldown: Cooldown Batas Menang Global
+    time-limited-cooldown: Cooldown Terbatas Waktu
+    unlimited: Tidak Terbatas
+    virtual: Virtual
+    broadcast: Siarkan
+    paid: Dibayar
+    free: Gratis
+    save: Simpan
+    leave: Tinggalkan
+    select: Pilih
+    add: Tambah
+    edit: Ubah
+    remove: Hapus
+    confirm: Konfirmasi
+    decline: Tolak
+    locked-field: Bidang Terkunci
+    add-items: Tambahkan Item
+    no-cooldown: Tidak ada cooldown
+    current: Saat Ini
+    first: Pertama
+    second: Kedua
+    third: Ketiga
+    to-choose: Untuk memilih
+    not-colorable: Tidak dapat diberi warna
+    previous-phase: Fase Sebelumnya
+    next-phase: Fase Berikutnya
+    default-menu: Menu Bawaan
+    amount: "Jumlah"
+    migrate-files: "Migrasikan file"
+    rerolls: "Pengulangan"
+    group: "Grup"
+    broadcast-message: "Pesan Siaran"
+    only-premium: "Tersedia di premium"
+    sharing: "Berbagi"
+    everyone: "Semua"
+    openings: "Pembukaan"
+    required-keys: "Kunci yang Diperlukan"
+    key-required: "Kunci Diperlukan"
+    crates-linked: "Kotak Terhubung"
+    keys-linked: "Kunci Terhubung"
+    rarity: "Kelangkaan"
+    synced: "Tersinkronisasi"
+    not-set: "Belum Disetel"
+    clear-lines: "Bersihkan Baris"
+    add-empty-line: "Tambahkan Baris Kosong"
+    receive-placeable-crate: Terima kotak yang dapat ditempatkan
+    disable-money-requirement: Nonaktifkan persyaratan uang
+  readers:
+    exit-session: "&aUntuk keluar dari sesi ini ketik &e\\\"batal\\\"&a."
+    write-chat: "&aTulis di chat."
+  time:
+    week: "Minggu"
+    weeks: "Minggu"
+    day: "Hari"
+    days: "Hari"
+    hour: "Jam"
+    hours: "Jam"
+    minute: "Menit"
+    minutes: "Menit"
+    second: "Detik"
+    seconds: "Detik"
+
+  unlock-addon:
+    - "&cMembutuhkan Addon %addon%."
+    - "&4Dapatkan di phoenixplugins.com"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ Perintah Phoenix Crates"
+      - "%commands%"
+      - ""
+      - "&e➥ Informasi tambahan:"
+      - " &9<argument> - argumen yang diperlukan"
+      - " &3[argument] - argumen opsional"
+    usage: "&e➥ Penggunaan:"
+    create: " &f/%command% create &9<identifier> &8- &7Buat tipe kotak"
+    delete: " &f/%command% delete &9<identifier> &8- &7Hapus tipe kotak"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7Beri diri Anda kotak
+      untuk ditempatkan"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8- &7Beri
+      pemain (atau semua pemain) kunci"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7Berikan
+      kunci kepada semua pemain yang online"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8- &7Set
+      kunci virtual pemain"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7Set kunci
+      virtual pemain"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7Memungkinkan Anda
+      untuk melihat hadiah kotak"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7Beri pemain (atau semua pemain) pengulangan"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8-
+      &7Ambil pengulangan pemain"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8-
+      &7Beri pemain (atau semua pemain) hadiah kotak"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7Berikan pemain (atau semua pemain) hadiah acak dari crate"
+    editor: " &f/%command% editor &8- &7Memungkinkan Anda untuk mengedit semua kotak
+      di dalam permainan"
+    reload: " &f/%command% reload &8- &7Muat ulang semua berkas konfigurasi
+      PhoenixCrates"
+  player-offline: "&cPemain %name% tidak online!"
+  not-a-number: "&cJumlah yang ditempatkan bukan angka."
+  plugin-reloaded: "&aPhoenixCrates telah berhasil dimuat ulang."
+  crate-type-created: "&aTipe kotak berhasil dibuat."
+  crate-type-deleted: "&aTipe kotak berhasil dihapus."
+  cooldown-reset: "&aCooldown for &e%player% &aon crate &e%crate% &ahas been reset."
+  cooldown-reset-received: "&aYour cooldown for crate &e%crate% &ahas been reset."
+  cooldown-reset-no-cooldown: "&cThis crate has no cooldown configured."
+  cooldown-reset-not-active: "&cThat player does not have an active cooldown for this crate."
+  global-win-limit-reset: "&aThe global win count for reward &e%reward% &aon crate
+    &e%crate% &ahas been reset."
+  global-win-limit-not-tracked: "&cThis reward has no global win limit configured,
+    so there is nothing to reset."
+  reward-cooldown-started: "&aThe time-limited cooldown for reward &e%reward% &aon
+    crate &e%crate% &ahas been started."
+  reward-cooldown-started-all: "&aThe time-limited cooldown has been started for
+    &e%amount% &areward(s) on crate &e%crate%&a."
+  reward-cooldown-not-configured: "&cThis reward does not have a time-limited cooldown configured."
+  reward-cooldown-none-configured: "&cNo rewards on this crate have a time-limited cooldown configured."
+  check-keys-header: "&#ffd500&lKunci %player%:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7Kunci"
+  check-keys-none: "&7- &7Tidak ada kunci virtual."
+  key-deleted: "&aKunci berhasil dihapus."
+
+  key-given: "&e%amount% &akunci(s) telah berhasil diberikan kepada %player%."
+  key-given-all: "&a%amount% kunci(s) telah berhasil diberikan kepada semua pemain
+    yang online."
+  key-given-offline: "&e%amount% &akunci(s) telah berhasil diberikan kepada %player%."
+  key-set: "&e%amount% &akunci(s) telah berhasil diatur untuk %player%."
+  key-taken: "&e%amount% &akunci(s) telah berhasil diambil dari %player%."
+
+  key-received: "&aAnda telah menerima &ex%amount% &7%display_name% &r&akunci."
+  virtual-key-received: "&aAnda telah menerima &ex%amount% &7%display_name% &r&akunci virtual."
+
+  key-lost: '&c%amount% kunci untuk crate &2\"%display_name%&2\"&c telah diambil
+    dari Anda!'
+  virtual-key-lost: '&c%amount% kunci virtual untuk crate &2\"%display_name%&2\"&c
+    telah diambil dari Anda!'
+
+  crate-rerolls-received: '&aAnda telah menerima %amount% reroll untuk crate &2\"%display_name%&2\"&a!'
+
+  crate-given: "&e%amount% &apeti(s) telah berhasil diberikan kepada %player%."
+
+  random-reward-given: "&aSebuah hadiah acak telah berhasil diberikan kepada %player%."
+  no-available-rewards: "&cCrate ini tidak memiliki hadiah yang tersedia."
+
+  crate-received: "&aAnda telah menerima &ex%amount% &7%display_name% &r&apeti(s)."
+  crate-no-placed-instances: "&cTidak ditemukan crate terpasang untuk tipe &e%crate%&c."
+  crate-open-command-disabled: "&cCrate &e%crate% &ctidak dapat dibuka menggunakan perintah ini."
+  crate-type-dont-exist: '&cTidak ada tipe crate dengan pengenal \"%identifier%\"!'
+  crate-type-already-exist: '&cSudah ada tipe crate dengan pengenal \"%identifier%\"!'
+  key-dont-exist: '&cTidak ada kunci dengan pengenal \"%identifier%\"!'
+  key-already-exist: '&cSudah ada kunci dengan pengenal \"%identifier%\"!'
+  need-plugin-reload: "&6Perlu memuat ulang plugin!"
+
+  crate:
+    disabled: "&cKotak ini saat ini dinonaktifkan!"
+    quick-open-available: "&eMenunduk dan klik lagi untuk melewati animasi dan membuka crate lain."
+    already-opening: "&cSeseorang sudah membuka crate ini, tunggu!"
+    no-linked-key: "&cCrate ini tidak memiliki kunci yang terhubung!"
+    no-key: "&cAnda membutuhkan %key%&r&c untuk membuka crate ini!"
+    no-keys: "&cAnda tidak memiliki cukup kunci untuk membuka crate ini!"
+    no-keys-amount: "&cAnda membutuhkan %amount% kunci(s) untuk membuka peti ini."
+    redeem-no-keys: "&cAnda membutuhkan %required_keys% kunci untuk menukarkan hadiah ini."
+    cooldown-wait: "&cAnda harus menunggu %cooldown% sebelum membuka crate ini lagi."
+    cost-engine-not-installed: "&cSepertinya mesin koin belum diatur (hubungi admin)."
+    no-money-none: "&cAnda tidak dapat membuka crate ini sekarang."
+    no-money-level: "&cAnda membutuhkan %money% untuk membuka crate ini."
+    no-money-vault: "&cAnda membutuhkan %money% untuk membuka crate ini."
+    no-money-playerpoints: "&cAnda membutuhkan %money% PlayerPoints untuk membuka crate ini."
+    no-money-votingplugin: "&cAnda membutuhkan %money% poin suara untuk membuka crate ini."
+    no-money-excellenteconomy: "&cAnda membutuhkan %money% untuk membuka crate ini."
+    money-used-none: "&aAnda membuka crate ini."
+    money-used-level: "&aAnda baru saja menggunakan %money_consumed% untuk membuka crate ini."
+    money-used-vault: "&aAnda baru saja menggunakan %money_consumed% untuk membuka crate ini."
+    money-used-playerpoints: "&aAnda baru saja menggunakan %money_consumed%
+      PlayerPoints untuk membuka crate ini."
+    money-used-votingplugin: "&aAnda baru saja menggunakan %money_consumed% poin
+      suara untuk membuka crate ini."
+    money-used-excellenteconomy: "&aAnda baru saja menggunakan %money_consumed% untuk membuka crate ini."
+    need-crouched: "&eAgar Anda dapat menghapus crate ini, Anda harus menunduk."
+    successfully-removed: "&aAnda telah berhasil menghapus crate ini."
+    successfully-placed: "&aAnda berhasil meletakkan crate!"
+    reward-received: "&aAnda menerima &ex%amount% %item%"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fmemperoleh: &ex%amount% &r%reward%"
+    no-rewards: "&cCrate ini tidak memiliki hadiah."
+    no-available-rewards: "&cCrate ini tidak memiliki hadiah yang tersedia untuk Anda."
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cTunggu sebentar! Kami masih memuat data Anda. Coba buka
+      crate lagi dalam sesaat!"
+    guaranteed-win-openings: "&3Menang dijamin dalam %openings% pembukaan"
+    no-permission: "&cAnda tidak diizinkan untuk membuka crate ini! [Memerlukan
+      izin: %permission%]"
+    cooldown-display:
+      counting: "&fAnda dapat membuka lagi dalam &e%cooldown%"
+      over: "&aTersedia untuk dibuka"
+    hologram-type-limited: "&cMesin hologram ini hanya mendukung satu peti terpasang per tipe."
+    no-money: "&cAnda membutuhkan %necessary_money%$ untuk membuka crate ini."
+    money-used: "&aAnda baru saja menggunakan %money_consumed%$ untuk membuka crate ini."
+    crate:
+      no-rewards-for-key-rarities: "&cPeti ini tidak memiliki hadiah yang tersedia untuk kelangkaan kunci
+        Anda: %rarities%"
+  actions:
+    need-item: "&cAnda perlu menambahkan item agar dapat melakukan tindakan ini."
+    force-close: "&cAnda memaksa pembatalan dari apa yang sedang Anda lakukan."
+
+  layout:
+    actions:
+      left-click: "&6Klik Kiri: &e%action%."
+      right-click: "&6Klik Kanan: &e%action%."
+      left-right-click: "&6Klik Kiri/Kanan: &e%action%."
+      shift-left-click: "&6Shift + Klik Kiri: &e%action%."
+      shift-right-click: "&6Shift + Klik Kanan: &e%action%."
+      drag-drop-click: "&6Seret & Jatuhkan: &e%action%."
+      drop-click: "&6Tekan Q: &e%action%."
+      description:
+        add: Tambahkan %value%
+        set: Atur %value%
+        create: Buat %value%
+        remove: Hapus %value%
+        edit: Edit %value%
+        delete: Hapus %value%
+        receive: Terima %value%
+        clear: Bersihkan %value%
+        choose: Pilih %value%
+        change: Ubah %value%
+        select: Pilih %value%
+        replace: Ganti %value%
+        unlink: Batal taut %value%
+        link: Taut %value%
+        reorder: Ulang urut %value%
+    displays:
+      state: "&fApakah %type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&fMaterial: &7%material%"
+      location:
+        empty: "&fLokasi: &7Kosong"
+        populated:
+          - "&fLokasi: "
+          - " &fDunia: &7%world%"
+          - " &fSumbu X: &7%x%"
+          - " &fSumbu Y: &7%y%"
+          - " &fSumbu Z: &7%z%"
+          - " &fYaw: &7%yaw%"
+          - " &fPitch: &7%pitch%"
+      region:
+        empty: "&fWilayah: &7Kosong"
+        populated:
+          - "&fWilayah: "
+          - " &fDunia: &7%world%"
+          - " &fPosisi #1: &7%minimum%"
+          - " &fPosisi #2: &7%maksimum%"
+      item:
+        empty: "&fItem: &7Kosong"
+        populated:
+          - "&fItem: "
+          - " &fNama: &7%name%"
+          - " &fLore: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&aHalaman sebelumnya - Halaman %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&aHalaman berikutnya - Halaman %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cTidak ada data ditemukan."
+        description:
+          - "&7Tidak ada data yang ditemukan menggunakan filter ini."
+      filter:
+        title: "&aFilter"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7untuk memfilter berdasarkan nama."
+          - ""
+          - "&fFilter: &e%filter%"
+          - ""
+          - "&6Klik Kiri: &eAtur filter."
+          - "&6Klik Kanan: &eBersihkan filter."
+  editor:
+    messages:
+      write-identifier-chat: "&eTulis pengenal baru di chat."
+      identifier-updated: '&aIdentifier berhasil diperbarui menjadi \"%identifier%&a\"!'
+      write-displayname-chat: "&eTulis nama tampilan baru di obrolan."
+      displayname-updated: '&aNama tampilan berhasil diperbarui menjadi \"%display_name%&a\"!'
+      write-in-chat: "&aTulis di obrolan."
+      value-updated: "&aNilai berhasil diperbarui!"
+      write-lore-line-chat: "&eTulis baris lore baru di obrolan."
+      lore-line-added: "&aBaris lore berhasil ditambahkan!"
+      lore-cleared: "&aLore berhasil dibersihkan."
+      opening-animation-changed: "&aAnimasi Pembukaan berhasil diubah."
+      crate-type-deleted: Jenis Kotak berhasil dihapus.
+      migration-completed: "&aMigrasi selesai."
+    errors:
+      identifier-already-in-use: "&cIdentifier ini sudah digunakan."
+      no-spaces: "&cTidak bisa ada spasi!"
+      invalid-input: "&cInput tidak valid!"
+      invalid-number: "&cNomor tidak valid!"
+      inventory-full: "&cInventaris Anda penuh."
+      inventory-full-reward: "&cHadiah kotak dijatuhkan di tanah karena inventaris Anda penuh!"
+      inventory-full-key: "&cKunci dijatuhkan ke tanah karena inventori Anda penuh!"
+      username-not-found: "&cTidak ditemukan akun asli dengan nama %username%."
+      invalid-rewards: "Ada %amount% hadiah yang tidak valid!"
+      no-rewards-configured: "Tidak ada hadiah yang dikonfigurasi!"
+      invalid-reward-display: "Hadiah Tidak Valid: Item tampilan kosong ditemukan!"
+      hologram-engine-missing: "&cData hologram merujuk ke plugin lain! Silakan ubah
+        Mesin Hologram di pengaturan plugin."
+    titles:
+      main: Phoenix Crates v%version% > Editor
+      crates: Editor > Kotak
+      keys: Editor > Kunci
+      migrations: Editor > Migrasi
+      addons: Editor > Addon
+      rarities: Editor > Kelangkaan
+      settings: Editor > Pengaturan
+      engines:
+        bettermodel: Editor > ... > BetterModel
+      crate:
+        new: Editor > ... > Kotak Baru
+        show: Editor > ... > Kotak
+        display: Editor > ... > Mesin
+        menus: Editor > ... > Menu
+        link-keys: Editor > ... > Tautkan Kunci
+        idle-animation: Editor > ... > Animasi Diam
+        opening-animations: Editor > ... > Animasi Pembukaan
+        opening-animation: Editor > ... > Animasi Pembukaan
+        effect: Editor > ... > Efek Animasi
+        rewards: Editor > ... > Hadiah
+        reward: Editor > ... > Hadiah
+        reward-cooldowns: Editor > ... > Cooldown Hadiah
+        reward-requirements: Editor > ... > Persyaratan Hadiah
+        reward-cooldown-duration: Editor > ... > Durasi Cooldown
+        reward-items: Editor > ... > Edit Item Hadiah
+        reward-commands: Editor > ... > Edit Perintah Hadiah
+        reward-rarity: Editor > ... > Kelangkaan Hadiah
+        multiple-rewards: Editor > ... > Tambah Beberapa Hadiah
+        engine: Editor > ... > Mesin
+        hologram: Editor > ... > Hologram
+        milestones: "Editor > ... > Tonggak"
+        rerolling: "Editor > ... > Rerolling"
+        others: "Editor > ... > Lainnya"
+        open-cost: "Editor > ... > Biaya Buka"
+      key:
+        show: Editor > ... > Kunci
+        linked-crates: Editor > ... > Kotak Tautan
+
+    main:
+      crates:
+        title: "&aKotak"
+        description:
+          - "&7Dengan mengklik di sini, Anda akan dapat"
+          - "&7menjelajahi dan mengelola semua kotak yang tersedia."
+      keys:
+        title: "&aKunci"
+        description:
+          - "&7Dengan mengklik di sini, Anda akan dapat"
+          - "&7menjelajahi dan mengelola semua kunci yang tersedia."
+      rarities:
+        title: "&aKecualian"
+        description:
+          - "&7Dengan mengklik di sini Anda dapat mengonfigurasi"
+          - "&7dan mengelola sistem kecualian."
+      migrations:
+        title: "&aMigrasi"
+        description:
+          - "&7Jelajahi opsi untuk bermigrasi dari plugin kotak lainnya"
+          - "&7dan mengelola proses migrasi dengan mengklik di sini."
+      addons:
+        title: "&aAddon"
+        description:
+          - "&7Jelajahi fitur tambahan dan peningkatan"
+          - "&7dengan mengklik di sini untuk mengakses menu addon."
+      settings:
+        title: "&aPengaturan"
+        description:
+          - "&7Dengan mengklik di sini, Anda akan dapat"
+          - "&7menjelajahi dan menyesuaikan pengaturan plugin."
+      reload:
+        title: "&aMuat Ulang Konfigurasi"
+        description:
+          - "&7Dengan mengklik di sini, Anda akan memulai"
+          - "&7muat ulang semua konfigurasi plugin."
+      pouches:
+        title: "&aPouch"
+        description:
+          - "&7Dengan mengklik di sini, Anda akan dapat"
+          - "&7mengelola semua pouch."
+      crate-claim:
+        title: "&aKlaim Peti"
+        description:
+          - "&7Dengan mengklik di sini, Anda dapat mengonfigurasi"
+          - "&7perilaku klaim peti dan menu."
+    migrations:
+      plugin:
+        title: "&aMigrasi dari %name%"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7memigrasikan beberapa file dari %name% ke plugin ini."
+          - ""
+          - "&aFile yang didukung:"
+          - "&8 &7- %files%"
+          - ""
+          - "&fDatabase yang didukung: %database%"
+    addons:
+      loading:
+        title: "&eMemuat..."
+        description:
+          - "&7Addon sedang dimuat,"
+          - "&7tunggu beberapa detik."
+      empty:
+        title: "&cTidak ada addon tersedia"
+        description:
+          - "&7Tidak ada catatan ditemukan"
+          - "&7sesuai dengan filter saat ini."
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&fHarga: &a%price%"
+    settings:
+      language:
+        title: "&aBahasa"
+        description:
+          - "&7Opsi ini memungkinkan Anda untuk mengubah"
+          - "&7bahasa dasar yang akan digunakan plugin ini"
+          - ""
+          - "&e&nAnda selalu dapat mengkonfigurasi translations.en.yml."
+      key-mainhand:
+        title: "&aPersyaratan Kunci di Tangan Utama"
+        description:
+          - "&7Opsi ini memungkinkan Anda untuk menentukan"
+          - "&7apakah pemain perlu memiliki"
+          - "&7sebuah kunci di tangan utama mereka untuk membuka peti."
+      crate-knockback:
+        title: "&aGuncangan Kotak"
+        description:
+          - "&7Opsi ini memungkinkan Anda untuk bervariasi"
+          - "&7guncangan yang diterima pemain saat mencoba"
+          - "&7membuka kotak dengan kunci yang salah."
+      crate-despawn-range:
+        title: "&aJarak Hapus Kotak"
+        description:
+          - "&7Opsi ini memungkinkan Anda untuk mendefinisikan"
+          - "&7jarak yang perlu dihentikan efeknya"
+          - "&7agar tidak ditampilkan kepada pemain."
+          - ""
+          - "&c&nNilai tinggi tidak disarankan karena dapat menyebabkan lag."
+      crate-quick-open:
+        title: "&aBuka Cepat Kotak"
+        description:
+          - "&7Opsi ini memungkinkan pemain untuk"
+          - "&7membuka cepat saat memegang kotak"
+          - "&7kunci dan menggeser klik kanan."
+          - ""
+          - "&e&nHanya bekerja dengan pembukaan kotak simultan!"
+      disable-confirmation-menus:
+        title: "&aNonaktifkan Menu Konfirmasi"
+        description:
+          - "&7Opsi ini memungkinkan Anda untuk melewati"
+          - "&7menu konfirmasi sehingga pemain langsung"
+          - "&7ke tindakan."
+      crate-claim:
+        title: "&aKlaim Peti"
+        description:
+          - "&7Dengan mengklik di sini, Anda dapat mengonfigurasi"
+          - "&7perilaku klaim peti dan menu."
+    keys:
+      key:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Dengan mengklik di sini Anda akan"
+          - "&7dapat mengkonfigurasi kunci ini."
+        identifier:
+          title: "&aIdentifikasi"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengganti nama identifikasi kunci Anda."
+            - "&eIdentifikasi ini perlu unik."
+        display-name:
+          title: "&aNama Tampilan"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengganti nama kunci Anda."
+        link-crates:
+          title: "&aTautkan Kotak"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengkaitkan kotak dengan kunci ini."
+        enabled:
+          title: "&aDiaktifkan"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengubah apakah kunci ini tersedia."
+        delete:
+          title: "&aHapus Kunci"
+          description:
+            - "&7Dengan mengklik di sini kunci ini"
+            - "&7akan dihapus dari server."
+            - "&eSemua kunci di dunia tidak akan lagi valid."
+        item:
+          title: "&aItem Kunci"
+          description:
+            - "&7Item kunci kustom yang dapat"
+            - "&7digunakan untuk membuka kotak."
+      add:
+        title: "&aTambahkan Kunci"
+        description:
+          - "&7Dengan mengklik di sini Anda akan"
+          - "&7dapat membuat sebuah kunci."
+    crates:
+      type:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Dengan mengklik di sini Anda akan"
+          - "&7dapat mengkonfigurasi kotak ini."
+      add:
+        title: "&aTambahkan Kotak"
+        description:
+          - "&7Dengan mengklik di sini Anda akan"
+          - "&7dapat membuat jenis kotak."
+    crate:
+      identifier:
+        title: "&aIdentifikasi"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7mengganti nama identifikasi kotak Anda."
+          - "&eIdentifikasi ini perlu unik."
+      item:
+        title: "&aItem"
+        description:
+          - "&7Item tampilan yang akan"
+          - "&7digunakan untuk mewakili peti ini."
+        name:
+          title: "&aNama Item"
+          description:
+            - "&7Nama yang akan digunakan"
+            - "&7untuk mewakili item ini"
+        lore:
+          title: "&aLore Item"
+          description:
+            - "&7Lore yang akan digunakan"
+            - "&7untuk mewakili item ini"
+      link-keys:
+        title: "&aTautkan Kunci"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7untuk mengaitkan kunci ke kotak ini."
+      animations:
+        title: "&aAnimasi"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7mengubah animasi kotak ini."
+          - ""
+          - "&fAnda dapat mengkonfigurasi:"
+          - "&8> &aAnimasi Diam"
+          - "&8> &aAnimasi Membuka"
+      rerolls:
+        title: "&aPengulangan"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7mendefinisikan pengulangan kotak ini."
+      mass-opening:
+        title: "&aPembukaan Massal"
+        description:
+          - "&7Dengan mengklik di sini Anda dapat mengkonfigurasi"
+          - "&7pengaturan pembukaan massal dari kotak."
+      display-settings:
+        block-material:
+          title: "&aMaterial Blok"
+          description:
+            - "&7Dengan mengklik di sini Anda akan"
+            - "&7dapat mengubah material yang"
+            - "&7digunakan untuk blok kotak."
+        crate-engine:
+          title: "&aMesin Blok Crate"
+          description:
+            - "&7Dengan mengklik sini Anda akan bisa"
+            - "&7mengganti mesin dan menyesuaikannya."
+            - ""
+            - "&b➥ Mesin Blok Vanilla:"
+            - "&7Crate standar berbasis material."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Mesin Model Vanilla: &9(1.12+)"
+            - "&7Model statis dari resource pack kustom."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model Engine / Better Model:"
+            - "&7Model kustom dengan animasi."
+            - ""
+            - "&fMesin:"
+        rewards-mode:
+          title: "&aMode Hadiah"
+          description:
+            - "&7Dengan mengklik di sini, Anda dapat mengubah"
+            - "&7mode yang akan digunakan sistem hadiah ini."
+            - ""
+            - "&b➥ Mode Acak:"
+            - "&7Hadiah akan dipilih secara acak berdasarkan"
+            - "&7pada bobot yang ditetapkan (peluang). Ini"
+            - "&7mode menambahkan elemen kejutan dan keberuntungan."
+            - ""
+            - "&b➥ Mode Selektif:"
+            - "&7Mode ini menghilangkan kebetulan, memungkinkan"
+            - "&7pengguna untuk langsung memilih hadiah yang"
+            - "&7mereka inginkan dari opsi yang tersedia. Ideal untuk"
+            - "&7memberikan kontrol kepada pengguna atas hadiah mereka."
+            - ""
+            - "&fMode:"
+        hologram:
+          title: "&aHologram"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengonfigurasi hologram di atas crate ini."
+        idle-animation:
+          title: "&aAnimasi Menganggur"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7menyesuaikan animasi menganggur dari crate ini."
+            - ""
+            - "&7Animasi menganggur akan muncul ketika"
+            - "&7seorang pemain tidak membuka crate ini."
+        opening-animation:
+          title: "&aAnimasi Pembukaan"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7menyesuaikan animasi pembukaan dari crate ini."
+            - ""
+            - "&fBagaimana animasi pembukaan bekerja?"
+            - "&7Animasi ini terdiri dari 3 fase, masing-masing"
+            - "&7fase terdiri dari berbagai mini-animasi"
+            - "&7dan properti. Secara sederhana, fase-fase"
+            - "&7mewakili awal, tengah, dan akhir dari sebuah animasi."
+            - ""
+            - "&7Juga jika Anda menggunakan mesin yang mendukung"
+            - "&7animasi model Anda dapat menyinkronkan model tertentu"
+            - "&7animasi dengan setiap level."
+        engine-mode:
+          title: "&aMode Mesin"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengubah mesin yang akan digunakan kotak ini."
+            - ""
+            - "&b➥ Mesin Blok Vanilla:"
+            - "&7Mesin default dari sebuah crate, representasinya akan"
+            - "&7menjadi material yang dipilih sebagai blok dari crate ini."
+            - ""
+            - "&b➥ Mesin Model Vanilla: &9(1.12+)"
+            - "&7Kemungkinan untuk menetapkan model statis kustom pada crate"
+            - "&7tetapi tidak mendukung animasi. Ini mendukung model vanilla"
+            - "&7melalui material dan data model kustom."
+            - ""
+            - "&b➥ Lainnya: &9(1.16.5+)"
+            - "&7Kemungkinan untuk menetapkan model kustom pada crate sebagai"
+            - "&7serta animasi pembukaan kustom."
+            - ""
+            - "&fMesin:"
+      open-cooldown:
+        title: "&aCooldown Membuka"
+        description:
+          - "&7Klik di sini untuk mengubah jumlah"
+          - "&7waktu yang harus ditunggu pemain"
+          - "&7untuk membuka crate lain."
+      open-cost:
+        title: "&aMesin Biaya Buka"
+        description:
+          - "&7Dengan mengklik sini, Anda dapat menentukan sebuah"
+          - "&7metode tambahan untuk membuka crate ini"
+          - ""
+          - "&e&lTip&r&e: &7Nonaktifkan persyaratan kunci untuk menggunakan"
+          - "      &7metode ini sebagai metode utama."
+      open-cost-amount:
+        title: "&aJumlah Biaya Buka"
+        description:
+          - "&7Jumlah mata uang yang akan"
+          - "&7dipotong saat membuka crate ini."
+      open-cost-currency:
+        title: "&aMata Uang"
+        description:
+          - "&7Mata uang ExcellentEconomy yang"
+          - "&7akan digunakan untuk mengenakan biaya."
+      simultaneous-openings:
+        title: "&aPembukaan Simultan"
+        description:
+          - "&7Opsi ini memungkinkan Anda untuk mendefinisikan"
+          - "&7apakah satu atau lebih pemain dapat"
+          - "&7membuka crate ini pada saat yang sama."
+          - ""
+          - "&e&nBuka Cepat dinonaktifkan"
+          - "&e&ntanpa pembukaan simultan"
+      preview-reward:
+        title: "&aPrabuka Hadiah"
+        description:
+          - "&7Dengan mengklik di sini Anda akan mengaktifkan"
+          - "&7hadiah prabuka di atas setiap kotak."
+      permission-required:
+        title: "&aPersyaratan Izin"
+        description:
+          - "&7Dengan mengklik di sini Anda akan mengatur"
+          - "&7izin yang harus dimiliki pemain"
+          - "&7untuk membuka kotak ini."
+      rewards:
+        title: "&aHadiah"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7mengonfigurasi semua hadiah yang bisa"
+          - "&7diperoleh pemain dengan membuka kotak ini."
+        add:
+          title: "&aTambahkan Hadiah"
+          description:
+            - "&7Dengan mengklik di sini Anda dapat mulai"
+            - "&7mengatur hadiah baru di kotak ini."
+        edit:
+          title: "&aHadiah #%position%"
+          description: []
+        multiple-rewards:
+          title: "&aTambahkan Banyak Hadiah"
+          description:
+            - "&7Dengan mengklik di sini Anda dapat"
+            - "&7menambahkan banyak hadiah sekaligus."
+        reordering:
+          title: "&aPengurutan Kembali"
+          description:
+            - "&7Dengan mengklik di sini Anda dapat mengurutkan"
+            - "&7hadiah dalam urutan yang Anda inginkan."
+          selected:
+            title: "&eTerpilih"
+        win-amount:
+          title: "&aMaks Hadiah Menang"
+          description:
+            - "&7Dengan mengklik di sini Anda dapat menentukan"
+            - "&7berapa banyak hadiah yang akan dimenangkan pemain sekaligus."
+      reward:
+        drag-item:
+          title: "&aSeret item"
+          description:
+            - "&7Seret item apa pun untuk mengatur hadiah."
+            - ""
+            - "&6Seret & Jatuhkan: Ganti item."
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6Seret & Jatuhkan: &eGanti item."
+        identifier:
+          title: "&aUbah Pengidentifikasi"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengganti nama pengidentifikasi hadiah Anda."
+            - "&ePengidentifikasi ini harus unik."
+        display-item:
+          title: "&aItem Tampilan"
+          description:
+            - "&7Item ini akan berfungsi sebagai tampilan"
+            - "&7yang mewakili hadiah untuk kotak ini."
+          name:
+            title: "&aNama Tampilan"
+            description:
+              - "&7Nama yang akan digunakan"
+              - "&7untuk mewakili Hadiah ini"
+          lore:
+            title: "&aLore Tampilan"
+            description:
+              - "&7Lore yang akan digunakan"
+              - "&7untuk mewakili Hadiah ini"
+        alternative-item:
+          title: "&aItem Alternatif"
+          description:
+            - "&7Item ini akan menjadi item tambahan yang diterima pengguna"
+            - "&7jika kondisi terpenuhi."
+        win-items:
+          title: "&aItem Menang"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7menambahkan item yang akan diperoleh pemain"
+            - "&7ketika memenangkan hadiah ini."
+          add-item:
+            title: "&aTambahkan Item"
+            description:
+              - "&7Seret item dari inventaris Anda"
+              - "&7di sini untuk menambahkannya sebagai item untuk hadiah ini."
+        weight:
+          title: "&aBobot"
+          description:
+            - "&7Bobot akan berkontribusi pada"
+            - "&7peluang pemain untuk memenangkan item ini."
+        virtual:
+          title: "&aItem Virtual"
+          description:
+            - "&7Opsi ini menentukan apakah pemenang."
+            - "&7harus menerima item fisik atau tidak."
+        win-commands:
+          title: "&aPerintah Menang"
+          description:
+            - "&7Dengan mengklik di sini Anda dapat mengatur"
+            - "&7semua perintah yang akan dijalankan"
+            - "&7ketika pemain memenangkan hadiah ini."
+        max-win-item-amount:
+          title: "&aMax Win Item Amount"
+          description:
+            - "&7Menetapkan jumlah maksimum item"
+            - "&7dari daftar win-items yang akan"
+            - "&7diberikan ketika hadiah ini dimenangkan."
+            - "&7Atur ke &e∞ &7untuk tanpa batas."
+        max-win-command-amount:
+          title: "&aMax Win Command Amount"
+          description:
+            - "&7Menetapkan jumlah maksimum perintah"
+            - "&7dari daftar win-commands yang akan"
+            - "&7dijalankan ketika hadiah ini dimenangkan."
+            - "&7Atur ke &e∞ &7untuk tanpa batas."
+        broadcast:
+          title: "&aPesan Siaran"
+          description:
+            - "&7Opsi ini menentukan apakah pesan siaran"
+            - "&7harus muncul ketika pemain memenangkan hadiah ini."
+        share-players-online:
+          title: "&aBagikan dengan Pemain Online"
+          description:
+            - "&7Opsi ini menentukan apakah hadiah ini"
+            - "&7harus dibagikan kepada semua orang yang online."
+        allow-win-message:
+          title: "&aAllow Win Message"
+          description:
+            - "&7Opsi ini menentukan apakah pemain akan menerima"
+            - "&7sebuah pesan saat memenangkan hadiah ini."
+        notification-types:
+          title: "&aNotification Type"
+          description:
+            - "&7Dengan mengklik di sini, Anda dapat mengubah"
+            - "&7tipe yang digunakan untuk mengirim pesan kemenangan."
+        enabled:
+          title: "&aEnabled"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengubah apakah hadiah ini tersedia."
+        win-limit:
+          title: "&aBatas Menang"
+          description:
+            - "&7Opsi ini menentukan berapa kali"
+            - "&7pemain dapat memenangkan hadiah ini."
+            - ""
+            - "&e&lTIP: &7Anda dapat menggabungkan ini"
+            - "       &7dengan hadiah alternatif."
+        global-win-limit:
+          title: "&aGlobal Win Limit"
+          description:
+            - "&7Opsi ini menentukan berapa kali"
+            - "&7hadiah ini dapat dimenangkan oleh"
+            - "&7semua orang di server secara keseluruhan."
+            - ""
+            - "&e&lTIP: &7Anda dapat menggabungkan ini"
+            - "       &7dengan hadiah alternatif."
+        cooldowns:
+          title: "&aCooldowns"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengonfigurasi cooldowns "
+            - "&7dari hadiah ini."
+          win-limit-cooldown:
+            title: "&aWin Limit Cooldown"
+            description:
+              - "&7Opsi ini menentukan berapa lama seorang pemain"
+              - "&7harus menunggu sebelum bisa"
+              - "&7memenangkan hadiah ini lagi."
+          global-win-limit-cooldown:
+            title: "&aGlobal Win Limit Cooldown"
+            description:
+              - "&7Opsi ini menentukan berapa lama harus berlalu"
+              - "&7sebelum hadiah ini dapat dimenangkan lagi"
+              - "&7oleh siapapun di server."
+          time-limited-cooldown:
+            title: "&aTime Limited Cooldown"
+            description:
+              - "&7Opsi ini menentukan berapa lama"
+              - "&7hadiah ini akan tetap tersedia setelah"
+              - "&7waktu tunggunya dimulai."
+              - ""
+              - "&7Ketika kedaluwarsa, hadiah akan"
+              - "&7secara otomatis menonaktifkan dirinya sendiri."
+          duration:
+            weeks:
+              title: "&aWeeks"
+              description:
+                - "&7Jumlah minggu yang akan ditambahkan"
+                - "&7ke durasi cooldown ini."
+            days:
+              title: "&aDays"
+              description:
+                - "&7Jumlah hari yang akan ditambahkan"
+                - "&7ke durasi cooldown ini."
+            hours:
+              title: "&aHours"
+              description:
+                - "&7Jumlah jam yang akan ditambahkan"
+                - "&7ke durasi cooldown ini."
+            minutes:
+              title: "&aMinutes"
+              description:
+                - "&7Jumlah menit yang akan ditambahkan"
+                - "&7ke durasi cooldown ini."
+            disable:
+              title: "&cDisable Cooldown"
+              description:
+                - "&7Mengatur durasi cooldown ini"
+                - "&7kembali ke nol, menonaktifkannya."
+        requirements:
+          title: "&aRequirements"
+          description:
+            - "&7Konfigurasikan persyaratan izin"
+            - "&7untuk hadiah ini."
+          required-permission:
+            title: "&aIzin Diperlukan"
+            description:
+              - "&7Tetapkan izin yang harus dimiliki pemain"
+              - "&7agar melihat hadiah ini sebagai tersedia."
+              - "&7Jika pemain tidak memilikinya, hadiah"
+              - "&7akan muncul terkunci dalam pratinjau."
+        restricted-permissions:
+          title: "&aIzin Terbatas"
+          description:
+            - "&7Opsi ini mendefinisikan"
+            - "&7izin terbatas yang tidak dapat dimiliki"
+            - "&7oleh pemain untuk memenangkan hadiah ini."
+            - "&eIni tidak akan berlaku jika pemain memiliki op."
+            - ""
+            - "&e&lTIP: &7Anda dapat menggabungkan ini"
+            - "       &7dengan hadiah alternatif."
+        alternative-reward:
+          title: "&aHadiah Alternatif"
+          description:
+            - "&7Dengan mengklik di sini Anda akan"
+            - "&7dapat mengonfigurasi hadiah alternatif"
+            - "&7dari hadiah ini."
+            - ""
+            - "&7Jika aktif ketika pemain melebihi"
+            - "&7batas kemenangan atau memiliki izin blacklist"
+            - "&7dia akan menerima hadiah ini sebagai gantinya."
+        delete:
+          title: "&aHapus Hadiah"
+          description:
+            - "&7Dengan mengklik di sini hadiah ini"
+            - "&7akan dihapus dari kotak ini."
+        percentage:
+          title: "&aPersentase"
+          description:
+            - "&7Persentase ini akan berkontribusi pada"
+            - "&7kesempatan pemain untuk memenangkan item ini."
+      menus:
+        title: "&aMenu"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat mengonfigurasi"
+          - "&7semua menu untuk kotak ini."
+      rewards-menu:
+        title: "&aMenu Hadiah"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat mengonfigurasi"
+          - "&7menu hadiah apa yang akan dimiliki kotak ini."
+      preview-actions:
+        title: "&aAksi Pratinjau"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat mengonfigurasi"
+          - "&7aksi yang akan dijalankan ketika seorang pemain"
+          - "&7mengklik untuk melihat pratinjau peti ini."
+          - "&7Ini dapat digunakan bersama dengan, atau"
+          - "&7sebagai pengganti, menu pratinjau hadiah."
+      rerolls-menu:
+        title: "&aMenu Pengulangan"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat mengonfigurasi"
+          - "&7menu pengulangan apa yang akan dimiliki kotak ini."
+      selective-rewards-menu:
+        title: "&aMenu Hadiah Selektif"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat mengonfigurasi"
+          - "&7menu hadiah selektif apa yang akan dimiliki kotak ini."
+      milestones-menu:
+        title: "&aMenu Tonggak"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat mengonfigurasi"
+          - "&7menu pratinjau apa yang akan dimiliki kotak ini."
+      broadcast-message:
+        title: "&aPesan Siaran"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat mengonfigurasi"
+          - "&7pesan siaran untuk hadiah."
+          - ""
+          - "&eTemplat yang tersedia:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&aDiaktifkan"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7mengubah apakah kotak ini tersedia."
+      allow-open-command:
+        title: "&aIzinkan Perintah Buka"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7mengalihkan apakah peti ini dapat"
+          - "&7dibuka menggunakan &f/crate open &7perintah."
+      attach-block:
+        title: "&aLampirkan Blok"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7membuat kotak dengan melampirkan blok."
+      delete:
+        title: "&aHapus Kotak"
+        description:
+          - "&7Dengan mengklik di sini kotak ini"
+          - "&7akan dihapus dari server."
+          - ""
+          - "&e&nSemua kunci dalam kotak ini tidak akan lagi valid."
+      hologram:
+        engine-mode:
+          title: "&aMode Mesin Hologram"
+          description:
+            - "&7Mesin yang digunakan plugin"
+            - "&7untuk hologram"
+            - ""
+            - "&fMesin: &7%engine%"
+        lines:
+          title: "&aBaris Hologram"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengonfigurasi baris hologram dari peti ini."
+            - ""
+            - "&e&lTIP: &7Anda dapat menggunakan &ePlaceholderAPI&7."
+        identifier:
+          title: "&aPengidentifikasi"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mendefinisikan pengidentifikasi plugin hologram."
+            - ""
+            - "&fPengidentifikasi: &7%id%"
+        offset:
+          title: "&aOffset Hologram"
+          description:
+            - "&7Opsi ini memungkinkan Anda menyesuaikan hologram"
+            - "&7posisi berdasarkan lokasi peti."
+      display-name:
+        title: "&aNama Tampilan"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7mengganti nama kotak Anda."
+      open-money-cost:
+        title: "&aBiaya Uang Membuka"
+        description:
+          - "&7Klik di sini untuk mengubah jumlah uang"
+          - "&7yang diperlukan untuk membuka crate ini."
+          - "&7kunci dan menggeser klik kanan."
+          - ""
+          - "&e&nHanya bekerja dengan Vault!"
+    crate-engine:
+      first-phase-delay:
+        title: "&aPenundaan Mulai Fase Pertama"
+        description:
+          - "&7Tentukan penundaan antara saat"
+          - "&7peti terbuka dan dimulainya"
+          - "&7fase pertama dari animasi."
+      second-phase-delay:
+        title: "&aPenundaan Mulai Fase Kedua"
+        description:
+          - "&7Tentukan penundaan antara fase pertama"
+          - "&7dan fase kedua dari animasi pembukaan."
+      third-phase-delay:
+        title: "&aPenundaan Mulai Fase Ketiga"
+        description:
+          - "&7Tentukan penundaan antara fase kedua"
+          - "&7dan fase ketiga dari animasi pembukaan."
+      idle:
+        title: "&aAnimasi Diam"
+        description:
+          - "&7Tentukan animasi yang akan"
+          - "&7diputar saat peti sedang diam."
+      close-animation:
+        title: "&aAnimasi Penutupan"
+        description:
+          - "&7Tentukan animasi yang akan"
+          - "&7diputar saat peti sedang menutup."
+      model-name:
+        title: "&aNama Model"
+        description:
+          - "&7Tentukan nama model yang akan"
+          - "&7digunakan oleh peti ini."
+          - ""
+          - "&fModel Saat Ini: &7%name%"
+      model-engine:
+        model-name:
+          title: "&aNama Model"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengubah nama model peti ini."
+            - ""
+            - "&fNama Saat Ini: &7%name%"
+      better-model:
+        model-name:
+          title: "&aNama Model"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengubah nama model peti ini."
+            - ""
+            - "&fNama Saat Ini: &7%name%"
+        scale:
+          title: "&aSkala"
+          description:
+            - "&7Tentukan pengali ukuran untuk ini"
+            - "&7model. 1.0 adalah ukuran normal model."
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6Klik Kiri: &ePilih material."
+        custom-model-data:
+          title: "&aData Model Kustom"
+          description:
+            - "&7Dengan mengklik di sini Anda akan dapat"
+            - "&7mengubah data model kustom dari item ini."
+            - ""
+            - "&fData Model Kustom: &7%custom_model_data%"
+            - ""
+            - "&6Klik Kiri: &eUbah Data Model Kustom."
+    reward-commands:
+      add:
+        title: "&aTambahkan Perintah"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat menambahkan"
+          - "&7perintah yang akan dieksekusi ketika"
+          - "&7seorang pemain memenangkan hadiah ini."
+          - ""
+          - "&7Perintah yang dimulai dengan &a* &7dieksekusi oleh"
+          - "&7pemain. Jika tidak, mereka dieksekusi oleh konsol."
+          - ""
+          - "&7Anda juga dapat menggunakan placeholder &a%player%"
+          - "&7dan placeholder dari &aPlaceholderAPI&7."
+          - ""
+          - "&6Klik Kiri: &eTambahkan perintah."
+      command:
+        title: "&aPerintah #%id%"
+        description:
+          - "&fPerintah: &7%command%"
+          - ""
+          - "&6Klik Kiri: &eHapus perintah."
+    alternative-reward:
+      enabled:
+        title: "&aKeadaan"
+        description:
+          - "&7Ketika hadiah alternatif aktif,"
+          - "&7jika pemain melebihi batas kemenangan atau"
+          - "&7memiliki izin blacklist dia akan"
+          - "&7menerima hadiah ini."
+    edit-standby-animation:
+      add-effect:
+        title: "&aTambahkan Efek"
+        description:
+          - "&7Dengan mengklik di sini Anda akan dapat"
+          - "&7menambahkan efek baru ke animasi diam."
+          - ""
+          - "&6Klik Kiri &eTambahkan efek."
+      edit-effect:
+        title: "&eEfek #%id%"
+        description:
+          - ""
+          - "&fTipe Efek: &7%effect_type%"
+          - "&fTipe Partikel: &7%particle_type%"
+          - "&fKecepatan Partikel: &7%particle_velocity%"
+          - "&fWarna: &7%color%"
+          - "&fOffset: &7%offset%"
+          - "&fSebaran: &7%spread%"
+          - "&fJumlah: &7%amount%"
+          - ""
+          - "&6Klik Kiri &eEdit efek."
+          - "&6Shift + Klik Kiri: &eHapus efek."
+    edit-standby-effect:
+      effect-type:
+        title: "&aTipe Efek&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6Klik Kiri/Kanan: &eGanti tipe."
+      particle-type:
+        title: "&aTipe Partikel"
+        description:
+          - "&fSaat Ini: &7%particle_type%"
+          - ""
+          - "&6Klik Kiri: &eUbah partikel."
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&fProperti: &a%properties%"
+          - ""
+          - "&6Klik Kiri: &ePilih partikel."
+      color:
+        title: "&aWarna"
+        description:
+          - "&fSaat Ini: &7%color%"
+          - ""
+          - "&e&nHanya berfungsi dengan partikel yang dapat diwarnai."
+          - ""
+          - "&6Klik Kiri: &eUbah warna."
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6Klik Kiri: &ePilih warna."
+      spread:
+        title: "&aSebaran"
+        description:
+          - "&fSaat Ini: &7%spread%"
+          - ""
+          - "&6Klik Kiri: &eTambahkan 0.1."
+          - "&6Shift + Klik Kiri: &eTambahkan 1."
+          - "&6Klik Kanan: &eHapus 0.1."
+          - "&6Shift + Klik Kanan: &eHapus 1."
+      particle-velocity:
+        title: "&aKecepatan Partikel"
+        description:
+          - "&fSaat Ini: &7%particle_velocity%"
+          - ""
+          - "&6Klik Kiri: &eTambahkan 0.1."
+          - "&6Shift + Klik Kiri: &eTambahkan 1."
+          - "&6Klik Kanan: &eHapus 0.1."
+          - "&6Shift + Klik Kanan: &eHapus 1."
+      amount:
+        title: "&aJumlah"
+        description:
+          - "&fSaat Ini: &7%amount%"
+          - ""
+          - "&6Klik Kiri: &eTambahkan 1."
+          - "&6Klik Kanan: &eHapus 1."
+      offset-x:
+        title: "&aOffset X"
+        description:
+          - "&fSaat Ini: &7%offset_x%"
+          - ""
+          - "&6Klik Kiri: &eTambahkan 0.1."
+          - "&6Shift + Klik Kiri: &eTambahkan 1."
+          - "&6Klik Kanan: &eHapus 0.1."
+          - "&6Shift + Klik Kanan: &eHapus 1."
+      offset-y:
+        title: "&aOffset Y"
+        description:
+          - "&fSaat ini: &7%offset_y%"
+          - ""
+          - "&6Klik-Kiri: &eTambahkan 0.1."
+          - "&6Shift + Klik-Kiri: &eTambahkan 1."
+          - "&6Klik-Kanan: &eHapus 0.1."
+          - "&6Shift + Klik-Kanan: &eHapus 1."
+      offset-z:
+        title: "&aOffset Z"
+        description:
+          - "&fSaat ini: &7%offset_z%"
+          - ""
+          - "&6Klik-Kiri: &eTambahkan 0.1."
+          - "&6Shift + Klik-Kiri: &eTambahkan 1."
+          - "&6Klik-Kanan: &eHapus 0.1."
+          - "&6Shift + Klik-Kanan: &eHapus 1."
+    opening-animation:
+      phase-updated: "&aFase animasi diperbarui."
+      preset-applied: "&aPreset animasi pembukaan diterapkan."
+      preset-removed: "&aTidak ada preset yang dipilih."
+      phase:
+        title: "&a%phase% Fase"
+        description:
+          - "&7Setiap animasi pembukaan terdiri dari"
+          - "&7fase, ini adalah salah satu fase."
+          - ""
+          - "&fFase: &e%name%"
+      change-phases:
+        title: "&aFase Animasi"
+        description:
+          - "&7Pilih animasi untuk"
+          - "&7tahap animasi pembukaan."
+          - ""
+          - "&6Klik-Kiri: &eUbah animasi."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&a%phase% Fase"
+        description:
+          - "&7Setiap animasi pembukaan terdiri dari"
+          - "&7fase, ini adalah salah satu fase."
+          - ""
+          - "&fFase: &e%name%"
+          - ""
+          - "&6Klik-Kiri: &eNavigasi"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&fVersi Diperlukan: &7%required_version%"
+          - ""
+          - "&6Klik-Kiri: &eBuat fase."
+          - "&6Shift + Klik-Kiri: &eBuat fase cepat."
+  command:
+    info:
+      - ""
+      - "&e➥ &6Perintah Tersedia:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6Informasi tambahan:"
+      - " &9<argument> - argumen wajib"
+      - " &3[argument] - argumen opsional"
+    usage:
+      - ""
+      - "&e➥ Penggunaan:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "Maaf, tetapi Anda tidak memiliki izin untuk menjalankan perintah ini."
+    permission-denied-parameter: "Maaf, tetapi Anda tidak memiliki izin untuk menjalankan perintah ini."
+    error-generic-logged: "Terjadi kesalahan. Masalah ini telah dicatat. Maaf atas
+      ketidaknyamanannya."
+    unknown-command: "&cPerintah tidak dikenal, silakan ketik &4%command%"
+    error-prefix: "&cKesalahan: %message%"
+    error-performing-command: "Maaf, terjadi kesalahan saat menjalankan perintah ini."
+    please-specify-one-of: "Silakan tentukan salah satu (&2%valid%)."
+    must-be-a-number: "%num% harus berupa angka."
+    must-be-min-length: "Harus memiliki panjang minimal %min% karakter."
+    must-be-max-length: "Harus memiliki panjang maksimal %max% karakter."
+    please-specify-at-most: "Silakan tentukan nilai maksimal %max%."
+    please-specify-at-least: "Silakan tentukan nilai minimal %min%."
+    player-offline: "Pemain %player% tidak online!"
+  plans:
+    unlock-premium: §cHanya tersedia di Versi Premium.
+    unlock-pro: §cHanya tersedia di Versi Pro.
+    upgrade-at: §4Tingkatkan di phoenixplugins.com
+  crate-type-received: "&aAnda telah menerima crate yang dapat diletakkan."
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% Crate"
+      lore: "&7Tempatkan crate ini di suatu tempat!"
+  loading-data: "&7Memuat data pemain..."

@@ -1,0 +1,22 @@
+name: SeriaGacha
+version: 2.0.0
+main: id.seria.gacha.BukkitPlatform
+author: Project Seria Dev
+api-version: '1.21'
+load: POSTWORLD
+softdepend: [ SeriaCore, Multiverse-Core, My_Worlds, MultiWorld, Iris, Vault, PlaceholderAPI, ModelEngine, BetterModel, CraftEngine, Nexo, ItemsAdder, HeadDatabase, ExecutableItems, PlayerPoints, VotingPlugin, ExcellentEconomy ]
+description: Advanced Gacha and Crate System with 3D Animations for Project Seria
+folia-supported: true
+
+permissions:
+  seriagacha.admin:
+    description: Allows full administrative control over SeriaGacha
+    default: op
+  seriagacha.*:
+    description: Grants all SeriaGacha permissions
+    default: false
+    children:
+      seriagacha.admin: true
+  phoenixcrates.admin:
+    description: Legacy alias for SeriaGacha admin
+    default: op

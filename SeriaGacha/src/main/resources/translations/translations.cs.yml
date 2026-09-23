@@ -1,0 +1,1442 @@
+cs:
+  error-processing:
+    - "&cPři zpracování této akce došlo k chybě (Zkontrolujte konzoli):"
+    - "&7%message%"
+  unknown-argument: "&cNeznámý argument!"
+  no-permission: "&cNemáte oprávnění to provést!"
+  command-not-allowed: "&cNesmíte vykonat tento příkaz!"
+  only-ingame-players: "&cPříkaz je povolen pouze hráčům ve hře."
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: Poslední
+    swap-option: Vyměnit možnost
+    option: Možnost
+    item: Předmět
+    all: Vše
+    go-back: Jít zpět
+    navigate: Navigovat
+    reload: Načíst
+    switch-state: Přepnout stav
+    state: Stav
+    empty: "&7(Prazdné)"
+    default: "&7(Predvolené)"
+    undefined: "&7Nedefinováno"
+    yes-word: "&aAno"
+    no-word: "&cNe"
+    location: Místo
+    region: Region
+    material: Materiál
+    # Others
+    menu: Menu
+    enabled: Povoleno
+    disabled: Zakázáno
+    range: Rozsah
+    multiplier: Násobitel
+    cooldown: Cooldown
+    receive-crate: Přijmout truhlu
+    receive-key: Obdržet klíč
+    identifier: Identifikátor
+    display-name: Zobrazovaný název
+    line: Řádek
+    swap-engine: Vyměnit motor
+    edit-engine: Upravit motor
+    documentation: Dokumentace
+    not-installed: Není nainstalováno
+    not-available: Není k dispozici
+    not-enabled: Není povoleno
+    command: příkaz
+    none: Žádný
+    action: Akce
+    color: Barva
+    flag: Příznak
+    pattern: Vzor
+    enchant: Očarování
+    effect: Efekt
+    value: Hodnota
+    red: Červená
+    green: Zelená
+    blue: Modrá
+    item-model: Model předmětu
+    tooltip-style: Styl popisku
+    trim-material: Materiál lemování
+    trim-pattern: Vzor lemování
+    model-data: Data modelu
+    title: Název
+    particle: Částice
+    velocity: Rychlost
+    spread: Rozptyl
+    offset-x: Posun X
+    offset-y: Posun Y
+    offset-z: Posun Z
+    change-amount-money: Změnit částku peněz
+    money-necessary: Peníze nutné
+    vault-installed: Vault nainstalován
+    points-installed: PlayerPoints nainstalován
+    swap-cost-engine: Mechanika ceny výměny
+    set-cost-amount: Nastavit částku ceny
+    cost-amount: Výše ceny
+    required: Požadováno
+    permission: Povolení
+    crate: Truhla
+    key: Klíč
+    reward: Odměna
+    multiple-rewards: Více odměn
+    items: Předměty
+    cancel: Zrušit
+    animation: Animace
+    limited-time-offer: Nabídka na omezenou dobu
+    see-more: Zobrazit více
+    attach-block: Připojit blok
+    reorder-reward: Změnit pořadí odměny
+    set-as-default-display-name: Nastavit jako výchozí zobrazovaný název
+    set-as-default-display-lore: Nastavit jako výchozí popis
+    update-block: "Aktualizovat blok"
+    percentage: Procento
+    weight: "Váha"
+    chance: Šance
+    win-limit: Limit výher
+    global-win-limit: Globální limit výher
+    win-limit-cooldown: Cooldown limitu výher
+    global-win-limit-cooldown: Globální cooldown limitu výher
+    time-limited-cooldown: Časově omezený cooldown
+    unlimited: Neomezený
+    virtual: Virtuální
+    broadcast: Vysílat
+    paid: Placené
+    free: Zdarma
+    save: Uložit
+    leave: Opustit
+    select: Vybrat
+    add: Přidat
+    edit: Upravit
+    remove: Odebrat
+    confirm: Potvrdit
+    decline: Odmítnout
+    locked-field: Uzamčené pole
+    add-items: Přidat předměty
+    no-cooldown: Žádný cooldown
+    current: Aktuální
+    first: První
+    second: Druhý
+    third: Třetí
+    to-choose: K výběru
+    not-colorable: Nelze zabarvit
+    previous-phase: Předchozí fáze
+    next-phase: Další fáze
+    default-menu: Výchozí menu
+    amount: "Částka"
+    migrate-files: "Migrace souborů"
+    rerolls: "Přehazování"
+    group: "Skupina"
+    broadcast-message: "Vysílat zprávu"
+    only-premium: "Dostupné na premium"
+    sharing: "Sdílení"
+    everyone: "Každý"
+    openings: "Otevření"
+    required-keys: "Požadované klíče"
+    key-required: "Klíč požadován"
+    crates-linked: "Truhly propojené"
+    keys-linked: "Klíče propojené"
+    rarity: "Vzácnost"
+    synced: "Synchronizováno"
+    not-set: "Není nastaveno"
+    clear-lines: "Vymazat řádky"
+    add-empty-line: "Přidat prázdný řádek"
+    receive-placeable-crate: Obdržet umístitelnou truhlu
+    disable-money-requirement: Zakázat požadavek na peníze
+  readers:
+    exit-session: "&aChcete-li opustit tuto relaci napište &e\\\"zrušit\\\"&a."
+    write-chat: "&aNapište do chatu."
+  time:
+    week: "Týden"
+    weeks: "Týdny"
+    day: "Den"
+    days: "Dny"
+    hour: "Hodina"
+    hours: "Hodiny"
+    minute: "Minuta"
+    minutes: "Minuty"
+    second: "Sekunda"
+    seconds: "Sekundy"
+
+  unlock-addon:
+    - "&cVyžaduje addon %addon%."
+    - "&4Odemknout na phoenixplugins.com"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ Příkazy Phoenix Crates"
+      - "%commands%"
+      - ""
+      - "&e➥ Další informace:"
+      - " &9<argument> - požadovaný argument"
+      - " &3[argument] - volitelný argument"
+    usage: "&e➥ Použití:"
+    create: " &f/%command% create &9<identifier> &8- &7Vytvořit typ truhly"
+    delete: " &f/%command% delete &9<identifier> &8- &7Smazat typ truhly"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7Dejte si truhlu k umístění"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8-
+      &7Dejte hráči (nebo všem hráčům) klíč"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7Dejte všem
+      online hráčům klíč"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8- &7Nastavit
+      virtuální klíče hráče"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7Nastavit
+      virtuální klíče hráče"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7Umožňuje vám
+      prohlížet odměny z truhly"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7Dejte hráči (nebo všem hráčům) přehazování"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8-
+      &7Odeberte přehazování hráče"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8-
+      &7Dejte hráči (nebo všem hráčům) odměnu z truhly"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7Dej hráči(nebo všem hráčům) náhodnou odměnu z bedny"
+    editor: " &f/%command% editor &8- &7Umožňuje vám upravovat všechny truhly ve hře"
+    reload: " &f/%command% reload &8- &7Načíst všechny konfigurační soubory
+      PhoenixCrates"
+  player-offline: "&cHráč %name% není online!"
+  not-a-number: "&cZadaná částka není číslo."
+  plugin-reloaded: "&aPhoenixCrates byl úspěšně načten."
+  crate-type-created: "&aTyp truhly byl úspěšně vytvořen."
+  crate-type-deleted: "&aTyp truhly byl úspěšně smazán."
+  cooldown-reset: "&aCooldown pro &e%player% &au truhly &e%crate% &a byl resetován."
+  cooldown-reset-received: "&aTvůj cooldown pro truhlu &e%crate% &a byl resetován."
+  cooldown-reset-no-cooldown: "&cU této truhly není nastaven žádný cooldown."
+  cooldown-reset-not-active: "&cTento hráč pro tuto truhlu nemá aktivní cooldown."
+  global-win-limit-reset: "&aGlobální počet výher pro odměnu &e%reward% &au truhly
+    &e%crate% &a byl resetován."
+  global-win-limit-not-tracked: "&cU této odměny není nastaven globální limit
+    výher, tudíž není co resetovat."
+  reward-cooldown-started: "&aČasově omezený cooldown pro odměnu &e%reward% &au
+    truhly &e%crate% &a byl spuštěn."
+  reward-cooldown-started-all: "&aČasově omezený cooldown byl spuštěn pro
+    &e%amount% &aodměn na truhle &e%crate%&a."
+  reward-cooldown-not-configured: "&cU této odměny není nastaven časově omezený cooldown."
+  reward-cooldown-none-configured: "&cŽádné odměny na této truhle nemají nastaven časově omezený cooldown."
+  check-keys-header: "&#ffd500&l%player%'s Klíče:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7Klíč(ů)"
+  check-keys-none: "&7- &7Žádné virtuální klíče."
+  key-deleted: "&aKlíč byl úspěšně smazán."
+
+  key-given: "&e%amount% &aklíč(e) byly úspěšně uděleny hráči %player%."
+  key-given-all: "&a%amount% klíč(e) byly úspěšně dány všem online hráčům."
+  key-given-offline: "&e%amount% &aklíč(e) byly úspěšně uděleny hráči %player%."
+  key-set: "&e%amount% &aklíč(e) byly úspěšně nastaveny hráči %player%."
+  key-taken: "&e%amount% &aklíč(e) byly úspěšně odebrány hráči %player%."
+
+  key-received: "&aObdrželi jste &ex%amount% &7%display_name% &r&aklíč(e)."
+  virtual-key-received: "&aObdrželi jste &ex%amount% &7%display_name% &r&avirtuální klíč(e)."
+
+  key-lost: '&c%amount% klíč(ů) pro krabici &2\"%display_name%&2\"&c byl(a) odebrán(a)!'
+  virtual-key-lost: '&c%amount% virtuální klíč(ů) pro krabici
+    &2\"%display_name%&2\"&c byl(a) odebrán(a)!'
+
+  crate-rerolls-received: '&aObdržel(a) jsi %amount% přehodnocení pro krabici
+    &2\"%display_name%&2\"&a!'
+
+  crate-given: "&e%amount% &atruhla(y) byly úspěšně uděleny hráči %player%."
+
+  random-reward-given: "&aNáhodná odměna byla úspěšně udělena hráči %player%."
+  no-available-rewards: "&cTato truhla nemá žádné dostupné odměny."
+
+  crate-received: "&aObdrželi jste &ex%amount% &7%display_name% &r&atruhla(y)."
+  crate-no-placed-instances: "&cNebyla nalezena žádná umístěná truhla typu &e%crate%&c."
+  crate-open-command-disabled: "&cTruhla &e%crate% &cnelze touto příkazem otevřít."
+  crate-type-dont-exist: '&cNeexistuje žádný typ krabice s identifikátorem \"%identifier%\"!'
+  crate-type-already-exist: '&cTyp krabice s identifikátorem \"%identifier%\" již existuje!'
+  key-dont-exist: '&cNeexistuje žádný klíč s identifikátorem \"%identifier%\"!'
+  key-already-exist: '&cKlíč s identifikátorem \"%identifier%\" již existuje!'
+  need-plugin-reload: "&6Je potřeba restartovat plugin!"
+
+  crate:
+    disabled: "&cTato bedna je momentálně zakázaná!"
+    quick-open-available: "&eSehněte se a klikněte znovu, abyste preskočili animaci
+      a otevřeli další krabici."
+    already-opening: "&cNěkdo již otevírá tuto krabici, počkejte!"
+    no-linked-key: "&cTato krabice nemá žádné propojené klíče!"
+    no-key: "&cPotřebujete %key%&r&c k otevření této krabice!"
+    no-keys: "&cNemáte dostatek klíčů k otevření této krabice!"
+    no-keys-amount: "&cPotřebujete %amount% klíč(ů) k otevření této truhly."
+    redeem-no-keys: "&cPotřebujete %required_keys% klíč(ů) k uplatnění této odměny."
+    cooldown-wait: "&cMusíte počkat na %cooldown%, než znovu otevřete tuto krabici."
+    cost-engine-not-installed: "&cZdá se, že engine mincí není nastaven (kontaktujte administrátora)."
+    no-money-none: "&cTuto truhlu nyní nemůžete otevřít."
+    no-money-level: "&cPotřebujete %money% k otevření této truhly."
+    no-money-vault: "&cPotřebujete %money% k otevření této truhly."
+    no-money-playerpoints: "&cPotřebujete %money% PlayerPoints k otevření této truhly."
+    no-money-votingplugin: "&cPotřebujete %money% hlasovacích bodů k otevření této truhly."
+    no-money-excellenteconomy: "&cPotřebujete %money% k otevření této truhly."
+    money-used-none: "&aOtevřeli jste tuto truhlu."
+    money-used-level: "&aPrávě jste použili %money_consumed% k otevření této truhly."
+    money-used-vault: "&aPrávě jste použili %money_consumed% k otevření této truhly."
+    money-used-playerpoints: "&aPrávě jste použili %money_consumed% PlayerPoints k
+      otevření této truhly."
+    money-used-votingplugin: "&aPrávě jste použili %money_consumed% hlasovacích bodů
+      k otevření této truhly."
+    money-used-excellenteconomy: "&aPrávě jste použili %money_consumed% k otevření této truhly."
+    need-crouched: "&eAby jste tuto krabici odstranili, musíte být sehnuti."
+    successfully-removed: "&aÚspěšně jste odstranili tuto krabici."
+    successfully-placed: "&aÚspěšně jste umístili krabici!"
+    reward-received: "&aObdržel(a) jsi &ex%amount% %item%"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fobdržel: &ex%amount% &r%reward%"
+    no-rewards: "&cTato krabice nemá žádné odměny."
+    no-available-rewards: "&cTato krabice nemá žádné dostupné odměny."
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cChvíli počkejte! Stále načítáme vaše data. Zkuste krabici
+      znovu otevřít za chvíli!"
+    guaranteed-win-openings: "&3Zaručená výhra v %openings% otevření(ích)"
+    no-permission: "&cNemáte povolení otevřít tuto krabici! [Vyžaduje povolení: %permission%]"
+    cooldown-display:
+      counting: "&fMůžete znovu otevřít za &e%cooldown%"
+      over: "&aDostupné k otevření"
+    hologram-type-limited: "&cTento hologramový engine podporuje pouze jednu
+      umístěnou truhlu pro každý typ."
+    no-money: "&cPotřebujete %necessary_money%$ k otevření této krabice."
+    money-used: "&aPrávě jste použili %money_consumed%$ na otevření této krabice."
+    crate:
+      no-rewards-for-key-rarities: "&cTato truhla nemá žádné odměny dostupné pro vzácnosti vašich klíčů:
+        %rarities%"
+  actions:
+    need-item: "&cMusíte přidat položku, abyste mohli tuto akci provést."
+    force-close: "&cNuceně jste zrušili, co jste dělali."
+
+  layout:
+    actions:
+      left-click: "&6Levý klik: &e%action%."
+      right-click: "&6Pravý klik: &e%action%."
+      left-right-click: "&6Levá/pravá klik: &e%action%."
+      shift-left-click: "&6Shift + levý klik: &e%action%."
+      shift-right-click: "&6Shift + pravý klik: &e%action%."
+      drag-drop-click: "&6Přetáhnout a pustit: &e%action%."
+      drop-click: "&6Stiskněte Q: &e%action%."
+      description:
+        add: Přidat %value%
+        set: Nastavit %value%
+        create: Vytvořit %value%
+        remove: Odstranit %value%
+        edit: Upravit %value%
+        delete: Smazat %value%
+        receive: Přijmout %value%
+        clear: Vymazat %value%
+        choose: Vybrat %value%
+        change: Změnit %value%
+        select: Vybrat %value%
+        replace: Nahradit %value%
+        unlink: Odpojit %value%
+        link: Propojit %value%
+        reorder: Změnit pořadí %value%
+    displays:
+      state: "&fJe %type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&fMateriál: &7%material%"
+      location:
+        empty: "&fLokace: &7Prázdné"
+        populated:
+          - "&fLokace: "
+          - " &fSvět: &7%world%"
+          - " &fX osa: &7%x%"
+          - " &fY osa: &7%y%"
+          - " &fZ osa: &7%z%"
+          - " &fYaw: &7%yaw%"
+          - " &fPitch: &7%pitch%"
+      region:
+        empty: "&fRegion: &7Prázdné"
+        populated:
+          - "&fRegion: "
+          - " &fSvět: &7%world%"
+          - " &fPozice #1: &7%minimum%"
+          - " &fPozice #2: &7%maximum%"
+      item:
+        empty: "&fPoložka: &7Prázdné"
+        populated:
+          - "&fPoložka: "
+          - " &fNázev: &7%name%"
+          - " &fLore: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&aPředchozí stránka - Stránka %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&aDalší stránka - Stránka %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cNebyla nalezena žádná data."
+        description:
+          - "&7Nebyla nalezena žádná data pomocí tohoto filtru."
+      filter:
+        title: "&aFiltr"
+        description:
+          - "&7Kliknutím sem budete mít možnost"
+          - "&7filtr pouze podle názvu."
+          - ""
+          - "&fFiltr: &e%filter%"
+          - ""
+          - "&6Levý klik: &eNastavit filtr."
+          - "&6Pravý klik: &eVymazat filtr."
+  editor:
+    messages:
+      write-identifier-chat: "&eNapište nový identifikátor do chatu."
+      identifier-updated: '&aIdentifikátor byl úspěšně aktualizován na \"%identifier%&a\"!'
+      write-displayname-chat: "&eNapište nové zobrazení jména do chatu."
+      displayname-updated: '&aZobrazení jména bylo úspěšně aktualizováno na \"%display_name%&a\"!'
+      write-in-chat: "&aNapište do chatu."
+      value-updated: "&aHodnota byla úspěšně aktualizována!"
+      write-lore-line-chat: "&eNapište novou linii lore do chatu."
+      lore-line-added: "&aLini loru byla úspěšně přidána!"
+      lore-cleared: "&aLore byla úspěšně vymazána."
+      opening-animation-changed: "&aAnimace otevírání byla úspěšně změněna."
+      crate-type-deleted: Typ krabice byl úspěšně smazán.
+      migration-completed: "&aMigrace byla dokončena."
+    errors:
+      identifier-already-in-use: "&cTento identifikátor je již v použití."
+      no-spaces: "&cNemůže obsahovat mezery!"
+      invalid-input: "&cNeplatný vstup!"
+      invalid-number: "&cNeplatné číslo!"
+      inventory-full: "&cVáš inventář je plný."
+      inventory-full-reward: "&cOdměna v podobě krabice byla hozena na zem, protože
+        váš inventář je plný!"
+      inventory-full-key: "&cKlíč byl upuštěn na zem, protože je váš inventář plný!"
+      username-not-found: "&cŽádný původní účet se jménem %username% nebyl nalezen."
+      invalid-rewards: "Existují %amount% neplatné odměny!"
+      no-rewards-configured: "Žádné odměny nejsou nakonfigurovány!"
+      invalid-reward-display: "Neplatná odměna: Nalezen prázdný zobrazovací předmět!"
+      hologram-engine-missing: "&cData hologramu odkazují na jiný plugin! Změňte
+        prosím Hologram Engine v nastavení pluginu."
+    titles:
+      main: Phoenix Crates v%version% > Editor
+      crates: Editor > Krabice
+      keys: Editor > Klíče
+      migrations: Editor > Migrace
+      addons: Editor > Doplnění
+      rarities: Editor > Vzácnosti
+      settings: Editor > Nastavení
+      engines:
+        bettermodel: Editor > ... > BetterModel
+      crate:
+        new: Editor > ... > Nová krabice
+        show: Editor > ... > Krabice
+        display: Editor > ... > Motor
+        menus: Editor > ... > Nabídky
+        link-keys: Editor > ... > Propojit klíče
+        idle-animation: Editor > ... > Nečinná animace
+        opening-animations: Editor > ... > Animace otevírání
+        opening-animation: Editor > ... > Animace otevírání
+        effect: Editor > ... > Efekt animace
+        rewards: Editor > ... > Odměny
+        reward: Editor > ... > Odměna
+        reward-cooldowns: Editor > ... > Cooldowny odměn
+        reward-requirements: Editor > ... > Požadavky na odměnu
+        reward-cooldown-duration: Editor > ... > Doba trvání cooldownu odměny
+        reward-items: Editor > ... > Upravit odměnové předměty
+        reward-commands: Editor > ... > Upravit odměnové příkazy
+        reward-rarity: Editor > ... > Vzácnost odměny
+        multiple-rewards: Editor > ... > Přidat více odměn
+        engine: Editor > ... > Motor
+        hologram: Editor > ... > Hologram
+        milestones: "Editor > ... > Milníky"
+        rerolling: "Editor > ... > Znovu hodit"
+        others: "Editor > ... > Ostatní"
+        open-cost: "Editor > ... > Náklady otevření"
+      key:
+        show: Editor > ... > Klíč
+        linked-crates: Editor > ... > Propojené krabice
+
+    main:
+      crates:
+        title: "&aKrabice"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7zkoumat a spravovat všechny dostupné krabice."
+      keys:
+        title: "&aKlíče"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7zkoumat a spravovat všechny dostupné klíče."
+      rarities:
+        title: "&aVzácnosti"
+        description:
+          - "&7Kliknutím sem můžete nakonfigurovat"
+          - "&7a spravovat systém vzácnosti."
+      migrations:
+        title: "&aMigrace"
+        description:
+          - "&7Zkoumejte možnosti migrace z jiných pluginů pro krabice"
+          - "&7a spravujte proces migrace kliknutím sem."
+      addons:
+        title: "&aDoplnění"
+        description:
+          - "&7Zkoumejte další funkce a vylepšení"
+          - "&7kliknutím sem pro přístup k nabídce doplnění."
+      settings:
+        title: "&aNastavení"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7zkoumat a přizpůsobit nastavení pluginu."
+      reload:
+        title: "&aReload Config"
+        description:
+          - "&7Kliknutím sem spustíte"
+          - "&7aktualizaci všech konfigurací pluginu."
+      pouches:
+        title: "&aPytlíky"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7spravovat všechny pytlíky."
+      crate-claim:
+        title: "&aVyzvednutí bedny"
+        description:
+          - "&7Kliknutím sem můžete nastavit"
+          - "&7chování vyzvednutí beden a nabídek."
+    migrations:
+      plugin:
+        title: "&aMigrovat z %name%"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7Kliknutím sem budete mít možnost"
+          - "&7migrovat některé soubory z %name% do tohoto pluginu."
+          - ""
+          - "&aPodporované soubory:"
+          - "&8 &7- %files%"
+          - ""
+          - "&fPodporovaná databáze: %database%"
+    addons:
+      loading:
+        title: "&eNačítání..."
+        description:
+          - "&7Doplňky se načítají,"
+          - "&7počkávejte několik sekund."
+      empty:
+        title: "&cŽádné doplnění k dispozici"
+        description:
+          - "&7Žádné záznamy nebyly nalezeny"
+          - "&7podle aktuálního filtru."
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&fCena: &a%price%"
+    settings:
+      language:
+        title: "&aJazyk"
+        description:
+          - "&7Tato možnost vám umožňuje změnit"
+          - "&7základní jazyk, který tento plugin použije"
+          - ""
+          - "&e&nVždy můžete konfigurovat translations.en.yml."
+      key-mainhand:
+        title: "&aPožadavek na klíč v hlavní ruce"
+        description:
+          - "&7Tato možnost vám umožňuje určit"
+          - "&7zda hráči budou muset mít"
+          - "&7klíč v hlavní ruce k otevírání beden."
+      crate-knockback:
+        title: "&aKnočback Krabice"
+        description:
+          - "&7Tato možnost vám umožňuje měnit"
+          - "&7odraz, který hráč obdrží při pokusu"
+          - "&7otevřít krabici se špatným klíčem."
+      crate-despawn-range:
+        title: "&aDosah Zmiznutí Krabice"
+        description:
+          - "&7Tato možnost vám umožňuje definovat"
+          - "&7vzdálenost, při které efekty"
+          - "&7přestanou být zobrazeny hráči."
+          - ""
+          - "&c&nVysoké hodnoty nejsou doporučovány, protože mohou způsobit
+            zpoždění."
+      crate-quick-open:
+        title: "&aRychlé Otevírání Krabice"
+        description:
+          - "&7Tato možnost umožňuje hráčům"
+          - "&7rychle otevřít při držení krabice"
+          - "&7klíče a při klikání pravým tlačítkem."
+          - ""
+          - "&e&nFunguje pouze s okamžitými otevíráními krabic!"
+      disable-confirmation-menus:
+        title: "&aVypnout potvrzovací nabídky"
+        description:
+          - "&7Tato možnost vám umožní přeskočit"
+          - "&7potvrzovací nabídky takže hráči přejdou"
+          - "&7přímo k akci."
+      crate-claim:
+        title: "&aUplatnění truhly"
+        description:
+          - "&7Kliknutím sem můžete nakonfigurovat"
+          - "&7chování uplatnění truhly a nabídky."
+    keys:
+      key:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Kliknutím sem budete"
+          - "&7moci konfigurovat tento klíč."
+        identifier:
+          title: "&aIdentifikátor"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7přejmenovat identifikátor vašeho klíče."
+            - "&eTento identifikátor musí být jedinečný."
+        display-name:
+          title: "&aZobrazovaný název"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7přejmenovat svůj klíč."
+        link-crates:
+          title: "&aPropojit Krabice"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7propojit krabice s tímto klíčem."
+        enabled:
+          title: "&aPovolené"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7změnit, zda je tento klíč k dispozici."
+        delete:
+          title: "&aSmazat Klíč"
+          description:
+            - "&7Kliknutím sem bude tento klíč"
+            - "&7smazán ze serveru."
+            - "&eVšechny klíče ve světě již nebudou platné."
+        item:
+          title: "&aPoložka Klíče"
+          description:
+            - "&7Přizpůsobená položka klíče, která může"
+            - "&7být použita k otevření krabice."
+      add:
+        title: "&aPřidat Klíč"
+        description:
+          - "&7Kliknutím sem budete"
+          - "&7moci vytvořit klíč."
+    crates:
+      type:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Kliknutím sem budete"
+          - "&7moci konfigurovat tuto krabici."
+      add:
+        title: "&aPřidat Krabici"
+        description:
+          - "&7Kliknutím sem budete"
+          - "&7moci vytvořit typ krabice."
+    crate:
+      identifier:
+        title: "&aIdentifikátor"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7přejmenovat identifikátor vaší krabice."
+          - "&eTento identifikátor musí být jedinečný."
+      item:
+        title: "&aPředmět"
+        description:
+          - "&7Zobrazovaný předmět, který bude"
+          - "&7použit k reprezentaci této truhly."
+        name:
+          title: "&aNázev předmětu"
+          description:
+            - "&7Název, který bude použit"
+            - "&7k reprezentaci tohoto předmětu"
+        lore:
+          title: "&aPopis předmětu"
+          description:
+            - "&7Popis, který bude použit"
+            - "&7k reprezentaci tohoto předmětu"
+      link-keys:
+        title: "&aPropojit Klíče"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7propojit klíče s touto bednou."
+      animations:
+        title: "&aAnimace"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7změnit animace této krabice."
+          - ""
+          - "&fMůžete konfigurovat:"
+          - "&8> &aNečinná Animace"
+          - "&8> &aOtevírací Animace"
+      rerolls:
+        title: "&aPřehodnocení"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7definovat přehodnocení této krabice."
+      mass-opening:
+        title: "&aHromadné Otevírání"
+        description:
+          - "&7Kliknutím sem můžete konfigurovat"
+          - "&7nastavení hromadného otevírání krabice."
+      display-settings:
+        block-material:
+          title: "&aMateriál Bloku"
+          description:
+            - "&7Kliknutím sem budete"
+            - "&7moci změnit materiál, který"
+            - "&7bude použit pro blok krabice."
+        crate-engine:
+          title: "&aEngine bloku truhly"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7změnit engine a přizpůsobit jej."
+            - ""
+            - "&b➥ Vanilla Block engine:"
+            - "&7Standardní truhla založená na materiálu."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Vanilla Model engine: &9(1.12+)"
+            - "&7Statický model z vlastního resource packu."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model Engine / Better Model:"
+            - "&7Vlastní model s animacemi."
+            - ""
+            - "&fEnginy:"
+        rewards-mode:
+          title: "&aRežim Odměn"
+          description:
+            - "&7Kliknutím sem můžete změnit"
+            - "&7režim, který tento systém odměn použije."
+            - ""
+            - "&b➥ Náhodný Režim:"
+            - "&7Odměny budou vybírány náhodně na základě"
+            - "&7jejich přidělených váh (šancí). To"
+            - "&7režim přidává prvek překvapení a štěstí."
+            - ""
+            - "&b➥ Selekční Režim:"
+            - "&7Tento režim odstraňuje náhodnost, což umožňuje"
+            - "&7uživatelům přímo vybrat odměnu, kterou"
+            - "&7chtějí z dostupných možností. Ideální pro"
+            - "&7dávání uživatelům kontrolu nad jejich odměnami."
+            - ""
+            - "&fRežimy:"
+        hologram:
+          title: "&aHologram"
+          description:
+            - "&7Kliknutím sem budete schopni"
+            - "&7nastavit hologram nad touto krabicí."
+        idle-animation:
+          title: "&aAnimace Nečinnosti"
+          description:
+            - "&7Kliknutím sem budete schopni"
+            - "&7přizpůsobit animaci nečinnosti této krabice."
+            - ""
+            - "&7Animace nečinnosti se objeví, když"
+            - "&7hráč právě neotevírá tuto krabici."
+        opening-animation:
+          title: "&aAnimace Otevírání"
+          description:
+            - "&7Kliknutím sem budete schopni"
+            - "&7přizpůsobit animaci otevírání této krabice."
+            - ""
+            - "&fJak funguje animace otevírání?"
+            - "&7Tato animace se skládá ze 3 fází, každá"
+            - "&7fáze se skládá z různých mini-animací"
+            - "&7a vlastností. Zjednodušeně, fáze"
+            - "&7představují začátek, prostředek a konec animace."
+            - ""
+            - "&7Také pokud používáte motor, který podporuje"
+            - "&7animace modelu, můžete synchronizovat určité model"
+            - "&7animace s každou úrovní."
+        engine-mode:
+          title: "&aRežim Enginu"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7změnit engine, který tato krabice použije."
+            - ""
+            - "&b➥ Vanilla Block engine:"
+            - "&7Výchozí motor krabice, zobrazení bude"
+            - "&7materiál vybraný jako blok této krabice."
+            - ""
+            - "&b➥ Vanilla Model engine: &9(1.12+)"
+            - "&7Možnost přiřadit vlastní statický model ke krabici"
+            - "&7ale nepodporuje animace. To podporuje vanilkové modely"
+            - "&7prostřednictvím materiálu a dat vlastního modelu."
+            - ""
+            - "&b➥ Ostatní: &9(1.16.5+)"
+            - "&7Možnost přiřadit vlastní model krabici jako"
+            - "&7také vlastní animaci otevírání."
+            - ""
+            - "&fMotory:"
+      open-cooldown:
+        title: "&aCooldown pro Otevírání"
+        description:
+          - "&7Klikněte sem, abyste změnili počet"
+          - "&7čas, který bude muset hráč čekat"
+          - "&7na otevření další krabice."
+      open-cost:
+        title: "&aMechanika nákladů za otevření"
+        description:
+          - "&7Kliknutím zde můžete definovat"
+          - "&7dodatečnou metodu otevření této truhly"
+          - ""
+          - "&e&lTip&r&e: &7Vypněte požadavek na klíč pro použití"
+          - "      &7tuto metodu jako hlavní."
+      open-cost-amount:
+        title: "&aVýše poplatku za otevření"
+        description:
+          - "&7Množství měny, které bude"
+          - "&7účtováno při otevření této bedny."
+      open-cost-currency:
+        title: "&aMěna"
+        description:
+          - "&7Měna ExcellentEconomy, která"
+          - "&7bude použita k účtování poplatku."
+      simultaneous-openings:
+        title: "&aSoučasná Otevírání"
+        description:
+          - "&7Tato možnost vám umožňuje definovat"
+          - "&7zda jeden nebo více hráčů může"
+          - "&7otevřít tuto krabici současně."
+          - ""
+          - "&e&nRychlé Otevření je zakázáno"
+          - "&e&nbez simultánních otevření"
+      preview-reward:
+        title: "&aNáhled Odměny"
+        description:
+          - "&7Kliknutím sem povolíte"
+          - "&7náhled odměny nad každou krabicí."
+      permission-required:
+        title: "&aPožadavek na Oprávnění"
+        description:
+          - "&7Kliknutím sem nastavíte"
+          - "&7oprávnění, které hráč musí mít"
+          - "&7pro otevření této krabice."
+      rewards:
+        title: "&aOdměny"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7konfigurovat všechny odměny, které hráč"
+          - "&7může získat otevřením této krabice."
+        add:
+          title: "&aPřidat Odměnu"
+          description:
+            - "&7Kliknutím sem můžete začít"
+            - "&7nastavovat novou odměnu v této krabici."
+        edit:
+          title: "&aOdměna #%position%"
+          description: []
+        multiple-rewards:
+          title: "&aPřidat Více Odměn"
+          description:
+            - "&7Kliknutím sem můžete"
+            - "&7přidat více odměn najednou."
+        reordering:
+          title: "&aPřeřazení"
+          description:
+            - "&7Kliknutím sem můžete seřadit"
+            - "&7odměny v pořadí, jaké si přejete."
+          selected:
+            title: "&eVybráno"
+        win-amount:
+          title: "&aMaximální Vyhrané Odměny"
+          description:
+            - "&7Kliknutím sem můžete definovat"
+            - "&7kolik odměn hráč vyhraje najednou."
+      reward:
+        drag-item:
+          title: "&aPřenést předmět"
+          description:
+            - "&7Přetáhněte libovolný předmět pro nastavení odměny."
+            - ""
+            - "&6Přetáhnout & Uvolnit: Nahradit předmět."
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6Přetáhnout & Uvolnit: &eNahradit předmět."
+        identifier:
+          title: "&aZměnit Identifikátor"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7přejmenovat identifikátor vaší odměny."
+            - "&eTento identifikátor musí být jedinečný."
+        display-item:
+          title: "&aZobrazit Předmět"
+          description:
+            - "&7Tento předmět bude sloužit jako zobrazení"
+            - "&7reprezentující odměnu pro tuto krabici."
+          name:
+            title: "&aZobrazit Název"
+            description:
+              - "&7Název, který bude použit"
+              - "&7k reprezentaci této Odměny"
+          lore:
+            title: "&aZobrazit Lore"
+            description:
+              - "&7Lore, které bude použito"
+              - "&7k reprezentaci této Odměny"
+        alternative-item:
+          title: "&aAlternativní Předmět"
+          description:
+            - "&7Tento předmět bude dalším předmětem, který uživatel"
+            - "&7obdrží, pokud budou splněny podmínky."
+        win-items:
+          title: "&aVyhrané Předměty"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7přidat předměty, které hráč"
+            - "&7obdrží při vyhrání této odměny."
+          add-item:
+            title: "&aPřidat Předmět"
+            description:
+              - "&7Přetáhněte předmět z vašeho inventáře"
+              - "&7sem, abyste jej přidali jako předmět pro tuto odměnu."
+        weight:
+          title: "&aVáha"
+          description:
+            - "&7Váha bude přispívat k"
+            - "&7šanci hráče na získání tohoto předmětu."
+        virtual:
+          title: "&aVirtuální Předmět"
+          description:
+            - "&7Tato volba určuje, zda vítěz."
+            - "&7by měl obdržet fyzický předmět, nebo ne."
+        win-commands:
+          title: "&aVyhrát Příkazy"
+          description:
+            - "&7Kliknutím sem můžete spravovat"
+            - "&7všechny příkazy, které budou vykonány"
+            - "&7když hráč vyhraje tuto odměnu."
+        max-win-item-amount:
+          title: "&aMaximální počet výherních předmětů"
+          description:
+            - "&7Nastavuje maximální počet předmětů"
+            - "&7ze seznamu výherních předmětů, které budou"
+            - "&7uděleny, když je tato odměna vyhrána."
+            - "&7Nastavte na &e∞ &7pro žádné omezení."
+        max-win-command-amount:
+          title: "&aMaximální počet výherních příkazů"
+          description:
+            - "&7Nastavuje maximální počet příkazů"
+            - "&7ze seznamu výherních příkazů, které budou"
+            - "&7vykonány, když je tato odměna vyhrána."
+            - "&7Nastavte na &e∞ &7pro žádné omezení."
+        broadcast:
+          title: "&aZpráva o Přenosu"
+          description:
+            - "&7Tato volba určuje, zda má být"
+            - "&7zobrazena zpráva o přenosu, když hráč vyhraje tuto odměnu."
+        share-players-online:
+          title: "&aSdílet s Hráči Online"
+          description:
+            - "&7Tato volba určuje, zda má být tato odměna"
+            - "&7sdílena se všemi online."
+        allow-win-message:
+          title: "&aPovolit zprávu o výhře"
+          description:
+            - "&7Tato volba určuje, zda hráč obdrží"
+            - "&7zprávu při vyhrání této odměny."
+        notification-types:
+          title: "&aTyp oznámení"
+          description:
+            - "&7Kliknutím sem můžete změnit"
+            - "&7způsob, kterým je zpráva o výhře odesílána."
+        enabled:
+          title: "&aPovoleno"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7změnit, zda je tato odměna dostupná."
+        win-limit:
+          title: "&aLimit Výher"
+          description:
+            - "&7Tato volba určuje, kolikrát"
+            - "&7může hráč tuto odměnu vyhrát."
+            - ""
+            - "&e&lTIP: &7Můžete to spojit s"
+            - "       &7alternativní odměnou."
+        global-win-limit:
+          title: "&aGlobální limit výher"
+          description:
+            - "&7Tato volba určuje, kolikrát"
+            - "&7může být tato odměna vyhrána"
+            - "&7všemi hráči na serveru dohromady."
+            - ""
+            - "&e&lTIP: &7Můžete to zkombinovat"
+            - "       &7s alternativní odměnou."
+        cooldowns:
+          title: "&aCooldowny"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7konfigurovat cooldowny "
+            - "&7této odměny."
+          win-limit-cooldown:
+            title: "&aCooldown limitu výhry"
+            description:
+              - "&7Tato volba určuje, jak dlouho musí hráč"
+              - "&7čekat, než bude moci"
+              - "&7znovu vyhrát tuto odměnu."
+          global-win-limit-cooldown:
+            title: "&aGlobální cooldown limitu výher"
+            description:
+              - "&7Tato volba určuje, jak dlouho musí uplynout"
+              - "&7než může být tato odměna znovu vyhrána"
+              - "&7kýmkoli na serveru."
+          time-limited-cooldown:
+            title: "&aČasově omezený cooldown"
+            description:
+              - "&7Tato volba určuje, jak dlouho bude"
+              - "&7tato odměna zůstane dostupná poté, co její"
+              - "&7cooldown začne."
+              - ""
+              - "&7Když vyprší, odměna se"
+              - "&7automaticky deaktivuje."
+          duration:
+            weeks:
+              title: "&aTýdny"
+              description:
+                - "&7Počet týdnů k přidání"
+                - "&7k trvání tohoto cooldownu."
+            days:
+              title: "&aDny"
+              description:
+                - "&7Počet dní k přidání"
+                - "&7k trvání tohoto cooldownu."
+            hours:
+              title: "&aHodiny"
+              description:
+                - "&7Počet hodin k přidání"
+                - "&7k trvání tohoto cooldownu."
+            minutes:
+              title: "&aMinuty"
+              description:
+                - "&7Počet minut k přidání"
+                - "&7k trvání tohoto cooldownu."
+            disable:
+              title: "&cZakázat cooldown"
+              description:
+                - "&7Nastaví délku tohoto cooldownu"
+                - "&7zpět na nulu, čímž ho deaktivuje."
+        requirements:
+          title: "&aPožadavky"
+          description:
+            - "&7Nakonfigurujte požadavky na oprávnění"
+            - "&7pro tuto odměnu."
+          required-permission:
+            title: "&aPožadované oprávnění"
+            description:
+              - "&7Nastavte oprávnění, které musí hráč mít"
+              - "&7aby viděl tuto odměnu jako dostupnou."
+              - "&7Pokud hráč toto oprávnění nemá, odměna"
+              - "&7se v náhledu zobrazí jako zamčená."
+        restricted-permissions:
+          title: "&aOmezená oprávnění"
+          description:
+            - "&7Tato možnost definuje"
+            - "&7omezená oprávnění, která hráč"
+            - "&7nemůže mít, aby získal tuto odměnu."
+            - "&eTo se neuplatní, pokud má hráč op."
+            - ""
+            - "&e&lTIP: &7Můžete to kombinovat"
+            - "       &7s alternativní odměnou."
+        alternative-reward:
+          title: "&aAlternativní odměna"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7konfigurovat alternativní"
+            - "&7odměnu této odměny."
+            - ""
+            - "&7Pokud je aktivní, když hráč překročí"
+            - "&7limity výher nebo má oprávnění z blacklistu"
+            - "&7obdrží tuto odměnu místo toho."
+        delete:
+          title: "&aSmazat odměnu"
+          description:
+            - "&7Kliknutím sem bude tato odměna"
+            - "&7smazána z této bedny."
+        percentage:
+          title: "&aProcento"
+          description:
+            - "&7Procento přispěje k"
+            - "&7šanci hráče na vyhrání tohoto předmětu."
+      menus:
+        title: "&aMenu"
+        description:
+          - "&7Kliknutím sem budete moci konfigurovat"
+          - "&7všechna menu pro tuto bednu."
+      rewards-menu:
+        title: "&aMenu odměn"
+        description:
+          - "&7Kliknutím sem budete moci konfigurovat"
+          - "&7jaké menu odměn tato bedna bude mít."
+      preview-actions:
+        title: "&aAkce náhledu"
+        description:
+          - "&7Kliknutím sem můžete nakonfigurovat"
+          - "&7akce, které se spustí, když hráč"
+          - "&7klikne pro náhled této truhly."
+          - "&7Tyto lze použít společně s, nebo"
+          - "&7místo menu náhledu odměn."
+      rerolls-menu:
+        title: "&aMenu znovu hodů"
+        description:
+          - "&7Kliknutím sem budete moci konfigurovat"
+          - "&7jaké menu znovu hodů tato bedna bude mít."
+      selective-rewards-menu:
+        title: "&aMenu selektivních odměn"
+        description:
+          - "&7Kliknutím sem budete moci konfigurovat"
+          - "&7jaké menu selektivních odměn tato bedna bude mít."
+      milestones-menu:
+        title: "&aMenu milníků"
+        description:
+          - "&7Kliknutím sem budete moci konfigurovat"
+          - "&7jaké náhledové menu tato bedna bude mít."
+      broadcast-message:
+        title: "&aVysílací zpráva"
+        description:
+          - "&7Kliknutím sem budete moci konfigurovat"
+          - "&7vysílací zprávu pro odměny."
+          - ""
+          - "&eDostupné zástupné symboly:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&aPovoleno"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7změnit, zda je tato bedna dostupná."
+      allow-open-command:
+        title: "&aPovolit příkaz otevření"
+        description:
+          - "&7Kliknutím sem můžete"
+          - "&7přepnout, zda tato truhla může být"
+          - "&7otevřena pomocí &f/crate open &7příkazu."
+      attach-block:
+        title: "&aPřipojit blok"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7vytvořit bednu připojením bloku."
+      delete:
+        title: "&aSmazat bednu"
+        description:
+          - "&7Kliknutím sem bude tato bedna"
+          - "&7smazána ze serveru."
+          - ""
+          - "&e&nVšechny klíče v této bedně nebudou již platné."
+      hologram:
+        engine-mode:
+          title: "&aRežim Hologram Engine"
+          description:
+            - "&7Engine, který plugin"
+            - "&7používá pro hologramy"
+            - ""
+            - "&fEngine: &7%engine%"
+        lines:
+          title: "&aŘádky hologramu"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7konfigurovat řádky hologramu této truhly."
+            - ""
+            - "&e&lTIP: &7Můžete použít &ePlaceholderAPI&7."
+        identifier:
+          title: "&aIdentifikátor"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7definovat identifikátor pluginu hologramu."
+            - ""
+            - "&fIdentifikátor: &7%id%"
+        offset:
+          title: "&aPosun hologramu"
+          description:
+            - "&7Tato volba vám umožňuje upravit hologram"
+            - "&7pozici na základě umístění truhly."
+      display-name:
+        title: "&aZobrazovaný název"
+        description:
+          - "&7Kliknutím sem budete moci"
+          - "&7přejmenovat svou krabici."
+      open-money-cost:
+        title: "&aNáklady na Otevření Odem"
+        description:
+          - "&7Klikněte sem, abyste změnili peníze"
+          - "&7potřebné k otevření této krabice."
+          - "&7klíč a posun pravého kliknutí."
+          - ""
+          - "&e&nFunguje pouze s Vault!"
+    crate-engine:
+      first-phase-delay:
+        title: "&aZpoždění začátku první fáze"
+        description:
+          - "&7Definujte zpoždění mezi okamžikem"
+          - "&7kdy se truhla otevře a začátkem"
+          - "&7první fáze animací."
+      second-phase-delay:
+        title: "&aZpoždění začátku druhé fáze"
+        description:
+          - "&7Definujte zpoždění mezi první"
+          - "&7a druhou fází otevírací animace."
+      third-phase-delay:
+        title: "&aZpoždění začátku třetí fáze"
+        description:
+          - "&7Definujte zpoždění mezi druhou"
+          - "&7a třetí fází otevírací animace."
+      idle:
+        title: "&aAnimace v klidu"
+        description:
+          - "&7Určete animaci, která bude"
+          - "&7přehrávána, když je truhla v klidu."
+      close-animation:
+        title: "&aAnimace zavírání"
+        description:
+          - "&7Určete animaci, která bude"
+          - "&7přehrávána při zavírání truhly."
+      model-name:
+        title: "&aNázev modelu"
+        description:
+          - "&7Určete název modelu, který tato"
+          - "&7truhla bude používat."
+          - ""
+          - "&fAktuální model: &7%name%"
+      model-engine:
+        model-name:
+          title: "&aNázev modelu"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7změnit název modelu této truhly."
+            - ""
+            - "&fAktuální název: &7%name%"
+      better-model:
+        model-name:
+          title: "&aNázev modelu"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7změnit název modelu této truhly."
+            - ""
+            - "&fAktuální název: &7%name%"
+        scale:
+          title: "&aMěřítko"
+          description:
+            - "&7Určete násobitel velikosti pro tento"
+            - "&7model. 1.0 je normální velikost modelu."
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6Levý klik: &eVybrat materiál."
+        custom-model-data:
+          title: "&aVlastní data modelu"
+          description:
+            - "&7Kliknutím sem budete moci"
+            - "&7změnit vlastní data modelu této položky."
+            - ""
+            - "&fVlastní data modelu: &7%custom_model_data%"
+            - ""
+            - "&6Levý klik: &eZměnit vlastní data modelu."
+    reward-commands:
+      add:
+        title: "&aPřidat příkaz"
+        description:
+          - "&7Kliknutím sem budete moci přidat"
+          - "&7příkaz, který bude proveden, když"
+          - "&7hráč vyhraje tuto odměnu."
+          - ""
+          - "&7Příkazy, které začínají &a* &7se vykonávají hráči."
+          - "&7Jinak je vykonává konzole."
+          - ""
+          - "&7Můžete také použít placeholder &a%player%"
+          - "&7a placeholders z &aPlaceholderAPI&7."
+          - ""
+          - "&6Levý klik: &ePřidat příkaz."
+      command:
+        title: "&aPříkaz #%id%"
+        description:
+          - "&fPříkaz: &7%command%"
+          - ""
+          - "&6Levý klik: &eOdebrat příkaz."
+    alternative-reward:
+      enabled:
+        title: "&aStav"
+        description:
+          - "&7Když je alternativní odměna aktivní,"
+          - "&7pokud hráč překročí limity výher nebo"
+          - "&7má blacklist oprávnění, obdrží"
+          - "&7tuto odměnu."
+    edit-standby-animation:
+      add-effect:
+        title: "&aPřidat efekt"
+        description:
+          - "&7Kliknutím sem budete schopni"
+          - "&7přidat nový efekt do nečinné animace."
+          - ""
+          - "&6Levý klik &ePřidat efekt."
+      edit-effect:
+        title: "&eEfekt #%id%"
+        description:
+          - ""
+          - "&fTyp efektu: &7%effect_type%"
+          - "&fTyp částic: &7%particle_type%"
+          - "&fRychlost částic: &7%particle_velocity%"
+          - "&fBarva: &7%color%"
+          - "&fPosun: &7%offset%"
+          - "&fŠíření: &7%spread%"
+          - "&fMnožství: &7%amount%"
+          - ""
+          - "&6Levý klik &eUpravit efekt."
+          - "&6Shift + Levý klik: &eOdebrat efekt."
+    edit-standby-effect:
+      effect-type:
+        title: "&aTyp efektu&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6Levý/pravý klik: &ePřepnout typ."
+      particle-type:
+        title: "&aTyp částic"
+        description:
+          - "&fAktuálně: &7%particle_type%"
+          - ""
+          - "&6Levý klik: &eZměnit částici."
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&fVlastnosti: &a%properties%"
+          - ""
+          - "&6Levý klik: &eVybrat částici."
+      color:
+        title: "&aBarva"
+        description:
+          - "&fAktuálně: &7%color%"
+          - ""
+          - "&e&nFunguje pouze s barevnými částicemi."
+          - ""
+          - "&6Levý klik: &eZměnit barvu."
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6Levý klik: &eVybrat barvu."
+      spread:
+        title: "&aŠíření"
+        description:
+          - "&fAktuálně: &7%spread%"
+          - ""
+          - "&6Levý klik: &ePřidat 0.1."
+          - "&6Shift + Levý klik: &ePřidat 1."
+          - "&6Pravý klik: &eOdebrat 0.1."
+          - "&6Shift + Pravý klik: &eOdebrat 1."
+      particle-velocity:
+        title: "&aRychlost částic"
+        description:
+          - "&fAktuálně: &7%particle_velocity%"
+          - ""
+          - "&6Levý klik: &ePřidat 0.1."
+          - "&6Shift + Levý klik: &ePřidat 1."
+          - "&6Pravý klik: &eOdebrat 0.1."
+          - "&6Shift + Pravý klik: &eOdebrat 1."
+      amount:
+        title: "&aMnožství"
+        description:
+          - "&fAktuálně: &7%amount%"
+          - ""
+          - "&6Levý klik: &ePřidat 1."
+          - "&6Pravý klik: &eOdebrat 1."
+      offset-x:
+        title: "&aPosun X"
+        description:
+          - "&fAktuálně: &7%offset_x%"
+          - ""
+          - "&6Levý klik: &ePřidat 0.1."
+          - "&6Shift + Levý klik: &ePřidat 1."
+          - "&6Pravý klik: &eOdebrat 0.1."
+          - "&6Shift + Pravý klik: &eOdebrat 1."
+      offset-y:
+        title: "&aOffset Y"
+        description:
+          - "&fAktuálně: &7%offset_y%"
+          - ""
+          - "&6Levým kliknutím: &ePřidat 0.1."
+          - "&6Shift + Levým kliknutím: &ePřidat 1."
+          - "&6Pravým kliknutím: &eOdebrat 0.1."
+          - "&6Shift + Pravým kliknutím: &eOdebrat 1."
+      offset-z:
+        title: "&aOffset Z"
+        description:
+          - "&fAktuálně: &7%offset_z%"
+          - ""
+          - "&6Levým kliknutím: &ePřidat 0.1."
+          - "&6Shift + Levým kliknutím: &ePřidat 1."
+          - "&6Pravým kliknutím: &eOdebrat 0.1."
+          - "&6Shift + Pravým kliknutím: &eOdebrat 1."
+    opening-animation:
+      phase-updated: "&aFáze animace aktualizována."
+      preset-applied: "&aPřednastavení otevírací animace použito."
+      preset-removed: "&aŽádné přednastavení vybráno."
+      phase:
+        title: "&a%phase% Fáze"
+        description:
+          - "&7Každá animační sekvence je složena"
+          - "&7z fází, toto je jedna z fází."
+          - ""
+          - "&fFáze: &e%name%"
+      change-phases:
+        title: "&aFáze animace"
+        description:
+          - "&7Vyberte animace pro"
+          - "&7etapy otevírací animace."
+          - ""
+          - "&6Levým kliknutím: &eZměnit animaci."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&a%phase% Fáze"
+        description:
+          - "&7Každá animační sekvence je složena"
+          - "&7z fází, toto je jedna z fází."
+          - ""
+          - "&fFáze: &e%name%"
+          - ""
+          - "&6Levým kliknutím: &eNavigovat"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&fPožadovaná verze: &7%required_version%"
+          - ""
+          - "&6Levým kliknutím: &eVytvořit fázi."
+          - "&6Shift + Levým kliknutím: &eRychlé vytvoření fáze."
+  command:
+    info:
+      - ""
+      - "&e➥ &6Dostupné příkazy:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6Další informace:"
+      - " &9<argument> - povinný argument"
+      - " &3[argument] - volitelný argument"
+    usage:
+      - ""
+      - "&e➥ Použití:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "Omlouvám se, ale nemáte oprávnění tento příkaz provést."
+    permission-denied-parameter: "Omlouvám se, ale nemáte oprávnění tento příkaz provést."
+    error-generic-logged: "Došlo k chybě. Tento problém byl zaznamenán. Omlouváme se
+      za způsobené potíže."
+    unknown-command: "&cNeznámý příkaz, prosím napište &4%command%"
+    error-prefix: "&cChyba: %message%"
+    error-performing-command: "Omlouvám se, ale při provádění tohoto příkazu došlo k chybě."
+    please-specify-one-of: "Uveďte prosím jednu z (&2%valid%)."
+    must-be-a-number: "%num% musí být číslo."
+    must-be-min-length: "Musí mít alespoň %min% znaků."
+    must-be-max-length: "Musí mít nejvýše %max% znaků."
+    please-specify-at-most: "Zadejte prosím hodnotu nejvýše %max%."
+    please-specify-at-least: "Zadejte prosím hodnotu alespoň %min%."
+    player-offline: "Hráč %player% není online!"
+  plans:
+    unlock-premium: §cDostupné pouze v prémiové verzi.
+    unlock-pro: §cDostupné pouze v profesionální verzi.
+    upgrade-at: §4Získejte na phoenixplugins.com
+  crate-type-received: "&aObdržel(a) jsi umístěnou krabici."
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% Krabice"
+      lore: "&7Umístěte tuto krabici někam!"
+  loading-data: "&7Načítám data hráče..."

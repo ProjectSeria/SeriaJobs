@@ -1,0 +1,1439 @@
+vi:
+  error-processing:
+    - "&cĐã xảy ra lỗi trong khi xử lý hành động này (Kiểm tra console):"
+    - "&7%message%"
+  unknown-argument: "&cTham số không xác định!"
+  no-permission: "&cBạn không được phép thực hiện điều này!"
+  command-not-allowed: "&cBạn không được phép thực thi lệnh này!"
+  only-ingame-players: "&cLệnh chỉ cho phép sử dụng bởi người chơi trong trò chơi."
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: Cái Cuối Cùng
+    swap-option: Tùy chọn trao đổi
+    option: Tùy chọn
+    item: Mục
+    all: Tất cả
+    go-back: Quay lại
+    navigate: Điều hướng
+    reload: Tải lại
+    switch-state: Chuyển trạng thái
+    state: Trạng thái
+    empty: "&7(Trống)"
+    default: "&7(Mặc định)"
+    undefined: "&7Chưa xác định"
+    yes-word: "&aCó"
+    no-word: "&cKhông"
+    location: Vị trí
+    region: Khu vực
+    material: Vật liệu
+    # Others
+    menu: Menu
+    enabled: Đã bật
+    disabled: Đã tắt
+    range: Phạm vi
+    multiplier: Hệ số
+    cooldown: Thời gian hồi chiêu
+    receive-crate: Nhận rương
+    receive-key: Nhận chìa khóa
+    identifier: Nhà phân loại
+    display-name: Tên hiển thị
+    line: Dòng
+    swap-engine: Trao đổi động cơ
+    edit-engine: Chỉnh sửa động cơ
+    documentation: Tài liệu
+    not-installed: Chưa cài đặt
+    not-available: Không khả dụng
+    not-enabled: Chưa được kích hoạt
+    command: lệnh
+    none: Không có
+    action: Hành động
+    color: Màu
+    flag: Cờ
+    pattern: Mẫu
+    enchant: Phù phép
+    effect: Hiệu ứng
+    value: Giá trị
+    red: Đỏ
+    green: Xanh lá
+    blue: Xanh dương
+    item-model: Mô hình vật phẩm
+    tooltip-style: Kiểu tooltip
+    trim-material: Vật liệu Trim
+    trim-pattern: Mẫu Trim
+    model-data: Dữ liệu mô hình
+    title: Tiêu đề
+    particle: Hiệu ứng hạt
+    velocity: Vận tốc
+    spread: Độ tỏa
+    offset-x: Độ lệch X
+    offset-y: Độ lệch Y
+    offset-z: Độ lệch Z
+    change-amount-money: Thay đổi số tiền
+    money-necessary: Tiền cần thiết
+    vault-installed: Vault đã được cài đặt
+    points-installed: PlayerPoints đã được cài đặt
+    swap-cost-engine: Thay đổi engine chi phí
+    set-cost-amount: Đặt số tiền chi phí
+    cost-amount: Số tiền chi phí
+    required: Bắt buộc
+    permission: Quyền
+    crate: Thùng
+    key: Chìa khóa
+    reward: Phần thưởng
+    multiple-rewards: Nhiều phần thưởng
+    items: Mục
+    cancel: Hủy
+    animation: Hoạt hình
+    limited-time-offer: Ưu đãi có thời hạn
+    see-more: Xem Thêm
+    attach-block: Gắn khối
+    reorder-reward: Sắp xếp lại phần thưởng
+    set-as-default-display-name: Đặt làm tên hiển thị mặc định
+    set-as-default-display-lore: Đặt làm mô tả hiển thị mặc định
+    update-block: "Cập nhật khối"
+    percentage: Phần trăm
+    weight: "Trọng lượng"
+    chance: Cơ hội
+    win-limit: Giới hạn thắng
+    global-win-limit: Giới hạn thắng toàn cục
+    win-limit-cooldown: Thời gian hồi giới hạn thắng
+    global-win-limit-cooldown: Thời gian hồi giới hạn thắng toàn cục
+    time-limited-cooldown: Cooldown giới hạn thời gian
+    unlimited: Không giới hạn
+    virtual: Ảo
+    broadcast: Phát sóng
+    paid: Đã trả
+    free: Miễn phí
+    save: Lưu
+    leave: Rời bỏ
+    select: Chọn
+    add: Thêm
+    edit: Chỉnh sửa
+    remove: Xóa
+    confirm: Xác nhận
+    decline: Từ chối
+    locked-field: Trường bị khóa
+    add-items: Thêm mục
+    no-cooldown: Không có thời gian hồi chiêu
+    current: Hiện tại
+    first: Thứ nhất
+    second: Thứ hai
+    third: Thứ ba
+    to-choose: Để chọn
+    not-colorable: Không thể định màu
+    previous-phase: Giai đoạn trước
+    next-phase: Giai đoạn tiếp theo
+    default-menu: Menu mặc định
+    amount: "Số lượng"
+    migrate-files: "Di chuyển tệp"
+    rerolls: "Rerolls"
+    group: "Nhóm"
+    broadcast-message: "Tin nhắn phát sóng"
+    only-premium: "Chỉ có sẵn trên phiên bản cao cấp"
+    sharing: "Chia sẻ"
+    everyone: "Mọi người"
+    openings: "Mở"
+    required-keys: "Chìa khóa cần thiết"
+    key-required: "Chìa khóa cần thiết"
+    crates-linked: "Thùng liên kết"
+    keys-linked: "Chìa khóa liên kết"
+    rarity: "Độ hiếm"
+    synced: "Đã đồng bộ"
+    not-set: "Chưa thiết lập"
+    clear-lines: "Xóa các dòng"
+    add-empty-line: "Thêm dòng trống"
+    receive-placeable-crate: Nhận thùng có thể đặt
+    disable-money-requirement: Vô hiệu hóa yêu cầu tiền
+  readers:
+    exit-session: "&aĐể thoát phiên này gõ &e\\\"cancel\\\"&a."
+    write-chat: "&aViết vào chat."
+  time:
+    week: "Tuần"
+    weeks: "Tuần"
+    day: "Ngày"
+    days: "Ngày"
+    hour: "Giờ"
+    hours: "Giờ"
+    minute: "Phút"
+    minutes: "Phút"
+    second: "Giây"
+    seconds: "Giây"
+
+  unlock-addon:
+    - "&cYêu cầu %addon% Addon."
+    - "&4Mở khóa tại phoenixplugins.com"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ Lệnh Thùng Phoenix"
+      - "%commands%"
+      - ""
+      - "&e➥ Thông tin bổ sung:"
+      - " &9<argument> - tham số bắt buộc"
+      - " &3[argument] - tham số tùy chọn"
+    usage: "&e➥ Sử dụng:"
+    create: " &f/%command% create &9<identifier> &8- &7Tạo loại thùng"
+    delete: " &f/%command% delete &9<identifier> &8- &7Xóa loại thùng"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7Tặng cho mình một
+      thùng để đặt"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8- &7Tặng
+      cho một người chơi (hoặc tất cả người chơi) một chìa khóa"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7Tặng cho
+      tất cả người chơi trực tuyến một chìa khóa"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8- &7Đặt chìa
+      khóa ảo cho người chơi"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7Đặt chìa
+      khóa ảo cho người chơi"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7Cho phép bạn xem
+      trước phần thưởng thùng"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7Tặng cho một người chơi (hoặc tất cả người chơi) rerolls"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8-
+      &7Lấy rerolls của người chơi"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8-
+      &7Tặng cho một người chơi (hoặc tất cả người chơi) một phần thưởng thùng"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7Trao cho người chơi (hoặc tất cả người chơi) một phần thưởng rương ngẫu
+      nhiên"
+    editor: " &f/%command% editor &8- &7Cho phép bạn chỉnh sửa tất cả các thùng
+      trong trò chơi"
+    reload: " &f/%command% reload &8- &7Tải lại tất cả tệp cấu hình PhoenixCrates"
+  player-offline: "&cNgười chơi %name% không trực tuyến!"
+  not-a-number: "&cSố lượng đã đặt không phải là một số."
+  plugin-reloaded: "&aPhoenixCrates đã được tải lại thành công."
+  crate-type-created: "&aLoại thùng đã được tạo thành công."
+  crate-type-deleted: "&aLoại thùng đã được xóa thành công."
+  cooldown-reset: "&aThời gian hồi cho &e%player% &atrên rương &e%crate% &ađã được đặt lại."
+  cooldown-reset-received: "&aThời gian hồi của bạn cho rương &e%crate% &ađã được đặt lại."
+  cooldown-reset-no-cooldown: "&cRương này không có thời gian hồi được cấu hình."
+  cooldown-reset-not-active: "&cNgười chơi đó không có thời gian hồi đang hoạt động cho rương này."
+  global-win-limit-reset: "&aSố lần thắng toàn cục cho phần thưởng &e%reward%
+    &atrên rương &e%crate% &ađã được đặt lại."
+  global-win-limit-not-tracked: "&cPhần thưởng này không có giới hạn thắng toàn
+    cục được cấu hình, nên không có gì để đặt lại."
+  reward-cooldown-started: "&aThời gian hồi giới hạn cho phần thưởng &e%reward%
+    &atrên rương &e%crate% &ađã được bắt đầu."
+  reward-cooldown-started-all: "&aThời gian hồi giới hạn đã được bắt đầu cho
+    &e%amount% &aphần thưởng trên rương &e%crate%&a."
+  reward-cooldown-not-configured: "&cPhần thưởng này không có thời gian hồi giới hạn được cấu hình."
+  reward-cooldown-none-configured: "&cKhông có phần thưởng nào trên rương này có
+    thời gian hồi giới hạn được cấu hình."
+  check-keys-header: "&#ffd500&lChìa khóa của %player%:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7Chìa khóa"
+  check-keys-none: "&7- &7Không có chìa khóa ảo."
+  key-deleted: "&aChìa khóa đã được xóa thành công."
+
+  key-given: "&e%amount% &achìa khóa(s) đã được trao thành công cho %player%."
+  key-given-all: "&a%amount% chìa khóa đã được trao thành công cho tất cả người
+    chơi trực tuyến."
+  key-given-offline: "&e%amount% &achìa khóa(s) đã được trao thành công cho %player%."
+  key-set: "&e%amount% &achìa khóa(s) đã được đặt cho %player%."
+  key-taken: "&e%amount% &achìa khóa(s) đã được lấy từ %player%."
+
+  key-received: "&aBạn đã nhận được &ex%amount% &7%display_name% &r&akey(s)."
+  virtual-key-received: "&aBạn đã nhận được &ex%amount% &7%display_name% &r&avirtual key(s)."
+
+  key-lost: '&c%amount% key(s) cho crate &2\"%display_name%&2\"&c đã bị lấy từ bạn!'
+  virtual-key-lost: '&c%amount% virtual key(s) cho crate &2\"%display_name%&2\"&c
+    đã bị lấy từ bạn!'
+
+  crate-rerolls-received: '&aBạn đã nhận được %amount% rerolls cho crate &2\"%display_name%&2\"&a!'
+
+  crate-given: "&e%amount% &arương(s) đã được trao thành công cho %player%."
+
+  random-reward-given: "&aMột phần thưởng ngẫu nhiên đã được trao thành công cho %player%."
+  no-available-rewards: "&cRương này không có phần thưởng sẵn có."
+
+  crate-received: "&aBạn đã nhận được &ex%amount% &7%display_name% &r&arương(s)."
+  crate-no-placed-instances: "&cKhông tìm thấy rương đã đặt cho loại &e%crate%&c."
+  crate-open-command-disabled: "&cRương &e%crate% &ckhông thể mở bằng lệnh này."
+  crate-type-dont-exist: '&cKhông có loại crate nào với định danh \"%identifier%\"!'
+  crate-type-already-exist: '&cĐã có loại crate với định danh \"%identifier%\"!'
+  key-dont-exist: '&cKhông có key nào với định danh \"%identifier%\"!'
+  key-already-exist: '&cĐã có key với định danh \"%identifier%\"!'
+  need-plugin-reload: "&6Cần tải lại plugin!"
+
+  crate:
+    disabled: "&cCrate này hiện đang bị vô hiệu hóa!"
+    quick-open-available: "&eNhấn Shift và nhấp lại để bỏ qua hoạt hình và mở crate khác."
+    already-opening: "&cĐã có người khác mở crate này, vui lòng chờ!"
+    no-linked-key: "&cCrate này không có bất kỳ key liên kết nào!"
+    no-key: "&cBạn cần %key%&r&c để mở crate này!"
+    no-keys: "&cBạn không có đủ keys để mở crate này!"
+    no-keys-amount: "&cBạn cần %amount% chìa khóa(s) để mở rương này."
+    redeem-no-keys: "&cBạn cần %required_keys% key(s) để đổi lấy phần thưởng này."
+    cooldown-wait: "&cBạn phải chờ %cooldown% trước khi mở crate này lần nữa."
+    cost-engine-not-installed: "&cDường như hệ thống tiền tệ chưa được thiết lập (liên hệ quản trị viên)."
+    no-money-none: "&cBạn không thể mở rương này ngay bây giờ."
+    no-money-level: "&cBạn cần %money% để mở rương này."
+    no-money-vault: "&cBạn cần %money% để mở rương này."
+    no-money-playerpoints: "&cBạn cần %money% PlayerPoints để mở rương này."
+    no-money-votingplugin: "&cBạn cần %money% điểm vote để mở rương này."
+    no-money-excellenteconomy: "&cBạn cần %money% để mở rương này."
+    money-used-none: "&aBạn đã mở rương này."
+    money-used-level: "&aBạn vừa sử dụng %money_consumed% để mở rương này."
+    money-used-vault: "&aBạn vừa sử dụng %money_consumed% để mở rương này."
+    money-used-playerpoints: "&aBạn vừa sử dụng %money_consumed% PlayerPoints để mở rương này."
+    money-used-votingplugin: "&aBạn vừa sử dụng %money_consumed% điểm vote để mở rương này."
+    money-used-excellenteconomy: "&aBạn vừa sử dụng %money_consumed% để mở rương này."
+    need-crouched: "&eĐể bạn có thể gỡ bỏ crate này, bạn cần phải cúi xuống."
+    successfully-removed: "&aBạn đã gỡ bỏ crate này thành công."
+    successfully-placed: "&aBạn đã đặt crate thành công!"
+    reward-received: "&aBạn nhận được &ex%amount% %item%"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fgot: &ex%amount% &r%reward%"
+    no-rewards: "&cCrate này không có phần thưởng."
+    no-available-rewards: "&cCrate này không có phần thưởng nào có sẵn cho bạn."
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cChờ chút! Chúng tôi đang tải dữ liệu của bạn. Hãy thử mở
+      crate lại trong một chút nhé!"
+    guaranteed-win-openings: "&3Thắng đảm bảo trong %openings% cuộc mở"
+    no-permission: "&cBạn không được phép mở crate này! [Yêu cầu quyền: %permission%]"
+    cooldown-display:
+      counting: "&fBạn có thể mở lại trong &e%cooldown%"
+      over: "&aCó sẵn để mở"
+    hologram-type-limited: "&cCông cụ hologram này chỉ hỗ trợ một rương đặt cho mỗi loại."
+    no-money: "&cBạn cần %necessary_money%$ để mở crate này."
+    money-used: "&aBạn vừa sử dụng %money_consumed%$ để mở crate này."
+    crate:
+      no-rewards-for-key-rarities: "&cRương này không có phần thưởng nào dành cho độ hiếm của chìa khóa của
+        bạn: %rarities%"
+  actions:
+    need-item: "&cBạn cần thêm một vật phẩm để thực hiện hành động này."
+    force-close: "&cBạn đã buộc hủy bỏ những gì bạn đang làm."
+
+  layout:
+    actions:
+      left-click: "&6Nhấp Trái: &e%action%."
+      right-click: "&6Nhấp Phải: &e%action%."
+      left-right-click: "&6Nhấp Trái/Kích Hợp: &e%action%."
+      shift-left-click: "&6Shift + Nhấp Trái: &e%action%."
+      shift-right-click: "&6Shift + Nhấp Phải: &e%action%."
+      drag-drop-click: "&6Kéo & Thả: &e%action%."
+      drop-click: "&6Nhấn Q: &e%action%."
+      description:
+        add: Thêm %value%
+        set: Đặt %value%
+        create: Tạo %value%
+        remove: Gỡ bỏ %value%
+        edit: Chỉnh sửa %value%
+        delete: Xóa %value%
+        receive: Nhận %value%
+        clear: Xóa %value%
+        choose: Chọn %value%
+        change: Thay đổi %value%
+        select: Chọn %value%
+        replace: Thay thế %value%
+        unlink: Ngắt liên kết %value%
+        link: Liên kết %value%
+        reorder: Sắp xếp lại %value%
+    displays:
+      state: "&fTrạng thái %type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&fVật liệu: &7%material%"
+      location:
+        empty: "&fVị trí: &7Trống"
+        populated:
+          - "&fVị trí: "
+          - " &fThế giới: &7%world%"
+          - " &fTrục X: &7%x%"
+          - " &fTrục Y: &7%y%"
+          - " &fTrục Z: &7%z%"
+          - " &fYaw: &7%yaw%"
+          - " &fPitch: &7%pitch%"
+      region:
+        empty: "&fKhu vực: &7Trống"
+        populated:
+          - "&fKhu vực: "
+          - " &fThế giới: &7%world%"
+          - " &fVị trí #1: &7%minimum%"
+          - " &fVị trí #2: &7%maximum%"
+      item:
+        empty: "&fVật phẩm: &7Trống"
+        populated:
+          - "&fVật phẩm: "
+          - " &fTên: &7%name%"
+          - " &fLore: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&aTrang trước - Trang %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&aTrang kế - Trang %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cKhông tìm thấy dữ liệu."
+        description:
+          - "&7Không tìm thấy dữ liệu nào bằng bộ lọc này."
+      filter:
+        title: "&aBộ lọc"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7lọc theo tên."
+          - ""
+          - "&fBộ lọc: &e%filter%"
+          - ""
+          - "&6Nhấp Trái: &eĐặt bộ lọc."
+          - "&6Nhấp Phải: &eXóa bộ lọc."
+  editor:
+    messages:
+      write-identifier-chat: "&eViết định danh mới trong trò chuyện."
+      identifier-updated: '&aĐịnh danh đã được cập nhật thành \"%identifier%&a\"!'
+      write-displayname-chat: "&eViết tên hiển thị mới trong trò chuyện."
+      displayname-updated: '&aTên hiển thị đã được cập nhật thành \"%display_name%&a\"!'
+      write-in-chat: "&aViết trong trò chuyện."
+      value-updated: "&aGiá trị đã được cập nhật thành công!"
+      write-lore-line-chat: "&eViết dòng lore mới trong trò chuyện."
+      lore-line-added: "&aDòng lore đã được thêm thành công!"
+      lore-cleared: "&aLore đã được xóa thành công."
+      opening-animation-changed: "&aHoạt ảnh mở đã được thay đổi thành công."
+      crate-type-deleted: Loại H яi đã bị xóa thành công.
+      migration-completed: "&aDi cư hoàn tất."
+    errors:
+      identifier-already-in-use: "&cĐịnh danh này đã được sử dụng."
+      no-spaces: "&cKhông được có khoảng trắng!"
+      invalid-input: "&cDữ liệu đầu vào không hợp lệ!"
+      invalid-number: "&cSố không hợp lệ!"
+      inventory-full: "&cKho của bạn đã đầy."
+      inventory-full-reward: "&cGiải thưởng thùng đã bị rơi xuống đất vì kho của bạn đầy!"
+      inventory-full-key: "&cMột chìa khóa đã rơi xuống đất vì kho đồ của bạn đầy!"
+      username-not-found: "&cKhông tìm thấy tài khoản gốc với tên %username%."
+      invalid-rewards: "Có %amount% giải thưởng không hợp lệ!"
+      no-rewards-configured: "Không có giải thưởng nào được cấu hình!"
+      invalid-reward-display: "Giải thưởng không hợp lệ: Thấy item hiển thị trống!"
+      hologram-engine-missing: "&cDữ liệu hologram tham chiếu tới một plugin khác! Vui
+        lòng thay đổi Hologram Engine trong cài đặt plugin."
+    titles:
+      main: Phoenix Crates v%version% > Trình chỉnh sửa
+      crates: Trình chỉnh sửa > Thùng
+      keys: Trình chỉnh sửa > Chìa khóa
+      migrations: Trình chỉnh sửa > Di cư
+      addons: Trình chỉnh sửa > Tiện ích bổ sung
+      rarities: Trình chỉnh sửa > Độ hiếm
+      settings: Trình chỉnh sửa > Cài đặt
+      engines:
+        bettermodel: Trình chỉnh sửa > ... > BetterModel
+      crate:
+        new: Trình chỉnh sửa > ... > Thùng Mới
+        show: Trình chỉnh sửa > ... > Thùng
+        display: Trình chỉnh sửa > ... > Động cơ
+        menus: Trình chỉnh sửa > ... > Menu
+        link-keys: Trình chỉnh sửa > ... > Liên kết Chìa Khóa
+        idle-animation: Trình chỉnh sửa > ... > Hoạt ảnh nhàn rỗi
+        opening-animations: Trình chỉnh sửa > ... > Hoạt ảnh mở
+        opening-animation: Trình chỉnh sửa > ... > Hoạt ảnh mở
+        effect: Trình chỉnh sửa > ... > Hiệu ứng Hoạt ảnh
+        rewards: Trình chỉnh sửa > ... > Giải thưởng
+        reward: Trình chỉnh sửa > ... > Giải thưởng
+        reward-cooldowns: Trình chỉnh sửa > ... > Thời gian hồi phần thưởng
+        reward-requirements: Trình chỉnh sửa > ... > Yêu cầu phần thưởng
+        reward-cooldown-duration: Trình chỉnh sửa > ... > Thời lượng cooldown
+        reward-items: Trình chỉnh sửa > ... > Chỉnh sửa các Item Giải thưởng
+        reward-commands: Trình chỉnh sửa > ... > Chỉnh sửa Lệnh Giải thưởng
+        reward-rarity: Trình chỉnh sửa > ... > Độ hiếm phần thưởng
+        multiple-rewards: Trình chỉnh sửa > ... > Thêm Nhiều Giải Thưởng
+        engine: Trình chỉnh sửa > ... > Động cơ
+        hologram: Trình chỉnh sửa > ... > Hình chiếu
+        milestones: "Trình chỉnh sửa > ... > Cột mốc"
+        rerolling: "Trình chỉnh sửa > ... > Rút thăm lại"
+        others: "Trình chỉnh sửa > ... > Khác"
+        open-cost: "Trình chỉnh sửa > ... > Chi phí mở"
+      key:
+        show: Trình chỉnh sửa > ... > Chìa Khóa
+        linked-crates: Trình chỉnh sửa > ... > Thùng Liên Kết
+
+    main:
+      crates:
+        title: "&aThùng"
+        description:
+          - "&7Khi nhấp vào đây, bạn sẽ có thể"
+          - "&7khám phá và quản lý tất cả các thùng có sẵn."
+      keys:
+        title: "&aChìa khóa"
+        description:
+          - "&7Khi nhấp vào đây, bạn sẽ có thể"
+          - "&7khám phá và quản lý tất cả các chìa khóa có sẵn."
+      rarities:
+        title: "&aRarity"
+        description:
+          - "&7Khi nhấp vào đây bạn có thể cấu hình"
+          - "&7và quản lý hệ thống rarity."
+      migrations:
+        title: "&aDi cư"
+        description:
+          - "&7Khám phá các tùy chọn để di cư từ các plugin thùng khác"
+          - "&7và quản lý quy trình di cư bằng cách nhấp vào đây."
+      addons:
+        title: "&aTiện ích bổ sung"
+        description:
+          - "&7Khám phá các tính năng và nâng cao bổ sung"
+          - "&7bằng cách nhấp vào đây để truy cập menu tiện ích bổ sung."
+      settings:
+        title: "&aCài đặt"
+        description:
+          - "&7Khi nhấp vào đây, bạn sẽ có thể"
+          - "&7khám phá và tùy chỉnh cài đặt plugin."
+      reload:
+        title: "&aTải lại Cấu hình"
+        description:
+          - "&7Khi nhấp vào đây, bạn sẽ khởi động"
+          - "&7một lần tải lại tất cả cấu hình plugin."
+      pouches:
+        title: "&aTúi"
+        description:
+          - "&7Khi nhấp vào đây, bạn sẽ có thể"
+          - "&7quản lý tất cả các túi."
+      crate-claim:
+        title: "&aNhận Rương"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn có thể cấu hình"
+          - "&7hành vi và menu của việc nhận rương."
+    migrations:
+      plugin:
+        title: "&aDi cư từ %name%"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7Khi nhấp vào đây bạn sẽ có thể"
+          - "&7di cư một số tệp từ %name% sang plugin này."
+          - ""
+          - "&aCác tệp được hỗ trợ:"
+          - "&8 &7- %files%"
+          - ""
+          - "&fCơ sở dữ liệu được hỗ trợ: %database%"
+    addons:
+      loading:
+        title: "&eĐang tải..."
+        description:
+          - "&7Các tiện ích bổ sung đang được tải,"
+          - "&7đợi một vài giây."
+      empty:
+        title: "&cKhông có tiện ích bổ sung nào"
+        description:
+          - "&7Không tìm thấy bản ghi nào"
+          - "&7theo bộ lọc hiện tại."
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&fGiá: &a%price%"
+    settings:
+      language:
+        title: "&aNgôn ngữ"
+        description:
+          - "&7Tùy chọn này cho phép bạn thay đổi"
+          - "&7ngôn ngữ cơ bản mà plugin này sẽ sử dụng"
+          - ""
+          - "&e&nBạn có thể luôn cấu hình translations.en.yml."
+      key-mainhand:
+        title: "&aYêu cầu chìa khóa ở tay chính"
+        description:
+          - "&7Tùy chọn này cho phép bạn xác định"
+          - "&7liệu người chơi sẽ cần phải có"
+          - "&7một chìa khóa ở tay chính để mở rương."
+      crate-knockback:
+        title: "&aĐẩy H яa"
+        description:
+          - "&7Tùy chọn này cho phép bạn thay đổi"
+          - "&7lực đẩy mà người chơi nhận được khi cố gắng"
+          - "&7mở một cái hòm bằng chìa khóa sai."
+      crate-despawn-range:
+        title: "&aKhoảng cách Biến Mất H яa"
+        description:
+          - "&7Tùy chọn này cho phép bạn xác định"
+          - "&7khoảng cách mà hiệu ứng sẽ cần"
+          - "&7ngừng hiển thị cho người chơi."
+          - ""
+          - "&c&nGiá trị cao không được khuyến nghị vì chúng có thể gây lag."
+      crate-quick-open:
+        title: "&aMở Nhanh H яa"
+        description:
+          - "&7Tùy chọn này cho phép người chơi"
+          - "&7mở nhanh khi cầm chìa khóa h яa"
+          - "&7và nhấn chuột phải."
+          - ""
+          - "&e&nChỉ hoạt động với việc mở h яa đồng thời!"
+      disable-confirmation-menus:
+        title: "&aVô Hiệu Hóa Các Menu Xác Nhận"
+        description:
+          - "&7Tùy chọn này cho phép bạn bỏ qua"
+          - "&7các menu xác nhận để người chơi đi"
+          - "&7thẳng đến hành động."
+      crate-claim:
+        title: "&aNhận rương"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn có thể cấu hình"
+          - "&7hành vi nhận rương và các menu."
+    keys:
+      key:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ"
+          - "&7có thể cấu hình chìa khóa này."
+        identifier:
+          title: "&aMã định danh"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+            - "&7đổi tên mã định danh chìa khóa của bạn."
+            - "&eMã định danh này cần phải là duy nhất."
+        display-name:
+          title: "&aTên hiển thị"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+            - "&7đổi tên chìa khóa của bạn."
+        link-crates:
+          title: "&aLiên Kết H яa"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+            - "&7liên kết các h яa với chìa khóa này."
+        enabled:
+          title: "&aBật"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+            - "&7thay đổi xem chìa khóa này có khả dụng hay không."
+        delete:
+          title: "&aXóa Chìa Khóa"
+          description:
+            - "&7Bằng cách nhấp vào đây, chìa khóa này"
+            - "&7sẽ bị xóa khỏi máy chủ."
+            - "&eTất cả chìa khóa trong thế giới sẽ không còn hợp lệ."
+        item:
+          title: "&aMục Chìa Khóa"
+          description:
+            - "&7Một mục chìa khóa tùy chỉnh có thể"
+            - "&7được sử dụng để mở một cái hòm."
+      add:
+        title: "&aThêm Chìa Khóa"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7tạo một chìa khóa."
+    crates:
+      type:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7cấu hình loại h яa này."
+      add:
+        title: "&aThêm H яa"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7tạo một loại h яa."
+    crate:
+      identifier:
+        title: "&aMã định danh"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7đổi tên mã định danh h яa của bạn."
+          - "&eMã định danh này cần phải là duy nhất."
+      item:
+        title: "&aVật phẩm"
+        description:
+          - "&7Vật phẩm hiển thị sẽ"
+          - "&7được dùng để đại diện cho rương này."
+        name:
+          title: "&aTên vật phẩm"
+          description:
+            - "&7Tên sẽ được sử dụng"
+            - "&7để đại diện cho vật phẩm này"
+        lore:
+          title: "&aMô tả vật phẩm"
+          description:
+            - "&7Mô tả sẽ được sử dụng"
+            - "&7để đại diện cho vật phẩm này"
+      link-keys:
+        title: "&aLiên Kết Chìa Khóa"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7liên kết các chìa khóa với h яa này."
+      animations:
+        title: "&aHoạt H động"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7thay đổi các hoạt động của h яa này."
+          - ""
+          - "&fBạn có thể cấu hình:"
+          - "&8> &aHoạt động Nghỉ"
+          - "&8> &aHoạt động Mở"
+      rerolls:
+        title: "&aXáo Trộn"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7định nghĩa số lần xáo trộn của h яa này."
+      mass-opening:
+        title: "&aMở Hàng Loạt"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn có thể cấu hình"
+          - "&7các thiết lập mở hàng loạt của h яa."
+      display-settings:
+        block-material:
+          title: "&aChất Liệu Khối"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có"
+            - "&7thay đổi chất liệu được"
+            - "&7sử dụng cho khối h яa."
+        crate-engine:
+          title: "&aEngine khối rương"
+          description:
+            - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+            - "&7thay đổi engine và tùy chỉnh nó."
+            - ""
+            - "&b➥ Engine khối Vanilla:"
+            - "&7Rương tiêu chuẩn dựa trên vật liệu."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Engine mô hình Vanilla: &9(1.12+)"
+            - "&7Mô hình tĩnh từ resource pack tùy chỉnh."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Engine Mô hình / Better Model:"
+            - "&7Mô hình tùy chỉnh có hoạt ảnh."
+            - ""
+            - "&fCác engine:"
+        rewards-mode:
+          title: "&aChế độ Thưởng"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn có thể thay đổi"
+            - "&7chế độ mà hệ thống thưởng này sẽ sử dụng."
+            - ""
+            - "&b➥ Chế độ Ngẫu nhiên:"
+            - "&7Các phần thưởng sẽ được chọn ngẫu nhiên dựa"
+            - "&7trên trọng số được gán (cơ hội). Điều này"
+            - "&7chế độ thêm yếu tố bất ngờ và may mắn."
+            - ""
+            - "&b➥ Chế độ Lựa chọn:"
+            - "&7Chế độ này loại bỏ tính ngẫu nhiên, cho phép"
+            - "&7người dùng trực tiếp chọn phần thưởng mà họ"
+            - "&7muốn từ các tùy chọn có sẵn. Thích hợp cho"
+            - "&7việc cung cấp quyền kiểm soát cho người dùng sobre não thưởng."
+            - ""
+            - "&fChế độ:"
+        hologram:
+          title: "&aHologram"
+          description:
+            - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+            - "&7cấu hình hologram trên thùng đồ này."
+        idle-animation:
+          title: "&aHoạt hình Nhàn rỗi"
+          description:
+            - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+            - "&7tùy chỉnh hoạt hình nhàn rỗi của thùng đồ này."
+            - ""
+            - "&7Hoạt hình nhàn rỗi sẽ xuất hiện khi"
+            - "&7một người chơi không mở thùng đồ này."
+        opening-animation:
+          title: "&aHoạt hình Mở"
+          description:
+            - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+            - "&7tùy chỉnh hoạt hình mở của thùng đồ này."
+            - ""
+            - "&fHoạt hình mở hoạt động như thế nào?"
+            - "&7Hoạt hình này được cấu thành từ 3 giai đoạn, mỗi"
+            - "&7giai đoạn được cấu thành từ các hoạt hình mini khác nhau"
+            - "&7và các thuộc tính. Một cách đơn giản, các giai đoạn"
+            - "&7đại diện cho đầu, giữa và cuối của một hoạt hình."
+            - ""
+            - "&7Ngoài ra, nếu bạn đang sử dụng một động cơ hỗ trợ"
+            - "&7các hoạt hình mô hình bạn có thể đồng bộ một số mô hình"
+            - "&7hoạt hình với từng cấp độ."
+        engine-mode:
+          title: "&aChế Độ Máy"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+            - "&7thay đổi động cơ mà thùng đồ này sẽ sử dụng."
+            - ""
+            - "&b➥ Động cơ Block Vanilla:"
+            - "&7Động cơ mặc định của thùng đồ, đại diện sẽ"
+            - "&7là vật liệu được chọn làm khối của thùng đồ này."
+            - ""
+            - "&b➥ Động cơ Mô hình Vanilla: &9(1.12+)"
+            - "&7Khả năng gán một mô hình tĩnh tùy chỉnh cho thùng đồ"
+            - "&7nhưng không hỗ trợ hoạt hình. Điều này hỗ trợ các mô hình
+              vanilla"
+            - "&7thông qua dữ liệu vật liệu và mô hình tùy chỉnh."
+            - ""
+            - "&b➥ Khác: &9(1.16.5+)"
+            - "&7Khả năng gán một mô hình tùy chỉnh cho thùng đồ như"
+            - "&7cũng như một hoạt hình mở thùng tùy chỉnh."
+            - ""
+            - "&fĐộng cơ:"
+      open-cooldown:
+        title: "&aThời gian Đợi Mở"
+        description:
+          - "&7Nhấp vào đây để thay đổi số"
+          - "&7thời gian mà một người chơi sẽ phải chờ"
+          - "&7để mở một thùng đồ khác."
+      open-cost:
+        title: "&aEngine chi phí mở"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn có thể định nghĩa một"
+          - "&7phương thức bổ sung để mở rương này"
+          - ""
+          - "&e&lMẹo&r&e: &7Tắt yêu cầu chìa khóa để sử dụng"
+          - "      &7phương pháp này là phương pháp chính."
+      open-cost-amount:
+        title: "&aSố tiền mở"
+        description:
+          - "&7Số lượng tiền tệ sẽ"
+          - "&7được tính khi mở rương này."
+      open-cost-currency:
+        title: "&aTiền tệ"
+        description:
+          - "&7Loại tiền của ExcellentEconomy mà"
+          - "&7sẽ được sử dụng để tính phí."
+      simultaneous-openings:
+        title: "&aMở Đồng Thời"
+        description:
+          - "&7Tùy chọn này cho phép bạn xác định"
+          - "&7liệu một hay nhiều người chơi có thể"
+          - "&7mở crate này cùng một lúc."
+          - ""
+          - "&e&nMở Nhanh đã bị vô hiệu hóa"
+          - "&e&nkhông có mở đồng thời"
+      preview-reward:
+        title: "&aXem Phần Thưởng"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ kích hoạt"
+          - "&7một phần thưởng xem trước ở trên mỗi crate."
+      permission-required:
+        title: "&aYêu Cầu Quyền"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ đặt"
+          - "&7quyền mà một người chơi phải có"
+          - "&7để mở crate này."
+      rewards:
+        title: "&aPhần Thưởng"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7cấu hình tất cả các phần thưởng mà một người chơi"
+          - "&7có thể nhận được khi mở crate này."
+        add:
+          title: "&aThêm Phần Thưởng"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn có thể bắt đầu"
+            - "&7thiết lập một phần thưởng mới trong crate này."
+        edit:
+          title: "&aPhần Thưởng #%position%"
+          description: []
+        multiple-rewards:
+          title: "&aThêm Nhiều Phần Thưởng"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn có thể"
+            - "&7thêm nhiều phần thưởng cùng một lúc."
+        reordering:
+          title: "&aSắp Xếp Lại"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn có thể sắp xếp"
+            - "&7các phần thưởng theo thứ tự bạn muốn."
+          selected:
+            title: "&eĐã Chọn"
+        win-amount:
+          title: "&aGiới Hạn Phần Thưởng Chiến Thắng"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn có thể xác định"
+            - "&7số phần thưởng mà một người chơi sẽ nhận được một lần."
+      reward:
+        drag-item:
+          title: "&aKéo một vật phẩm"
+          description:
+            - "&7Kéo bất kỳ vật phẩm nào để đặt phần thưởng."
+            - ""
+            - "&6Kéo & Thả: Thay thế vật phẩm."
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6Kéo & Thả: &eThay thế vật phẩm."
+        identifier:
+          title: "&aThay Đổi Định Danh"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+            - "&7đổi tên định danh phần thưởng của bạn."
+            - "&eĐịnh danh này cần phải là duy nhất."
+        display-item:
+          title: "&aVật Phẩm Hiển Thị"
+          description:
+            - "&7Vật phẩm này sẽ phục vụ như một hiển thị"
+            - "&7đại diện cho phần thưởng cho crate này."
+          name:
+            title: "&aTên Hiển Thị"
+            description:
+              - "&7Tên sẽ được sử dụng"
+              - "&7để đại diện cho Phần Thưởng này"
+          lore:
+            title: "&aLore Hiển Thị"
+            description:
+              - "&7Lore sẽ được sử dụng"
+              - "&7để đại diện cho Phần Thưởng này"
+        alternative-item:
+          title: "&aVật Phẩm Thay Thế"
+          description:
+            - "&7Vật phẩm này sẽ là vật phẩm bổ sung mà người dùng"
+            - "&7sẽ nhận được nếu các điều kiện được thực hiện."
+        win-items:
+          title: "&aVật Phẩm Chiến Thắng"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+            - "&7thêm các vật phẩm mà người chơi sẽ"
+            - "&7nhận khi chiến thắng phần thưởng này."
+          add-item:
+            title: "&aThêm Vật Phẩm"
+            description:
+              - "&7Kéo một vật phẩm từ kho của bạn"
+              - "&7vào đây để thêm nó như một vật phẩm cho phần thưởng này."
+        weight:
+          title: "&aTrọng lượng"
+          description:
+            - "&7Trọng lượng sẽ góp phần vào a"
+            - "&7cơ hội của người chơi để trúng vật phẩm này."
+        virtual:
+          title: "&aVật Phẩm Ảo"
+          description:
+            - "&7Tùy chọn này đặt xem người chiến thắng."
+            - "&7nên nhận một vật phẩm vật lý hay không."
+        win-commands:
+          title: "&aLệnh Chiến Thắng"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn có thể quản lý"
+            - "&7tất cả các lệnh sẽ được thực hiện"
+            - "&7khi một người chơi chiến thắng phần thưởng này."
+        max-win-item-amount:
+          title: "&aSố lượng vật phẩm thắng tối đa"
+          description:
+            - "&7Đặt số lượng tối đa các vật phẩm"
+            - "&7từ danh sách win-items sẽ"
+            - "&7được trao khi trúng phần thưởng này."
+            - "&7Set to &e∞ &7for no limit."
+        max-win-command-amount:
+          title: "&aMax Win Command Amount"
+          description:
+            - "&7Đặt số lượng tối đa các lệnh"
+            - "&7từ danh sách win-commands sẽ"
+            - "&7được thực thi khi phần thưởng này được trúng."
+            - "&7Set to &e∞ &7for no limit."
+        broadcast:
+          title: "&aTin Nhắn Phát Sóng"
+          description:
+            - "&7Tùy chọn này đặt xem một tin nhắn phát sóng"
+            - "&7nên xuất hiện khi một người chơi chiến thắng phần thưởng này."
+        share-players-online:
+          title: "&aChia Sẻ Với Người Chơi Đang Online"
+          description:
+            - "&7Tùy chọn này đặt xem phần thưởng này"
+            - "&7nên được chia sẻ với tất cả mọi người đang online."
+        allow-win-message:
+          title: "&aCho phép tin nhắn trúng thưởng"
+          description:
+            - "&7Tùy chọn này thiết lập liệu người chơi sẽ nhận"
+            - "&7một tin nhắn khi trúng phần thưởng này."
+        notification-types:
+          title: "&aLoại thông báo"
+          description:
+            - "&7Bằng cách nhấn vào đây, bạn có thể thay đổi"
+            - "&7loại kênh mà tin nhắn trúng được gửi qua."
+        enabled:
+          title: "&aBật"
+          description:
+            - "&7Bằng cách nhấn vào đây bạn sẽ có thể"
+            - "&7thay đổi liệu phần thưởng này có sẵn hay không."
+        win-limit:
+          title: "&aGiới Hạn Chiến Thắng"
+          description:
+            - "&7Tùy chọn này đặt xem số lần"
+            - "&7một người chơi có thể chiến thắng phần thưởng này."
+            - ""
+            - "&e&lMẸO: &7Bạn có thể kết hợp điều này"
+            - "       &7với một phần thưởng thay thế."
+        global-win-limit:
+          title: "&aGiới hạn thắng toàn server"
+          description:
+            - "&7Tùy chọn này đặt số lần"
+            - "&7mà phần thưởng này có thể được trúng bởi"
+            - "&7tất cả mọi người trên server cộng lại."
+            - ""
+            - "&e&lMẸO: &7Bạn có thể kết hợp điều này"
+            - "       &7với một phần thưởng thay thế."
+        cooldowns:
+          title: "&aThời gian hồi"
+          description:
+            - "&7Bằng cách nhấn vào đây bạn sẽ có thể"
+            - "&7để cấu hình các thời gian hồi "
+            - "&7của phần thưởng này."
+          win-limit-cooldown:
+            title: "&aThời gian hồi giới hạn thắng"
+            description:
+              - "&7Tùy chọn này đặt khoảng thời gian một người chơi"
+              - "&7phải chờ trước khi có thể"
+              - "&7thắng phần thưởng này lần nữa."
+          global-win-limit-cooldown:
+            title: "&aThời gian hồi giới hạn thắng toàn server"
+            description:
+              - "&7Tùy chọn này thiết lập khoảng thời gian phải trôi qua"
+              - "&7trước khi phần thưởng này có thể được trúng lại"
+              - "&7bởi bất kỳ ai trên server."
+          time-limited-cooldown:
+            title: "&aThời gian hồi có giới hạn"
+            description:
+              - "&7Tùy chọn này xác định bao lâu"
+              - "&7phần thưởng sẽ còn khả dụng một khi"
+              - "&7thời gian hồi được bắt đầu."
+              - ""
+              - "&7Khi nó hết hạn, phần thưởng sẽ"
+              - "&7tự động bị vô hiệu hóa."
+          duration:
+            weeks:
+              title: "&aTuần"
+              description:
+                - "&7Số tuần được thêm vào"
+                - "&7vào thời lượng của thời gian hồi này."
+            days:
+              title: "&aNgày"
+              description:
+                - "&7Số ngày được thêm vào"
+                - "&7vào thời lượng của thời gian hồi này."
+            hours:
+              title: "&aGiờ"
+              description:
+                - "&7Số giờ được thêm vào"
+                - "&7vào thời lượng của thời gian hồi này."
+            minutes:
+              title: "&aPhút"
+              description:
+                - "&7Số phút được thêm vào"
+                - "&7vào thời lượng của thời gian hồi này."
+            disable:
+              title: "&cVô hiệu hóa thời gian hồi"
+              description:
+                - "&7Đặt thời lượng của thời gian hồi này"
+                - "&7về không, vô hiệu hóa nó."
+        requirements:
+          title: "&aYêu cầu"
+          description:
+            - "&7Cấu hình yêu cầu quyền"
+            - "&7cho phần thưởng này."
+          required-permission:
+            title: "&aQuyền cần thiết"
+            description:
+              - "&7Đặt một quyền mà người chơi phải có"
+              - "&7để xem phần thưởng này là có sẵn."
+              - "&7Nếu người chơi không có quyền này, phần thưởng"
+              - "&7sẽ hiển thị là bị khóa trong bản xem trước."
+        restricted-permissions:
+          title: "&aQuyền Hạn Chế"
+          description:
+            - "&7Tùy chọn này xác định"
+            - "&7các quyền hạn chế mà người chơi"
+            - "&7không thể có để nhận phần thưởng này."
+            - "&eĐiều này sẽ không áp dụng nếu người chơi có quyền quản trị."
+            - ""
+            - "&e&lMẸO: &7Bạn có thể kết hợp điều này"
+            - "       &7với một phần thưởng thay thế."
+        alternative-reward:
+          title: "&aPhần Thưởng Thay Thế"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ"
+            - "&7có thể cấu hình phần thưởng thay thế"
+            - "&7cho phần thưởng này."
+            - ""
+            - "&7Nếu hoạt động khi một người chơi vượt quá"
+            - "&7giới hạn phần thưởng hoặc có quyền hạn chế"
+            - "&7anh ấy sẽ nhận phần thưởng này thay thế."
+        delete:
+          title: "&aXóa Phần Thưởng"
+          description:
+            - "&7Bằng cách nhấp vào đây, phần thưởng này"
+            - "&7sẽ bị xóa khỏi hộp quà này."
+        percentage:
+          title: "&aTỷ Lệ"
+          description:
+            - "&7Tỷ lệ này sẽ góp phần vào"
+            - "&7cơ hội của người chơi khi nhận được vật phẩm này."
+      menus:
+        title: "&aMenus"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể cấu hình"
+          - "&7để cấu hình tất cả các menu cho hộp quà này."
+      rewards-menu:
+        title: "&aMenu Phần Thưởng"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể cấu hình"
+          - "&7menu phần thưởng mà hộp quà này sẽ có."
+      preview-actions:
+        title: "&aHành động xem trước"
+        description:
+          - "&7Bằng cách nhấp vào đây bạn sẽ có thể cấu hình"
+          - "&7các hành động sẽ chạy khi một người chơi"
+          - "&7nhấp để xem trước rương này."
+          - "&7Những hành động này có thể được sử dụng cùng với, hoặc"
+          - "&7thay vì, menu xem trước phần thưởng."
+      rerolls-menu:
+        title: "&aMenu Rerolls"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể cấu hình"
+          - "&7menu rerolls mà hộp quà này sẽ có."
+      selective-rewards-menu:
+        title: "&aMenu Phần Thưởng Tuyển Chọn"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể cấu hình"
+          - "&7menu phần thưởng tuyển chọn mà hộp quà này sẽ có."
+      milestones-menu:
+        title: "&aMenu Cột Mốc"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể cấu hình"
+          - "&7menu xem trước mà hộp quà này sẽ có."
+      broadcast-message:
+        title: "&aTin Nhắn Phát Sóng"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể cấu hình"
+          - "&7tin nhắn phát sóng cho các phần thưởng."
+          - ""
+          - "&eCác thẻ giữ chỗ có sẵn:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&aBật"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7thay đổi xem hộp quà này có sẵn hay không."
+      allow-open-command:
+        title: "&aCho phép lệnh mở"
+        description:
+          - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+          - "&7bật/tắt liệu rương này có thể"
+          - "&7được mở bằng &f/crate open &7lệnh."
+      attach-block:
+        title: "&aGắn Khối"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7tạo một hộp quà bằng cách gắn một khối."
+      delete:
+        title: "&aXóa Hộp Quà"
+        description:
+          - "&7Bằng cách nhấp vào đây, hộp quà này"
+          - "&7sẽ bị xóa khỏi máy chủ."
+          - ""
+          - "&e&nTất cả các chìa khóa trong hộp quà này sẽ không còn hợp lệ."
+      hologram:
+        engine-mode:
+          title: "&aChế độ Hologram Engine"
+          description:
+            - "&7Công cụ mà plugin"
+            - "&7đang sử dụng cho các hologram"
+            - ""
+            - "&fCông cụ: &7%engine%"
+        lines:
+          title: "&aCác dòng hologram"
+          description:
+            - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+            - "&7cấu hình các dòng hologram của rương này."
+            - ""
+            - "&e&lMẸO: &7Bạn có thể sử dụng &ePlaceholderAPI&7."
+        identifier:
+          title: "&aĐịnh danh"
+          description:
+            - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+            - "&7để xác định định danh cho plugin hologram."
+            - ""
+            - "&fĐịnh danh: &7%id%"
+        offset:
+          title: "&aĐộ lệch Hologram"
+          description:
+            - "&7Tùy chọn này cho phép bạn điều chỉnh vị trí hologram"
+            - "&7dựa trên vị trí của rương."
+      display-name:
+        title: "&aTên hiển thị"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7đổi tên h яa của bạn."
+      open-money-cost:
+        title: "&aChi phí Mở bằng Tiền"
+        description:
+          - "&7Nhấp vào đây để thay đổi số tiền"
+          - "&7cần thiết để mở thùng đồ này."
+          - "&7chìa khóa và dịch chuyển chuột phải."
+          - ""
+          - "&e&nChỉ hoạt động với Vault!"
+    crate-engine:
+      first-phase-delay:
+        title: "&aĐộ trễ bắt đầu giai đoạn đầu tiên"
+        description:
+          - "&7Xác định độ trễ giữa thời điểm"
+          - "&7rương mở và bắt đầu của"
+          - "&7giai đoạn đầu tiên của hoạt ảnh."
+      second-phase-delay:
+        title: "&aĐộ trễ bắt đầu giai đoạn thứ hai"
+        description:
+          - "&7Xác định độ trễ giữa giai đoạn đầu tiên"
+          - "&7và giai đoạn thứ hai của hoạt ảnh mở."
+      third-phase-delay:
+        title: "&aĐộ trễ bắt đầu giai đoạn thứ ba"
+        description:
+          - "&7Xác định độ trễ giữa giai đoạn thứ hai"
+          - "&7và giai đoạn thứ ba của hoạt ảnh mở."
+      idle:
+        title: "&aHoạt ảnh nhàn rỗi"
+        description:
+          - "&7Xác định hoạt ảnh sẽ được"
+          - "&7phát khi rương nhàn rỗi."
+      close-animation:
+        title: "&aHoạt ảnh đóng"
+        description:
+          - "&7Xác định hoạt ảnh sẽ được"
+          - "&7phát khi rương đang đóng."
+      model-name:
+        title: "&aTên mô hình"
+        description:
+          - "&7Xác định tên mô hình mà"
+          - "&7rương này sẽ sử dụng."
+          - ""
+          - "&fMô hình hiện tại: &7%name%"
+      model-engine:
+        model-name:
+          title: "&aTên Mô Hình"
+          description:
+            - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+            - "&7để thay đổi tên mô hình của rương này."
+            - ""
+            - "&fTên hiện tại: &7%name%"
+      better-model:
+        model-name:
+          title: "&aTên mô hình"
+          description:
+            - "&7Bằng cách nhấp vào đây bạn sẽ có thể"
+            - "&7để thay đổi tên mô hình của rương này."
+            - ""
+            - "&fTên hiện tại: &7%name%"
+        scale:
+          title: "&aTỷ lệ"
+          description:
+            - "&7Đặt hệ số nhân kích thước cho"
+            - "&7mô hình. 1.0 là kích thước bình thường của mô hình."
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6Nhấp Trái: &eChọn vật liệu."
+        custom-model-data:
+          title: "&aDữ Liệu Mô Hình Tùy Chỉnh"
+          description:
+            - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+            - "&7thay đổi dữ liệu mô hình tùy chỉnh của vật phẩm này."
+            - ""
+            - "&fDữ Liệu Mô Hình Tùy Chỉnh: &7%custom_model_data%"
+            - ""
+            - "&6Nhấp Trái: &eThay đổi Dữ Liệu Mô Hình Tùy Chỉnh."
+    reward-commands:
+      add:
+        title: "&aThêm Lệnh"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể thêm"
+          - "&7một lệnh sẽ được thực hiện khi"
+          - "&7một người chơi nhận được phần thưởng này."
+          - ""
+          - "&7Các lệnh bắt đầu bằng &a* &7được thực hiện bởi"
+          - "&7người chơi. Nếu không, chúng sẽ được thực hiện bởi console."
+          - ""
+          - "&7Bạn cũng có thể sử dụng placeholder &a%player%"
+          - "&7và các placeholders từ &aPlaceholderAPI&7."
+          - ""
+          - "&6Nhấp Trái: &eThêm lệnh."
+      command:
+        title: "&aLệnh #%id%"
+        description:
+          - "&fLệnh: &7%command%"
+          - ""
+          - "&6Nhấp Trái: &eXóa lệnh."
+    alternative-reward:
+      enabled:
+        title: "&aTrạng thái"
+        description:
+          - "&7Khi một phần thưởng thay thế đang hoạt động,"
+          - "&7nếu người chơi vượt quá giới hạn thắng hoặc"
+          - "&7có quyền truy cập blacklist, anh ta sẽ"
+          - "&7nhận phần thưởng này."
+    edit-standby-animation:
+      add-effect:
+        title: "&aThêm Hiệu ứng"
+        description:
+          - "&7Bằng cách nhấp vào đây, bạn sẽ có thể"
+          - "&7thêm một hiệu ứng mới vào hoạt ảnh nhàn rỗi."
+          - ""
+          - "&6Nhấp Trái &eThêm hiệu ứng."
+      edit-effect:
+        title: "&eHiệu ứng #%id%"
+        description:
+          - ""
+          - "&fLoại hiệu ứng: &7%effect_type%"
+          - "&fLoại hạt: &7%particle_type%"
+          - "&fTốc độ hạt: &7%particle_velocity%"
+          - "&fMàu sắc: &7%color%"
+          - "&fĐộ lệch: &7%offset%"
+          - "&fPhân bố: &7%spread%"
+          - "&fSố lượng: &7%amount%"
+          - ""
+          - "&6Nhấp Trái &eChỉnh sửa hiệu ứng."
+          - "&6Shift + Nhấp Trái: &eXóa hiệu ứng."
+    edit-standby-effect:
+      effect-type:
+        title: "&aLoại Hiệu ứng&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6Nhấp Trái/Phải: &eChuyển loại."
+      particle-type:
+        title: "&aLoại Hạt"
+        description:
+          - "&fHiện tại: &7%particle_type%"
+          - ""
+          - "&6Nhấp Trái: &eThay đổi hạt."
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&fThuộc tính: &a%properties%"
+          - ""
+          - "&6Nhấp Trái: &eChọn hạt."
+      color:
+        title: "&aMàu sắc"
+        description:
+          - "&fHiện tại: &7%color%"
+          - ""
+          - "&e&nChỉ hoạt động với các hạt có thể màu sắc."
+          - ""
+          - "&6Nhấp Trái: &eThay đổi màu sắc."
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6Nhấp Trái: &eChọn màu sắc."
+      spread:
+        title: "&aPhân bố"
+        description:
+          - "&fHiện tại: &7%spread%"
+          - ""
+          - "&6Nhấp Trái: &eThêm 0.1."
+          - "&6Shift + Nhấp Trái: &eThêm 1."
+          - "&6Nhấp Phải: &eXóa 0.1."
+          - "&6Shift + Nhấp Phải: &eXóa 1."
+      particle-velocity:
+        title: "&aTốc độ Hạt"
+        description:
+          - "&fHiện tại: &7%particle_velocity%"
+          - ""
+          - "&6Nhấp Trái: &eThêm 0.1."
+          - "&6Shift + Nhấp Trái: &eThêm 1."
+          - "&6Nhấp Phải: &eXóa 0.1."
+          - "&6Shift + Nhấp Phải: &eXóa 1."
+      amount:
+        title: "&aSố lượng"
+        description:
+          - "&fHiện tại: &7%amount%"
+          - ""
+          - "&6Nhấp Trái: &eThêm 1."
+          - "&6Nhấp Phải: &eXóa 1."
+      offset-x:
+        title: "&aĐộ lệch X"
+        description:
+          - "&fHiện tại: &7%offset_x%"
+          - ""
+          - "&6Nhấp Trái: &eThêm 0.1."
+          - "&6Shift + Click-Trái: &eThêm 1."
+          - "&6Click-P phải: &eXóa 0.1."
+          - "&6Shift + Click-P phải: &eXóa 1."
+      offset-y:
+        title: "&aOffset Y"
+        description:
+          - "&fHiện tại: &7%offset_y%"
+          - ""
+          - "&6Click-Trái: &eThêm 0.1."
+          - "&6Shift + Click-Trái: &eThêm 1."
+          - "&6Click-P phải: &eXóa 0.1."
+          - "&6Shift + Click-P phải: &eXóa 1."
+      offset-z:
+        title: "&aOffset Z"
+        description:
+          - "&fHiện tại: &7%offset_z%"
+          - ""
+          - "&6Click-Trái: &eThêm 0.1."
+          - "&6Shift + Click-Trái: &eThêm 1."
+          - "&6Click-P phải: &eXóa 0.1."
+          - "&6Shift + Click-P phải: &eXóa 1."
+    opening-animation:
+      phase-updated: "&aGiai đoạn hoạt ảnh đã được cập nhật."
+      preset-applied: "&aMẫu hoạt ảnh mở đã được áp dụng."
+      preset-removed: "&aKhông có mẫu nào được chọn."
+      phase:
+        title: "&aGiai Đoạn %phase%"
+        description:
+          - "&7Mỗi hoạt ảnh mở đều được tạo thành"
+          - "&7từ các giai đoạn, đây là một trong số đó."
+          - ""
+          - "&fGiai Đoạn: &e%name%"
+      change-phases:
+        title: "&aCác Giai Đoạn Hoạt Hình"
+        description:
+          - "&7Chọn hoạt ảnh cho các"
+          - "&7giai đoạn hoạt hình mở."
+          - ""
+          - "&6Click-Trái: &eThay đổi hoạt ảnh."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&aGiai Đoạn %phase%"
+        description:
+          - "&7Mỗi hoạt ảnh mở đều được tạo thành"
+          - "&7từ các giai đoạn, đây là một trong số đó."
+          - ""
+          - "&fGiai Đoạn: &e%name%"
+          - ""
+          - "&6Click-Trái: &eĐiều hướng"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&fPhiên Bản Yêu Cầu: &7%required_version%"
+          - ""
+          - "&6Click-Trái: &eTạo giai đoạn."
+          - "&6Shift + Click-Trái: &eTạo giai đoạn nhanh."
+  command:
+    info:
+      - ""
+      - "&e➥ &6Các lệnh có sẵn:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6Thông tin bổ sung:"
+      - " &9<argument> - tham số bắt buộc"
+      - " &3[argument] - tham số tùy chọn"
+    usage:
+      - ""
+      - "&e➥ Cách dùng:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "Xin lỗi, nhưng bạn không có quyền thực hiện lệnh này."
+    permission-denied-parameter: "Xin lỗi, nhưng bạn không có quyền thực hiện lệnh này."
+    error-generic-logged: "Đã xảy ra lỗi. Vấn đề này đã được ghi lại. Xin lỗi vì sự bất tiện."
+    unknown-command: "&cLệnh không hợp lệ, vui lòng gõ &4%command%"
+    error-prefix: "&cLỗi: %message%"
+    error-performing-command: "Xin lỗi, đã xảy ra lỗi khi thực hiện lệnh này."
+    please-specify-one-of: "Vui lòng chỉ định một trong (&2%valid%)."
+    must-be-a-number: "%num% phải là một số."
+    must-be-min-length: "Phải có độ dài ít nhất %min% ký tự."
+    must-be-max-length: "Phải có độ dài tối đa %max% ký tự."
+    please-specify-at-most: "Vui lòng chỉ định giá trị không vượt quá %max%."
+    please-specify-at-least: "Vui lòng chỉ định giá trị tối thiểu là %min%."
+    player-offline: "Người chơi %player% không trực tuyến!"
+  plans:
+    unlock-premium: §cChỉ có sẵn trong Phiên bản Cao cấp.
+    unlock-pro: §cChỉ có sẵn trong Phiên bản Pro.
+    upgrade-at: §4Nâng cấp tại phoenixplugins.com
+  crate-type-received: "&aBạn đã nhận được crate có thể đặt."
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% Crate"
+      lore: "&7Đặt crate này ở đâu đó!"
+  loading-data: "&7Đang tải dữ liệu người chơi..."

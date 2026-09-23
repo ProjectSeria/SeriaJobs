@@ -1,0 +1,1416 @@
+ja:
+  error-processing:
+    - "&cこのアクションの処理中にエラーが発生しました (コンソールを確認してください):"
+    - "&7%message%"
+  unknown-argument: "&c不明な引数!"
+  no-permission: "&cあなたはこれを行う権限がありません！"
+  command-not-allowed: "&cこのコマンドを実行することは許可されていません!"
+  only-ingame-players: "&cコマンドはゲーム内のプレイヤーのみ許可されています。"
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: 最後の一つ
+    swap-option: オプションを入れ替える
+    option: オプション
+    item: アイテム
+    all: すべて
+    go-back: 戻る
+    navigate: ナビゲート
+    reload: リロード
+    switch-state: 状態を切り替える
+    state: 状態
+    empty: "&7(空)"
+    default: "&7(デフォルト)"
+    undefined: "&7未定義"
+    yes-word: "&aはい"
+    no-word: "&cいいえ"
+    location: 場所
+    region: 領域
+    material: 素材
+    # Others
+    menu: メニュー
+    enabled: 有効
+    disabled: 無効
+    range: 範囲
+    multiplier: 乗数
+    cooldown: クールダウン
+    receive-crate: クレートを受け取る
+    receive-key: 鍵を受け取る
+    identifier: 識別子
+    display-name: 表示名
+    line: 行
+    swap-engine: エンジンを入れ替える
+    edit-engine: エンジンを編集
+    documentation: ドキメント
+    not-installed: 未インストール
+    not-available: 利用不可
+    not-enabled: 無効
+    command: コマンド
+    none: なし
+    action: アクション
+    color: 色
+    flag: フラグ
+    pattern: パターン
+    enchant: エンチャント
+    effect: エフェクト
+    value: 値
+    red: 赤
+    green: 緑
+    blue: 青
+    item-model: アイテムモデル
+    tooltip-style: ツールチップスタイル
+    trim-material: トリム素材
+    trim-pattern: トリムパターン
+    model-data: モデルデータ
+    title: タイトル
+    particle: パーティクル
+    velocity: 速度
+    spread: 広がり
+    offset-x: オフセット X
+    offset-y: オフセット Y
+    offset-z: オフセット Z
+    change-amount-money: 金額を変更
+    money-necessary: 必要なお金
+    vault-installed: ボールトがインストールされています
+    points-installed: PlayerPoints インストール済み
+    swap-cost-engine: コストエンジンの切替
+    set-cost-amount: コスト量を設定
+    cost-amount: コスト量
+    required: 必要
+    permission: 権限
+    crate: 箱
+    key: 鍵
+    reward: 報酬
+    multiple-rewards: 複数の報酬
+    items: アイテム
+    cancel: キャンセル
+    animation: アニメーション
+    limited-time-offer: 期間限定オファー
+    see-more: もっと見る
+    attach-block: ブロックを接続
+    reorder-reward: 報酬の順序を変更
+    set-as-default-display-name: デフォルト表示名として設定
+    set-as-default-display-lore: デフォルト表示ロアとして設定
+    update-block: "ブロックを更新"
+    percentage: パーセンテージ
+    weight: "重み"
+    chance: チャンス
+    win-limit: 勝利制限
+    global-win-limit: 全体の当選上限
+    win-limit-cooldown: 当選上限クールダウン
+    global-win-limit-cooldown: 全体当選上限クールダウン
+    time-limited-cooldown: 時間制クールダウン
+    unlimited: 無制限
+    virtual: 仮想
+    broadcast: ブロードキャスト
+    paid: 有料
+    free: 無料
+    save: 保存
+    leave: 離脱
+    select: 選択
+    add: 追加
+    edit: 編集
+    remove: 削除
+    confirm: 確認
+    decline: 辞退
+    locked-field: ロックされたフィールド
+    add-items: アイテムを追加
+    no-cooldown: クールダウンなし
+    current: 現在の
+    first: 最初
+    second: 第二
+    third: 第三
+    to-choose: 選択する
+    not-colorable: 色をつけられない
+    previous-phase: 前のフェーズ
+    next-phase: 次のフェーズ
+    default-menu: デフォルトメニュー
+    amount: "金額"
+    migrate-files: "ファイルを移行"
+    rerolls: "再ロール"
+    group: "グループ"
+    broadcast-message: "ブロードキャストメッセージ"
+    only-premium: "プレミアムでのみ利用可能"
+    sharing: "共有"
+    everyone: "全員"
+    openings: "開放"
+    required-keys: "必要な鍵"
+    key-required: "鍵が必要"
+    crates-linked: "リンクされた箱"
+    keys-linked: "リンクされた鍵"
+    rarity: "レア度"
+    synced: "同期済み"
+    not-set: "未設定"
+    clear-lines: "行をクリア"
+    add-empty-line: "空行を追加"
+    receive-placeable-crate: 設置可能な箱を受け取る
+    disable-money-requirement: お金の要件を無効化
+  readers:
+    exit-session: "&aこのセッションを終了するには &e\\\"cancel\\\"&a を入力してください."
+    write-chat: "&aチャットに入力してください."
+  time:
+    week: "週"
+    weeks: "週間"
+    day: "日"
+    days: "日々"
+    hour: "時間"
+    hours: "時間"
+    minute: "分"
+    minutes: "分"
+    second: "秒"
+    seconds: "秒"
+
+  unlock-addon:
+    - "&c%addon% アドオンが必要です."
+    - "&4Unlock at phoenixplugins.com"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ フェニックスクレートコマンド"
+      - "%commands%"
+      - ""
+      - "&e➥ 追加情報:"
+      - " &9<argument> - 必要な引数"
+      - " &3[argument] - 任意の引数"
+    usage: "&e➥ 使用法:"
+    create: " &f/%command% create &9<identifier> &8- &7箱のタイプを作成"
+    delete: " &f/%command% delete &9<identifier> &8- &7箱のタイプを削除"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7配置用の箱を自分に与える"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8-
+      &7プレイヤー(または全プレイヤー)に鍵を与える"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7オンラインの全員にキーを与えます"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8- &7プレイヤーの仮想鍵を設定"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7プレイヤーの仮想鍵を設定"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7箱の報酬をプレビュー"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7プレイヤー(または全プレイヤー)に再ロールを与える"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8-
+      &7プレイヤーの再ロールを取得"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8-
+      &7プレイヤー(または全プレイヤー)に箱の報酬を与える"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7プレイヤー(または全員)にランダムなクレート報酬を与える"
+    editor: " &f/%command% editor &8- &7ゲーム内のすべての箱を編集"
+    reload: " &f/%command% reload &8- &7すべてのPhoenixCrates設定ファイルをリロード"
+  player-offline: "&cプレイヤー %name% はオンラインではありません!"
+  not-a-number: "&c入力された金額は数字ではありません。"
+  plugin-reloaded: "&aPhoenixCratesが正常にリロードされました。"
+  crate-type-created: "&a箱のタイプが正常に作成されました。"
+  crate-type-deleted: "&a箱のタイプが正常に削除されました。"
+  cooldown-reset: "&aクールダウン: &e%player% &aのクレート &e%crate% &aがリセットされました."
+  cooldown-reset-received: "&aあなたのクレート &e%crate% &aのクールダウンがリセットされました."
+  cooldown-reset-no-cooldown: "&cこのクレートにはクールダウンが設定されていません."
+  cooldown-reset-not-active: "&cそのプレイヤーにはこのクレートの有効なクールダウンがありません."
+  global-win-limit-reset: "&aクレート &e%crate% &aの報酬 &e%reward% &aの全体当選カウントがリセットされました."
+  global-win-limit-not-tracked: "&cこの報酬には全体当選上限が設定されていないため、リセットするものがありません."
+  reward-cooldown-started: "&aクレート &e%crate% &aの報酬 &e%reward% &aの時間制クールダウンを開始しました."
+  reward-cooldown-started-all: "&aクレート &e%crate% &aの報酬 &e%amount% &a件の時間制クールダウンを開始しました."
+  reward-cooldown-not-configured: "&cこの報酬には時間制クールダウンが設定されていません."
+  reward-cooldown-none-configured: "&cこのクレートの報酬には時間制クールダウンが設定されていません."
+  check-keys-header: "&#ffd500&l%player%のキー:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7キー"
+  check-keys-none: "&7- &7仮想キーはありません."
+  key-deleted: "&a鍵が正常に削除されました。"
+
+  key-given: "&e%amount% &a個のキーが%player%に正常に付与されました."
+  key-given-all: "&a%amount% キーが全てのオンラインプレイヤーに正常に与えられました。"
+  key-given-offline: "&e%amount% &a個のキーが%player%に正常に付与されました."
+  key-set: "&e%amount% &a個のキーが%player%に正常に設定されました."
+  key-taken: "&e%amount% &a個のキーが%player%から正常に取り除かれました."
+
+  key-received: "&aあなたは&ex%amount% &7%display_name% &r&akeysを受け取りました。"
+  virtual-key-received: "&aあなたは&ex%amount% &7%display_name% &r&avirtual keysを受け取りました。"
+
+  key-lost: '&c%amount% の鍵がクラテ &2\"%display_name%&2\"&c から取り除かれました！'
+  virtual-key-lost: '&c%amount% のバーチャルキーがクラテ &2\"%display_name%&2\"&c から取り除かれました！'
+
+  crate-rerolls-received: '&aクラテ &2\"%display_name%&2\"&a に対して %amount% の再ロールを受け取りました！'
+
+  crate-given: "&e%amount% &a個のクレートが%player%に正常に渡されました."
+
+  random-reward-given: "&aランダムな報酬が %player% に正常に付与されました."
+  no-available-rewards: "&cこのクレートには利用可能な報酬がありません."
+
+  crate-received: "&aあなたは &ex%amount% &7%display_name% &r&aクレートを受け取りました."
+  crate-no-placed-instances: "&cタイプ &e%crate% &cの設置されたクレートが見つかりませんでした."
+  crate-open-command-disabled: "&cクレート &e%crate% &cはこのコマンドで開くことができません."
+  crate-type-dont-exist: '&c識別子 \"%identifier%\" のクラテタイプは存在しません！'
+  crate-type-already-exist: '&c識別子 \"%identifier%\" のクラテタイプはすでに存在します！'
+  key-dont-exist: '&c識別子 \"%identifier%\" の鍵は存在しません！'
+  key-already-exist: '&c識別子 \"%identifier%\" の鍵はすでに存在します！'
+  need-plugin-reload: "&6プラグインの再読み込みが必要です！"
+
+  crate:
+    disabled: "&cこのクレートは現在無効です！"
+    quick-open-available: "&eしゃがんで再度クリックすることでアニメーションをスキップし、別のクラテを開けます。"
+    already-opening: "&c誰かがすでにこのクラテを開いています。待ってください！"
+    no-linked-key: "&cこのクラテにはリンクされた鍵がありません！"
+    no-key: "&cこのクラテを開くには %key%&r&c が必要です！"
+    no-keys: "&cこのクラテを開くのに十分な鍵がありません！"
+    no-keys-amount: "&cこのクレートを開けるには%amount%個のキーが必要です."
+    redeem-no-keys: "&cこの報酬を引き換えるのに %required_keys% の鍵が必要です。"
+    cooldown-wait: "&c再度このクラテを開く前に %cooldown% を待たなければなりません。"
+    cost-engine-not-installed: "&cコインエンジンが設定されていないようです（管理者に連絡してください）."
+    no-money-none: "&c現在このクレートを開くことはできません."
+    no-money-level: "&cこのクレートを開くには %money% が必要です."
+    no-money-vault: "&cこのクレートを開くには %money% が必要です."
+    no-money-playerpoints: "&cこのクレートを開くには %money% PlayerPoints が必要です."
+    no-money-votingplugin: "&cこのクレートを開くには %money% 投票ポイントが必要です."
+    no-money-excellenteconomy: "&cこのクレートを開くには %money% が必要です."
+    money-used-none: "&aクレートを開きました."
+    money-used-level: "&aこのクレートを開くために %money_consumed% を使用しました."
+    money-used-vault: "&aこのクレートを開くために %money_consumed% を使用しました."
+    money-used-playerpoints: "&aこのクレートを開くために %money_consumed% PlayerPoints を使用しました."
+    money-used-votingplugin: "&aこのクレートを開くために %money_consumed% 投票ポイントを使用しました."
+    money-used-excellenteconomy: "&aこのクレートを開くために %money_consumed% を使用しました."
+    need-crouched: "&eこのクラテを取り除くにはしゃがんでいなければなりません。"
+    successfully-removed: "&aこのクラテを正常に取り除きました。"
+    successfully-placed: "&aクラテを正常に配置しました！"
+    reward-received: "&a&ex%amount% %item% を受け取りました"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fが取得しました: &ex%amount% &r%reward%"
+    no-rewards: "&cこのクラテに報酬がありません。"
+    no-available-rewards: "&cこのクラテには利用可能な報酬がありません。"
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cちょっと待って！データをまだ読み込んでいます。少し待ってから再度クラテを開いてください！"
+    guaranteed-win-openings: "&3%openings% 回のオープニングで保証された勝利"
+    no-permission: "&cこのクラテを開くことは許可されていません！ [必要な権限: %permission%]"
+    cooldown-display:
+      counting: "&f再び開けるのは &e%cooldown% です"
+      over: "&a開くことが可能です"
+    hologram-type-limited: "&cこのホログラムエンジンはタイプごとに設置されたクレートを1つしかサポートしません."
+    no-money: "&cこのクラテを開くのに %necessary_money%$ が必要です。"
+    money-used: "&aこのクラテを開くのに %money_consumed%$ を使いました。"
+    crate:
+      no-rewards-for-key-rarities: "&cこのクレートには、あなたのキーのレア度 (%rarities%) に対応する報酬がありません."
+  actions:
+    need-item: "&cこのアクションを行うにはアイテムを追加する必要があります。"
+    force-close: "&cあなたは行っていたことを強制的にキャンセルしました。"
+
+  layout:
+    actions:
+      left-click: "&6左クリック: &e%action%."
+      right-click: "&6右クリック: &e%action%."
+      left-right-click: "&6左/右クリック: &e%action%."
+      shift-left-click: "&6シフト + 左クリック: &e%action%."
+      shift-right-click: "&6シフト + 右クリック: &e%action%."
+      drag-drop-click: "&6ドラッグ & ドロップ: &e%action%."
+      drop-click: "&6Qを押す: &e%action%."
+      description:
+        add: "%value% を追加"
+        set: "%value% を設定"
+        create: "%value% を作成"
+        remove: "%value% を削除"
+        edit: "%value% を編集"
+        delete: "%value% を削除"
+        receive: 受け取る %value%
+        clear: "%value% をクリア"
+        choose: "%value% を選択"
+        change: "%value% を変更"
+        select: "%value% を選択"
+        replace: "%value% を置き換え"
+        unlink: "%value% のリンクを解除"
+        link: "%value% にリンク"
+        reorder: "%value% の順序を変更"
+    displays:
+      state: "&f%type% 状態: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&f材質: &7%material%"
+      location:
+        empty: "&f位置: &7空"
+        populated:
+          - "&f位置: "
+          - " &fワールド: &7%world%"
+          - " &fX軸: &7%x%"
+          - " &fY軸: &7%y%"
+          - " &fZ軸: &7%z%"
+          - " &fYaw: &7%yaw%"
+          - " &fPitch: &7%pitch%"
+      region:
+        empty: "&f地域: &7空"
+        populated:
+          - "&f地域: "
+          - " &fワールド: &7%world%"
+          - " &f位置 #1: &7%minimum%"
+          - " &f位置 #2: &7%maximum%"
+      item:
+        empty: "&fアイテム: &7空"
+        populated:
+          - "&fアイテム: "
+          - " &f名前: &7%name%"
+          - " &f説明: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&a前のページ - ページ %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&a次のページ - ページ %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cデータが見つかりません。"
+        description:
+          - "&7このフィルターを使用してデータは見つかりませんでした。"
+      filter:
+        title: "&aフィルター"
+        description:
+          - "&7ここをクリックすることで"
+          - "&7名前でフィルタリングできます。"
+          - ""
+          - "&fフィルター: &e%filter%"
+          - ""
+          - "&6左クリック: &eフィルターを設定。"
+          - "&6右クリック: &eフィルターをクリア。"
+  editor:
+    messages:
+      write-identifier-chat: "&e新しい識別子をチャットに入力してください。"
+      identifier-updated: '&a識別子が \"%identifier%&a\" に正常に更新されました！'
+      write-displayname-chat: "&eチャットで新しい表示名を入力してください。"
+      displayname-updated: '&a表示名が \"%display_name%&a\" に正常に更新されました！'
+      write-in-chat: "&aチャットに書いてください。"
+      value-updated: "&a値が正常に更新されました！"
+      write-lore-line-chat: "&eチャットで新しいロアラインを入力してください。"
+      lore-line-added: "&aロアラインが正常に追加されました！"
+      lore-cleared: "&aロアが正常にクリアされました。"
+      opening-animation-changed: "&aオープニングアニメーションが正常に変更されました。"
+      crate-type-deleted: クレートタイプが正常に削除されました。
+      migration-completed: "&a移行が完了しました。"
+    errors:
+      identifier-already-in-use: "&cこの識別子はすでに使用されています。"
+      no-spaces: "&cスペースを含めることはできません！"
+      invalid-input: "&c無効な入力です！"
+      invalid-number: "&c無効な数値です！"
+      inventory-full: "&cあなたのインベントリは満杯です。"
+      inventory-full-reward: "&cインベントリが満杯のため、クレート報酬が地面にドロップされました！"
+      inventory-full-key: "&cインベントリがいっぱいのため、キーが地面に落ちました！"
+      username-not-found: "&c名前 %username% の元アカウントが見つかりませんでした。"
+      invalid-rewards: "無効な報酬が %amount% 件あります！"
+      no-rewards-configured: "設定された報酬はありません！"
+      invalid-reward-display: "無効な報酬：空の表示アイテムが見つかりました！"
+      hologram-engine-missing: "&cホログラムデータが別のプラグインを参照しています！プラグイン設定でホログラムエンジンを変更してください."
+    titles:
+      main: Phoenix Crates v%version% > エディター
+      crates: エディター > クレート
+      keys: エディター > キー
+      migrations: エディター > 移行
+      addons: エディター > アドオン
+      rarities: エディター > レア度
+      settings: エディター > 設定
+      engines:
+        bettermodel: エディター > ... > BetterModel
+      crate:
+        new: エディター > ... > 新しいクレート
+        show: エディター > ... > クレート
+        display: エディター > ... > エンジン
+        menus: エディター > ... > メニュー
+        link-keys: エディター > ... > キーのリンク
+        idle-animation: エディター > ... > アイダルアニメーション
+        opening-animations: エディター > ... > オープニングアニメーション
+        opening-animation: エディター > ... > オープニングアニメーション
+        effect: エディター > ... > アニメーション効果
+        rewards: エディター > ... > 報酬
+        reward: エディター > ... > 報酬
+        reward-cooldowns: エディター > ... > 報酬クールダウン
+        reward-requirements: エディター > ... > 報酬要件
+        reward-cooldown-duration: エディター > ... > クールダウン期間
+        reward-items: エディター > ... > 報酬アイテムの編集
+        reward-commands: エディター > ... > 報酬コマンドの編集
+        reward-rarity: エディター > ... > 報酬のレア度
+        multiple-rewards: エディター > ... > 複数の報酬を追加
+        engine: エディター > ... > エンジン
+        hologram: エディター > ... > ホログラム
+        milestones: "エディター > ... > マイルストーン"
+        rerolling: "エディター > ... > 再抽選"
+        others: "エディター > ... > その他"
+        open-cost: "エディター > ... > 開封コスト"
+      key:
+        show: エディター > ... > キー
+        linked-crates: エディター > ... > リンクされたクレート
+
+    main:
+      crates:
+        title: "&aクレート"
+        description:
+          - "&7ここをクリックすると、あなたは"
+          - "&7すべての利用可能なクレートを探求し管理できます。"
+      keys:
+        title: "&aキー"
+        description:
+          - "&7ここをクリックすると、あなたは"
+          - "&7すべての利用可能なキーを探求し管理できます。"
+      rarities:
+        title: "&aレアリティ"
+        description:
+          - "&7ここをクリックすると、あなたは"
+          - "&7レアリティシステムを設定し管理できます。"
+      migrations:
+        title: "&a移行"
+        description:
+          - "&7他のクレートプラグインからの移行オプションを探求"
+          - "&7ここをクリックすることで移行プロセスを管理できます。"
+      addons:
+        title: "&aアドオン"
+        description:
+          - "&7追加機能や拡張を探求"
+          - "&7ここをクリックしてアドオンメニューにアクセスします。"
+      settings:
+        title: "&a設定"
+        description:
+          - "&7ここをクリックすると、あなたは"
+          - "&7プラグインの設定を探求しカスタマイズできます。"
+      reload:
+        title: "&a設定の再読み込み"
+        description:
+          - "&7ここをクリックすると、あなたは"
+          - "&7すべてのプラグイン設定を再読み込みします。"
+      pouches:
+        title: "&aポーチ"
+        description:
+          - "&7ここをクリックすると、あなたは"
+          - "&7すべてのポーチを管理できます。"
+      crate-claim:
+        title: "&aクレート受け取り"
+        description:
+          - "&7ここをクリックすると、設定できます"
+          - "&7クレート受け取りの動作とメニュー。"
+    migrations:
+      plugin:
+        title: "&a%name%からの移行"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7ここをクリックすると、あなたは"
+          - "&7%name% からこのプラグインにいくつかのファイルを移行できます。"
+          - ""
+          - "&aサポートされているファイル："
+          - "&8 &7- %files%"
+          - ""
+          - "&fサポートされているデータベース：%database%"
+    addons:
+      loading:
+        title: "&e読み込み中..."
+        description:
+          - "&7アドオンを読み込んでいます、"
+          - "&7数秒お待ちください。"
+      empty:
+        title: "&c利用可能なアドオンはありません"
+        description:
+          - "&7現在のフィルターに従って記録が見つかりませんでした"
+          - "&7"
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&f価格: &a%price%"
+    settings:
+      language:
+        title: "&a言語"
+        description:
+          - "&7このオプションを使用すると、"
+          - "&7このプラグインが使用する基本言語"
+          - ""
+          - "&e&n常に translations.en.yml を設定できます。"
+      key-mainhand:
+        title: "&aメインハンドのキー要件"
+        description:
+          - "&7このオプションでは、"
+          - "&7プレイヤーがクレートを開けるために"
+          - "&7メインハンドにキーを持っている必要があるかどうかを定義できます。"
+      crate-knockback:
+        title: "&aクレートのノックバック"
+        description:
+          - "&7このオプションでは、"
+          - "&7プレイヤーがノックバックを受ける"
+          - "&7誤った鍵でクレートを開こうとしたときの。"
+      crate-despawn-range:
+        title: "&aクレートの消失範囲"
+        description:
+          - "&7このオプションでは、"
+          - "&7エフェクトがプレイヤーに"
+          - "&7表示されなくなる距離を定義できます。"
+          - ""
+          - "&c&n高い値は推奨されません。レグを引き起こす可能性があります。"
+      crate-quick-open:
+        title: "&aクレートのクイックオープン"
+        description:
+          - "&7このオプションにより、プレイヤーは"
+          - "&7クレートキーを持っているときにすばやく開くことができます"
+          - "&7シフトしながら右クリックすることで。"
+          - ""
+          - "&e&nクレートの同時オープン時のみ動作します！"
+      disable-confirmation-menus:
+        title: "&a確認メニューを無効にする"
+        description:
+          - "&7このオプションを有効にすると"
+          - "&7確認メニューをスキップして"
+          - "&7プレイヤーは直接アクションに進みます."
+      crate-claim:
+        title: "&aクレート受け取り"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7クレート受け取りの動作やメニューを設定できます."
+    keys:
+      key:
+        title: "&a%name% &7(識別子: %identifier%)"
+        description:
+          - "&7ここをクリックすると、この鍵を"
+          - "&7設定できるようになります。"
+        identifier:
+          title: "&a識別子"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7鍵の識別子を変更できます。"
+            - "&eこの識別子は一意でなければなりません。"
+        display-name:
+          title: "&a表示名"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7鍵の名前を変更できます。"
+        link-crates:
+          title: "&aリンククレート"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7この鍵とクレートをリンクできます。"
+        enabled:
+          title: "&a有効"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7この鍵の利用可否を変更できます。"
+        delete:
+          title: "&a鍵の削除"
+          description:
+            - "&7ここをクリックすると、この鍵が"
+            - "&7サーバーから削除されます。"
+            - "&eワールド内のすべての鍵はもはや有効ではなくなります。"
+        item:
+          title: "&a鍵アイテム"
+          description:
+            - "&7クレートを開くために使用できる"
+            - "&7カスタム鍵アイテム。"
+      add:
+        title: "&a鍵を追加"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7鍵を作成できます。"
+    crates:
+      type:
+        title: "&a%name% &7(識別子: %identifier%)"
+        description:
+          - "&7ここをクリックすると、このクレートを"
+          - "&7設定できるようになります。"
+      add:
+        title: "&aクレート追加"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7クレートタイプを作成できます。"
+    crate:
+      identifier:
+        title: "&a識別子"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7クレートの識別子を変更できます。"
+          - "&eこの識別子は一意でなければなりません。"
+      item:
+        title: "&aアイテム"
+        description:
+          - "&7このクレートを表す"
+          - "&7表示アイテムです."
+        name:
+          title: "&aアイテム名"
+          description:
+            - "&7このアイテムを表す"
+            - "&7名前です."
+        lore:
+          title: "&aアイテムの説明"
+          description:
+            - "&7このアイテムを表すために使用される"
+            - "&7説明文です."
+      link-keys:
+        title: "&aリンク鍵"
+        description:
+          - "&7ここをクリックすると"
+          - "&7このクレートにキーをリンクできます。"
+      animations:
+        title: "&aアニメーション"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクレートのアニメーションを変更できます。"
+          - ""
+          - "&f構成可能な内容："
+          - "&8> &aアイドルアニメーション"
+          - "&8> &aオープニングアニメーション"
+      rerolls:
+        title: "&a再ロール"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクレートの再ロールを定義できます。"
+      mass-opening:
+        title: "&a大量開放"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7クレートの大量開放設定を構成できます。"
+      display-settings:
+        block-material:
+          title: "&aブロック素材"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7クレートブロックに使用する素材を変更できます。"
+        crate-engine:
+          title: "&aクレートブロックエンジン"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7エンジンを変更してカスタマイズできます。"
+            - ""
+            - "&b➥ バニラブロックエンジン:"
+            - "&7標準的な素材ベースのクレート。"
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Vanilla Model engine: &9(1.12+)"
+            - "&7カスタムリソースパックの静的モデル。"
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model Engine / Better Model:"
+            - "&7アニメーション付きのカスタムモデル。"
+            - ""
+            - "&fエンジン:"
+        rewards-mode:
+          title: "&a報酬モード"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7この報酬システムが使用するモードを変更できます。"
+            - ""
+            - "&b➥ ランダムモード:"
+            - "&7報酬はその割り当てられた重み（確率）に基づいて"
+            - "&7ランダムに選ばれます。このモードはサプライズと運の要素を追加します。"
+            - ""
+            - "&b➥ セレクティブモード:"
+            - "&7このモードはランダム性を取り除き、"
+            - "&7ユーザーが利用可能なオプションから直接"
+            - "&7希望の報酬を選択できるようにします。理想的な"
+            - "&7ユーザーに報酬のコントロールを与えるために。"
+            - ""
+            - "&fモード:"
+        hologram:
+          title: "&aホログラム"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7このクレートの上にホログラムを設定できます。"
+        idle-animation:
+          title: "&aアイドルアニメーション"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7このクレートのアイドルアニメーションをカスタマイズできます。"
+            - ""
+            - "&7アイドルアニメーションは"
+            - "&7プレイヤーがこのクレートを開けていないときに表示されます。"
+        opening-animation:
+          title: "&a開封アニメーション"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7このクレートの開封アニメーションをカスタマイズできます。"
+            - ""
+            - "&f開封アニメーションはどう機能しますか？"
+            - "&7このアニメーションは3つのフェーズで構成されており、それぞれの"
+            - "&7フェーズは異なるミニアニメーションと"
+            - "&7プロパティで構成されています。簡略化すると、フェーズは"
+            - "&7アニメーションの始まり、中間、終わりを表します。"
+            - ""
+            - "&7また、モデルアニメーションをサポートするエンジンを使用している場合"
+            - "&7特定のモデルアニメーションを各レベルと同期させることができます。"
+        engine-mode:
+          title: "&aエンジンモード"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7このクレートが使用するエンジンを変更できます。"
+            - ""
+            - "&b➥ バニラブロックエンジン："
+            - "&7クレートのデフォルトエンジン、表現は"
+            - "&7このクレートのブロックとして選ばれた素材になります。"
+            - ""
+            - "&b➥ バニラモデルエンジン: &9(1.12+)"
+            - "&7クレートにカスタム静的モデルを割り当てる可能性"
+            - "&7はありますが、アニメーションはサポートされていません。このバニラモデルをサポートします"
+            - "&7素材とカスタムモデルデータを通じて。"
+            - ""
+            - "&b➥ その他: &9(1.16.5+)"
+            - "&7クレートにカスタムモデルを割り当てる可能性があり"
+            - "&7カスタム開封アニメーションもあります。"
+            - ""
+            - "&fエンジン:"
+      open-cooldown:
+        title: "&aオープンクールダウン"
+        description:
+          - "&7ここをクリックして、"
+          - "&7プレイヤーが別のクレートを開くために待たなければならない"
+          - "&7時間の量を変更できます。"
+      open-cost:
+        title: "&a開封コストエンジン"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクレートを開くための追加の方法を定義できます"
+          - ""
+          - "&e&lヒント&r&e: &7使用するにはキーの要求を無効にしてください"
+          - "      &7この方法をメインとして使用します。"
+      open-cost-amount:
+        title: "&a開封コスト額"
+        description:
+          - "&7このクレートを開封するときに"
+          - "&7請求される通貨の金額。"
+      open-cost-currency:
+        title: "&a通貨"
+        description:
+          - "&7コストを請求するために使用される"
+          - "&7ExcellentEconomy の通貨。"
+      simultaneous-openings:
+        title: "&a同時オープニング"
+        description:
+          - "&7このオプションでは、"
+          - "&71人以上のプレイヤーが同時に"
+          - "&7このクレートを開けることができるかどうかを定義します。"
+          - ""
+          - "&e&nクイックオープンは無効になっています"
+          - "&e&n同時に開くことなく"
+      preview-reward:
+        title: "&a報酬のプレビュー"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7各クレートの上に報酬のプレビューが表示されます。"
+      permission-required:
+        title: "&a権限の要件"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7プレイヤーがこのクレートを開くのに必要な権限を設定します。"
+      rewards:
+        title: "&a報酬"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7プレイヤーがこのクレートを開いて得られるすべての報酬を設定できます。"
+          - ""
+        add:
+          title: "&a報酬を追加"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7このクレートに新しい報酬を設定し始めます。"
+        edit:
+          title: "&a報酬 #%position%"
+          description: []
+        multiple-rewards:
+          title: "&a複数の報酬を追加"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7複数の報酬を一度に追加できます。"
+        reordering:
+          title: "&a並べ替え"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7あなたが望む順序で報酬を並べ替えられます。"
+          selected:
+            title: "&e選択済み"
+        win-amount:
+          title: "&a最大報酬数"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7プレイヤーが一度に獲得する報酬の数を定義できます。"
+      reward:
+        drag-item:
+          title: "&aアイテムをドラッグ"
+          description:
+            - "&7報酬を設定するためにアイテムをドラッグします。"
+            - ""
+            - "&6ドラッグ & ドロップ: アイテムを置き換えます。"
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6ドラッグ & ドロップ: &eアイテムを置き換えます。"
+        identifier:
+          title: "&a識別子を変更"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7報酬の識別子の名前を変更できます。"
+            - "&eこの識別子はユニークである必要があります。"
+        display-item:
+          title: "&a表示アイテム"
+          description:
+            - "&7このアイテムは表示に役立ち"
+            - "&7このクレートの報酬を表します。"
+          name:
+            title: "&a表示名"
+            description:
+              - "&7この報酬を表すために使用される名前"
+              - ""
+          lore:
+            title: "&a表示ロア"
+            description:
+              - "&7この報酬を表すために使用されるロア"
+              - ""
+        alternative-item:
+          title: "&a代替アイテム"
+          description:
+            - "&7このアイテムは、条件が満たされた場合"
+            - "&7ユーザーが受け取る追加のアイテムです。"
+        win-items:
+          title: "&a獲得アイテム"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7プレイヤーがこの報酬で獲得するアイテムを追加できます。"
+            - ""
+          add-item:
+            title: "&aアイテムを追加"
+            description:
+              - "&7インベントリからアイテムをドラッグして"
+              - "&7ここに追加して、この報酬のアイテムとします。"
+        weight:
+          title: "&a重み"
+          description:
+            - "&7この重みは"
+            - "&7プレイヤーがこのアイテムを獲得する確率に影響します."
+        virtual:
+          title: "&aバーチャルアイテム"
+          description:
+            - "&7このオプションは、勝者が"
+            - "&7物理的なアイテムを受け取るかどうかを設定します。"
+        win-commands:
+          title: "&a獲得コマンド"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7プレイヤーがこの報酬を獲得したときに実行されるすべてのコマンドを管理できます。"
+        max-win-item-amount:
+          title: "&a最大当選アイテム数"
+          description:
+            - "&7この報酬が当選したときに与えられる"
+            - "&7win-items リストからのアイテムの最大数を"
+            - "&7設定します。"
+            - "&7制限なしにするには &e∞ &7に設定します。"
+        max-win-command-amount:
+          title: "&a最大実行コマンド数"
+          description:
+            - "&7この報酬が当選したときに実行される"
+            - "&7win-commands リストからのコマンドの最大数を"
+            - "&7設定します。"
+            - "&7制限なしにするには &e∞ &7に設定します。"
+        broadcast:
+          title: "&aブロードキャストメッセージ"
+          description:
+            - "&7このオプションは、プレイヤーがこの報酬を獲得したときに"
+            - "&7ブロードキャストメッセージが表示されるかどうかを設定します。"
+        share-players-online:
+          title: "&aオンラインプレイヤーと共有"
+          description:
+            - "&7このオプションは、この報酬の賞品が"
+            - "&7オンラインの全員と共有されるかどうかを設定します。"
+        allow-win-message:
+          title: "&a当選メッセージを許可"
+          description:
+            - "&7プレイヤーがこの報酬に当選したときに"
+            - "&7メッセージを受け取るかどうかを設定します。"
+        notification-types:
+          title: "&a通知タイプ"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7当選メッセージの送信方法を変更できます。"
+        enabled:
+          title: "&a有効"
+          description:
+            - "&7ここをクリックすると"
+            - "&7この報酬が利用可能かどうかを変更できます。"
+        win-limit:
+          title: "&a獲得制限"
+          description:
+            - "&7このオプションは、"
+            - "&7プレイヤーがこの報酬を獲得できる回数を設定します。"
+            - ""
+            - "&e&lヒント: &7これを組み合わせることができます"
+            - "       &7代替報酬と。"
+        global-win-limit:
+          title: "&aグローバル当選制限"
+          description:
+            - "&7この報酬が何回"
+            - "&7サーバー全体で合計当選できるかを"
+            - "&7設定します。"
+            - ""
+            - "&e&lTIP: &7この設定は"
+            - "       &7代替報酬と組み合わせることができます。"
+        cooldowns:
+          title: "&aクールダウン"
+          description:
+            - "&7ここをクリックすると"
+            - "&7この報酬のクールダウンを"
+            - "&7設定できます。"
+          win-limit-cooldown:
+            title: "&a当選制限クールダウン"
+            description:
+              - "&7プレイヤーがこの報酬を再度"
+              - "&7当選できるようになるまで"
+              - "&7どれだけ待たなければならないかを設定します。"
+          global-win-limit-cooldown:
+            title: "&aグローバル当選制限クールダウン"
+            description:
+              - "&7この報酬がサーバー上の誰によっても"
+              - "&7再び当選できるようになるまでに"
+              - "&7どれだけの時間が必要かを設定します。"
+          time-limited-cooldown:
+            title: "&a時間限定クールダウン"
+            description:
+              - "&7このクールダウンが開始された後に"
+              - "&7この報酬がどれだけの間利用可能で"
+              - "&7いるかを設定します。"
+              - ""
+              - "&7有効期限が切れると、報酬は"
+              - "&7自動的に無効になります。"
+          duration:
+            weeks:
+              title: "&a週"
+              description:
+                - "&7このクールダウンの期間に"
+                - "&7追加する週数。"
+            days:
+              title: "&a日"
+              description:
+                - "&7このクールダウンの期間に"
+                - "&7追加する日数。"
+            hours:
+              title: "&a時間"
+              description:
+                - "&7このクールダウンの期間に"
+                - "&7追加する時間数。"
+            minutes:
+              title: "&a分"
+              description:
+                - "&7このクールダウンの期間に"
+                - "&7追加する分数。"
+            disable:
+              title: "&cクールダウンを無効化"
+              description:
+                - "&7このクールダウンの期間を"
+                - "&7ゼロに戻し、無効にします。"
+        requirements:
+          title: "&a要件"
+          description:
+            - "&7この報酬の権限要件を"
+            - "&7設定します。"
+          required-permission:
+            title: "&a必要な権限"
+            description:
+              - "&7プレイヤーが持っている必要のある権限を設定します"
+              - "&7この報酬を利用可能として表示させるためのものです。"
+              - "&7プレイヤーがそれを持っていない場合、その報酬は"
+              - "&7プレビュー上でロックされた状態で表示されます。"
+        restricted-permissions:
+          title: "&a制限付き権限"
+          description:
+            - "&7このオプションは"
+            - "&7プレイヤーがこの報酬を得るために"
+            - "&7持つことができない制限付き権限を定義します。"
+            - "&eプレイヤーがopの場合、これは適用されません。"
+            - ""
+            - "&e&lヒント: &7これを"
+            - "       &7代替報酬と組み合わせることができます。"
+        alternative-reward:
+          title: "&a代替報酬"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7この報酬の代替"
+            - "&7報酬を設定できるようになります。"
+            - ""
+            - "&7プレイヤーが勝利制限を超えた際に有効な場合、"
+            - "&7ブラックリスト権限を持っていると、"
+            - "&7代わりにこの報酬を受け取ります。"
+        delete:
+          title: "&a報酬を削除"
+          description:
+            - "&7ここをクリックすると、この報酬が"
+            - "&7このクラフトから削除されます。"
+        percentage:
+          title: "&aパーセンテージ"
+          description:
+            - "&7パーセンテージは、"
+            - "&7プレイヤーのこのアイテムを獲得する機会に貢献します。"
+      menus:
+        title: "&aメニュー"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクラフトのすべてのメニューを設定できるようになります。"
+      rewards-menu:
+        title: "&a報酬メニュー"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクラフトの報酬メニューを設定できるようになります。"
+      preview-actions:
+        title: "&aプレビューアクション"
+        description:
+          - "&7ここをクリックすると設定できるようになります"
+          - "&7プレイヤーがこのクレートをプレビューするためにクリックしたときに"
+          - "&7実行されるアクションを。"
+          - "&7これらは、"
+          - "&7報酬プレビューメニューと一緒に、または代わりに使用できます。"
+      rerolls-menu:
+        title: "&a再抽選メニュー"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクラフトの再抽選メニューを設定できるようになります。"
+      selective-rewards-menu:
+        title: "&a選択的報酬メニュー"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクラフトの選択的報酬メニューを設定できるようになります。"
+      milestones-menu:
+        title: "&aマイルストーンメニュー"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクラフトのプレビュー メニューを設定できるようになります。"
+      broadcast-message:
+        title: "&aブロードキャストメッセージ"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7報酬のブロードキャストメッセージを設定できるようになります。"
+          - ""
+          - "&e利用可能なプレースホルダー:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&a有効"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7このクラフトを利用可能にするか変更できます。"
+      allow-open-command:
+        title: "&a開くコマンドを許可"
+        description:
+          - "&7ここをクリックすると"
+          - "&7このクレートが開けるかどうかを切り替えられます"
+          - "&7&f/crate open &7コマンドで開けるかどうかを切り替えます。"
+      attach-block:
+        title: "&aブロックを添付"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7ブロックを添付することでクラフトを作成できます。"
+      delete:
+        title: "&aクラフトを削除"
+        description:
+          - "&7ここをクリックすると、このクラフトが"
+          - "&7サーバーから削除されます。"
+          - ""
+          - "&e&nこのクラフトのすべてのキーは、もはや有効ではありません。"
+      hologram:
+        engine-mode:
+          title: "&aホログラムエンジンモード"
+          description:
+            - "&7このプラグインが使用している"
+            - "&7ホログラム用のエンジン"
+            - ""
+            - "&fエンジン: &7%engine%"
+        lines:
+          title: "&aホログラム行"
+          description:
+            - "&7ここをクリックすると"
+            - "&7このクレートのホログラム行を設定できます."
+            - ""
+            - "&e&lヒント: &7使用できます: &ePlaceholderAPI&7."
+        identifier:
+          title: "&a識別子"
+          description:
+            - "&7ここをクリックすると"
+            - "&7ホログラムプラグインの識別子を定義できます."
+            - ""
+            - "&f識別子: &7%id%"
+        offset:
+          title: "&aホログラムオフセット"
+          description:
+            - "&7このオプションではホログラムの"
+            - "&7位置をクレートの場所に基づいて調整できます."
+      display-name:
+        title: "&a表示名"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7クレートの名前を変更できます。"
+      open-money-cost:
+        title: "&aオープンマネーコスト"
+        description:
+          - "&7ここをクリックして、"
+          - "&7このクレートを開くのに必要な金額を変更します。"
+          - "&7キーを押して右クリックします。"
+          - ""
+          - "&e&nVaultにのみ対応！"
+    crate-engine:
+      first-phase-delay:
+        title: "&a第一フェーズ開始遅延"
+        description:
+          - "&7クレートが開いた瞬間と"
+          - "&7アニメーションの第一フェーズの開始との間の"
+          - "&7遅延を定義します。"
+      second-phase-delay:
+        title: "&a第二フェーズ開始遅延"
+        description:
+          - "&7開くアニメーションの第一フェーズと"
+          - "&7第二フェーズの開始との間の遅延を定義します。"
+      third-phase-delay:
+        title: "&a第三フェーズ開始遅延"
+        description:
+          - "&7開くアニメーションの第二フェーズと"
+          - "&7第三フェーズの開始との間の遅延を定義します。"
+      idle:
+        title: "&a待機アニメーション"
+        description:
+          - "&7クレートが待機中に再生される"
+          - "&7アニメーションを定義します。"
+      close-animation:
+        title: "&a閉じるアニメーション"
+        description:
+          - "&7クレートが閉じるときに再生される"
+          - "&7アニメーションを定義します。"
+      model-name:
+        title: "&aモデル名"
+        description:
+          - "&7このクレートが使用する"
+          - "&7モデル名を定義します。"
+          - ""
+          - "&f現在のモデル: &7%name%"
+      model-engine:
+        model-name:
+          title: "&aモデル名"
+          description:
+            - "&7ここをクリックすると"
+            - "&7このクレートのモデル名を変更できます。"
+            - ""
+            - "&f現在の名前: &7%name%"
+      better-model:
+        model-name:
+          title: "&aモデル名"
+          description:
+            - "&7ここをクリックすると"
+            - "&7このクレートのモデル名を変更できます。"
+            - ""
+            - "&f現在の名前: &7%name%"
+        scale:
+          title: "&aスケール"
+          description:
+            - "&7このサイズの倍率を定義します"
+            - "&7モデル. 1.0はモデルの通常のサイズです."
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6左クリック: &e材料を選択。"
+        custom-model-data:
+          title: "&aカスタムモデルデータ"
+          description:
+            - "&7ここをクリックすると、"
+            - "&7このアイテムのカスタムモデルデータを変更できます。"
+            - ""
+            - "&fカスタムモデルデータ: &7%custom_model_data%"
+            - ""
+            - "&6左クリック: &eカスタムモデルデータを変更。"
+    reward-commands:
+      add:
+        title: "&aコマンドを追加"
+        description:
+          - "&7ここをクリックすると、"
+          - "&7プレイヤーがこの報酬を得たときに実行されるコマンドを追加できます。"
+          - ""
+          - ""
+          - "&7&a* &7で始まるコマンドは、"
+          - "&7プレイヤーによって実行されます。それ以外は、コンソールによって実行されます。"
+          - ""
+          - "&7プレースホルダー &a%player% を使用することもできます"
+          - "&7そして &aPlaceholderAPI&7のプレースホルダーを使用します。"
+          - ""
+          - "&6左クリック: &eコマンドを追加します。"
+      command:
+        title: "&aコマンド #%id%"
+        description:
+          - "&fコマンド: &7%command%"
+          - ""
+          - "&6左クリック: &eコマンドを削除します。"
+    alternative-reward:
+      enabled:
+        title: "&a状態"
+        description:
+          - "&7代替報酬がアクティブな場合、"
+          - "&7プレイヤーが勝利制限を超えた場合や"
+          - "&7ブラックリスト権限を持っている場合、彼は"
+          - "&7この報酬を受け取ります。"
+    edit-standby-animation:
+      add-effect:
+        title: "&aエフェクトを追加"
+        description:
+          - "&7ここをクリックすることで、"
+          - "&7アイドルアニメーションに新しいエフェクトを追加できます。"
+          - ""
+          - "&6左クリック &eエフェクトを追加。"
+      edit-effect:
+        title: "&eエフェクト #%id%"
+        description:
+          - ""
+          - "&fエフェクトタイプ: &7%effect_type%"
+          - "&fパーティクルタイプ: &7%particle_type%"
+          - "&fパーティクル速度: &7%particle_velocity%"
+          - "&f色: &7%color%"
+          - "&fオフセット: &7%offset%"
+          - "&f広がり: &7%spread%"
+          - "&f量: &7%amount%"
+          - ""
+          - "&6左クリック &eエフェクトを編集。"
+          - "&6Shift + 左クリック: &eエフェクトを削除。"
+    edit-standby-effect:
+      effect-type:
+        title: "&aエフェクトタイプ&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6左/右クリック: &eタイプを切り替え。"
+      particle-type:
+        title: "&aパーティクルタイプ"
+        description:
+          - "&f現在: &7%particle_type%"
+          - ""
+          - "&6左クリック: &eパーティクルを変更。"
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&f特性: &a%properties%"
+          - ""
+          - "&6左クリック: &eパーティクルを選択。"
+      color:
+        title: "&a色"
+        description:
+          - "&f現在: &7%color%"
+          - ""
+          - "&e&nカラー可能なパーティクルでのみ動作します。"
+          - ""
+          - "&6左クリック: &e色を変更。"
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6左クリック: &e色を選択。"
+      spread:
+        title: "&a広がり"
+        description:
+          - "&f現在: &7%spread%"
+          - ""
+          - "&6左クリック: &e0.1を追加。"
+          - "&6Shift + 左クリック: &e1を追加。"
+          - "&6右クリック: &e0.1を削除。"
+          - "&6Shift + 右クリック: &e1を削除。"
+      particle-velocity:
+        title: "&aパーティクル速度"
+        description:
+          - "&f現在: &7%particle_velocity%"
+          - ""
+          - "&6左クリック: &e0.1を追加。"
+          - "&6Shift + 左クリック: &e1を追加。"
+          - "&6右クリック: &e0.1を削除。"
+          - "&6Shift + 右クリック: &e1を削除。"
+      amount:
+        title: "&a量"
+        description:
+          - "&f現在: &7%amount%"
+          - ""
+          - "&6左クリック: &e1を追加。"
+          - "&6右クリック: &e1を削除。"
+      offset-x:
+        title: "&aオフセット X"
+        description:
+          - "&f現在: &7%offset_x%"
+          - ""
+          - "&6左クリック: &e0.1を追加。"
+          - "&6Shift + 左クリック: &e1を追加。"
+          - "&6右クリック: &e0.1を削除。"
+          - "&6Shift + 右クリック: &e1を削除。"
+      offset-y:
+        title: "&aオフセット Y"
+        description:
+          - "&f現在: &7%offset_y%"
+          - ""
+          - "&6左クリック: &e0.1を追加します。"
+          - "&6Shift + 左クリック: &e1を追加します。"
+          - "&6右クリック: &e0.1を削除します。"
+          - "&6Shift + 右クリック: &e1を削除します。"
+      offset-z:
+        title: "&aオフセット Z"
+        description:
+          - "&f現在: &7%offset_z%"
+          - ""
+          - "&6左クリック: &e0.1を追加します。"
+          - "&6Shift + 左クリック: &e1を追加します。"
+          - "&6右クリック: &e0.1を削除します。"
+          - "&6Shift + 右クリック: &e1を削除します。"
+    opening-animation:
+      phase-updated: "&aアニメーションフェーズが更新されました。"
+      preset-applied: "&a開封アニメーションのプリセットを適用しました。"
+      preset-removed: "&aプリセットが選択されていません。"
+      phase:
+        title: "&a%phase% フェーズ"
+        description:
+          - "&7各オープニングアニメーションは"
+          - "&7フェーズで構成されています、これはそのフェーズの一つです。"
+          - ""
+          - "&fフェーズ: &e%name%"
+      change-phases:
+        title: "&aアニメーションフェーズ"
+        description:
+          - "&7オープニングアニメーションステージの"
+          - "&7アニメーションを選択します。"
+          - ""
+          - "&6左クリック: &eアニメーションを変更します。"
+    edit-opening-animation:
+      phase-navbar:
+        title: "&a%phase% フェーズ"
+        description:
+          - "&7各オープニングアニメーションは"
+          - "&7フェーズで構成されています、これはそのフェーズの一つです。"
+          - ""
+          - "&fフェーズ: &e%name%"
+          - ""
+          - "&6左クリック: &eナビゲート"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&f必要なバージョン: &7%required_version%"
+          - ""
+          - "&6左クリック: &eフェーズを作成します。"
+          - "&6Shift + 左クリック: &eフェーズを素早く作成します。"
+  command:
+    info:
+      - ""
+      - "&e➥ &6利用可能なコマンド:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6追加情報:"
+      - " &9<argument> - 必須引数"
+      - " &3[argument] - 任意の引数"
+    usage:
+      - ""
+      - "&e➥ 使用方法:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "申し訳ありませんが、このコマンドを実行する権限がありません."
+    permission-denied-parameter: "申し訳ありませんが、このコマンドを実行する権限がありません."
+    error-generic-logged: "エラーが発生しました。この問題はログに記録されました。ご不便をおかけして申し訳ありません."
+    unknown-command: "&c不明なコマンド, &4%command% を入力してください"
+    error-prefix: "&cエラー: %message%"
+    error-performing-command: "申し訳ありませんが、このコマンドの実行中にエラーが発生しました."
+    please-specify-one-of: "(&2%valid%) のいずれかを指定してください."
+    must-be-a-number: "%num% は数値である必要があります."
+    must-be-min-length: "少なくとも %min% 文字である必要があります."
+    must-be-max-length: "最大で %max% 文字である必要があります."
+    please-specify-at-most: "%max% 以下の値を指定してください."
+    please-specify-at-least: "%min% 以上の値を指定してください."
+    player-offline: "プレイヤー %player% はオンラインではありません!"
+  plans:
+    unlock-premium: §cプレミアムバージョンでのみ利用可能。
+    unlock-pro: §cプロバージョンでのみ利用可能。
+    upgrade-at: §4phoenixplugins.comでアップグレード
+  crate-type-received: "&a設置可能なクラテを受け取りました。"
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% クラテ"
+      lore: "&7このクラテをどこかに配置してください！"
+  loading-data: "&7プレイヤーデータを読み込み中..."

@@ -1,0 +1,83 @@
+id: "gacha-menu"
+title: "<title-color>SeriaGacha â€¢ Machines"
+size: 54
+
+menu-parameter:
+  parameters:
+    category:
+      type: string
+      default: main
+  player-usable: false
+
+variables:
+  tab:
+    type: "string"
+    default: "overview"
+
+layout:
+  content:
+    slots: [20, 21, 22, 23, 24, 29, 30, 31, 32, 33, 38, 39, 40, 41, 42]
+    item-provider: "%parameters_content%"
+    selector:
+      requirements:
+        1:
+          taint: "content-item"
+          comparison: "=="
+          value: true
+
+items:
+
+  ##############################
+  #           NAVBAR           #
+  ##############################
+
+  filler-navbar:
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    slots: [0, 1, 2, 3, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 51, 52, 53]
+    hide-tooltip: true
+    priority: 0
+
+  selected-navbar:
+    material: RED_STAINED_GLASS_PANE
+    name: " "
+    slot: 4
+    hide-tooltip: true
+    priority: 1
+
+  info-display:
+    material: ENDER_CHEST
+    name: "<title-color>SeriaGacha â€¢ Machines"
+    slot: 4
+    lore:
+      - ""
+      - "<lore-color>Plugin: <accentuation-color>SeriaGacha"
+      - "<lore-color>Version: <accentuation-color>2.0.0"
+      - ""
+      - "<yellow>â–¶ Click to interact</yellow>"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+  close:
+    material: RED_DYE
+    name: "<error-color>Close"
+    slot: 49
+    click-actions:
+      - "[close]"
+    item-flags:
+      - "HIDE_ATTRIBUTES"
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+placeholders:
+
+  get-status:
+    type: "transform"
+    transform: "component-wrapper"
+    value:
+      type: "function"
+      function: "short-track"
+      input: "%variables_tab%"
+      tracks:
+        "==overview": "<green>Active"
+        "!=overview": "<gray>Standby"

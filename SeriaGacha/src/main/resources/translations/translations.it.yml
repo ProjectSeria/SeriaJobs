@@ -1,0 +1,1455 @@
+it:
+  error-processing:
+    - "&cSi è verificato un errore durante l'elaborazione di quest'azione
+      (Controlla la console):"
+    - "&7%message%"
+  unknown-argument: "&cArgomento sconosciuto!"
+  no-permission: "&cNon sei autorizzato a farlo!"
+  command-not-allowed: "&cNon ti è permesso eseguire questo comando!"
+  only-ingame-players: "&cComando consentito solo ai giocatori in gioco."
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: Ultimo
+    swap-option: Opzione di scambio
+    option: Opzione
+    item: Articolo
+    all: Tutti
+    go-back: Torna Indietro
+    navigate: Naviga
+    reload: Ricarica
+    switch-state: Cambia Stato
+    state: Stato
+    empty: "&7(Vuoto)"
+    default: "&7(Predefinito)"
+    undefined: "&7Indefinito"
+    yes-word: "&aSì"
+    no-word: "&cNo"
+    location: Posizione
+    region: Regione
+    material: Materiale
+    # Others
+    menu: Menu
+    enabled: Abilitato
+    disabled: Disabilitato
+    range: Intervallo
+    multiplier: Moltiplicatore
+    cooldown: Tempo di recupero
+    receive-crate: Ricevi cassa
+    receive-key: Ricevi chiave
+    identifier: Identificatore
+    display-name: Nome Visualizzato
+    line: Linea
+    swap-engine: Scambia motore
+    edit-engine: Modifica motore
+    documentation: Documentazione
+    not-installed: Non Installato
+    not-available: Non Disponibile
+    not-enabled: Non Abilitato
+    command: comando
+    none: Nessuno
+    action: Azione
+    color: Colore
+    flag: Flag
+    pattern: Motivo
+    enchant: Incantesimo
+    effect: Effetto
+    value: Valore
+    red: Rosso
+    green: Verde
+    blue: Blu
+    item-model: Modello Oggetto
+    tooltip-style: Stile Tooltip
+    trim-material: Materiale Trim
+    trim-pattern: Motivo Trim
+    model-data: Dati Modello
+    title: Titolo
+    particle: Particella
+    velocity: Velocità
+    spread: Diffusione
+    offset-x: Offset X
+    offset-y: Offset Y
+    offset-z: Offset Z
+    change-amount-money: Cambia l'importo di denaro
+    money-necessary: Denaro Necessario
+    vault-installed: Vault installato
+    points-installed: PlayerPoints installato
+    swap-cost-engine: Motore costo swap
+    set-cost-amount: Imposta importo costo
+    cost-amount: Importo Costo
+    required: Richiesto
+    permission: Permesso
+    crate: Cassa
+    key: Chiave
+    reward: Ricompensa
+    multiple-rewards: Ricompense Multiple
+    items: Articoli
+    cancel: Annulla
+    animation: Animazione
+    limited-time-offer: Offerta a Tempo Limitato
+    see-more: Vedi Di Più
+    attach-block: Collega Blocco
+    reorder-reward: Riordina ricompensa
+    set-as-default-display-name: Imposta come nome visualizzato predefinito
+    set-as-default-display-lore: Imposta come lore visualizzata predefinita
+    update-block: "Aggiorna Blocco"
+    percentage: Percentuale
+    weight: "Peso"
+    chance: Probabilità
+    win-limit: Limite di Vincita
+    global-win-limit: Limite vittorie globale
+    win-limit-cooldown: Cooldown limite vittorie
+    global-win-limit-cooldown: Cooldown limite vittorie globale
+    time-limited-cooldown: Cooldown a tempo limitato
+    unlimited: Illimitato
+    virtual: Virtuale
+    broadcast: Trasmetti
+    paid: Pagato
+    free: Gratuito
+    save: Salva
+    leave: Esci
+    select: Seleziona
+    add: Aggiungi
+    edit: Modifica
+    remove: Rimuovi
+    confirm: Conferma
+    decline: Rifiuta
+    locked-field: Campo bloccato
+    add-items: Aggiungi Articoli
+    no-cooldown: Nessun recupero
+    current: Corrente
+    first: Primo
+    second: Secondo
+    third: Terzo
+    to-choose: Da scegliere
+    not-colorable: Non colorabile
+    previous-phase: Fase Precedente
+    next-phase: Fase Successiva
+    default-menu: Menu Predefinito
+    amount: "Quantità"
+    migrate-files: "Migra file"
+    rerolls: "Rerolls"
+    group: "Gruppo"
+    broadcast-message: "Messaggio di Trasmissione"
+    only-premium: "Disponibile solo su premium"
+    sharing: "Condivisione"
+    everyone: "Tutti"
+    openings: "Aperture"
+    required-keys: "Chiavi Richieste"
+    key-required: "Chiave Richiesta"
+    crates-linked: "Cassette Collegate"
+    keys-linked: "Chiavi Collegate"
+    rarity: "Rarità"
+    synced: "Sincronizzato"
+    not-set: "Non impostato"
+    clear-lines: "Cancella righe"
+    add-empty-line: "Aggiungi riga vuota"
+    receive-placeable-crate: Ricevi cassa posizionabile
+    disable-money-requirement: Disabilita requisito di denaro
+  readers:
+    exit-session: "&aPer uscire da questa sessione digita &e\\\"annulla\\\"&a."
+    write-chat: "&aScrivi nella chat."
+  time:
+    week: "Settimana"
+    weeks: "Settimane"
+    day: "Giorno"
+    days: "Giorni"
+    hour: "Ora"
+    hours: "Ore"
+    minute: "Minuto"
+    minutes: "Minuti"
+    second: "Secondo"
+    seconds: "Secondi"
+
+  unlock-addon:
+    - "&cRichiede l'addon %addon%."
+    - "&4Sblocca su phoenixplugins.com"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ Comandi di Phoenix Crates"
+      - "%commands%"
+      - ""
+      - "&e➥ Informazioni aggiuntive:"
+      - " &9<argomento> - argomento richiesto"
+      - " &3[argomento] - argomento facoltativo"
+    usage: "&e➥ Utilizzo:"
+    create: " &f/%command% create &9<identificatore> &8- &7Crea tipo di cassa"
+    delete: " &f/%command% delete &9<identificatore> &8- &7Elimina tipo di cassa"
+    give-crate: " &f/%command% giveCrate &9<identificatore> &8- &7Dai a te stesso
+      una cassa da posizionare"
+    give-key: " &f/%command% giveKey &9<identificatore> <giocatore/tutti> [quantità]
+      &8- &7Dai a un giocatore (o a tutti i giocatori) una chiave"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7Dai a
+      tutti i giocatori online una chiave"
+    take-key: " &f/%command% takeKey &9<identificatore> <giocatore> [quantità] &8-
+      &7Imposta chiavi virtuali del giocatore"
+    set-key: " &f/%command% setKey &9<identificatore> <giocatore> [quantità] &8-
+      &7Imposta chiavi virtuali del giocatore"
+    preview: " &f/%command% preview &9<identificatore> [giocatore] &8- &7Ti consente
+      di visualizzare le ricompense della cassa"
+    give-reroll: " &f/%command% giveReroll &9<identificatore> <giocatore/tutti>
+      [quantità] &8- &7Dai a un giocatore (o a tutti i giocatori) rerolls"
+    take-reroll: " &f/%command% takeReroll &9<identificatore> <giocatore> [quantità]
+      &8- &7Prende i rerolls del giocatore"
+    give-reward: " &f/%command% giveReward &9<cassa> <ricompensa> <giocatore/tutti>
+      &8- &7Dai a un giocatore (o a tutti i giocatori) una ricompensa della
+      cassa"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7Dai a un giocatore(o a tutti i giocatori) una ricompensa casuale da una
+      cassa"
+    editor: " &f/%command% editor &8- &7Ti consente di modificare tutte le casse in
+      gioco"
+    reload: " &f/%command% reload &8- &7Ricarica tutti i file di configurazione di
+      PhoenixCrates"
+  player-offline: "&cIl giocatore %name% non è online!"
+  not-a-number: "&cL'importo inserito non è un numero."
+  plugin-reloaded: "&aPhoenixCrates è stato ricaricato con successo."
+  crate-type-created: "&aTipo di cassa creato con successo."
+  crate-type-deleted: "&aTipo di cassa eliminato con successo."
+  cooldown-reset: "&aIl cooldown per &e%player% &asulla cassa &e%crate% &aè stato resettato."
+  cooldown-reset-received: "&aIl tuo cooldown per la cassa &e%crate% &aè stato resettato."
+  cooldown-reset-no-cooldown: "&cQuesta cassa non ha un cooldown configurato."
+  cooldown-reset-not-active: "&cQuel giocatore non ha un cooldown attivo per questa cassa."
+  global-win-limit-reset: "&aIl conteggio globale delle vittorie per la ricompensa
+    &e%reward% &asulla cassa &e%crate% &aè stato resettato."
+  global-win-limit-not-tracked: "&cQuesta ricompensa non ha un limite vittorie
+    globale configurato, quindi non c'è nulla da resettare."
+  reward-cooldown-started: "&aIl cooldown a tempo limitato per la ricompensa
+    &e%reward% &asulla cassa &e%crate% &aè stato avviato."
+  reward-cooldown-started-all: "&aIl cooldown a tempo limitato è stato avviato per
+    &e%amount% &aricompensa(e) sulla cassa &e%crate%&a."
+  reward-cooldown-not-configured: "&cQuesta ricompensa non ha un cooldown a tempo limitato configurato."
+  reward-cooldown-none-configured: "&cNessuna ricompensa di questa cassa ha un
+    cooldown a tempo limitato configurato."
+  check-keys-header: "&#ffd500&l%player%'s Chiavi:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7Chiave(e)"
+  check-keys-none: "&7- &7Nessuna chiave virtuale."
+  key-deleted: "&aChiave eliminata con successo."
+
+  key-given: "&e%amount% &achiave(e) sono state date con successo a %player%."
+  key-given-all: "&a%amount% chiave(e) sono state date con successo a tutti i
+    giocatori online."
+  key-given-offline: "&e%amount% &achiave(e) sono state date con successo a %player%."
+  key-set: "&e%amount% &achiave(e) sono state impostate con successo per %player%."
+  key-taken: "&e%amount% &achiave(e) sono state rimosse con successo da %player%."
+
+  key-received: "&aHai ricevuto &ex%amount% &7%display_name% &r&achiave(e)."
+  virtual-key-received: "&aHai ricevuto &ex%amount% &7%display_name% &r&achiave virtuale(e)."
+
+  key-lost: '&c%amount% chiave(e) per cassa &2\"%display_name%&2\"&c è stata presa
+    da te!'
+  virtual-key-lost: '&c%amount% chiave virtuale(e) per cassa
+    &2\"%display_name%&2\"&c è stata presa da te!'
+
+  crate-rerolls-received: '&aHai ricevuto %amount% reroll per cassa &2\"%display_name%&2\"&a!'
+
+  crate-given: "&e%amount% &acassa(e) sono state date con successo a %player%."
+
+  random-reward-given: "&aUna ricompensa casuale è stata assegnata con successo a %player%."
+  no-available-rewards: "&cQuesta cassa non ha ricompense disponibili."
+
+  crate-received: "&aHai ricevuto &ex%amount% &7%display_name% &r&acassa(e)."
+  crate-no-placed-instances: "&cNessuna cassa posizionata trovata per il tipo &e%crate%&c."
+  crate-open-command-disabled: "&cLa cassa &e%crate% &cnon può essere aperta usando questo comando."
+  crate-type-dont-exist: '&cNon esiste nessun tipo di cassa con l''identificatore \"%identifier%\"!'
+  crate-type-already-exist: '&cEsiste già un tipo di cassa con l''identificatore \"%identifier%\"!'
+  key-dont-exist: '&cNon esiste alcuna chiave con l''identificatore \"%identifier%\"!'
+  key-already-exist: '&cEsiste già una chiave con l''identificatore \"%identifier%\"!'
+  need-plugin-reload: "&6È necessario ricaricare il plugin!"
+
+  crate:
+    disabled: "&cQuesta cassa è attualmente disabilitata!"
+    quick-open-available: "&eAccovacciati e clicca di nuovo per saltare l'animazione
+      e aprire un'altra cassa."
+    already-opening: "&cQualcuno sta già aprendo questa cassa, aspetta!"
+    no-linked-key: "&cQuesta cassa non ha chiavi collegate!"
+    no-key: "&cHai bisogno di %key%&r&c per aprire questa cassa!"
+    no-keys: "&cNon hai abbastanza chiavi per aprire questa cassa!"
+    no-keys-amount: "&cHai bisogno di %amount% chiave(e) per aprire questa cassa."
+    redeem-no-keys: "&cHai bisogno di %required_keys% chiave(e) per riscattare
+      questa ricompensa."
+    cooldown-wait: "&cDevi aspettare %cooldown% prima di aprire di nuovo questa cassa."
+    cost-engine-not-installed: "&cSembra che il motore monete non sia configurato
+      (contatta un amministratore)."
+    no-money-none: "&cNon puoi aprire questa cassa in questo momento."
+    no-money-level: "&cHai bisogno di %money% per aprire questa cassa."
+    no-money-vault: "&cHai bisogno di %money% per aprire questa cassa."
+    no-money-playerpoints: "&cHai bisogno di %money% PlayerPoints per aprire questa cassa."
+    no-money-votingplugin: "&cHai bisogno di %money% punti voto per aprire questa cassa."
+    no-money-excellenteconomy: "&cHai bisogno di %money% per aprire questa cassa."
+    money-used-none: "&aHai aperto questa cassa."
+    money-used-level: "&aHai appena usato %money_consumed% per aprire questa cassa."
+    money-used-vault: "&aHai appena usato %money_consumed% per aprire questa cassa."
+    money-used-playerpoints: "&aHai appena usato %money_consumed% PlayerPoints per aprire questa cassa."
+    money-used-votingplugin: "&aHai appena usato %money_consumed% punti voto per aprire questa cassa."
+    money-used-excellenteconomy: "&aHai appena usato %money_consumed% per aprire questa cassa."
+    need-crouched: "&ePer rimuovere questa cassa devi essere accovacciato."
+    successfully-removed: "&aHai rimosso con successo questa cassa."
+    successfully-placed: "&aHai posizionato una cassa con successo!"
+    reward-received: "&aHai ricevuto &ex%amount% %item%"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fgot: &ex%amount% &r%reward%"
+    no-rewards: "&cQuesta cassa non ha ricompense."
+    no-available-rewards: "&cQuesta cassa non ha nessuna ricompensa disponibile per te."
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cAspetta! Stiamo ancora caricando i tuoi dati. Prova ad
+      aprire di nuovo la cassa tra un momento!"
+    guaranteed-win-openings: "&3Vittoria garantita in %openings% apertura(e)"
+    no-permission: "&cNon sei autorizzato ad aprire questa cassa! [Richiede
+      permesso: %permission%]"
+    cooldown-display:
+      counting: "&fPuoi aprire di nuovo tra &e%cooldown%"
+      over: "&aDisponibile per aprire"
+    hologram-type-limited: "&cQuesto motore ologrammi supporta solo una cassa posizionata per tipo."
+    no-money: "&cHai bisogno di %necessary_money%$ per aprire questa cassa."
+    money-used: "&aHai appena usato %money_consumed%$ per aprire questa cassa."
+    crate:
+      no-rewards-for-key-rarities: "&cQuesta cassa non ha ricompense disponibili per le rarità delle tue
+        chiavi: %rarities%"
+  actions:
+    need-item: "&cDevi aggiungere un oggetto per poter effettuare questa azione."
+    force-close: "&cHai forzato l'annullamento di ciò che stavi facendo."
+
+  layout:
+    actions:
+      left-click: "&6Clic Sinistro: &e%action%."
+      right-click: "&6Clic Destro: &e%action%."
+      left-right-click: "&6Clic Sinistro/Destro: &e%action%."
+      shift-left-click: "&6Shift + Clic Sinistro: &e%action%."
+      shift-right-click: "&6Shift + Clic Destro: &e%action%."
+      drag-drop-click: "&6Trascina & Rilascia: &e%action%."
+      drop-click: "&6Premi Q: &e%action%."
+      description:
+        add: Aggiungi %value%
+        set: Imposta %value%
+        create: Crea %value%
+        remove: Rimuovi %value%
+        edit: Modifica %value%
+        delete: Elimina %value%
+        receive: Ricevi %value%
+        clear: Svuota %value%
+        choose: Scegli %value%
+        change: Cambia %value%
+        select: Seleziona %value%
+        replace: Sostituisci %value%
+        unlink: Disconnetti %value%
+        link: Collega %value%
+        reorder: Riordina %value%
+    displays:
+      state: "&fÈ %type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&fMateriale: &7%material%"
+      location:
+        empty: "&fPosizione: &7Vuoto"
+        populated:
+          - "&fPosizione: "
+          - " &fMondo: &7%world%"
+          - " &fAsse X: &7%x%"
+          - " &fAsse Y: &7%y%"
+          - " &fAsse Z: &7%z%"
+          - " &fYaw: &7%yaw%"
+          - " &fPitch: &7%pitch%"
+      region:
+        empty: "&fRegione: &7Vuoto"
+        populated:
+          - "&fRegione: "
+          - " &fMondo: &7%world%"
+          - " &fPosizione #1: &7%minimum%"
+          - " &fPosizione #2: &7%maximum%"
+      item:
+        empty: "&fOggetto: &7Vuoto"
+        populated:
+          - "&fOggetto: "
+          - " &fNome: &7%name%"
+          - " &fLore: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&aPagina precedente - Pagina %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&aPagina successiva - Pagina %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cNessun dato trovato."
+        description:
+          - "&7Nessun dato è stato trovato utilizzando questo filtro."
+      filter:
+        title: "&aFiltro"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7filtrare per nome."
+          - ""
+          - "&fFiltro: &e%filter%"
+          - ""
+          - "&6Clic Sinistro: &eImposta filtro."
+          - "&6Clic Destro: &eSvuota filtro."
+  editor:
+    messages:
+      write-identifier-chat: "&eScrivi il nuovo identificatore in chat."
+      identifier-updated: '&aIdentificatore aggiornato con successo a \"%identifier%&a\"!'
+      write-displayname-chat: "&eScrivi il nuovo nome visibile in chat."
+      displayname-updated: '&aNome visibile aggiornato con successo a \"%display_name%&a\"!'
+      write-in-chat: "&aScrivi in chat."
+      value-updated: "&aValore aggiornato con successo!"
+      write-lore-line-chat: "&eScrivi la nuova linea di lore in chat."
+      lore-line-added: "&aLinea di lore aggiunta con successo!"
+      lore-cleared: "&aLore cancellato con successo."
+      opening-animation-changed: "&aAnimazione di apertura cambiata con successo."
+      crate-type-deleted: Tipo di cassa cancellato con successo.
+      migration-completed: "&aMigrazione completata."
+    errors:
+      identifier-already-in-use: "&cQuesto identificatore è già in uso."
+      no-spaces: "&cNon possono esserci spazi!"
+      invalid-input: "&cInput non valido!"
+      invalid-number: "&cNumero non valido!"
+      inventory-full: "&cIl tuo inventario è pieno."
+      inventory-full-reward: "&cUna ricompensa di cassa è stata lasciata a terra
+        perché il tuo inventario è pieno!"
+      inventory-full-key: "&cUna chiave è caduta a terra perché il tuo inventario è pieno!"
+      username-not-found: "&cNessun account originale con nome %username% trovato."
+      invalid-rewards: "Ci sono %amount% ricompensa(e) non valide!"
+      no-rewards-configured: "Non ci sono ricompense configurate!"
+      invalid-reward-display: "Ricompensa non valida: Trovato elemento di visualizzazione vuoto!"
+      hologram-engine-missing: "&cI dati dell'ologramma fanno riferimento a un altro
+        plugin! Per favore cambia il motore degli ologrammi nelle impostazioni
+        del plugin."
+    titles:
+      main: Phoenix Crates v%version% > Editor
+      crates: Editor > Casse
+      keys: Editor > Chiavi
+      migrations: Editor > Migrazioni
+      addons: Editor > Addons
+      rarities: Editor > Rarità
+      settings: Editor > Impostazioni
+      engines:
+        bettermodel: Editor > ... > BetterModel
+      crate:
+        new: Editor > ... > Nuova Cassa
+        show: Editor > ... > Cassa
+        display: Editor > ... > Motore
+        menus: Editor > ... > Menu
+        link-keys: Editor > ... > Collega Chiavi
+        idle-animation: Editor > ... > Animazione Inattiva
+        opening-animations: Editor > ... > Animazioni di Apertura
+        opening-animation: Editor > ... > Animazione di Apertura
+        effect: Editor > ... > Effetto di Animazione
+        rewards: Editor > ... > Ricompense
+        reward: Editor > ... > Ricompensa
+        reward-cooldowns: Editor > ... > Cooldown Ricompense
+        reward-requirements: Editor > ... > Requisiti Ricompensa
+        reward-cooldown-duration: Editor > ... > Durata Cooldown
+        reward-items: Editor > ... > Modifica Elementi di Ricompensa
+        reward-commands: Editor > ... > Modifica Comandi di Ricompensa
+        reward-rarity: Editor > ... > Rarità della ricompensa
+        multiple-rewards: Editor > ... > Aggiungi Ricompense Multiple
+        engine: Editor > ... > Motore
+        hologram: Editor > ... > Ologramma
+        milestones: "Editor > ... > Traguardi"
+        rerolling: "Editor > ... > Rirullare"
+        others: "Editor > ... > Altro"
+        open-cost: "Editor > ... > Costo Apertura"
+      key:
+        show: Editor > ... > Chiave
+        linked-crates: Editor > ... > Casse Collegate
+
+    main:
+      crates:
+        title: "&aCasse"
+        description:
+          - "&7Cliccando qui, sarai in grado"
+          - "&7di esplorare e gestire tutte le casse disponibili."
+      keys:
+        title: "&aChiavi"
+        description:
+          - "&7Cliccando qui, sarai in grado"
+          - "&7di esplorare e gestire tutte le chiavi disponibili."
+      rarities:
+        title: "&aRarità"
+        description:
+          - "&7Cliccando qui puoi configurare"
+          - "&7e gestire il sistema di rarità."
+      migrations:
+        title: "&aMigrazioni"
+        description:
+          - "&7Esplora le opzioni per migrare da altri plugin di cassa"
+          - "&7e gestire il processo di migrazione cliccando qui."
+      addons:
+        title: "&aAddons"
+        description:
+          - "&7Esplora funzionalità e miglioramenti aggiuntivi"
+          - "&7cliccando qui per accedere al menu degli addons."
+      settings:
+        title: "&aImpostazioni"
+        description:
+          - "&7Cliccando qui, sarai in grado"
+          - "&7di esplorare e personalizzare le impostazioni del plugin."
+      reload:
+        title: "&aRicarica Config"
+        description:
+          - "&7Cliccando qui, inizierai"
+          - "&7una ricarica di tutte le configurazioni del plugin."
+      pouches:
+        title: "&aSacche"
+        description:
+          - "&7Cliccando qui, sarai in grado"
+          - "&7di gestire tutte le sacche."
+      crate-claim:
+        title: "&aRiscatto Cassa"
+        description:
+          - "&7Cliccando qui, puoi configurare"
+          - "&7il comportamento del riscatto delle casse e i menu."
+    migrations:
+      plugin:
+        title: "&aMigra da %name%"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7Cliccando qui sarai in grado di"
+          - "&7migrare alcuni file da %name% a questo plugin."
+          - ""
+          - "&aFile supportati:"
+          - "&8 &7- %files%"
+          - ""
+          - "&fDatabase supportata: %database%"
+    addons:
+      loading:
+        title: "&eCaricamento..."
+        description:
+          - "&7Gli addons stanno caricando,"
+          - "&7attendi qualche secondo."
+      empty:
+        title: "&cNessun addon disponibile"
+        description:
+          - "&7Nessun record trovato"
+          - "&7secondo il filtro attuale."
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&fPrezzo: &a%price%"
+    settings:
+      language:
+        title: "&aLingua"
+        description:
+          - "&7Questa opzione ti consente di cambiare"
+          - "&7la lingua base che questo plugin utilizzerà"
+          - ""
+          - "&e&nPuoi sempre configurare translations.en.yml."
+      key-mainhand:
+        title: "&aRequisito chiave nella mano principale"
+        description:
+          - "&7Questa opzione ti permette di definire"
+          - "&7se i giocatori dovranno avere"
+          - "&7una chiave nella mano principale per aprire le casse."
+      crate-knockback:
+        title: "&aKnockback della Cassa"
+        description:
+          - "&7Questa opzione ti consente di variare il"
+          - "&7knockback che il giocatore subisce quando cerca"
+          - "&7di aprire una cassa con la chiave sbagliata."
+      crate-despawn-range:
+        title: "&aDistanza di Disappearanza della Cassa"
+        description:
+          - "&7Questa opzione ti consente di definire la"
+          - "&7distanza che gli effetti devono avere per"
+          - "&7smettere di essere mostrati al giocatore."
+          - ""
+          - "&c&nValori alti non raccomandati poiché possono causare lag."
+      crate-quick-open:
+        title: "&aApertura Rapida della Cassa"
+        description:
+          - "&7Questa opzione consente ai giocatori di"
+          - "&7aprire rapidamente quando tengono la chiave della cassa"
+          - "&7e cliccano con il tasto destro mentre si spostano."
+          - ""
+          - "&e&nFunziona solo con aperture simultanee della cassa!"
+      disable-confirmation-menus:
+        title: "&aDisabilita i menu di conferma"
+        description:
+          - "&7Questa opzione ti permette di saltare"
+          - "&7i menu di conferma in modo che i giocatori"
+          - "&7vadano direttamente all'azione."
+      crate-claim:
+        title: "&aRichiesta Cassa"
+        description:
+          - "&7Cliccando qui, puoi configurare"
+          - "&7il comportamento e i menu per la richiesta delle casse."
+    keys:
+      key:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7configurare questa chiave."
+        identifier:
+          title: "&aIdentificatore"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7rinominare il tuo identificatore di chiave."
+            - "&eQuesto identificatore deve essere unico."
+        display-name:
+          title: "&aNome Visualizzato"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7rinominare la tua chiave."
+        link-crates:
+          title: "&aCollega Casse"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7collegare casse con questa chiave."
+        enabled:
+          title: "&aAbilitato"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7cambiare se questa chiave è disponibile."
+        delete:
+          title: "&aElimina Chiave"
+          description:
+            - "&7Cliccando qui questa chiave"
+            - "&7verrà eliminata dal server."
+            - "&eTutte le chiavi nel mondo non saranno più valide."
+        item:
+          title: "&aElemento Chiave"
+          description:
+            - "&7Un elemento chiave personalizzato che può"
+            - "&7essere utilizzato per aprire una cassa."
+      add:
+        title: "&aAggiungi Chiave"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7creare una chiave."
+    crates:
+      type:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7configurare questa cassa."
+      add:
+        title: "&aAggiungi Cassa"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7creare un tipo di cassa."
+    crate:
+      identifier:
+        title: "&aIdentificatore"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7rinominare il tuo identificatore di cassa."
+          - "&eQuesto identificatore deve essere unico."
+      item:
+        title: "&aOggetto"
+        description:
+          - "&7Oggetto da visualizzare che"
+          - "&7verrà utilizzato per rappresentare questa cassa."
+        name:
+          title: "&aNome Oggetto"
+          description:
+            - "&7Il nome che verrà utilizzato"
+            - "&7per rappresentare questo oggetto"
+        lore:
+          title: "&aDescrizione Oggetto"
+          description:
+            - "&7La descrizione che verrà utilizzata"
+            - "&7per rappresentare questo oggetto"
+      link-keys:
+        title: "&aCollega Chiavi"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7collegare chiavi a questa cassa."
+      animations:
+        title: "&aAnimazioni"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7cambiare le animazioni di questa cassa."
+          - ""
+          - "&fPuoi configurare:"
+          - "&8> &aAnimazione Inattiva"
+          - "&8> &aAnimazione di Apertura"
+      rerolls:
+        title: "&aRerolls"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7definire i rerolls di questa cassa."
+      mass-opening:
+        title: "&aApertura di Massa"
+        description:
+          - "&7Cliccando qui puoi configurare"
+          - "&7le impostazioni di apertura di massa della cassa."
+      display-settings:
+        block-material:
+          title: "&aMateriale del Blocco"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7cambiare il materiale utilizzato per"
+            - "&7il blocco della cassa."
+        crate-engine:
+          title: "&aMotore blocco cassa"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7cambiare motore e personalizzarlo."
+            - ""
+            - "&b➥ Motore blocco Vanilla:"
+            - "&7Cassa standard basata sul materiale."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Vanilla Model engine: &9(1.12+)"
+            - "&7Modello statico da resource pack personalizzato."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model Engine / Better Model:"
+            - "&7Modello personalizzato con animazioni."
+            - ""
+            - "&fMotori:"
+        rewards-mode:
+          title: "&aModalità Ricompense"
+          description:
+            - "&7Cliccando qui, puoi cambiare"
+            - "&7la modalità che questo sistema di ricompense utilizzerà."
+            - ""
+            - "&b➥ Modalità Casuale:"
+            - "&7Le ricompense saranno scelte casualmente in base"
+            - "&7ai loro pesi assegnati (probabilità). Questa"
+            - "&7modalità aggiunge un elemento di sorpresa e fortuna."
+            - ""
+            - "&b➥ Modalità Selettiva:"
+            - "&7Questa modalità rimuove la casualità, permettendo"
+            - "&7agli utenti di selezionare direttamente la ricompensa che"
+            - "&7vogliono tra le opzioni disponibili. Ideale per"
+            - "&7dare agli utenti il controllo sulle loro ricompense."
+            - ""
+            - "&fModalità:"
+        hologram:
+          title: "&aOlogramma"
+          description:
+            - "&7Cliccando qui sarai in grado di"
+            - "&7configurare l'ologramma sopra questa cassa."
+        idle-animation:
+          title: "&aAnimazione Inattiva"
+          description:
+            - "&7Cliccando qui sarai in grado di"
+            - "&7personalizzare l'animazione inattiva di questa cassa."
+            - ""
+            - "&7L'animazione inattiva apparirà quando"
+            - "&7un giocatore non sta aprendo questa cassa."
+        opening-animation:
+          title: "&aAnimazione di Apertura"
+          description:
+            - "&7Cliccando qui sarai in grado di"
+            - "&7personalizzare l'animazione di apertura di questa cassa."
+            - ""
+            - "&fCome funziona l'animazione di apertura?"
+            - "&7Questa animazione è composta da 3 fasi, ognuna"
+            - "&7fase composta da diverse mini-animazioni"
+            - "&7e proprietà. In modo semplificato, le fasi"
+            - "&7rappresentano l'inizio, il mezzo e la fine di un'animazione."
+            - ""
+            - "&7Inoltre, se stai utilizzando un motore che supporta"
+            - "&7animazioni di modelli, puoi sincronizzare alcune animazioni di
+              modello"
+            - "&7con ogni livello."
+        engine-mode:
+          title: "&aModalità Motore"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7cambiare il motore che questa cassa utilizzerà."
+            - ""
+            - "&b➥ Motore del Blocco Vanilla:"
+            - "&7Motore predefinito di una cassa, la rappresentazione sarà"
+            - "&7il materiale scelto come blocco di questa cassa."
+            - ""
+            - "&b➥ Motore modello Vanilla: &9(1.12+)"
+            - "&7Possibilità di assegnare un modello statico personalizzato alla
+              cassa"
+            - "&7ma non supporta animazioni. Questo supporta modelli vanilla"
+            - "&7tramite dati di materiale e modello personalizzati."
+            - ""
+            - "&b➥ Altri: &9(1.16.5+)"
+            - "&7Possibilità di assegnare un modello personalizzato alla cassa
+              come"
+            - "&7anche un’animazione di apertura personalizzata."
+            - ""
+            - "&fMotori:"
+      open-cooldown:
+        title: "&aTempo di Attesa per l'Apertura"
+        description:
+          - "&7Clicca qui per cambiare la quantità"
+          - "&7di tempo che un giocatore dovrà aspettare"
+          - "&7per aprire un'altra cassa."
+      open-cost:
+        title: "&aMotore Costo Apertura"
+        description:
+          - "&7Cliccando qui, puoi definire un"
+          - "&7metodo aggiuntivo per aprire questa cassa"
+          - ""
+          - "&e&lSuggerimento&r&e: &7Disabilita il requisito della chiave per
+            utilizzare"
+          - "      &7questo metodo come principale."
+      open-cost-amount:
+        title: "&aImporto del costo di apertura"
+        description:
+          - "&7La quantità di valuta che verrà"
+          - "&7addebitata all'apertura di questa cassa."
+      open-cost-currency:
+        title: "&aValuta"
+        description:
+          - "&7La valuta di ExcellentEconomy che"
+          - "&7verrà usata per addebitare il costo."
+      simultaneous-openings:
+        title: "&aAperture Simultanee"
+        description:
+          - "&7Questa opzione ti consente di definire"
+          - "&7se uno o più giocatori possono"
+          - "&7aprire questa cassa contemporaneamente."
+          - ""
+          - "&e&nApertura Veloce è disabilitata"
+          - "&e&nsenza aperture simultanee"
+      preview-reward:
+        title: "&aAnteprima della Ricompensa"
+        description:
+          - "&7Cliccando qui abiliterai"
+          - "&7una ricompensa di anteprima sopra ogni cassa."
+      permission-required:
+        title: "&aRequisito di Permesso"
+        description:
+          - "&7Cliccando qui imposterai"
+          - "&7il permesso che un giocatore deve avere"
+          - "&7per aprire questa cassa."
+      rewards:
+        title: "&aRicompense"
+        description:
+          - "&7Cliccando qui sarai in grado di"
+          - "&7configurare tutte le ricompense che un giocatore"
+          - "&7può guadagnare aprendo questa cassa."
+        add:
+          title: "&aAggiungi Ricompensa"
+          description:
+            - "&7Cliccando qui puoi iniziare"
+            - "&7a impostare una nuova ricompensa in questa cassa."
+        edit:
+          title: "&aRicompensa #%position%"
+          description: []
+        multiple-rewards:
+          title: "&aAggiungi Ricompense Multiple"
+          description:
+            - "&7Cliccando qui puoi"
+            - "&7aggiungere più ricompense in una volta."
+        reordering:
+          title: "&aRiordino"
+          description:
+            - "&7Cliccando qui puoi ordinare"
+            - "&7le ricompense nell'ordine che desideri."
+          selected:
+            title: "&eSelezionato"
+        win-amount:
+          title: "&aRicompense Massime"
+          description:
+            - "&7Cliccando qui puoi definire"
+            - "&7quante ricompense un giocatore vincerà alla volta."
+      reward:
+        drag-item:
+          title: "&aTrascina un oggetto"
+          description:
+            - "&7Trascina qualsiasi oggetto per impostare la ricompensa."
+            - ""
+            - "&6Trascina & Rilascia: Sostituisci oggetto."
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6Trascina & Rilascia: &eSostituisci oggetto."
+        identifier:
+          title: "&aCambia Identificatore"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7rinominare il tuo identificatore di ricompensa."
+            - "&eQuesto identificatore deve essere unico."
+        display-item:
+          title: "&aOggetto di Visualizzazione"
+          description:
+            - "&7Questo oggetto servirà come visualizzazione"
+            - "&7che rappresenta la ricompensa per questa cassa."
+          name:
+            title: "&aNome di Visualizzazione"
+            description:
+              - "&7Il nome che sarà utilizzato"
+              - "&7per rappresentare questa Ricompensa"
+          lore:
+            title: "&aLore di Visualizzazione"
+            description:
+              - "&7Il lore che sarà utilizzato"
+              - "&7per rappresentare questa Ricompensa"
+        alternative-item:
+          title: "&aOggetto Alternativo"
+          description:
+            - "&7Questo oggetto sarà l'oggetto extra che l'utente"
+            - "&7riceverà se le condizioni sono soddisfatte."
+        win-items:
+          title: "&aOggetti Vincitori"
+          description:
+            - "&7Cliccando qui sarai in grado"
+            - "&7di aggiungere oggetti che il giocatore"
+            - "&7riceverà quando vince questa ricompensa."
+          add-item:
+            title: "&aAggiungi Oggetto"
+            description:
+              - "&7Trascina un oggetto dal tuo inventario"
+              - "&7qui per aggiungerlo come oggetto per questa ricompensa."
+        weight:
+          title: "&aPeso"
+          description:
+            - "&7Il peso contribuirà alla"
+            - "&7probabilità del giocatore di vincere questo oggetto."
+        virtual:
+          title: "&aOggetto Virtuale"
+          description:
+            - "&7Questa opzione stabilisce se il vincitore."
+            - "&7dovrebbe ricevere un oggetto fisico o meno."
+        win-commands:
+          title: "&aComandi di Vittoria"
+          description:
+            - "&7Cliccando qui puoi gestire"
+            - "&7tutti i comandi che saranno eseguiti"
+            - "&7quando un giocatore vince questa ricompensa."
+        max-win-item-amount:
+          title: "&aQuantità massima di oggetti vinti"
+          description:
+            - "&7Imposta il numero massimo di oggetti"
+            - "&7dalla lista win-items che verranno"
+            - "&7verranno dati quando questa ricompensa viene vinta."
+            - "&7Impostalo su &e∞ &7per nessun limite."
+        max-win-command-amount:
+          title: "&aQuantità massima di comandi vinti"
+          description:
+            - "&7Imposta il numero massimo di comandi"
+            - "&7dalla lista win-commands che verranno"
+            - "&7eseguiti quando questa ricompensa viene vinta."
+            - "&7Impostalo su &e∞ &7per nessun limite."
+        broadcast:
+          title: "&aMessaggio di Broadcast"
+          description:
+            - "&7Questa opzione stabilisce se un messaggio di broadcast"
+            - "&7dovrebbe apparire quando un giocatore vince questa ricompensa."
+        share-players-online:
+          title: "&aCondividi con i Giocatori Online"
+          description:
+            - "&7Questa opzione stabilisce se questo premio"
+            - "&7dovrebbe essere condiviso con tutti gli online."
+        allow-win-message:
+          title: "&aConsenti messaggio di vincita"
+          description:
+            - "&7Questa opzione imposta se il giocatore riceverà"
+            - "&7un messaggio quando vince questa ricompensa."
+        notification-types:
+          title: "&aTipo di notifica"
+          description:
+            - "&7Cliccando qui, puoi cambiare"
+            - "&7il tipo tramite cui viene inviato il messaggio di vincita."
+        enabled:
+          title: "&aAbilitato"
+          description:
+            - "&7Cliccando qui sarai in grado"
+            - "&7di cambiare se questa ricompensa è disponibile."
+        win-limit:
+          title: "&aLimite di Vittoria"
+          description:
+            - "&7Questa opzione stabilisce quante volte"
+            - "&7un giocatore può vincere questa ricompensa."
+            - ""
+            - "&e&lSUGGERIMENTO: &7Puoi combinare questo"
+            - "       &7con una ricompensa alternativa."
+        global-win-limit:
+          title: "&aLimite globale di vincite"
+          description:
+            - "&7Questa opzione imposta quante volte"
+            - "&7questa ricompensa può essere vinta da"
+            - "&7tutti sul server messi insieme."
+            - ""
+            - "&e&lSUGGERIMENTO: &7Puoi combinare questo"
+            - "       &7con una ricompensa alternativa."
+        cooldowns:
+          title: "&aTempi di ricarica"
+          description:
+            - "&7Cliccando qui sarai in grado"
+            - "&7di configurare i tempi di ricarica "
+            - "&7di questa ricompensa."
+          win-limit-cooldown:
+            title: "&aCooldown del limite di vincite"
+            description:
+              - "&7Questa opzione imposta quanto tempo un giocatore"
+              - "&7deve attendere prima di poter"
+              - "&7vincere nuovamente questa ricompensa."
+          global-win-limit-cooldown:
+            title: "&aCooldown del limite globale di vincite"
+            description:
+              - "&7Questa opzione imposta quanto tempo deve trascorrere"
+              - "&7prima che questa ricompensa possa essere vinta di nuovo"
+              - "&7da chiunque sul server."
+          time-limited-cooldown:
+            title: "&aCooldown a tempo limitato"
+            description:
+              - "&7Questa opzione imposta quanto tempo questa"
+              - "&7ricompensa rimarrà disponibile una volta che il suo"
+              - "&7cooldown è avviato."
+              - ""
+              - "&7Quando scadrà, la ricompensa"
+              - "&7si disabiliterà automaticamente."
+          duration:
+            weeks:
+              title: "&aSettimane"
+              description:
+                - "&7Il numero di settimane da aggiungere"
+                - "&7a questa durata del cooldown."
+            days:
+              title: "&aGiorni"
+              description:
+                - "&7Il numero di giorni da aggiungere"
+                - "&7a questa durata del cooldown."
+            hours:
+              title: "&aOre"
+              description:
+                - "&7Il numero di ore da aggiungere"
+                - "&7a questa durata del cooldown."
+            minutes:
+              title: "&aMinuti"
+              description:
+                - "&7Il numero di minuti da aggiungere"
+                - "&7a questa durata del cooldown."
+            disable:
+              title: "&cDisabilita cooldown"
+              description:
+                - "&7Imposta la durata di questo cooldown"
+                - "&7di nuovo a zero, disabilitandolo."
+        requirements:
+          title: "&aRequisiti"
+          description:
+            - "&7Configura i requisiti di permesso"
+            - "&7per questa ricompensa."
+          required-permission:
+            title: "&aPermesso Richiesto"
+            description:
+              - "&7Imposta un permesso che il giocatore deve avere"
+              - "&7per vedere questa ricompensa come disponibile."
+              - "&7Se il giocatore non lo possiede, la ricompensa"
+              - "&7apparirà come bloccata nell'anteprima."
+        restricted-permissions:
+          title: "&aPermessi ristretti"
+          description:
+            - "&7Questa opzione definisce i"
+            - "&7permessi ristretti che il giocatore"
+            - "&7non può avere per vincere questa ricompensa."
+            - "&eQuesto non si applicherà se il giocatore ha op."
+            - ""
+            - "&e&lSUGGERIMENTO: &7Puoi combinare questo"
+            - "       &7con una ricompensa alternativa."
+        alternative-reward:
+          title: "&aRicompensa Alternativa"
+          description:
+            - "&7Facendo clic qui sarai"
+            - "&7in grado di configurare la ricompensa"
+            - "&7alternativa di questa ricompensa."
+            - ""
+            - "&7Se attivo quando un giocatore supera"
+            - "&7i limiti di vincita o ha permessi in blacklist"
+            - "&7riceverà questa ricompensa invece."
+        delete:
+          title: "&aElimina Ricompensa"
+          description:
+            - "&7Facendo clic qui questa ricompensa"
+            - "&7verrà eliminata da questa cassa."
+        percentage:
+          title: "&aPercentuale"
+          description:
+            - "&7La percentuale contribuirà a una"
+            - "&7possibilità di vincere questo oggetto da parte di un giocatore."
+      menus:
+        title: "&aMenu"
+        description:
+          - "&7Facendo clic qui sarai in grado di configurare"
+          - "&7per configurare tutti i menu per questa cassa."
+      rewards-menu:
+        title: "&aMenu Ricompense"
+        description:
+          - "&7Facendo clic qui sarai in grado di configurare"
+          - "&7quale menu ricompense avrà questa cassa."
+      preview-actions:
+        title: "&aAzioni di Anteprima"
+        description:
+          - "&7Cliccando qui potrai configurare"
+          - "&7le azioni che verranno eseguite quando un giocatore"
+          - "&7clicca per visualizzare l'anteprima di questa cassa."
+          - "&7Queste possono essere usate insieme a, o"
+          - "&7invece del menu di anteprima delle ricompense."
+      rerolls-menu:
+        title: "&aMenu Riorganizzazioni"
+        description:
+          - "&7Facendo clic qui sarai in grado di configurare"
+          - "&7quale menu riorganizzazioni avrà questa cassa."
+      selective-rewards-menu:
+        title: "&aMenu Ricompense Selettive"
+        description:
+          - "&7Facendo clic qui sarai in grado di configurare"
+          - "&7quale menu ricompense selettive avrà questa cassa."
+      milestones-menu:
+        title: "&aMenu Obiettivi"
+        description:
+          - "&7Facendo clic qui sarai in grado di configurare"
+          - "&7quale menu anteprima avrà questa cassa."
+      broadcast-message:
+        title: "&aMessaggio di Trasmissione"
+        description:
+          - "&7Facendo clic qui sarai in grado di configurare"
+          - "&7il messaggio di trasmissione per le ricompense."
+          - ""
+          - "&eSegnaposto disponibili:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&aAbilitato"
+        description:
+          - "&7Facendo clic qui sarai in grado"
+          - "&7di cambiare se questa cassa è disponibile."
+      allow-open-command:
+        title: "&aConsenti Comando di Apertura"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7attivare o disattivare se questa cassa può essere"
+          - "&7aperta usando il &f/crate open &7command."
+      attach-block:
+        title: "&aAttacca Blocco"
+        description:
+          - "&7Facendo clic qui sarai in grado"
+          - "&7di creare una cassa attaccando un blocco."
+      delete:
+        title: "&aElimina Cassa"
+        description:
+          - "&7Facendo clic qui questa cassa"
+          - "&7verrà eliminata dal server."
+          - ""
+          - "&e&nTutti i tasti in questa cassa non saranno più validi."
+      hologram:
+        engine-mode:
+          title: "&aModalità Motore Ologrammi"
+          description:
+            - "&7Il motore che il plugin"
+            - "&7utilizza per gli ologrammi"
+            - ""
+            - "&fMotore: &7%engine%"
+        lines:
+          title: "&aLinee Ologramma"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7configurare le linee dell'ologramma di questa cassa."
+            - ""
+            - "&e&lSUGGERIMENTO: &7Puoi usare &ePlaceholderAPI&7."
+        identifier:
+          title: "&aIdentificatore"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7definire l'identificatore del plugin di ologrammi."
+            - ""
+            - "&fIdentificatore: &7%id%"
+        offset:
+          title: "&aOffset Ologramma"
+          description:
+            - "&7Questa opzione ti permette di regolare l'ologramma"
+            - "&7posizione in base alla posizione della cassa."
+      display-name:
+        title: "&aNome Visualizzato"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7rinominare la tua cassa."
+      open-money-cost:
+        title: "&aCosto in Denaro per l'Apertura"
+        description:
+          - "&7Clicca qui per cambiare il denaro"
+          - "&7necessario per aprire questa cassa."
+          - "&7chiave e cliccando con il tasto destro tenendo premuto."
+          - ""
+          - "&e&nFunziona solo con Vault!"
+    crate-engine:
+      first-phase-delay:
+        title: "&aRitardo Inizio Prima Fase"
+        description:
+          - "&7Definisci il ritardo tra il momento"
+          - "&7in cui la cassa si apre e l'inizio della"
+          - "&7prima fase delle animazioni."
+      second-phase-delay:
+        title: "&aRitardo Inizio Seconda Fase"
+        description:
+          - "&7Definisci il ritardo tra la prima"
+          - "&7e la seconda fase dell'animazione di apertura."
+      third-phase-delay:
+        title: "&aRitardo Inizio Terza Fase"
+        description:
+          - "&7Definisci il ritardo tra la seconda"
+          - "&7e la terza fase dell'animazione di apertura."
+      idle:
+        title: "&aAnimazione Inattiva"
+        description:
+          - "&7Definisci l'animazione che verrà"
+          - "&7riprodotta quando la cassa è inattiva."
+      close-animation:
+        title: "&aAnimazione di Chiusura"
+        description:
+          - "&7Definisci l'animazione che verrà"
+          - "&7riprodotta quando la cassa si sta chiudendo."
+      model-name:
+        title: "&aNome Modello"
+        description:
+          - "&7Definisci il nome del modello che questa"
+          - "&7cassa utilizzerà."
+          - ""
+          - "&fModello corrente: &7%name%"
+      model-engine:
+        model-name:
+          title: "&aNome Modello"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7cambiare il nome del modello di questa cassa."
+            - ""
+            - "&fNome attuale: &7%name%"
+      better-model:
+        model-name:
+          title: "&aNome Modello"
+          description:
+            - "&7Cliccando qui potrai"
+            - "&7cambiare il nome del modello di questa cassa."
+            - ""
+            - "&fNome attuale: &7%name%"
+        scale:
+          title: "&aScala"
+          description:
+            - "&7Definisci il moltiplicatore di scala per questo"
+            - "&7modello. 1.0 è la dimensione normale del modello."
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6Clic Sinistro: &eSeleziona materiale."
+        custom-model-data:
+          title: "&aDati Modello Personalizzati"
+          description:
+            - "&7Facendo clic qui sarai in grado"
+            - "&7di cambiare i dati del modello personalizzati di questo
+              oggetto."
+            - ""
+            - "&fDati Modello Personalizzati: &7%custom_model_data%"
+            - ""
+            - "&6Clic Sinistro: &eCambia Dati Modello Personalizzati."
+    reward-commands:
+      add:
+        title: "&aAggiungi Comando"
+        description:
+          - "&7Facendo clic qui sarai in grado di aggiungere"
+          - "&7un comando che verrà eseguito quando"
+          - "&7un giocatore vince questa ricompensa."
+          - ""
+          - "&7I comandi che iniziano con &a* &7sono eseguiti da"
+          - "&7giocatori. Altrimenti, sono eseguiti dalla console."
+          - ""
+          - "&7Puoi anche usare il segnaposto &a%player%"
+          - "&7e segnaposti da &aPlaceholderAPI&7."
+          - ""
+          - "&6Clicca a Sinistra: &eAggiungi comando."
+      command:
+        title: "&aComando #%id%"
+        description:
+          - "&fComando: &7%command%"
+          - ""
+          - "&6Clicca a Sinistra: &eRimuovi comando."
+    alternative-reward:
+      enabled:
+        title: "&aStato"
+        description:
+          - "&7Quando un premio alternativo è attivo,"
+          - "&7se il giocatore supera i limiti di vincita o"
+          - "&7ha permessi in blacklist, riceverà"
+          - "&7questo premio."
+    edit-standby-animation:
+      add-effect:
+        title: "&aAggiungi Effetto"
+        description:
+          - "&7Cliccando qui potrai"
+          - "&7aggiungere un nuovo effetto all'animazione inattiva."
+          - ""
+          - "&6Clicca a Sinistra &eAggiungi effetto."
+      edit-effect:
+        title: "&eEffetto #%id%"
+        description:
+          - ""
+          - "&fTipo di Effetto: &7%effect_type%"
+          - "&fTipo di Particella: &7%particle_type%"
+          - "&fVelocità Particella: &7%particle_velocity%"
+          - "&fColore: &7%color%"
+          - "&fOffset: &7%offset%"
+          - "&fDistribuzione: &7%spread%"
+          - "&fQuantità: &7%amount%"
+          - ""
+          - "&6Clicca a Sinistra &eModifica effetto."
+          - "&6Shift + Clicca a Sinistra: &eRimuovi effetto."
+    edit-standby-effect:
+      effect-type:
+        title: "&aTipo di Effetto&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6Clicca a Sinistra/Destro: &eCambia tipo."
+      particle-type:
+        title: "&aTipo di Particella"
+        description:
+          - "&fAttuale: &7%particle_type%"
+          - ""
+          - "&6Clicca a Sinistra: &eCambia particella."
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&fProprietà: &a%properties%"
+          - ""
+          - "&6Clicca a Sinistra: &eSeleziona particella."
+      color:
+        title: "&aColore"
+        description:
+          - "&fAttuale: &7%color%"
+          - ""
+          - "&e&nFunziona solo con particelle colorabili."
+          - ""
+          - "&6Clicca a Sinistra: &eCambia colore."
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6Clicca a Sinistra: &eSeleziona colore."
+      spread:
+        title: "&aDistribuzione"
+        description:
+          - "&fAttuale: &7%spread%"
+          - ""
+          - "&6Clicca a Sinistra: &eAggiungi 0.1."
+          - "&6Shift + Clicca a Sinistra: &eAggiungi 1."
+          - "&6Clicca a Destro: &eRimuovi 0.1."
+          - "&6Shift + Clicca a Destro: &eRimuovi 1."
+      particle-velocity:
+        title: "&aVelocità Particella"
+        description:
+          - "&fAttuale: &7%particle_velocity%"
+          - ""
+          - "&6Clicca a Sinistra: &eAggiungi 0.1."
+          - "&6Shift + Clicca a Sinistra: &eAggiungi 1."
+          - "&6Clicca a Destro: &eRimuovi 0.1."
+          - "&6Shift + Clicca a Destro: &eRimuovi 1."
+      amount:
+        title: "&aQuantità"
+        description:
+          - "&fAttuale: &7%amount%"
+          - ""
+          - "&6Clicca a Sinistra: &eAggiungi 1."
+          - "&6Clicca a Destro: &eRimuovi 1."
+      offset-x:
+        title: "&aOffset X"
+        description:
+          - "&fAttuale: &7%offset_x%"
+          - ""
+          - "&6Clicca a Sinistra: &eAggiungi 0.1."
+          - "&6Shift + Clicca a Sinistra: &eAggiungi 1."
+          - "&6Clicca a Destro: &eRimuovi 0.1."
+          - "&6Shift + Clicca a Destro: &eRimuovi 1."
+      offset-y:
+        title: "&aOffset Y"
+        description:
+          - "&fCorrente: &7%offset_y%"
+          - ""
+          - "&6Clic Sinistro: &eAggiungi 0.1."
+          - "&6Shift + Clic Sinistro: &eAggiungi 1."
+          - "&6Clic Destro: &eRimuovi 0.1."
+          - "&6Shift + Clic Destro: &eRimuovi 1."
+      offset-z:
+        title: "&aOffset Z"
+        description:
+          - "&fCorrente: &7%offset_z%"
+          - ""
+          - "&6Clic Sinistro: &eAggiungi 0.1."
+          - "&6Shift + Clic Sinistro: &eAggiungi 1."
+          - "&6Clic Destro: &eRimuovi 0.1."
+          - "&6Shift + Clic Destro: &eRimuovi 1."
+    opening-animation:
+      phase-updated: "&aFase dell'animazione aggiornata."
+      preset-applied: "&aPreset dell'animazione di apertura applicato."
+      preset-removed: "&aNessun preset selezionato."
+      phase:
+        title: "&aFase %phase%"
+        description:
+          - "&7Ogni animazione di apertura è composta"
+          - "&7da fasi, questa è una delle fasi."
+          - ""
+          - "&fFase: &e%name%"
+      change-phases:
+        title: "&aFasi dell'Animazione"
+        description:
+          - "&7Scegli animazioni per i"
+          - "&7stadi dell'animazione di apertura."
+          - ""
+          - "&6Clic Sinistro: &eCambia animazione."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&aFase %phase%"
+        description:
+          - "&7Ogni animazione di apertura è composta"
+          - "&7da fasi, questa è una delle fasi."
+          - ""
+          - "&fFase: &e%name%"
+          - ""
+          - "&6Clic Sinistro: &eNaviga"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&fVersione Richiesta: &7%required_version%"
+          - ""
+          - "&6Clic Sinistro: &eCrea fase."
+          - "&6Shift + Clic Sinistro: &eCrea fase veloce."
+  command:
+    info:
+      - ""
+      - "&e➥ &6Comandi disponibili:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6Informazioni aggiuntive:"
+      - " &9<argument> - argomento obbligatorio"
+      - " &3[argument] - argomento opzionale"
+    usage:
+      - ""
+      - "&e➥ Uso:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "Mi dispiace, ma non hai il permesso di eseguire questo comando."
+    permission-denied-parameter: "Mi dispiace, ma non hai il permesso di eseguire questo comando."
+    error-generic-logged: "Si è verificato un errore. Questo problema è stato
+      registrato. Ci scusiamo per l'inconveniente."
+    unknown-command: "&cComando sconosciuto, digita &4%command%"
+    error-prefix: "&cErrore: %message%"
+    error-performing-command: "Mi dispiace, ma si è verificato un errore durante
+      l'esecuzione di questo comando."
+    please-specify-one-of: "Specifica uno di (&2%valid%)."
+    must-be-a-number: "%num% deve essere un numero."
+    must-be-min-length: "Deve essere di almeno %min% caratteri."
+    must-be-max-length: "Deve avere al massimo %max% caratteri."
+    please-specify-at-most: "Specifica un valore non superiore a %max%."
+    please-specify-at-least: "Specifica un valore di almeno %min%."
+    player-offline: "Il giocatore %player% non è online!"
+  plans:
+    unlock-premium: §cDisponibile solo nella Versione Premium.
+    unlock-pro: §cDisponibile solo nella Versione Pro.
+    upgrade-at: §4Aggiorna su phoenixplugins.com
+  crate-type-received: "&aHai ricevuto una cassa posizionabile."
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% Cassa"
+      lore: "&7Posiziona questa cassa da qualche parte!"
+  loading-data: "&7Caricamento dei dati del giocatore..."

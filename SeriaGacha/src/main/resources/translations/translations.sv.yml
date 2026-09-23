@@ -1,0 +1,1440 @@
+sv:
+  error-processing:
+    - "&cEtt fel inträffade när denna åtgärd behandlades (Kontrollera konsolen):"
+    - "&7%message%"
+  unknown-argument: "&cOkänt Argument!"
+  no-permission: "&cDu har inte tillåtelse att göra detta!"
+  command-not-allowed: "&cDu har inte rätt att utföra detta kommando!"
+  only-ingame-players: "&cKommando får endast användas av spelare i spelet."
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: Sista
+    swap-option: Byt alternativ
+    option: Alternativ
+    item: Objekt
+    all: Allt
+    go-back: Gå Tillbaka
+    navigate: Navigera
+    reload: Ladda om
+    switch-state: Byt Tillstånd
+    state: Status
+    empty: "&7(Tom)"
+    default: "&7(Standard)"
+    undefined: "&7Odefinierad"
+    yes-word: "&aJa"
+    no-word: "&cNej"
+    location: Plats
+    region: Region
+    material: Material
+    # Others
+    menu: Meny
+    enabled: Aktiverad
+    disabled: Inaktiverad
+    range: Område
+    multiplier: Multiplikator
+    cooldown: Nedkyld
+    receive-crate: Ta emot kista
+    receive-key: Ta emot nyckel
+    identifier: Identifierare
+    display-name: Visningsnamn
+    line: Rad
+    swap-engine: Byt motor
+    edit-engine: Redigera motor
+    documentation: Dokumentation
+    not-installed: Inte installerad
+    not-available: Inte tillgänglig
+    not-enabled: Inte aktiverad
+    command: kommando
+    none: Ingen
+    action: Handling
+    color: Färg
+    flag: Flagga
+    pattern: Mönster
+    enchant: Förtrollning
+    effect: Effekt
+    value: Värde
+    red: Röd
+    green: Grön
+    blue: Blå
+    item-model: Föremålsmodell
+    tooltip-style: Verktygstipsstil
+    trim-material: Trimmaterial
+    trim-pattern: Trimmönster
+    model-data: Modelldata
+    title: Titel
+    particle: Partikel
+    velocity: Hastighet
+    spread: Spridning
+    offset-x: Förskjutning X
+    offset-y: Förskjutning Y
+    offset-z: Förskjutning Z
+    change-amount-money: Ändra mängd pengar
+    money-necessary: Nödvändiga pengar
+    vault-installed: Vault installerad
+    points-installed: PlayerPoints installerat
+    swap-cost-engine: Byt kostnadsmotor
+    set-cost-amount: Ställ in kostnadsbelopp
+    cost-amount: Kostnadsbelopp
+    required: Nödvändig
+    permission: Behörighet
+    crate: Kista
+    key: Nyckel
+    reward: Belöning
+    multiple-rewards: Flera Belöningar
+    items: Objekt
+    cancel: Avbryt
+    animation: Animation
+    limited-time-offer: Begränsat erbjudande
+    see-more: Se mer
+    attach-block: Fäst block
+    reorder-reward: Omordna belöning
+    set-as-default-display-name: Ställ in som standard visningsnamn
+    set-as-default-display-lore: Ställ in som standard visningslore
+    update-block: "Uppdatera Block"
+    percentage: Procent
+    weight: "Vikt"
+    chance: Sannolikhet
+    win-limit: Vinstgräns
+    global-win-limit: Global vinstgräns
+    win-limit-cooldown: Vinstgränsens nedkylning
+    global-win-limit-cooldown: Global vinstgräns nedkylningsperiod
+    time-limited-cooldown: Tidsbegränsad cooldown
+    unlimited: Obegränsad
+    virtual: Virtuell
+    broadcast: Sänd
+    paid: Betald
+    free: Gratis
+    save: Spara
+    leave: Lämna
+    select: Välj
+    add: Lägg till
+    edit: Redigera
+    remove: Ta bort
+    confirm: Bekräfta
+    decline: Avböja
+    locked-field: Låst fält
+    add-items: Lägg till objekt
+    no-cooldown: Ingen nedkyld
+    current: Aktuell
+    first: Första
+    second: Andra
+    third: Tredje
+    to-choose: Att välja
+    not-colorable: Kan inte färgas
+    previous-phase: Föregående fas
+    next-phase: Nästa fas
+    default-menu: Standardmeny
+    amount: "Mängd"
+    migrate-files: "Migrera filer"
+    rerolls: "Omgörningar"
+    group: "Grupp"
+    broadcast-message: "Sänd Meddelande"
+    only-premium: "Tillgänglig på premium"
+    sharing: "Delning"
+    everyone: "Alla"
+    openings: "Öppningar"
+    required-keys: "Nödvändiga Nycklar"
+    key-required: "Nyckel Nödvändig"
+    crates-linked: "Kistor Länkade"
+    keys-linked: "Nycklar Länkade"
+    rarity: "Sällsynthet"
+    synced: "Synkad"
+    not-set: "Inte inställt"
+    clear-lines: "Rensa rader"
+    add-empty-line: "Lägg till tom rad"
+    receive-placeable-crate: Ta emot placerbar kista
+    disable-money-requirement: Inaktivera pengakrav
+  readers:
+    exit-session: "&aFör att avsluta den här sessionen skriv &e\\\"avbryt\\\"&a."
+    write-chat: "&aSkriv i chatten."
+  time:
+    week: "Vecka"
+    weeks: "Veckor"
+    day: "Dag"
+    days: "Dagar"
+    hour: "Timme"
+    hours: "Timmar"
+    minute: "Minut"
+    minutes: "Minuter"
+    second: "Sekund"
+    seconds: "Sekunder"
+
+  unlock-addon:
+    - "&cKräver %addon% tillägg."
+    - "&4Lås upp på phoenixplugins.com"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ Phoenix Crates Kommandon"
+      - "%commands%"
+      - ""
+      - "&e➥ Ytterligare information:"
+      - " &9<argument> - obligatoriskt argument"
+      - " &3[argument] - valfritt argument"
+    usage: "&e➥ Användning:"
+    create: " &f/%command% create &9<identifier> &8- &7Skapa kisttyp"
+    delete: " &f/%command% delete &9<identifier> &8- &7Ta bort kisttyp"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7Ge dig själv en kista
+      att placera"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8- &7Ge
+      en spelare(eller alla spelare) en nyckel"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7Ge alla
+      online spelare en nyckel"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8- &7Ställ in
+      spelare virtuella nycklar"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7Ställ in
+      spelare virtuella nycklar"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7Tillåter dig att
+      förhandsgranska kistbelöningar"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7Ge en spelare(eller alla spelare) omgjorda"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8-
+      &7Tar spelares omgjorda"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8- &7Ge
+      en spelare(eller alla spelare) en kistbelöning"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7Ge en spelare (eller alla spelare) en slumpmässig belöning från crate"
+    editor: " &f/%command% editor &8- &7Tillåter dig att redigera alla kistor i spelet"
+    reload: " &f/%command% reload &8- &7Ladda om alla PhoenixCrates
+      konfigurationsfiler"
+  player-offline: "&cSpelare %name% är inte online!"
+  not-a-number: "&cDen angivna mängden är inte ett nummer."
+  plugin-reloaded: "&aPhoenixCrates har framgångsrikt laddats om."
+  crate-type-created: "&aKisttyp skapad framgångsrikt."
+  crate-type-deleted: "&aKisttyp raderad framgångsrikt."
+  cooldown-reset: "&aCooldown för &e%player% &apå crate &e%crate% &ahar återställts."
+  cooldown-reset-received: "&aDin cooldown för crate &e%crate% &ahar återställts."
+  cooldown-reset-no-cooldown: "&cDenna crate har ingen cooldown konfigurerad."
+  cooldown-reset-not-active: "&cDen spelaren har ingen aktiv cooldown för denna crate."
+  global-win-limit-reset: "&aDet globala vinstantalet för belöningen &e%reward%
+    &apå crate &e%crate% &ahar återställts."
+  global-win-limit-not-tracked: "&cDenna belöning har ingen global vinstgräns
+    konfigurerad, så det finns inget att återställa."
+  reward-cooldown-started: "&aDen tidsbegränsade cooldownen för belöningen
+    &e%reward% &apå crate &e%crate% &ahar startat."
+  reward-cooldown-started-all: "&aDen tidsbegränsade cooldownen har startat för
+    &e%amount% &abelöning(ar) på crate &e%crate%&a."
+  reward-cooldown-not-configured: "&cDenna belöning har ingen tidsbegränsad cooldown konfigurerad."
+  reward-cooldown-none-configured: "&cInga belöningar på denna crate har en
+    tidsbegränsad cooldown konfigurerad."
+  check-keys-header: "&#ffd500&l%player%'s Nycklar:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7Nyckel(ar)"
+  check-keys-none: "&7- &7Inga virtuella nycklar."
+  key-deleted: "&aNyckel raderad framgångsrikt."
+
+  key-given: "&e%amount% &anyckel(ar) har framgångsrikt givits till %player%."
+  key-given-all: "&a%amount% nyckel(ar) har framgångsrikt givits till alla online spelare."
+  key-given-offline: "&e%amount% &anyckel(ar) har framgångsrikt givits till %player%."
+  key-set: "&e%amount% &anyckel(ar) har framgångsrikt satts till %player%."
+  key-taken: "&e%amount% &anyckel(ar) har framgångsrikt tagits från %player%."
+
+  key-received: "&aDu har mottagit &ex%amount% &7%display_name% &r&anyckel(ar)."
+  virtual-key-received: "&aDu har mottagit &ex%amount% &7%display_name% &r&avirtual nyckel(ar)."
+
+  key-lost: '&c%amount% nyckel(ar) för crate &2\"%display_name%&2\"&c har tagits
+    från dig!'
+  virtual-key-lost: '&c%amount% virtuell nyckel(ar) för crate
+    &2\"%display_name%&2\"&c har tagits från dig!'
+
+  crate-rerolls-received: '&aDu har mottagit %amount% rerolls för crate &2\"%display_name%&2\"&a!'
+
+  crate-given: "&e%amount% &akista(or) har framgångsrikt givits till %player%."
+
+  random-reward-given: "&aEn slumpmässig belöning har framgångsrikt givits till %player%."
+  no-available-rewards: "&cDenna crate har inga tillgängliga belöningar."
+
+  crate-received: "&aDu har mottagit &ex%amount% &7%display_name% &r&akista(or)."
+  crate-no-placed-instances: "&cInga placerade crates hittades för typ &e%crate%&c."
+  crate-open-command-disabled: "&cCrate &e%crate% &ckan inte öppnas med detta kommando."
+  crate-type-dont-exist: '&cDet finns ingen crate-typ med identifieraren \"%identifier%\"!'
+  crate-type-already-exist: '&cDet finns redan en crate-typ med identifieraren \"%identifier%\"!'
+  key-dont-exist: '&cDet finns ingen nyckel med identifieraren \"%identifier%\"!'
+  key-already-exist: '&cDet finns redan en nyckel med identifieraren \"%identifier%\"!'
+  need-plugin-reload: "&6Behöver pluginen laddas om!"
+
+  crate:
+    disabled: "&cDenna låda är för närvarande inaktiverad!"
+    quick-open-available: "&eHuka dig och klicka igen för att hoppa över animationen
+      och öppna en annan crate."
+    already-opening: "&cNågon öppnar redan denna crate, vänta!"
+    no-linked-key: "&cDenna crate har inga länkade nycklar!"
+    no-key: "&cDu behöver %key%&r&c för att öppna denna crate!"
+    no-keys: "&cDu har inte tillräckligt med nycklar för att öppna denna crate!"
+    no-keys-amount: "&cDu behöver %amount% nyckel(ar) för att öppna denna kista."
+    redeem-no-keys: "&cDu behöver %required_keys% nyckel(ar) för att lösa in denna belöning."
+    cooldown-wait: "&cDu måste vänta i %cooldown% innan du öppnar denna crate igen."
+    cost-engine-not-installed: "&cMyntmotorn verkar inte vara inställd (kontakta en admin)."
+    no-money-none: "&cDu kan inte öppna denna crate just nu."
+    no-money-level: "&cDu behöver %money% för att öppna denna crate."
+    no-money-vault: "&cDu behöver %money% för att öppna denna crate."
+    no-money-playerpoints: "&cDu behöver %money% PlayerPoints för att öppna denna crate."
+    no-money-votingplugin: "&cDu behöver %money% röstpoäng för att öppna denna crate."
+    no-money-excellenteconomy: "&cDu behöver %money% för att öppna denna crate."
+    money-used-none: "&aDu öppnade denna crate."
+    money-used-level: "&aDu använde precis %money_consumed% för att öppna denna crate."
+    money-used-vault: "&aDu använde precis %money_consumed% för att öppna denna crate."
+    money-used-playerpoints: "&aDu använde precis %money_consumed% PlayerPoints för
+      att öppna denna crate."
+    money-used-votingplugin: "&aDu använde precis %money_consumed% röstpoäng för att öppna denna crate."
+    money-used-excellenteconomy: "&aDu använde precis %money_consumed% för att öppna denna crate."
+    need-crouched: "&eFör att ta bort denna crate måste du vara hukad."
+    successfully-removed: "&aDu har framgångsrikt tagit bort denna crate."
+    successfully-placed: "&aDu har framgångsrikt placerat en crate!"
+    reward-received: "&aDu mottog &ex%amount% %item%"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fhar fått: &ex%amount% &r%reward%"
+    no-rewards: "&cDenna crate har inga belöningar."
+    no-available-rewards: "&cDenna crate har inga belöningar tillgängliga för dig."
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cVänta lite! Vi laddar fortfarande dina data. Försök öppna
+      crate igen om en stund!"
+    guaranteed-win-openings: "&3Garanterad vinst i %openings% öppning(ar)"
+    no-permission: "&cDu har inte behörighet att öppna denna crate! [Kräver
+      behörighet: %permission%]"
+    cooldown-display:
+      counting: "&fDu kan öppna igen om &e%cooldown%"
+      over: "&aTillgänglig att öppna"
+    hologram-type-limited: "&cDenna hologrammotor stödjer endast en placerad kista per typ."
+    no-money: "&cDu behöver %necessary_money%$ för att öppna denna crate."
+    money-used: "&aDu har just använt %money_consumed%$ för att öppna denna crate."
+    crate:
+      no-rewards-for-key-rarities: "&cDenna kista har inga belöningar tillgängliga för rariteterna på dina
+        nycklar: %rarities%"
+  actions:
+    need-item: "&cDu måste lägga till ett föremål för att kunna utföra denna åtgärd."
+    force-close: "&cDu tvingade fram avbokning av vad du höll på med."
+
+  layout:
+    actions:
+      left-click: "&6Vänsterklick: &e%action%."
+      right-click: "&6Högerklick: &e%action%."
+      left-right-click: "&6Vänster/Högerklick: &e%action%."
+      shift-left-click: "&6Shift + Vänsterklick: &e%action%."
+      shift-right-click: "&6Shift + Högerklick: &e%action%."
+      drag-drop-click: "&6Dra & Släpp: &e%action%."
+      drop-click: "&6Tryck på Q: &e%action%."
+      description:
+        add: Lägg till %value%
+        set: Ange %value%
+        create: Skapa %value%
+        remove: Ta bort %value%
+        edit: Redigera %value%
+        delete: Ta bort %value%
+        receive: Mottag %value%
+        clear: Rensa %value%
+        choose: Välj %value%
+        change: Ändra %value%
+        select: Välj %value%
+        replace: Byt ut %value%
+        unlink: Koppla bort %value%
+        link: Koppla %value%
+        reorder: Omarbeta %value%
+    displays:
+      state: "&fÄr %type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&fMaterial: &7%material%"
+      location:
+        empty: "&fPlats: &7Tom"
+        populated:
+          - "&fPlats: "
+          - " &fVärld: &7%world%"
+          - " &fX axel: &7%x%"
+          - " &fY axel: &7%y%"
+          - " &fZ axel: &7%z%"
+          - " &fYaw: &7%yaw%"
+          - " &fPitch: &7%pitch%"
+      region:
+        empty: "&fRegion: &7Tom"
+        populated:
+          - "&fRegion: "
+          - " &fVärld: &7%world%"
+          - " &fPosition #1: &7%minimum%"
+          - " &fPosition #2: &7%maximum%"
+      item:
+        empty: "&fFöremål: &7Tom"
+        populated:
+          - "&fFöremål: "
+          - " &fNamn: &7%name%"
+          - " &fLore: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&aFöregående sida - Sida %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&aNästa sida - Sida %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cIngen data hittades."
+        description:
+          - "&7Ingen data hittades med detta filter."
+      filter:
+        title: "&aFilter"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7filtrera efter namn."
+          - ""
+          - "&fFilter: &e%filter%"
+          - ""
+          - "&6Vänsterklick: &eAnge filter."
+          - "&6Högerklick: &eRensa filter."
+  editor:
+    messages:
+      write-identifier-chat: "&eSkriv den nya identifieraren i chatten."
+      identifier-updated: '&aIdentifier framgångsrikt uppdaterad till \"%identifier%&a\"!'
+      write-displayname-chat: "&eSkriv det nya visningsnamnet i chatten."
+      displayname-updated: '&aVisningsnamn framgångsrikt uppdaterat till \"%display_name%&a\"!'
+      write-in-chat: "&aSkriv i chatten."
+      value-updated: "&aVärde framgångsrikt uppdaterat!"
+      write-lore-line-chat: "&eSkriv den nya lore-raden i chatten."
+      lore-line-added: "&aLore-raden framgångsrikt tillagd!"
+      lore-cleared: "&aLore framgångsrikt rensad."
+      opening-animation-changed: "&aÖppningsanimation framgångsrikt ändrad."
+      crate-type-deleted: Krattyp framgångsrikt borttagen.
+      migration-completed: "&aMigration slutförd."
+    errors:
+      identifier-already-in-use: "&cDenna identifierare är redan i bruk."
+      no-spaces: "&cKan inte ha mellanslag!"
+      invalid-input: "&cOgiltig inmatning!"
+      invalid-number: "&cOgiltigt nummer!"
+      inventory-full: "&cDitt lager är fullt."
+      inventory-full-reward: "&cEn kista belöning föll på marken eftersom ditt lager är fullt!"
+      inventory-full-key: "&cEn nyckel tappades på marken eftersom din inventarie är full!"
+      username-not-found: "&cIngen ursprunglig konto med namnet %username% hittades."
+      invalid-rewards: "Det finns %amount% belöning(ar) som är ogiltiga!"
+      no-rewards-configured: "Det finns inga belöningar konfigurerade!"
+      invalid-reward-display: "Ogiltig belöning: Hittade tomt visningsobjekt!"
+      hologram-engine-missing: "&cHologramdata refererar till en annan plugin!
+        Vänligen ändra Hologram Engine i plugin-inställningarna."
+    titles:
+      main: Phoenix Crates v%version% > Redigerare
+      crates: Redigerare > Kistor
+      keys: Redigerare > Nycklar
+      migrations: Redigerare > Migrationer
+      addons: Redigerare > Tillägg
+      rarities: Redigerare > Rariteter
+      settings: Redigerare > Inställningar
+      engines:
+        bettermodel: Redigerare > ... > BetterModel
+      crate:
+        new: Redigerare > ... > Ny Kista
+        show: Redigerare > ... > Kista
+        display: Redigerare > ... > Motor
+        menus: Redigerare > ... > Menyer
+        link-keys: Redigerare > ... > Länka Nycklar
+        idle-animation: Redigerare > ... > Inaktiv Animation
+        opening-animations: Redigerare > ... > Öppningsanimationer
+        opening-animation: Redigerare > ... > Öppningsanimation
+        effect: Redigerare > ... > Animations Effekt
+        rewards: Redigerare > ... > Belöningar
+        reward: Redigerare > ... > Belöning
+        reward-cooldowns: Redigerare > ... > Belönings-cooldowns
+        reward-requirements: Redigerare > ... > Belöningskrav
+        reward-cooldown-duration: Redigerare > ... > Cooldown-längd
+        reward-items: Redigerare > ... > Redigera Belöningsobjekt
+        reward-commands: Redigerare > ... > Redigera Belöningskommandon
+        reward-rarity: Redigerare > ... > Belöningsraritet
+        multiple-rewards: Redigerare > ... > Lägg till Flera Belöningar
+        engine: Redigerare > ... > Motor
+        hologram: Redigerare > ... > Hologram
+        milestones: "Redigerare > ... > Milstolpar"
+        rerolling: "Redigerare > ... > Omslagning"
+        others: "Redigerare > ... > Andra"
+        open-cost: "Redigerare > ... > Öppningskostnad"
+      key:
+        show: Redigerare > ... > Nyckel
+        linked-crates: Redigerare > ... > Länkade Kistor
+
+    main:
+      crates:
+        title: "&aKistor"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7utforska och hantera alla tillgängliga kistor."
+      keys:
+        title: "&aNycklar"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7utforska och hantera alla tillgängliga nycklar."
+      rarities:
+        title: "&aSällsyntheter"
+        description:
+          - "&7Genom att klicka här kan du konfigurera"
+          - "&7och hantera sällsynthetssystemet."
+      migrations:
+        title: "&aMigrationer"
+        description:
+          - "&7Utforska alternativ för att migrera från andra kista plugins"
+          - "&7och hantera migrationsprocessen genom att klicka här."
+      addons:
+        title: "&aTillägg"
+        description:
+          - "&7Utforska ytterligare funktioner och förbättringar"
+          - "&7genom att klicka här för att få tillgång till tilläggsmenyn."
+      settings:
+        title: "&aInställningar"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7utforska och anpassa plugininställningar."
+      reload:
+        title: "&aLadda om Konfigurering"
+        description:
+          - "&7Genom att klicka här kommer du att initiera"
+          - "&7en omladdning av alla plugin-konfigurationer."
+      pouches:
+        title: "&aPockets"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7hantera alla fickor."
+      crate-claim:
+        title: "&aHämtning av kista"
+        description:
+          - "&7Genom att klicka här, kan du konfigurera"
+          - "&7hur hämtning av kistor fungerar och menyer."
+    migrations:
+      plugin:
+        title: "&aMigrera från %name%"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7Genom att klicka här kan du"
+          - "&7migrera vissa filer från %name% till detta plugin."
+          - ""
+          - "&aStödda filer:"
+          - "&8 &7- %files%"
+          - ""
+          - "&fDatabas stödd: %database%"
+    addons:
+      loading:
+        title: "&eLaddar..."
+        description:
+          - "&7Tilläggen laddas,"
+          - "&7väntar några sekunder."
+      empty:
+        title: "&cInga tillägg tillgängliga"
+        description:
+          - "&7Inga register hittades"
+          - "&7enligt det aktuella filtret."
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&fPris: &a%price%"
+    settings:
+      language:
+        title: "&aSpråk"
+        description:
+          - "&7Detta alternativ låter dig ändra"
+          - "&7det grundläggande språket som denna plugin kommer att använda"
+          - ""
+          - "&e&nDu kan alltid konfigurera translations.en.yml."
+      key-mainhand:
+        title: "&aKrav på nyckel i huvudhanden"
+        description:
+          - "&7Detta alternativ låter dig definiera"
+          - "&7om spelare kommer behöva ha"
+          - "&7en nyckel i sin huvudhand för att öppna lådor."
+      crate-knockback:
+        title: "&aKista Knockback"
+        description:
+          - "&7Detta alternativ låter dig variera"
+          - "&7knockback som spelaren tar när de försöker"
+          - "&7öppna en kista med fel nyckel."
+      crate-despawn-range:
+        title: "&aKista Despawn Område"
+        description:
+          - "&7Detta alternativ låter dig definiera"
+          - "&7avståndet där effekter behöver"
+          - "&7sluta visas för spelaren."
+          - ""
+          - "&c&nHöga värden rekommenderas inte eftersom de kan orsaka lagg."
+      crate-quick-open:
+        title: "&aKista Snabb Öppning"
+        description:
+          - "&7Detta alternativ tillåter spelare att"
+          - "&7snabbt öppna när de håller i kistnyckeln"
+          - "&7och shiftar högerklickar."
+          - ""
+          - "&e&nFungerar endast med samtidiga öppningar av kistor!"
+      disable-confirmation-menus:
+        title: "&aInaktivera Bekräftelsemenyer"
+        description:
+          - "&7Detta alternativ låter dig hoppa över"
+          - "&7bekräftelsemenyer så att spelare går"
+          - "&7direkt till åtgärden."
+      crate-claim:
+        title: "&aTa emot kista"
+        description:
+          - "&7Genom att klicka här kan du konfigurera"
+          - "&7beteendet för mottagande av kistor och menyer."
+    keys:
+      key:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Genom att klicka här kommer du att"
+          - "&7kunna konfigurera denna nyckel."
+        identifier:
+          title: "&aIdentifierare"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7byta namn på din nyckelidentifierare."
+            - "&eDenna identifierare måste vara unik."
+        display-name:
+          title: "&aVisningsnamn"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7byta namn på din nyckel."
+        link-crates:
+          title: "&aLänka Kistor"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7länka kistor med denna nyckel."
+        enabled:
+          title: "&aAktiverad"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7ändra om denna nyckel är tillgänglig."
+        delete:
+          title: "&aRadera Nyckel"
+          description:
+            - "&7Genom att klicka här kommer denna nyckel"
+            - "&7att raderas från servern."
+            - "&eAlla nycklar i världen kommer inte längre att vara giltiga."
+        item:
+          title: "&aNyckel Objekt"
+          description:
+            - "&7Ett anpassat nyckelobjekt som kan"
+            - "&7användas för att öppna en kista."
+      add:
+        title: "&aLägg till Nyckel"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7skapa en nyckel."
+    crates:
+      type:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7konfigurera denna kista."
+      add:
+        title: "&aLägg till Kista"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7skapa en kisttyp."
+    crate:
+      identifier:
+        title: "&aIdentifierare"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7byta namn på din kistaidentifierare."
+          - "&eDenna identifierare måste vara unik."
+      item:
+        title: "&aFöremål"
+        description:
+          - "&7Visningsföremål som kommer att"
+          - "&7användas för att representera denna kista."
+        name:
+          title: "&aFöremålsnamn"
+          description:
+            - "&7Namnet som kommer att användas"
+            - "&7för att representera detta föremål"
+        lore:
+          title: "&aFöremålsbeskrivning"
+          description:
+            - "&7Beskrivningen som kommer att användas"
+            - "&7för att representera detta föremål"
+      link-keys:
+        title: "&aLänka Nycklar"
+        description:
+          - "&7Genom att klicka här kommer du att kunna"
+          - "&7koppla nycklar till denna låda."
+      animations:
+        title: "&aAnimationer"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7ändra animationerna för denna kista."
+          - ""
+          - "&fDu kan konfigurera:"
+          - "&8> &aVila Animation"
+          - "&8> &aÖppning Animation"
+      rerolls:
+        title: "&aRerolls"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7definiera rerolls för denna kista."
+      mass-opening:
+        title: "&aMassa Öppning"
+        description:
+          - "&7Genom att klicka här kan du konfigurera"
+          - "&7inställningarna för massaöppning av kistan."
+      display-settings:
+        block-material:
+          title: "&aBlockmaterial"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7ändra materialet som"
+            - "&7används för kistblocket."
+        crate-engine:
+          title: "&aCrate Block-motor"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7ändra motorn och anpassa den."
+            - ""
+            - "&b➥ Vanilla Block-motor:"
+            - "&7Standard crate baserad på material."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Vanilla Model-motor: &9(1.12+)"
+            - "&7Anpassad statisk modell från resource pack."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model-motor / Better Model:"
+            - "&7Anpassad modell med animationer."
+            - ""
+            - "&fMotorer:"
+        rewards-mode:
+          title: "&aBelöningsläge"
+          description:
+            - "&7Genom att klicka här kan du ändra"
+            - "&7läget som detta belöningssystem kommer att använda."
+            - ""
+            - "&b➥ Slumpläge:"
+            - "&7Belöningar kommer att väljas slumpmässigt baserat"
+            - "&7på deras tilldelade vikter (chanser). Detta"
+            - "&7läge tillför ett element av överraskning och tur."
+            - ""
+            - "&b➥ Selektivt läge:"
+            - "&7Detta läge tar bort slumpmässigheten, vilket tillåter"
+            - "&7användare att direkt välja belöningen de"
+            - "&7vill ha från de tillgängliga alternativen. Idealiskt för"
+            - "&7att ge användare kontroll över sina belöningar."
+            - ""
+            - "&fLägen:"
+        hologram:
+          title: "&aHologram"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7konfigurera hologrammet ovanför denna crate."
+        idle-animation:
+          title: "&aInaktiv animations"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7anpassa inaktivitetsanimationen för denna crate."
+            - ""
+            - "&7Inaktivitetsanimationen kommer att visas när"
+            - "&7en spelare inte öppnar denna crate."
+        opening-animation:
+          title: "&aÖppningsanimation"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7anpassa öppningsanimationen för denna crate."
+            - ""
+            - "&fHur fungerar öppningsanimationen?"
+            - "&7Denna animation består av 3 faser, varje"
+            - "&7fas bestående av olika mini-animationer"
+            - "&7och egenskaper. På ett förenklat sätt representerar faserna"
+            - "&7början, mitten och slutet av en animation."
+            - ""
+            - "&7Om du också använder en motor som stöder"
+            - "&7modellanimationer kan du synka vissa modell"
+            - "&7animationer med varje nivå."
+        engine-mode:
+          title: "&aMotorläge"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7ändra motorn som denna kista kommer att använda."
+            - ""
+            - "&b➥ Vanilla Block motor:"
+            - "&7Standardmotor för en crate, representationen kommer att"
+            - "&7vara materialet valt som block för denna crate."
+            - ""
+            - "&b➥ Vanilla Model-motor: &9(1.12+)"
+            - "&7Möjlighet att tilldela en anpassad statisk modell till crate"
+            - "&7men stöder inte animationer. Detta stöder vaniljmodeller"
+            - "&7genom material och anpassad modelldata."
+            - ""
+            - "&b➥ Andra: &9(1.16.5+)"
+            - "&7Möjlighet att tilldela en anpassad modell till crate som"
+            - "&7väl som en anpassad öppningsanimation."
+            - ""
+            - "&fMotorer:"
+      open-cooldown:
+        title: "&aÖppna nedkylning"
+        description:
+          - "&7Klicka här för att ändra mängden"
+          - "&7tid en spelare måste vänta"
+          - "&7för att öppna en annan crate."
+      open-cost:
+        title: "&aÖppningskostnadsmotor"
+        description:
+          - "&7Genom att klicka här kan du definiera en"
+          - "&7ytterligare metod för att öppna denna crate"
+          - ""
+          - "&e&lTip&r&e: &7Inaktivera krav på nyckel för att använda"
+          - "      &7denna metod som huvudmetod."
+      open-cost-amount:
+        title: "&aBelopp för öppningskostnad"
+        description:
+          - "&7Beloppet av valutan som kommer att"
+          - "&7debiteras när denna kista öppnas."
+      open-cost-currency:
+        title: "&aValuta"
+        description:
+          - "&7Den ExcellentEconomy-valuta som"
+          - "&7kommer att användas för att debitera kostnaden."
+      simultaneous-openings:
+        title: "&aSamtidiga öppningar"
+        description:
+          - "&7Detta alternativ låter dig definiera"
+          - "&7om en eller flera spelare kan"
+          - "&7öppna denna crate samtidigt."
+          - ""
+          - "&e&nSnabb öppning är inaktiverad"
+          - "&e&nutan simultana öppningar"
+      preview-reward:
+        title: "&aFörhandsgranska Belöning"
+        description:
+          - "&7Genom att klicka här aktiverar du"
+          - "&7en förhandsgranskning av belöningen ovanför varje kista."
+      permission-required:
+        title: "&aBehov av Behörighet"
+        description:
+          - "&7Genom att klicka här kommer du att ställa in"
+          - "&7den behörighet som en spelare måste ha"
+          - "&7för att öppna denna kista."
+      rewards:
+        title: "&aBelöningar"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7konfigurera alla belöningar som en spelare"
+          - "&7kan tjäna genom att öppna denna kista."
+        add:
+          title: "&aLägg till Belöning"
+          description:
+            - "&7Genom att klicka här kan du börja"
+            - "&7ställa in en ny belöning i denna kista."
+        edit:
+          title: "&aBelöning #%position%"
+          description: []
+        multiple-rewards:
+          title: "&aLägg till Flera Belöningar"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7lägga till flera belöningar på en gång."
+        reordering:
+          title: "&aOmordning"
+          description:
+            - "&7Genom att klicka här kan du sortera"
+            - "&7belöningarna i den ordning du vill."
+          selected:
+            title: "&eVald"
+        win-amount:
+          title: "&aMax Belöningar vid Vinst"
+          description:
+            - "&7Genom att klicka här kan du definiera"
+            - "&7hur många belöningar en spelare kommer att vinna på en gång."
+      reward:
+        drag-item:
+          title: "&aDra ett objekt"
+          description:
+            - "&7Dra något objekt för att ställa in belöningen."
+            - ""
+            - "&6Dra & Släpp: Ersätta objekt."
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6Dra & Släpp: &eErsätt objekt."
+        identifier:
+          title: "&aÄndra Identifierare"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7döpa om din belöningsidentifierare."
+            - "&eDenna identifierare måste vara unik."
+        display-item:
+          title: "&aVisa Objekt"
+          description:
+            - "&7Detta objekt kommer att fungera som en visning"
+            - "&7som representerar belöningen för denna kista."
+          name:
+            title: "&aVisningsnamn"
+            description:
+              - "&7Namnet som kommer att användas"
+              - "&7för att representera denna Belöning"
+          lore:
+            title: "&aVisningsbeskrivning"
+            description:
+              - "&7Den beskrivning som kommer att användas"
+              - "&7för att representera denna Belöning"
+        alternative-item:
+          title: "&aAlternativt Objekt"
+          description:
+            - "&7Detta objekt kommer att vara det extra objektet som användaren"
+            - "&7kommer att få om villkoren uppfylls."
+        win-items:
+          title: "&aVinn Objekt"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7lägga till objekt som spelaren kommer att"
+            - "&7få när de vinner denna belöning."
+          add-item:
+            title: "&aLägg till Objekt"
+            description:
+              - "&7Dra ett objekt från ditt inventarie"
+              - "&7hit för att lägga till det som ett objekt för denna belöning."
+        weight:
+          title: "&aVikt"
+          description:
+            - "&7Vikten kommer att bidra till en"
+            - "&7spelares chans att vinna detta föremål."
+        virtual:
+          title: "&aVirtuellt Objekt"
+          description:
+            - "&7Detta alternativ ställer in om vinnaren."
+            - "&7ska få ett fysiskt objekt eller inte."
+        win-commands:
+          title: "&aVinn Kommandon"
+          description:
+            - "&7Genom att klicka här kan du hantera"
+            - "&7alla kommandon som kommer att utföras"
+            - "&7när en spelare vinner denna belöning."
+        max-win-item-amount:
+          title: "&aMaximalt antal vinstföremål"
+          description:
+            - "&7Ställer in det maximala antalet föremål"
+            - "&7från win-items-listan som kommer att"
+            - "&7ges när denna belöning vinns."
+            - "&7Sätt till &e∞ &7för ingen gräns."
+        max-win-command-amount:
+          title: "&aMaximalt antal vinstkommandon"
+          description:
+            - "&7Ställer in det maximala antalet kommandon"
+            - "&7från win-commands-listan som kommer att"
+            - "&7utföras när denna belöning vinns."
+            - "&7Sätt till &e∞ &7för ingen gräns."
+        broadcast:
+          title: "&aSänd Meddelande"
+          description:
+            - "&7Detta alternativ ställer in om ett sändningsmeddelande"
+            - "&7ska visas när en spelare vinner denna belöning."
+        share-players-online:
+          title: "&aDela med Spelare Online"
+          description:
+            - "&7Detta alternativ ställer in om denna belöningspris"
+            - "&7ska delas med alla online."
+        allow-win-message:
+          title: "&aTillåt vinstmeddelande"
+          description:
+            - "&7Detta alternativ anger om spelaren kommer att få"
+            - "&7ett meddelande när spelaren vinner denna belöning."
+        notification-types:
+          title: "&aAviseringstyp"
+          description:
+            - "&7Genom att klicka här kan du ändra"
+            - "&7hur vinstmeddelandet skickas."
+        enabled:
+          title: "&aAktiverad"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7ändra om denna belöning är tillgänglig."
+        win-limit:
+          title: "&aVinstgräns"
+          description:
+            - "&7Detta alternativ ställer in hur många gånger"
+            - "&7en spelare kan vinna denna belöning."
+            - ""
+            - "&e&lTIPS: &7Du kan kombinera detta"
+            - "       &7med en alternativ belöning."
+        global-win-limit:
+          title: "&aGlobal vinstgräns"
+          description:
+            - "&7Detta alternativ anger hur många gånger"
+            - "&7denna belöning kan vinnas av"
+            - "&7alla på servern tillsammans."
+            - ""
+            - "&e&lTIPS: &7Du kan kombinera detta"
+            - "       &7med en alternativ belöning."
+        cooldowns:
+          title: "&aNedkylningar"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7konfigurera nedkylningarna "
+            - "&7för denna belöning."
+          win-limit-cooldown:
+            title: "&aKylning för vinstgräns"
+            description:
+              - "&7Detta alternativ anger hur länge en spelare"
+              - "&7måste vänta innan spelaren kan"
+              - "&7vinna denna belöning igen."
+          global-win-limit-cooldown:
+            title: "&aKylning för global vinstgräns"
+            description:
+              - "&7Detta alternativ anger hur lång tid som måste passera"
+              - "&7innan denna belöning kan vinnas igen"
+              - "&7av någon på servern."
+          time-limited-cooldown:
+            title: "&aTidsbegränsad kylning"
+            description:
+              - "&7Detta alternativ anger hur länge denna"
+              - "&7belöning kommer att vara tillgänglig när dess"
+              - "&7kylning har startat."
+              - ""
+              - "&7När den löper ut kommer belöningen att"
+              - "&7automatiskt inaktiveras."
+          duration:
+            weeks:
+              title: "&aVeckor"
+              description:
+                - "&7Antalet veckor att lägga till"
+                - "&7till denna kylningens varaktighet."
+            days:
+              title: "&aDagar"
+              description:
+                - "&7Antalet dagar att lägga till"
+                - "&7till denna kylningens varaktighet."
+            hours:
+              title: "&aTimmar"
+              description:
+                - "&7Antalet timmar att lägga till"
+                - "&7till denna kylningens varaktighet."
+            minutes:
+              title: "&aMinuter"
+              description:
+                - "&7Antalet minuter att lägga till"
+                - "&7till denna kylningens varaktighet."
+            disable:
+              title: "&cInaktivera kylning"
+              description:
+                - "&7Återställer denna kylnings varaktighet"
+                - "&7till noll och inaktiverar den."
+        requirements:
+          title: "&aKrav"
+          description:
+            - "&7Konfigurera behörighetskrav"
+            - "&7för denna belöning."
+          required-permission:
+            title: "&aKrävd behörighet"
+            description:
+              - "&7Ställ in en behörighet som spelaren måste ha"
+              - "&7för att se denna belöning som tillgänglig."
+              - "&7Om spelaren saknar den kommer belöningen"
+              - "&7att visas som låst i förhandsvisningen."
+        restricted-permissions:
+          title: "&aRestrikterade Behörigheter"
+          description:
+            - "&7Detta alternativ definierar"
+            - "&7de restrikterade behörigheter som spelaren"
+            - "&7inte kan ha för att vinna denna belöning."
+            - "&eDetta kommer inte att tillämpas om spelaren har op."
+            - ""
+            - "&e&lTIP: &7Du kan kombinera detta"
+            - "       &7med en alternativ belöning."
+        alternative-reward:
+          title: "&aAlternativ Belöning"
+          description:
+            - "&7Genom att klicka här kommer du att"
+            - "&7kunna konfigurera den alternativa"
+            - "&7belöningen för denna belöning."
+            - ""
+            - "&7Om aktiv när en spelare överskrider"
+            - "&7vinstgränser eller har svartlistade behörigheter"
+            - "&7kommer han att ta emot denna belöning istället."
+        delete:
+          title: "&aTa Bort Belöning"
+          description:
+            - "&7Genom att klicka här kommer denna belöning"
+            - "&7att tas bort från denna crate."
+        percentage:
+          title: "&aProcent"
+          description:
+            - "&7Procentandelen kommer att bidra till en"
+            - "&7spelares chans att vinna detta objekt."
+      menus:
+        title: "&aMenyer"
+        description:
+          - "&7Genom att klicka här kommer du att kunna konfigurera"
+          - "&7alla menyer för denna crate."
+      rewards-menu:
+        title: "&aBelöningsmeny"
+        description:
+          - "&7Genom att klicka här kommer du att kunna konfigurera"
+          - "&7vilken belöningsmeny denna crate kommer att ha."
+      preview-actions:
+        title: "&aFörhandsvisningsåtgärder"
+        description:
+          - "&7Genom att klicka här kan du konfigurera"
+          - "&7åtgärderna som kommer att köras när en spelare"
+          - "&7klickar för att förhandsvisa denna kista."
+          - "&7Dessa kan användas tillsammans med, eller"
+          - "&7istället för, förhandsvisningsmenyn för belöningar."
+      rerolls-menu:
+        title: "&aOmkastningsmeny"
+        description:
+          - "&7Genom att klicka här kommer du att kunna konfigurera"
+          - "&7vilken omkastningsmeny denna crate kommer att ha."
+      selective-rewards-menu:
+        title: "&aSelektiv Belöningsmeny"
+        description:
+          - "&7Genom att klicka här kommer du att kunna konfigurera"
+          - "&7vilken selektiv belöningsmeny denna crate kommer att ha."
+      milestones-menu:
+        title: "&aMilstolpar Meny"
+        description:
+          - "&7Genom att klicka här kommer du att kunna konfigurera"
+          - "&7vilken förhandsvisningsmeny denna crate kommer att ha."
+      broadcast-message:
+        title: "&aSänd Meddelande"
+        description:
+          - "&7Genom att klicka här kommer du att kunna konfigurera"
+          - "&7sändmeddelandet för belöningarna."
+          - ""
+          - "&eTillgängliga Platshållare:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&aAktiverad"
+        description:
+          - "&7Genom att klicka här kommer du att kunna"
+          - "&7ändra om denna crate är tillgänglig."
+      allow-open-command:
+        title: "&aTillåt öppningskommando"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7växla om denna kista kan"
+          - "&7öppnas med &f/crate open &7kommandot."
+      attach-block:
+        title: "&aFäst Block"
+        description:
+          - "&7Genom att klicka här kommer du att kunna"
+          - "&7skapa en crate genom att fästa ett block."
+      delete:
+        title: "&aTa Bort Crate"
+        description:
+          - "&7Genom att klicka här kommer denna crate"
+          - "&7att tas bort från servern."
+          - ""
+          - "&e&nAlla nycklar i denna crate kommer inte längre att vara giltiga."
+      hologram:
+        engine-mode:
+          title: "&aHologrammotorns läge"
+          description:
+            - "&7Motorn som pluginet"
+            - "&7använder för hologram"
+            - ""
+            - "&fMotor: &7%engine%"
+        lines:
+          title: "&aHologramrader"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7konfigurera hologramraderna för denna kista."
+            - ""
+            - "&e&lTIPS: &7Du kan använda &ePlaceholderAPI&7."
+        identifier:
+          title: "&aIdentifierare"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7definiera identifieraren för hologram-pluginet."
+            - ""
+            - "&fIdentifierare: &7%id%"
+        offset:
+          title: "&aHologramförskjutning"
+          description:
+            - "&7Detta alternativ låter dig justera hologrammets"
+            - "&7position baserat på kistans placering."
+      display-name:
+        title: "&aVisningsnamn"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7byta namn på din kista."
+      open-money-cost:
+        title: "&aÖppna pengakostnad"
+        description:
+          - "&7Klicka här för att ändra beloppet pengar"
+          - "&7som krävs för att öppna denna crate."
+          - "&7nyckel och skifte högerklickning."
+          - ""
+          - "&e&nFungerar endast med Vault!"
+    crate-engine:
+      first-phase-delay:
+        title: "&aFördröjning innan första fasen startar"
+        description:
+          - "&7Ange fördröjningen mellan det ögonblick"
+          - "&7kistan öppnas och starten av"
+          - "&7animationernas första fas."
+      second-phase-delay:
+        title: "&aFördröjning innan andra fasen startar"
+        description:
+          - "&7Ange fördröjningen mellan första"
+          - "&7och andra fasen av öppningsanimationen."
+      third-phase-delay:
+        title: "&aFördröjning innan tredje fasen startar"
+        description:
+          - "&7Ange fördröjningen mellan andra"
+          - "&7och tredje fasen av öppningsanimationen."
+      idle:
+        title: "&aViloanimation"
+        description:
+          - "&7Ange animationen som kommer att"
+          - "&7spelas när kistan är inaktiv."
+      close-animation:
+        title: "&aStängningsanimation"
+        description:
+          - "&7Ange animationen som kommer att"
+          - "&7spelas när kistan stängs."
+      model-name:
+        title: "&aModellnamn"
+        description:
+          - "&7Ange modellnamnet som denna"
+          - "&7kista kommer att använda."
+          - ""
+          - "&fCurrent Model: &7%name%"
+      model-engine:
+        model-name:
+          title: "&aModellnamn"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7ändra modellnamnet för denna kista."
+            - ""
+            - "&fCurrent Name: &7%name%"
+      better-model:
+        model-name:
+          title: "&aModellnamn"
+          description:
+            - "&7Genom att klicka här kan du"
+            - "&7ändra modellnamnet för denna kista."
+            - ""
+            - "&fCurrent Name: &7%name%"
+        scale:
+          title: "&aSkala"
+          description:
+            - "&7Definiera storleksmultiplikatorn för denna"
+            - "&7modell. 1.0 är modellens normala storlek."
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6Vänster-klick: &eVälj material."
+        custom-model-data:
+          title: "&aAnpassade Modelldata"
+          description:
+            - "&7Genom att klicka här kommer du att kunna"
+            - "&7ändra de anpassade modelldata för denna artikel."
+            - ""
+            - "&fAnpassade Modelldata: &7%custom_model_data%"
+            - ""
+            - "&6Vänster-klick: &eÄndra Anpassade Modelldata."
+    reward-commands:
+      add:
+        title: "&aLägg Till Kommando"
+        description:
+          - "&7Genom att klicka här kommer du att kunna lägga till"
+          - "&7ett kommando som kommer att utföras när"
+          - "&7en spelare vinner denna belöning."
+          - ""
+          - "&7Kommandon som börjar med &a* &7utförs av"
+          - "&7spelare. Annars, utförs de av konsolen."
+          - ""
+          - "&7Du kan också använda platshållaren &a%player%"
+          - "&7och platshållare från &aPlaceholderAPI&7."
+          - ""
+          - "&6Vänsterklick: &eLägg till kommando."
+      command:
+        title: "&aKommando #%id%"
+        description:
+          - "&fKommando: &7%command%"
+          - ""
+          - "&6Vänsterklick: &eTa bort kommando."
+    alternative-reward:
+      enabled:
+        title: "&aStatus"
+        description:
+          - "&7När en alternativ belöning är aktiv,"
+          - "&7om spelaren överskrider vinstgränser eller"
+          - "&7har svartlisteteckningar får han"
+          - "&7denna belöning."
+    edit-standby-animation:
+      add-effect:
+        title: "&aLägg till Effekt"
+        description:
+          - "&7Genom att klicka här kan du"
+          - "&7lägga till en ny effekt till inaktivitetsanimationen."
+          - ""
+          - "&6Vänsterklick &eLägg till effekt."
+      edit-effect:
+        title: "&eEffekt #%id%"
+        description:
+          - ""
+          - "&fEffekttyp: &7%effect_type%"
+          - "&fPartikeltyp: &7%particle_type%"
+          - "&fPartikelhastighet: &7%particle_velocity%"
+          - "&fFärg: &7%color%"
+          - "&fOffset: &7%offset%"
+          - "&fSpridning: &7%spread%"
+          - "&fMängd: &7%amount%"
+          - ""
+          - "&6Vänsterklick &eRedigera effekt."
+          - "&6Skift + Vänsterklick: &eTa bort effekt."
+    edit-standby-effect:
+      effect-type:
+        title: "&aEffekttyp&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6Vänster/Högerklick: &eByt typ."
+      particle-type:
+        title: "&aPartikeltyp"
+        description:
+          - "&fAktuell: &7%particle_type%"
+          - ""
+          - "&6Vänsterklick: &eÄndra partikel."
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&fEgenskaper: &a%properties%"
+          - ""
+          - "&6Vänsterklick: &eVälj partikel."
+      color:
+        title: "&aFärg"
+        description:
+          - "&fAktuell: &7%color%"
+          - ""
+          - "&e&nFungerar endast med färgbara partiklar."
+          - ""
+          - "&6Vänsterklick: &eÄndra färg."
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6Vänsterklick: &eVälj färg."
+      spread:
+        title: "&aSpridning"
+        description:
+          - "&fAktuell: &7%spread%"
+          - ""
+          - "&6Vänsterklick: &eLägg till 0.1."
+          - "&6Skift + Vänsterklick: &eLägg till 1."
+          - "&6Högerklick: &eTa bort 0.1."
+          - "&6Skift + Högerklick: &eTa bort 1."
+      particle-velocity:
+        title: "&aPartikelhastighet"
+        description:
+          - "&fAktuell: &7%particle_velocity%"
+          - ""
+          - "&6Vänsterklick: &eLägg till 0.1."
+          - "&6Skift + Vänsterklick: &eLägg till 1."
+          - "&6Högerklick: &eTa bort 0.1."
+          - "&6Skift + Högerklick: &eTa bort 1."
+      amount:
+        title: "&aMängd"
+        description:
+          - "&fAktuell: &7%amount%"
+          - ""
+          - "&6Vänsterklick: &eLägg till 1."
+          - "&6Högerklick: &eTa bort 1."
+      offset-x:
+        title: "&aOffset X"
+        description:
+          - "&fAktuell: &7%offset_x%"
+          - ""
+          - "&6Vänsterklick: &eLägg till 0.1."
+          - "&6Skift + Vänsterklick: &eLägg till 1."
+          - "&6Högerklick: &eTa bort 0.1."
+          - "&6Skift + Högerklick: &eTa bort 1."
+      offset-y:
+        title: "&aOffset Y"
+        description:
+          - "&fAktuell: &7%offset_y%"
+          - ""
+          - "&6Vänster-Klick: &eLägg till 0.1."
+          - "&6Shift + Vänster-Klick: &eLägg till 1."
+          - "&6Höger-Klick: &eTa bort 0.1."
+          - "&6Shift + Höger-Klick: &eTa bort 1."
+      offset-z:
+        title: "&aOffset Z"
+        description:
+          - "&fAktuell: &7%offset_z%"
+          - ""
+          - "&6Vänster-Klick: &eLägg till 0.1."
+          - "&6Shift + Vänster-Klick: &eLägg till 1."
+          - "&6Höger-Klick: &eTa bort 0.1."
+          - "&6Shift + Höger-Klick: &eTa bort 1."
+    opening-animation:
+      phase-updated: "&aAnimationsfas uppdaterad."
+      preset-applied: "&aÖppningsanimationsförinställning tillämpad."
+      preset-removed: "&aIngen förinställning vald."
+      phase:
+        title: "&a%phase% Fas"
+        description:
+          - "&7Varje öppningsanimation består av"
+          - "&7faser, detta är en av faserna."
+          - ""
+          - "&fFas: &e%name%"
+      change-phases:
+        title: "&aAnimationsfaser"
+        description:
+          - "&7Välj animationer för"
+          - "&7öppningsanimationsstadier."
+          - ""
+          - "&6Vänster-Klick: &eÄndra animation."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&a%phase% Fas"
+        description:
+          - "&7Varje öppningsanimation består av"
+          - "&7faser, detta är en av faserna."
+          - ""
+          - "&fFas: &e%name%"
+          - ""
+          - "&6Vänster-Klick: &eNavigera"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&fKrävd Version: &7%required_version%"
+          - ""
+          - "&6Vänster-Klick: &eSkapa fas."
+          - "&6Shift + Vänster-Klick: &eSkapa fas snabbt."
+  command:
+    info:
+      - ""
+      - "&e➥ &6Tillgängliga kommandon:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6Ytterligare information:"
+      - " &9<argument> - obligatoriskt argument"
+      - " &3[argument] - valfritt argument"
+    usage:
+      - ""
+      - "&e➥ Användning:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "Tyvärr, men du har inte behörighet att utföra detta kommando."
+    permission-denied-parameter: "Tyvärr, men du har inte behörighet att utföra detta kommando."
+    error-generic-logged: "Ett fel uppstod. Detta problem har loggats. Ursäkta besväret."
+    unknown-command: "&cOkänt kommando, skriv &4%command%"
+    error-prefix: "&cFel: %message%"
+    error-performing-command: "Tyvärr, men ett fel uppstod vid utförandet av detta kommando."
+    please-specify-one-of: "Ange en av (&2%valid%)."
+    must-be-a-number: "%num% måste vara ett tal."
+    must-be-min-length: "Måste vara minst %min% tecken lång."
+    must-be-max-length: "Får vara högst %max% tecken lång."
+    please-specify-at-most: "Ange ett värde på högst %max%."
+    please-specify-at-least: "Ange ett värde på minst %min%."
+    player-offline: "Spelaren %player% är inte online!"
+  plans:
+    unlock-premium: §cEndast tillgänglig i Premium Version.
+    unlock-pro: §cEndast tillgänglig i Pro Version.
+    upgrade-at: §4Uppgradera på phoenixplugins.com
+  crate-type-received: "&aDu har mottagit en placerbar crate."
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% Crate"
+      lore: "&7Placera denna crate någonstans!"
+  loading-data: "&7Laddar spelardata..."

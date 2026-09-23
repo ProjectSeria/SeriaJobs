@@ -48,21 +48,3 @@ Thumbs.db
 [Dd]esktop.ini
 $RECYCLE.BIN/
 .DS_Store
-
-# Nested Sub-repositories (Each Seria plugin is managed by its own Git repo)
-SeriaAEFusion/
-SeriaBooster/
-SeriaCollection/
-SeriaCore/
-SeriaCrafting/
-SeriaCrate/
-SeriaFarm/
-SeriaFortune/
-SeriaGens/
-SeriaJobs/
-SeriaMagicBundle/
-SeriaMinions/
-SeriaPrestige/
-SeriaTranslator/
-SeriaTree/
-SeriaWardrobe/

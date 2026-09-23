@@ -1,0 +1,30 @@
+en:
+  command:
+    info:
+      - ""
+      - "&e➥ &6Available Commands:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6Additional information:"
+      - " &9<argument> - required argument"
+      - " &3[argument] - optional argument"
+    usage:
+    - ""
+    - "&e➥ Usage:"
+    - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "I'm sorry, but you do not have permission to perform this command."
+    permission-denied-parameter: "I'm sorry, but you do not have permission to perform this command."
+    error-generic-logged: "An error occurred. This problem has been logged. Sorry for the inconvenience."
+    unknown-command: "&cUnknown Command, please type &4%command%"
+    error-prefix: "&cError: %message%"
+    error-performing-command: "I'm sorry, but there was an error performing this command."
+    please-specify-one-of: "Please specify one of (&2%valid%)."
+    must-be-a-number: "%num% must be a number."
+    must-be-min-length: "Must be at least %min% characters long."
+    must-be-max-length: "Must be at most %max% characters long."
+    please-specify-at-most: "Please specify a value at most %max%."
+    please-specify-at-least: "Please specify a value at least %min%."
+    player-offline: "Player %player% is not online!"
+    parameter:
+    # A list of parameters

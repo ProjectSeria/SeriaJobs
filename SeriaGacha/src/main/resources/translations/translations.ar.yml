@@ -1,0 +1,1430 @@
+ar:
+  error-processing:
+    - "&cحدث خطأ أثناء معالجة هذا الإجراء (تحقق من السجل):"
+    - "&7%message%"
+  unknown-argument: "&cحجة غير معروفة!"
+  no-permission: "&cليس مسموحًا لك فعل هذا!"
+  command-not-allowed: "&cلا يُسمح لك بتنفيذ هذا الأمر!"
+  only-ingame-players: "&cالأمر مسموح به فقط للاعبين داخل اللعبة."
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: آخر واحد
+    swap-option: تبديل الخيار
+    option: خيار
+    item: عنصر
+    all: الكل
+    go-back: العودة
+    navigate: التنقل
+    reload: إعادة تحميل
+    switch-state: تبديل الحالة
+    state: الحالة
+    empty: "&7(فارغ)"
+    default: "&7(افتراضي)"
+    undefined: "&7غير محدد"
+    yes-word: "&aنعم"
+    no-word: "&cلا"
+    location: الموقع
+    region: المنطقة
+    material: المادة
+    # Others
+    menu: القائمة
+    enabled: مفعل
+    disabled: معطل
+    range: المدى
+    multiplier: المضاعف
+    cooldown: وقت تبريد
+    receive-crate: استلام الصندوق
+    receive-key: استلام المفتاح
+    identifier: المعرف
+    display-name: اسم العرض
+    line: خط
+    swap-engine: تبديل المحرك
+    edit-engine: تعديل المحرك
+    documentation: التوثيق
+    not-installed: لم يتم التثبيت
+    not-available: غير متوفر
+    not-enabled: غير مفعل
+    command: أمر
+    none: لا شيء
+    action: إجراء
+    color: لون
+    flag: علم
+    pattern: نمط
+    enchant: تعويذة
+    effect: تأثير
+    value: قيمة
+    red: أحمر
+    green: أخضر
+    blue: أزرق
+    item-model: نموذج العنصر
+    tooltip-style: نمط التلميح
+    trim-material: مادة الزينة
+    trim-pattern: نمط الزينة
+    model-data: بيانات النموذج
+    title: عنوان
+    particle: جسيم
+    velocity: السرعة
+    spread: الانتشار
+    offset-x: إزاحة X
+    offset-y: إزاحة Y
+    offset-z: إزاحة Z
+    change-amount-money: تغيير كمية المال
+    money-necessary: المال ضروري
+    vault-installed: تم تثبيت Vault
+    points-installed: تم تثبيت PlayerPoints
+    swap-cost-engine: محرك تبديل التكلفة
+    set-cost-amount: تعيين مقدار التكلفة
+    cost-amount: مقدار التكلفة
+    required: مطلوب
+    permission: إذن
+    crate: صندوق
+    key: مفتاح
+    reward: مكافأة
+    multiple-rewards: مكافآت متعددة
+    items: العناصر
+    cancel: إلغاء
+    animation: رسوم متحركة
+    limited-time-offer: عرض محدود الوقت
+    see-more: رؤية المزيد
+    attach-block: إرفاق الكتلة
+    reorder-reward: إعادة ترتيب المكافأة
+    set-as-default-display-name: تعيين كاسم عرض افتراضي
+    set-as-default-display-lore: تعيين كلوحة عرض افتراضية
+    update-block: "تحديث الكتلة"
+    percentage: النسبة المئوية
+    weight: "الوزن"
+    chance: فرصة
+    win-limit: حد الفوز
+    global-win-limit: حد الفوز العالمي
+    win-limit-cooldown: مهلة حد الفوز
+    global-win-limit-cooldown: مهلة حد الفوز العالمي
+    time-limited-cooldown: مهلة محددة زمنياً
+    unlimited: غير محدود
+    virtual: افتراضي
+    broadcast: بث
+    paid: مدفوع
+    free: مجاني
+    save: حفظ
+    leave: مغادرة
+    select: اختر
+    add: إضافة
+    edit: تعديل
+    remove: إزالة
+    confirm: تأكيد
+    decline: رفض
+    locked-field: حقل مؤمن
+    add-items: إضافة عناصر
+    no-cooldown: لا وقت تبريد
+    current: الحالي
+    first: الأول
+    second: الثاني
+    third: الثالث
+    to-choose: للاختيار
+    not-colorable: غير قابل للتلوين
+    previous-phase: المرحلة السابقة
+    next-phase: المرحلة التالية
+    default-menu: القائمة الافتراضية
+    amount: "الكمية"
+    migrate-files: "ترحيل الملفات"
+    rerolls: "إعادة اللف"
+    group: "مجموعة"
+    broadcast-message: "رسالة البث"
+    only-premium: "متاح في النسخة المميزة"
+    sharing: "مشاركة"
+    everyone: "الجميع"
+    openings: "فتح"
+    required-keys: "المفاتيح المطلوبة"
+    key-required: "المفتاح مطلوب"
+    crates-linked: "الصناديق مرتبطة"
+    keys-linked: "المفاتيح مرتبطة"
+    rarity: "الندرة"
+    synced: "متزامن"
+    not-set: "غير محدد"
+    clear-lines: "مسح الأسطر"
+    add-empty-line: "إضافة سطر فارغ"
+    receive-placeable-crate: استلام صندوق قابل للاستخدام
+    disable-money-requirement: تعطيل متطلبات المال
+  readers:
+    exit-session: "&aللخروج من هذه الجلسة اكتب &e\\\"إلغاء\\\"&a."
+    write-chat: "&aاكتب في الدردشة."
+  time:
+    week: "أسبوع"
+    weeks: "أسابيع"
+    day: "يوم"
+    days: "أيام"
+    hour: "ساعة"
+    hours: "ساعات"
+    minute: "دقيقة"
+    minutes: "دقائق"
+    second: "ثانية"
+    seconds: "ثواني"
+
+  unlock-addon:
+    - "&cيتطلب الإضافة %addon%."
+    - "&4افتح على phoenixplugins.com"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ أوامر صناديق فينيكس"
+      - "%commands%"
+      - ""
+      - "&e➥ معلومات إضافية:"
+      - " &9<argument> - حجة مطلوبة"
+      - " &3[argument] - حجة اختيارية"
+    usage: "&e➥ الاستخدام:"
+    create: " &f/%command% create &9<identifier> &8- &7إنشاء نوع صندوق"
+    delete: " &f/%command% delete &9<identifier> &8- &7حذف نوع صندوق"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7أعطِ نفسك صندوقًا ليتم وضعه"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8- &7أعطِ
+      لاعبًا (أو جميع اللاعبين) مفتاحًا"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7إعطاء
+      الجميع على الإنترنت مفتاح"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8- &7تعيين
+      مفاتيح افتراضية للاعب"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7تعيين
+      مفاتيح افتراضية للاعب"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7يسمح لك بمعاينة
+      مكافآت الصندوق"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7أعطِ لاعبًا (أو جميع اللاعبين) إعادة لف"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8-
+      &7يأخذ إعادة لف من اللاعب"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8-
+      &7أعطِ لاعبًا (أو جميع اللاعبين) مكافأة صندوق"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7امنح لاعبًا(أو جميع اللاعبين) مكافأة عشوائية من الصندوق"
+    editor: " &f/%command% editor &8- &7يسمح لك بتحرير جميع الصناديق في اللعبة"
+    reload: " &f/%command% reload &8- &7إعادة تحميل جميع ملفات تكوين صناديق فينيكس"
+  player-offline: "&cاللاعب %name% غير متصل!"
+  not-a-number: "&cالكمية الموضوعة ليست رقمًا."
+  plugin-reloaded: "&aتم إعادة تحميل صناديق فينيكس بنجاح."
+  crate-type-created: "&aتم إنشاء نوع الصندوق بنجاح."
+  crate-type-deleted: "&aتم حذف نوع الصندوق بنجاح."
+  cooldown-reset: "&aتمت إعادة ضبط مهلة الانتظار لـ &e%player% &aعلى الصندوق &e%crate% &a."
+  cooldown-reset-received: "&aتمت إعادة ضبط مهلة الانتظار الخاصة بك للصندوق &e%crate% &a."
+  cooldown-reset-no-cooldown: "&cلم يتم تكوين مهلة لهذا الصندوق."
+  cooldown-reset-not-active: "&cلا يمتلك ذلك اللاعب مهلة انتظار نشطة لهذا الصندوق."
+  global-win-limit-reset: "&aتمت إعادة ضبط عدد الفوز العالمي للمكافأة &e%reward%
+    &aفي الصندوق &e%crate% &a."
+  global-win-limit-not-tracked: "&cلم يتم تكوين حد فوز عالمي لهذه المكافأة، لذا لا يوجد ما يمكن إعادة ضبطه."
+  reward-cooldown-started: "&aتم بدء المهلة المحددة زمنيًا للمكافأة &e%reward%
+    &aفي الصندوق &e%crate%&a."
+  reward-cooldown-started-all: "&aتم بدء المهلة المحددة زمنيًا لـ &e%amount%
+    &aمكافأة(مكافآت) في الصندوق &e%crate%&a."
+  reward-cooldown-not-configured: "&cلم يتم تكوين مهلة محددة زمنيًا لهذه المكافأة."
+  reward-cooldown-none-configured: "&cلا توجد مكافآت في هذا الصندوق تم تكوين مهلة محددة زمنياً لها."
+  check-keys-header: "&#ffd500&lمفاتيح %player%:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7مفتاح(مفاتيح)"
+  check-keys-none: "&7- &7لا توجد مفاتيح افتراضية."
+  key-deleted: "&aتم حذف المفتاح بنجاح."
+
+  key-given: "&e%amount% &aتم إعطاء مفتاح(ات) بنجاح لـ %player%."
+  key-given-all: "&a%amount% مفتاح(ات) قد تم إعطاؤها بنجاح لجميع اللاعبين المتصلين."
+  key-given-offline: "&e%amount% &aتم إعطاء مفتاح(ات) بنجاح لـ %player%."
+  key-set: "&e%amount% &aتم تعيين مفتاح(ات) بنجاح لـ %player%."
+  key-taken: "&e%amount% &aتم أخذ مفتاح(ات) بنجاح من %player%."
+
+  key-received: "&aلقد استلمت &ex%amount% &7%display_name% &r&amفتاح(ات)."
+  virtual-key-received: "&aلقد استلمت &ex%amount% &7%display_name% &r&امتاح افتراضي(ة)."
+
+  key-lost: '&c%amount% مفتاح(ات) لصندوق &2\"%display_name%&2\"&c قد تم أخذها منك!'
+  virtual-key-lost: '&c%amount% مفتاح(ات) افتراضية لصندوق &2\"%display_name%&2\"&c
+    قد تم أخذها منك!'
+
+  crate-rerolls-received: '&aلقد تلقيت %amount% إعادة تدوير لصندوق &2\"%display_name%&2\"&a!'
+
+  crate-given: "&e%amount% &aتم إعطاء صندوق(ات) بنجاح لـ %player%."
+
+  random-reward-given: "&aتم منح مكافأة عشوائية بنجاح لـ %player%."
+  no-available-rewards: "&cهذا الصندوق لا يحتوي على أي مكافآت متاحة."
+
+  crate-received: "&aلقد استلمت &ex%amount% &7%display_name% &r&aصندوق(ات)."
+  crate-no-placed-instances: "&cلم يتم العثور على صناديق موضوعة من النوع &e%crate%&c."
+  crate-open-command-disabled: "&cلا يمكن فتح الصندوق &e%crate% &cباستخدام هذا الأمر."
+  crate-type-dont-exist: '&cلا يوجد نوع صندوق بمعرف \"%identifier%\"!'
+  crate-type-already-exist: '&cيوجد بالفعل نوع صندوق بمعرف \"%identifier%\"!'
+  key-dont-exist: '&cلا يوجد مفتاح بمعرف \"%identifier%\"!'
+  key-already-exist: '&cيوجد بالفعل مفتاح بمعرف \"%identifier%\"!'
+  need-plugin-reload: "&6تحتاج إلى إعادة تحميل المكون!"
+
+  crate:
+    disabled: "&cهذا الصندوق معطل حاليا!"
+    quick-open-available: "&eانحني وانقر مرة أخرى لتجاوز الرسوم المتحركة وفتح صندوق آخر."
+    already-opening: "&cشخص ما يقوم بفتح هذا الصندوق بالفعل، انتظر!"
+    no-linked-key: "&cهذا الصندوق لا يحتوي على أي مفاتيح مرتبطة!"
+    no-key: "&cأنت بحاجة إلى %key%&r&c لفتح هذا الصندوق!"
+    no-keys: "&cلا تملك مفاتيح كافية لفتح هذا الصندوق!"
+    no-keys-amount: "&cتحتاج %amount% مفتاح(ات) لفتح هذا الصندوق."
+    redeem-no-keys: "&cأنت بحاجة إلى %required_keys% مفتاح(ات) لاسترداد هذه المكافأة."
+    cooldown-wait: "&cعليك الانتظار %cooldown% قبل فتح هذا الصندوق مرة أخرى."
+    cost-engine-not-installed: "&cيبدو أن محرك العملات غير مُعد (تواصل مع مسؤول)."
+    no-money-none: "&cلا يمكنك فتح هذا الصندوق الآن."
+    no-money-level: "&cتحتاج %money% لفتح هذا الصندوق."
+    no-money-vault: "&cتحتاج %money% لفتح هذا الصندوق."
+    no-money-playerpoints: "&cتحتاج %money% من PlayerPoints لفتح هذا الصندوق."
+    no-money-votingplugin: "&cتحتاج %money% نقاط تصويت لفتح هذا الصندوق."
+    no-money-excellenteconomy: "&cتحتاج %money% لفتح هذا الصندوق."
+    money-used-none: "&aلقد فتحت هذا الصندوق."
+    money-used-level: "&aلقد استخدمت %money_consumed% لفتح هذا الصندوق."
+    money-used-vault: "&aلقد استخدمت %money_consumed% لفتح هذا الصندوق."
+    money-used-playerpoints: "&aلقد استخدمت %money_consumed% من PlayerPoints لفتح هذا الصندوق."
+    money-used-votingplugin: "&aلقد استخدمت %money_consumed% نقاط تصويت لفتح هذا الصندوق."
+    money-used-excellenteconomy: "&aلقد استخدمت %money_consumed% لفتح هذا الصندوق."
+    need-crouched: "&eلتتمكن من إزالة هذا الصندوق، يجب أن تكون منحنياً."
+    successfully-removed: "&aلقد قمت بإزالة هذا الصندوق بنجاح."
+    successfully-placed: "&aلقد وضعت صندوقًا بنجاح!"
+    reward-received: "&aلقد تلقيت &ex%amount% %item%"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fحصل على: &ex%amount% &r%reward%"
+    no-rewards: "&cهذا الصندوق لا يحتوي على مكافآت."
+    no-available-rewards: "&cهذا الصندوق لا يحتوي على أي مكافآت متاحة لك."
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cانتظر! نحن ما زلنا نقوم بتحميل بياناتك. حاول فتح الصندوق
+      مرة أخرى بعد قليل!"
+    guaranteed-win-openings: "&3فوز مضمون في %openings% فتح(ات)"
+    no-permission: "&cلا يُسمح لك بفتح هذا الصندوق! [يتطلب إذن: %permission%]"
+    cooldown-display:
+      counting: "&fيمكنك الفتح مرة أخرى في &e%cooldown%"
+      over: "&aيمكن فتحه مرة أخرى"
+    hologram-type-limited: "&cمحرك الهولوغرام هذا يدعم فقط صندوقًا واحدًا موضوعًا لكل نوع."
+    no-money: "&cأنت بحاجة إلى %necessary_money%$ لفتح هذا الصندوق."
+    money-used: "&aلقد استخدمت %money_consumed%$ لفتح هذا الصندوق."
+    crate:
+      no-rewards-for-key-rarities: "&cهذا الصندوق لا يحتوي على أي مكافآت متاحة لندرة مفاتيحك: %rarities%"
+  actions:
+    need-item: "&cتحتاج لإضافة عنصر لتتمكن من القيام بهذا الإجراء."
+    force-close: "&cلقد أجبرت إلغاء ما كنت تقوم به."
+
+  layout:
+    actions:
+      left-click: "&6نقر باليسار: &e%action%."
+      right-click: "&6نقر باليمين: &e%action%."
+      left-right-click: "&6نقر باليسار/اليمين: &e%action%."
+      shift-left-click: "&6شيفت + نقر باليسار: &e%action%."
+      shift-right-click: "&6شيفت + نقر باليمين: &e%action%."
+      drag-drop-click: "&6سحب وإفلات: &e%action%."
+      drop-click: "&6اضغط Q: &e%action%."
+      description:
+        add: أضف %value%
+        set: حدد %value%
+        create: أنشئ %value%
+        remove: إزالة %value%
+        edit: تحرير %value%
+        delete: حذف %value%
+        receive: استلام %value%
+        clear: مسح %value%
+        choose: اختر %value%
+        change: غير %value%
+        select: حدد %value%
+        replace: استبدل %value%
+        unlink: فصل %value%
+        link: ربط %value%
+        reorder: إعادة ترتيب %value%
+    displays:
+      state: "&fهل %type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&fالمادة: &7%material%"
+      location:
+        empty: "&fالموقع: &7فارغ"
+        populated:
+          - "&fالموقع: "
+          - " &fالعالم: &7%world%"
+          - " &fالمحور X: &7%x%"
+          - " &fالمحور Y: &7%y%"
+          - " &fالمحور Z: &7%z%"
+          - " &fزاوية اللف: &7%yaw%"
+          - " &fزاوية الميل: &7%pitch%"
+      region:
+        empty: "&fالمنطقة: &7فارغة"
+        populated:
+          - "&fالمنطقة: "
+          - " &fالعالم: &7%world%"
+          - " &fالموضع #1: &7%minimum%"
+          - " &fالموضع #2: &7%maximum%"
+      item:
+        empty: "&fالعنصر: &7فارغ"
+        populated:
+          - "&fالعنصر: "
+          - " &fالاسم: &7%name%"
+          - " &fالوصف: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&aالصفحة السابقة - الصفحة %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&aالصفحة التالية - الصفحة %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cلا توجد بيانات."
+        description:
+          - "&7لم يتم العثور على بيانات باستخدام هذا الفلتر."
+      filter:
+        title: "&aفلتر"
+        description:
+          - "&7عند النقر هنا ستتمكن"
+          - "&7من الفلترة حسب الاسم."
+          - ""
+          - "&fفلتر: &e%filter%"
+          - ""
+          - "&6نقر باليسار: &eتعيين الفلتر."
+          - "&6نقر باليمين: &eمسح الفلتر."
+  editor:
+    messages:
+      write-identifier-chat: "&eاكتب المعرف الجديد في الدردشة."
+      identifier-updated: '&aتم تحديث المعرف \"%identifier%&a\" بنجاح!'
+      write-displayname-chat: "&eاكتب الاسم الجديد في الدردشة."
+      displayname-updated: '&aتم تحديث الاسم المعروض \"%display_name%&a\" بنجاح!'
+      write-in-chat: "&aاكتب في الدردشة."
+      value-updated: "&aتم تحديث القيمة بنجاح!"
+      write-lore-line-chat: "&eاكتب السطر الجديد من الوصف في الدردشة."
+      lore-line-added: "&aتم إضافة سطر الوصف بنجاح!"
+      lore-cleared: "&aتم مسح الوصف بنجاح."
+      opening-animation-changed: "&aتم تغيير الرسوم المتحركة عند الفتح بنجاح."
+      crate-type-deleted: تم حذف نوع العلبة بنجاح.
+      migration-completed: "&aتمت عملية الهجرة."
+    errors:
+      identifier-already-in-use: "&cهذا المعرف مستخدم بالفعل."
+      no-spaces: "&cلا يمكن أن تحتوي على مسافات!"
+      invalid-input: "&cإدخال غير صالح!"
+      invalid-number: "&cرقم غير صالح!"
+      inventory-full: "&cحقيبتك ممتلئة."
+      inventory-full-reward: "&cتم إسقاط مكافأة علبة على الأرض لأن حقيبتك ممتلئة!"
+      inventory-full-key: "&cتم إسقاط مفتاح على الأرض لأن مخزونك ممتلئ!"
+      username-not-found: "&cلم يتم العثور على حساب الأصلي بالاسم %username%."
+      invalid-rewards: "هناك %amount% مكافأة(ات) غير صالحة!"
+      no-rewards-configured: "لا توجد مكافآت مُعدة!"
+      invalid-reward-display: "مكافأة غير صالحة: تم العثور على عنصر عرض فارغ!"
+      hologram-engine-missing: "&cبيانات الهولوغرام تشير إلى إضافة أخرى! الرجاء تغيير
+        محرك الهولوغرام في إعدادات الإضافة."
+    titles:
+      main: Phoenix Crates v%version% > المحرر
+      crates: المحرر > العلب
+      keys: المحرر > المفاتيح
+      migrations: المحرر > الهجرات
+      addons: المحرر > الإضافات
+      rarities: المحرر > الندرات
+      settings: المحرر > الإعدادات
+      engines:
+        bettermodel: المحرر > ... > BetterModel
+      crate:
+        new: المحرر > ... > علبة جديدة
+        show: المحرر > ... > علبة
+        display: المحرر > ... > المحرك
+        menus: المحرر > ... > القوائم
+        link-keys: المحرر > ... > ربط المفاتيح
+        idle-animation: المحرر > ... > الرسوم المتحركة غير النشطة
+        opening-animations: المحرر > ... > رسوم فتح
+        opening-animation: المحرر > ... > رسوم فتح
+        effect: المحرر > ... > تأثير الرسوم المتحركة
+        rewards: المحرر > ... > المكافآت
+        reward: المحرر > ... > مكافأة
+        reward-cooldowns: المحرر > ... > مهلات المكافآت
+        reward-requirements: المحرر > ... > متطلبات المكافأة
+        reward-cooldown-duration: المحرر > ... > مدة المهلة
+        reward-items: المحرر > ... > تعديل عناصر المكافأة
+        reward-commands: المحرر > ... > تعديل أوامر المكافأة
+        reward-rarity: المحرر > ... > ندرة المكافأة
+        multiple-rewards: المحرر > ... > إضافة مكافآت متعددة
+        engine: المحرر > ... > المحرك
+        hologram: المحرر > ... > الهولوغرام
+        milestones: "المحرر > ... > الإنجازات"
+        rerolling: "المحرر > ... > إعادة التدوير"
+        others: "المحرر > ... > أخرى"
+        open-cost: "المحرر > ... > تكلفة الفتح"
+      key:
+        show: المحرر > ... > مفتاح
+        linked-crates: المحرر > ... > العلب المرتبطة
+
+    main:
+      crates:
+        title: "&aالعلب"
+        description:
+          - "&7عند النقر هنا، ستتمكن"
+          - "&7من استكشاف وإدارة جميع العلب المتاحة."
+      keys:
+        title: "&aالمفاتيح"
+        description:
+          - "&7عند النقر هنا، ستتمكن"
+          - "&7من استكشاف وإدارة جميع المفاتيح المتاحة."
+      rarities:
+        title: "&aالندرة"
+        description:
+          - "&7عند النقر هنا يمكنك تكوين"
+          - "&7وإدارة نظام الندرة."
+      migrations:
+        title: "&aالهجرات"
+        description:
+          - "&7استكشف خيارات الهجرة من إضافات علب أخرى"
+          - "&7وإدارة عملية الهجرة من خلال النقر هنا."
+      addons:
+        title: "&aالإضافات"
+        description:
+          - "&7استكشف الميزات الإضافية والتحسينات"
+          - "&7من خلال النقر هنا للوصول إلى قائمة الإضافات."
+      settings:
+        title: "&aالإعدادات"
+        description:
+          - "&7عند النقر هنا، ستتمكن"
+          - "&7من استكشاف وتخصيص إعدادات الإضافة."
+      reload:
+        title: "&aإعادة تحميل التكوين"
+        description:
+          - "&7عند النقر هنا، ستبدأ"
+          - "&7عملية إعادة تحميل جميع تكوينات الإضافة."
+      pouches:
+        title: "&aالأكياس"
+        description:
+          - "&7عند النقر هنا، ستتمكن"
+          - "&7من إدارة جميع الأكياس."
+      crate-claim:
+        title: "&aالمطالبة بالصندوق"
+        description:
+          - "&7بالنقر هنا، يمكنك تكوين"
+          - "&7سلوك المطالبة بالصناديق والقوائم."
+    migrations:
+      plugin:
+        title: "&aالهجرة من %name%"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7عند النقر هنا ستتمكن من"
+          - "&7الهجرة ببعض الملفات من %name% إلى هذه الإضافة."
+          - ""
+          - "&aالملفات المدعومة:"
+          - "&8 &7- %files%"
+          - ""
+          - "&fقاعدة البيانات المدعومة: %database%"
+    addons:
+      loading:
+        title: "&eجاري التحميل..."
+        description:
+          - "&7الإضافات قيد التحميل،"
+          - "&7انتظر بضع ثوانٍ."
+      empty:
+        title: "&cلا توجد إضافات متاحة"
+        description:
+          - "&7لم يتم العثور على أي سجلات"
+          - "&7وفقًا لفلتر الحالي."
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&fالسعر: &a%price%"
+    settings:
+      language:
+        title: "&aاللغة"
+        description:
+          - "&7تسمح لك هذه الخيار بتغيير"
+          - "&7اللغة الأساسية التي سيستخدمها هذا الملحق"
+          - ""
+          - "&e&nيمكنك دائمًا تكوين translations.en.yml."
+      key-mainhand:
+        title: "&aمتطلب وجود المفتاح في اليد الرئيسية"
+        description:
+          - "&7يتيح لك هذا الخيار تحديد"
+          - "&7ما إذا كان اللاعبون سيحتاجون إلى"
+          - "&7وجود مفتاح في يدهم الرئيسية لفتح الصناديق."
+      crate-knockback:
+        title: "&aدفع الصندوق"
+        description:
+          - "&7تتيح لك هذه الخيار تغيير"
+          - "&7الدفع الذي يتعرض له اللاعب عند المحاولة"
+          - "&7لفتح صندوق بمفتاح خاطئ."
+      crate-despawn-range:
+        title: "&aنطاق اختفاء الصناديق"
+        description:
+          - "&7تتيح لك هذه الخيار تحديد"
+          - "&7المسافة التي ستحتاجها التأثيرات لـ"
+          - "&7لتتوقف عن الظهور للاعب."
+          - ""
+          - "&c&nلا توصي بالقيم العالية لأنها قد تسبب بطء."
+      crate-quick-open:
+        title: "&aفتح الصندوق بسرعة"
+        description:
+          - "&7تتيح هذه الخيار للاعبين"
+          - "&7فتح الصندوق بسرعة عند إمساك"
+          - "&7المفتاح والضغط على زر الفأرة الأيمن."
+          - ""
+          - "&e&nيعمل فقط مع الفتحات المتزامنة للصناديق!"
+      disable-confirmation-menus:
+        title: "&aتعطيل قوائم التأكيد"
+        description:
+          - "&7تسمح لك هذه الخاصية بتخطي"
+          - "&7قوائم التأكيد حتى يذهب اللاعبون"
+          - "&7مباشرةً إلى الإجراء."
+      crate-claim:
+        title: "&aالمطالبة بالصندوق"
+        description:
+          - "&7بِالنقر هنا، يمكنك تكوين"
+          - "&7سلوك المطالبة بالصناديق والقوائم."
+    keys:
+      key:
+        title: "&a%name% &7(معرف: %identifier%)"
+        description:
+          - "&7عند النقر هنا ستتمكن من"
+          - "&7تكوين هذا المفتاح."
+        identifier:
+          title: "&aالمعرف"
+          description:
+            - "&7عند النقر هنا ستتمكن"
+            - "&7من إعادة تسمية معرف مفتاحك."
+            - "&eيجب أن يكون هذا المعرف فريدًا."
+        display-name:
+          title: "&aاسم العرض"
+          description:
+            - "&7عند النقر هنا ستتمكن"
+            - "&7من إعادة تسمية مفتاحك."
+        link-crates:
+          title: "&aترتيب الصناديق"
+          description:
+            - "&7عند النقر هنا ستتمكن"
+            - "&7من ربط الصناديق مع هذا المفتاح."
+        enabled:
+          title: "&aمفعل"
+          description:
+            - "&7عند النقر هنا ستتمكن"
+            - "&7من تغيير ما إذا كان هذا المفتاح متاحًا."
+        delete:
+          title: "&aحذف المفتاح"
+          description:
+            - "&7عند النقر هنا سيتم حذف هذا المفتاح"
+            - "&7من الخادم."
+            - "&eلن تكون جميع المفاتيح في العالم صالحة بعد الآن."
+        item:
+          title: "&aعنصر المفتاح"
+          description:
+            - "&7عنصر مفتاح مخصص يمكن"
+            - "&7استخدامه لفتح صندوق."
+      add:
+        title: "&aإضافة مفتاح"
+        description:
+          - "&7عند النقر هنا ستتمكن من"
+          - "&7إنشاء مفتاح."
+    crates:
+      type:
+        title: "&a%name% &7(معرف: %identifier%)"
+        description:
+          - "&7عند النقر هنا ستتمكن من"
+          - "&7تكوين هذا الصندوق."
+      add:
+        title: "&aإضافة صندوق"
+        description:
+          - "&7عند النقر هنا ستتمكن من"
+          - "&7إنشاء نوع صندوق."
+    crate:
+      identifier:
+        title: "&aالمعرف"
+        description:
+          - "&7عند النقر هنا ستتمكن"
+          - "&7من إعادة تسمية معرف صندوقك."
+          - "&eيجب أن يكون هذا المعرف فريدًا."
+      item:
+        title: "&aالعنصر"
+        description:
+          - "&7العنصر المعروض الذي سيتم"
+          - "&7استخدامه لتمثيل هذا الصندوق."
+        name:
+          title: "&aاسم العنصر"
+          description:
+            - "&7الاسم الذي سيتم استخدامه"
+            - "&7لتمثيل هذا العنصر"
+        lore:
+          title: "&aوصف العنصر"
+          description:
+            - "&7الوصف الذي سيتم استخدامه"
+            - "&7لتمثيل هذا العنصر"
+      link-keys:
+        title: "&aربط المفاتيح"
+        description:
+          - "&7بمجرد النقر هنا، ستتمكن"
+          - "&7من ربط المفاتيح بهذا الصندوق."
+      animations:
+        title: "&aالرسوم المتحركة"
+        description:
+          - "&7عند النقر هنا ستتمكن من"
+          - "&7تغيير الرسوم المتحركة لهذا الصندوق."
+          - ""
+          - "&fيمكنك تكوين:"
+          - "&8> &aرسوم متحركة ثابتة"
+          - "&8> &aرسوم متحركة عند الفتح"
+      rerolls:
+        title: "&aإعادة التدوير"
+        description:
+          - "&7عند النقر هنا ستتمكن"
+          - "&7من تحديد إعادة التدوير لهذا الصندوق."
+      mass-opening:
+        title: "&aفتح جماعي"
+        description:
+          - "&7عند النقر هنا يمكنك تكوين"
+          - "&7إعدادات الفتح الجماعي للصندوق."
+      display-settings:
+        block-material:
+          title: "&aمادة الكتلة"
+          description:
+            - "&7عند النقر هنا ستتمكن"
+            - "&7من تغيير المادة التي"
+            - "&7تستخدم لكتلة الصندوق."
+        crate-engine:
+          title: "&aمحرك كتلة الصندوق"
+          description:
+            - "&7بالنقر هنا ستتمكن"
+            - "&7من تغيير المحرك وتخصيصه."
+            - ""
+            - "&b➥ محرك الكتلة الافتراضي:"
+            - "&7صندوق قياسي يعتمد على المادة."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ محرك نموذج Vanilla: &9(1.12+)"
+            - "&7نموذج ثابت من حزمة الموارد المخصصة."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model Engine / Better Model:"
+            - "&7نموذج مخصص مع رسوم متحركة."
+            - ""
+            - "&fالمحركات:"
+        rewards-mode:
+          title: "&aوضع الجوائز"
+          description:
+            - "&7عند النقر هنا، يمكنك تغيير"
+            - "&7الوضع الذي سيستخدمه نظام الجوائز هذا."
+            - ""
+            - "&b➥ الوضع العشوائي:"
+            - "&7ستُختار الجوائز بشكل عشوائي بناءً"
+            - "&7على الأوزان المعينة لها (الفرص). هذا"
+            - "&7الوضع يضيف عنصر المفاجأة والحظ."
+            - ""
+            - "&b➥ الوضع الانتقائي:"
+            - "&7هذا الوضع يزيل العشوائية، مما يسمح"
+            - "&7للمستخدمين باختيار الجائزة التي"
+            - "&7يريدونها من الخيارات المتاحة. مثالي لـ"
+            - "&7منح المستخدمين السيطرة على جوائزهم."
+            - ""
+            - "&fالأوضاع:"
+        hologram:
+          title: "&aهولوجرام"
+          description:
+            - "&7عند النقر هنا ستتمكن من"
+            - "&7ضبط الهولوجرام فوق هذا الصندوق."
+        idle-animation:
+          title: "&aرسوم متحركة متوقفة"
+          description:
+            - "&7عند النقر هنا ستتمكن من"
+            - "&7تخصيص الرسوم المتحركة المتوقفة لهذا الصندوق."
+            - ""
+            - "&7ستظهر الرسوم المتحركة المتوقفة عندما"
+            - "&7لا يقوم لاعب بفتح هذا الصندوق."
+        opening-animation:
+          title: "&aرسوم متحركة عند الفتح"
+          description:
+            - "&7عند النقر هنا ستتمكن من"
+            - "&7تخصيص الرسوم المتحركة عند فتح هذا الصندوق."
+            - ""
+            - "&fكيف تعمل الرسوم المتحركة عند الفتح؟"
+            - "&7تتكون هذه الرسوم المتحركة من 3 مراحل، كل"
+            - "&7مرحلة تتكون من رسوم متحركة صغيرة مختلفة"
+            - "&7وخصائص. بشكل مبسط، تمثل المراحل"
+            - "&7بداية ووسط ونهاية الرسوم المتحركة."
+            - ""
+            - "&7أيضًا إذا كنت تستخدم محركًا يدعم"
+            - "&7رسوم المتحركة للنماذج يمكنك مزامنة بعض نموذج"
+            - "&7الرسوم المتحركة مع كل مستوى."
+        engine-mode:
+          title: "&aوضع المحرك"
+          description:
+            - "&7عند النقر هنا ستتمكن"
+            - "&7من تغيير المحرك الذي سيستخدمه هذا الصندوق."
+            - ""
+            - "&b➥ محرك كتلة فانيللا:"
+            - "&7المحرك الافتراضي للصندوق، سيكون التمثيل"
+            - "&7هو المادة المختارة ككتلة لهذا الصندوق."
+            - ""
+            - "&b➥ محرك النموذج العادي: &9(1.12+)"
+            - "&7إمكانية تعيين نموذج ثابت مخصص للصندوق"
+            - "&7ولكن لا يدعم الرسوم المتحركة. هذا يدعم النماذج الافتراضية"
+            - "&7من خلال المادة وبيانات النموذج المخصص."
+            - ""
+            - "&b➥ أخرى: &9(1.16.5+)"
+            - "&7إمكانية تعيين نموذج مخصص للصندوق كما"
+            - "&7أيضًا رسوم متحركة مخصصة عند الفتح."
+            - ""
+            - "&fالمحركات:"
+      open-cooldown:
+        title: "&aفترة انتظار الفتح"
+        description:
+          - "&7انقر هنا لتغيير كمية"
+          - "&7الوقت الذي سيتعين على اللاعب الانتظار"
+          - "&7لفتح صندوق آخر."
+      open-cost:
+        title: "&aمحرك تكلفة الفتح"
+        description:
+          - "&7بمجرد النقر هنا، يمكنك تحديد"
+          - "&7طريقة إضافية لفتح هذا الصندوق"
+          - ""
+          - "&e&lنصيحة&r&e: &7قم بتعطيل شرط المفتاح لاستخدام"
+          - "      &7تعيين هذه الطريقة كالرئيسية."
+      open-cost-amount:
+        title: "&aمبلغ تكلفة الفتح"
+        description:
+          - "&7مقدار العملة الذي سيتم"
+          - "&7خصمه عند فتح هذا الصندوق."
+      open-cost-currency:
+        title: "&aالعملة"
+        description:
+          - "&7عملة ExcellentEconomy التي"
+          - "&7ستُستخدم لخصم التكلفة."
+      simultaneous-openings:
+        title: "&aالفتح المتزامن"
+        description:
+          - "&7تتيح لك هذه الخيار تحديد"
+          - "&7ما إذا كان يمكن أن يفتح لاعب واحد أو أكثر"
+          - "&7هذا الصندوق في نفس الوقت."
+          - ""
+          - "&e&nفتح سريع معطل"
+          - "&e&nبدون فتحات متزامنة"
+      preview-reward:
+        title: "&aمعاينة المكافأة"
+        description:
+          - "&7عند النقر هنا، ستتمكن من تفعيل"
+          - "&7معاينة المكافأة فوق كل صندوق."
+      permission-required:
+        title: "&aمتطلبات الإذن"
+        description:
+          - "&7عند النقر هنا، ستقوم بتعيين"
+          - "&7الإذن الذي يجب أن يمتلكه اللاعب"
+          - "&7لفتح هذا الصندوق."
+      rewards:
+        title: "&aالمكافآت"
+        description:
+          - "&7عند النقر هنا، ستتمكن من"
+          - "&7تكوين جميع المكافآت التي يمكن أن"
+          - "&7يكسبها اللاعب عند فتح هذا الصندوق."
+        add:
+          title: "&aإضافة مكافأة"
+          description:
+            - "&7عند النقر هنا، يمكنك البدء"
+            - "&7في إعداد مكافأة جديدة في هذا الصندوق."
+        edit:
+          title: "&aمكافأة #%position%"
+          description: []
+        multiple-rewards:
+          title: "&aإضافة مكافآت متعددة"
+          description:
+            - "&7عند النقر هنا، يمكنك"
+            - "&7إضافة مكافآت متعددة دفعة واحدة."
+        reordering:
+          title: "&aإعادة ترتيب"
+          description:
+            - "&7عند النقر هنا، يمكنك فرز"
+            - "&7المكافآت بالشكل الذي تريده."
+          selected:
+            title: "&eالمحدد"
+        win-amount:
+          title: "&aأقصى مكافآت الفوز"
+          description:
+            - "&7عند النقر هنا، يمكنك تحديد"
+            - "&7عدد المكافآت التي سيفوز بها اللاعب دفعة واحدة."
+      reward:
+        drag-item:
+          title: "&aاسحب عنصرًا"
+          description:
+            - "&7اسحب أي عنصر لتعيين المكافأة."
+            - ""
+            - "&6اسحب & اسقط: استبدال العنصر."
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6اسحب & اسقط: &eاستبدال العنصر."
+        identifier:
+          title: "&aتغيير المعرف"
+          description:
+            - "&7عند النقر هنا، ستتمكن"
+            - "&7من إعادة تسمية معرف مكافأتك."
+            - "&eيجب أن يكون هذا المعرف فريدًا."
+        display-item:
+          title: "&aعرض العنصر"
+          description:
+            - "&7سيكون هذا العنصر هو العرض"
+            - "&7الذي يمثل المكافأة لهذا الصندوق."
+          name:
+            title: "&aاسم العرض"
+            description:
+              - "&7الاسم الذي سيتم استخدامه"
+              - "&7لتمثيل هذه المكافأة"
+          lore:
+            title: "&aعرض الوصف"
+            description:
+              - "&7الوصف الذي سيتم استخدامه"
+              - "&7لتمثيل هذه المكافأة"
+        alternative-item:
+          title: "&aعنصر بديل"
+          description:
+            - "&7سيكون هذا العنصر هو العنصر الإضافي الذي"
+            - "&7سوف يتلقاه المستخدم إذا تم استيفاء الشروط."
+        win-items:
+          title: "&aعناصر الفوز"
+          description:
+            - "&7عند النقر هنا، ستتمكن من"
+            - "&7إضافة العناصر التي سيتلقاها اللاعب"
+            - "&7عند فوزه بهذه المكافأة."
+          add-item:
+            title: "&aإضافة عنصر"
+            description:
+              - "&7اسحب عنصرًا من مخزونك"
+              - "&7هنا لإضافته كعنصر لهذه المكافأة."
+        weight:
+          title: "&aالوزن"
+          description:
+            - "&7الوزن سيساهم في"
+            - "&7فرصة اللاعب في الفوز بهذا العنصر."
+        virtual:
+          title: "&aعنصر افتراضي"
+          description:
+            - "&7تحدد هذه الخيار ما إذا كان الفائز."
+            - "&7يجب أن يتلقى عنصرًا ماديًا أم لا."
+        win-commands:
+          title: "&aأوامر الفوز"
+          description:
+            - "&7عند النقر هنا، يمكنك إدارة"
+            - "&7كافة الأوامر التي سيتم تنفيذها"
+            - "&7عندما يفوز اللاعب بهذه المكافأة."
+        max-win-item-amount:
+          title: "&aالحد الأقصى لعدد عناصر الفوز"
+          description:
+            - "&7يحدد الحد الأقصى لعدد العناصر"
+            - "&7من قائمة win-items التي سيتم"
+            - "&7منحها عند الفوز بهذه المكافأة."
+            - "&7اضبطها إلى &e∞ &7لعدم وجود حد."
+        max-win-command-amount:
+          title: "&aالحد الأقصى لعدد أوامر الفوز"
+          description:
+            - "&7يحدد الحد الأقصى لعدد الأوامر"
+            - "&7من قائمة win-commands التي سيتم"
+            - "&7تنفيذها عند الفوز بهذه المكافأة."
+            - "&7اضبطها إلى &e∞ &7لعدم وجود حد."
+        broadcast:
+          title: "&aرسالة البث"
+          description:
+            - "&7يحدد هذا الخيار ما إذا كانت رسالة البث"
+            - "&7يجب أن تظهر عندما يفوز اللاعب بهذه المكافأة."
+        share-players-online:
+          title: "&aمشاركة مع اللاعبين المتصلين"
+          description:
+            - "&7يحدد هذا الخيار ما إذا كانت جائزة هذه المكافأة"
+            - "&7يجب مشاركتها مع الجميع المتصلين."
+        allow-win-message:
+          title: "&aالسماح برسالة الفوز"
+          description:
+            - "&7يحدد هذا الخيار ما إذا كان اللاعب سيتلقى"
+            - "&7رسالة عند الفوز بهذه المكافأة."
+        notification-types:
+          title: "&aنوع الإشعار"
+          description:
+            - "&7بالنقر هنا، يمكنك تغيير"
+            - "&7الطريقة التي تُرسل بها رسالة الفوز."
+        enabled:
+          title: "&aمفعل"
+          description:
+            - "&7بالنقر هنا ستكون قادرًا"
+            - "&7على تغيير ما إذا كانت هذه المكافأة متاحة."
+        win-limit:
+          title: "&aحد الفوز"
+          description:
+            - "&7يحدد هذا الخيار عدد المرات"
+            - "&7الذي يمكن أن يفوز فيه اللاعب بهذه المكافأة."
+            - ""
+            - "&e&lنصيحة: &7يمكنك دمج هذا"
+            - "       &7مع مكافأة بديلة."
+        global-win-limit:
+          title: "&aالحد العالمي للفوز"
+          description:
+            - "&7يحدد هذا الخيار عدد المرات"
+            - "&7يمكن الفوز بهذه المكافأة"
+            - "&7بواسطة جميع اللاعبين على الخادم مجتمعين."
+            - ""
+            - "&e&lنصيحة: &7يمكنك دمج هذا"
+            - "       &7مع مكافأة بديلة."
+        cooldowns:
+          title: "&aفترات التهدئة"
+          description:
+            - "&7بالنقر هنا ستكون قادرًا"
+            - "&7على تكوين فترات التهدئة "
+            - "&7لهذه المكافأة."
+          win-limit-cooldown:
+            title: "&aفترة تهدئة لحد الفوز"
+            description:
+              - "&7يحدد هذا الخيار المدة التي يجب أن ينتظرها اللاعب"
+              - "&7قبل أن يتمكن من"
+              - "&7الفوز بهذه المكافأة مجددًا."
+          global-win-limit-cooldown:
+            title: "&aفترة تهدئة للحد العالمي للفوز"
+            description:
+              - "&7يحدد هذا الخيار المدة التي يجب أن تمر"
+              - "&7قبل أن يمكن الفوز بهذه المكافأة مرة أخرى"
+              - "&7بواسطة أي شخص على الخادم."
+          time-limited-cooldown:
+            title: "&aتهدئة محدودة بالوقت"
+            description:
+              - "&7يحدد هذا الخيار المدة التي ستظل"
+              - "&7هذه المكافأة متاحة بمجرد بدء"
+              - "&7فترة التهدئة الخاصة بها."
+              - ""
+              - "&7عند انتهائها، ستقوم المكافأة"
+              - "&7بالتعطيل تلقائيًا."
+          duration:
+            weeks:
+              title: "&aأسابيع"
+              description:
+                - "&7عدد الأسابيع لإضافتها"
+                - "&7إلى مدة هذه التهدئة."
+            days:
+              title: "&aأيام"
+              description:
+                - "&7عدد الأيام لإضافتها"
+                - "&7إلى مدة هذه التهدئة."
+            hours:
+              title: "&aساعات"
+              description:
+                - "&7عدد الساعات لإضافتها"
+                - "&7إلى مدة هذه التهدئة."
+            minutes:
+              title: "&aدقائق"
+              description:
+                - "&7عدد الدقائق لإضافتها"
+                - "&7إلى مدة هذه التهدئة."
+            disable:
+              title: "&cتعطيل التهدئة"
+              description:
+                - "&7يضبط مدة هذه التهدئة"
+                - "&7إلى الصفر، معطلًا إياها."
+        requirements:
+          title: "&aالمتطلبات"
+          description:
+            - "&7تكوين متطلبات الأذونات"
+            - "&7لهذه المكافأة."
+          required-permission:
+            title: "&aالصلاحية المطلوبة"
+            description:
+              - "&7قم بتعيين صلاحية يجب أن يمتلكها اللاعب"
+              - "&7لرؤية هذه المكافأة على أنها متاحة."
+              - "&7إذا كان اللاعب يفتقر إليها، ستظهر المكافأة"
+              - "&7كمقفلة في المعاينة."
+        restricted-permissions:
+          title: "&االأذونات المقيدة"
+          description:
+            - "&7هذا الخيار يحدد"
+            - "&7الأذونات المقيدة التي لا يمكن"
+            - "&7أن يمتلكها اللاعب للفوز بهذا المكافأة."
+            - "&eهذا لن ينطبق إذا كان لدى اللاعب أذونات مشرف."
+            - ""
+            - "&e&lنصيحة: &7يمكنك دمج هذا"
+            - "       &7مع مكافأة بديلة."
+        alternative-reward:
+          title: "&االمكافأة البديلة"
+          description:
+            - "&7بالنقر هنا ستكون قادرًا على"
+            - "&7تكوين المكافأة البديلة لهذه المكافأة."
+            - "&7إذا كانت نشطة عند تجاوز لاعب ما"
+            - ""
+            - "&7حدود الفوز أو لديه أذونات محظورة"
+            - "&7سوف يتلقى هذه المكافأة بدلاً من ذلك."
+        delete:
+          title: "&احذف المكافأة"
+          description:
+            - "&7بالنقر هنا سيتم حذف هذه المكافأة"
+            - "&7من هذه الصندوق."
+        percentage:
+          title: "&aالنسبة المئوية"
+          description:
+            - "&7ستساهم النسبة المئوية في"
+            - "&7فرصة اللاعب في الفوز بهذا العنصر."
+      menus:
+        title: "&االقوائم"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا على تكوين"
+          - "&7لتكوين جميع القوائم لهذه الصندوق."
+      rewards-menu:
+        title: "&اواجهة المكافآت"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا على تكوين"
+          - "&7ما هي قائمة المكافآت التي ستكون لهذه الصندوق."
+      preview-actions:
+        title: "&aإجراءات المعاينة"
+        description:
+          - "&7بالنقر هنا ستتمكن من تكوين"
+          - "&7الإجراءات التي ستُنفَّذ عندما يقوم اللاعب"
+          - "&7بالنقر لمعاينة هذا الصندوق."
+          - "&7يمكن استخدام هذه مع، أو"
+          - "&7بدلاً من، قائمة معاينة المكافآت."
+      rerolls-menu:
+        title: "&اواجهة إعادة لف"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا على تكوين"
+          - "&7ما هي قائمة إعادة اللف التي ستكون لهذه الصندوق."
+      selective-rewards-menu:
+        title: "&اواجهة المكافآت الانتقائية"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا على تكوين"
+          - "&7ما هي قائمة المكافآت الانتقائية التي ستكون لهذه الصندوق."
+      milestones-menu:
+        title: "&اواجهة المعالم"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا على تكوين"
+          - "&7ما هي قائمة المعاينة التي ستكون لهذه الصندوق."
+      broadcast-message:
+        title: "&ارسالة البث"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا على تكوين"
+          - "&7رسالة البث للمكافآت."
+          - ""
+          - "&eالأماكن المتاحة:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&االتمكين"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا"
+          - "&7لتغيير إذا ما كانت هذه الصندوق متاحة."
+      allow-open-command:
+        title: "&aالسماح بأمر الفتح"
+        description:
+          - "&7بالنقر هنا ستتمكن"
+          - "&7من التبديل ما إذا كان يمكن لهذا الصندوق"
+          - "&7فتحه باستخدام &f/crate open &7الأمر."
+      attach-block:
+        title: "&ااربط الكتلة"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا"
+          - "&7لإنشاء صندوق عن طريق ربط كتلة."
+      delete:
+        title: "&ااحذف الصندوق"
+        description:
+          - "&7بالنقر هنا سيتم حذف هذا الصندوق"
+          - "&7من السيرفر."
+          - ""
+          - "&e&nجميع المفاتيح في هذا الصندوق لن تكون صالحة بعد الآن."
+      hologram:
+        engine-mode:
+          title: "&aوضع محرك الهولوغرام"
+          description:
+            - "&7المحرك الذي تستخدمه الإضافة"
+            - "&7للهولوغرامات"
+            - ""
+            - "&fالمحرك: &7%engine%"
+        lines:
+          title: "&aأسطر الهولوغرام"
+          description:
+            - "&7بالنقر هنا ستتمكن من"
+            - "&7تكوين أسطر الهولوغرام لهذا الصندوق."
+            - ""
+            - "&e&lنصيحة: &7يمكنك استخدام &ePlaceholderAPI&7."
+        identifier:
+          title: "&aالمعرف"
+          description:
+            - "&7بالنقر هنا ستتمكن"
+            - "&7من تحديد معرف إضافة الهولوغرام."
+            - ""
+            - "&fالمعرف: &7%id%"
+        offset:
+          title: "&aإزاحة الهولوغرام"
+          description:
+            - "&7هذا الخيار يتيح لك ضبط موضع الهولوغرام"
+            - "&7استنادًا إلى موقع الصندوق."
+      display-name:
+        title: "&aاسم العرض"
+        description:
+          - "&7عند النقر هنا ستتمكن"
+          - "&7من إعادة تسمية صندوقك."
+      open-money-cost:
+        title: "&aتكلفة فتح المال"
+        description:
+          - "&7انقر هنا لتغيير المال"
+          - "&7الضروري لفتح هذا الصندوق."
+          - "&7مفتاح و النقر بزر الماوس الأيمن."
+          - ""
+          - "&e&nيعمل فقط مع Vault!"
+    crate-engine:
+      first-phase-delay:
+        title: "&aتأخير بدء المرحلة الأولى"
+        description:
+          - "&7حدد التأخير بين اللحظة"
+          - "&7التي يفتح فيها الصندوق وبداية"
+          - "&7المرحلة الأولى من الرسوم المتحركة."
+      second-phase-delay:
+        title: "&aتأخير بدء المرحلة الثانية"
+        description:
+          - "&7حدد التأخير بين المرحلة الأولى"
+          - "&7والمرحلة الثانية من رسوم فتح الصندوق."
+      third-phase-delay:
+        title: "&aتأخير بدء المرحلة الثالثة"
+        description:
+          - "&7حدد التأخير بين المرحلة الثانية"
+          - "&7والمرحلة الثالثة من رسوم فتح الصندوق."
+      idle:
+        title: "&aالرسوم المتحركة عند الخمول"
+        description:
+          - "&7حدد الرسوم المتحركة التي سيتم"
+          - "&7تشغيلها عندما يكون الصندوق خاملاً."
+      close-animation:
+        title: "&aرسوم الإغلاق"
+        description:
+          - "&7حدد الرسوم المتحركة التي سيتم"
+          - "&7تشغيلها عند إغلاق الصندوق."
+      model-name:
+        title: "&aاسم النموذج"
+        description:
+          - "&7حدد اسم النموذج الذي"
+          - "&7سيستخدمه هذا الصندوق."
+          - ""
+          - "&fالنموذج الحالي: &7%name%"
+      model-engine:
+        model-name:
+          title: "&ااسم النموذج"
+          description:
+            - "&7بالنقر هنا ستتمكن"
+            - "&7من تغيير اسم النموذج لهذا الصندوق."
+            - ""
+            - "&fالاسم الحالي: &7%name%"
+      better-model:
+        model-name:
+          title: "&aاسم النموذج"
+          description:
+            - "&7بالنقر هنا ستتمكن"
+            - "&7من تغيير اسم النموذج لهذا الصندوق."
+            - ""
+            - "&fالاسم الحالي: &7%name%"
+        scale:
+          title: "&aالمقياس"
+          description:
+            - "&7حدد مضاعف الحجم لهذا"
+            - "&7النموذج. 1.0 هو الحجم الطبيعي للنموذج."
+      vanilla-model:
+        material-select:
+          title: "&ا%name%"
+          description:
+            - ""
+            - "&6الضغط الأيسر: &eاختر المادة."
+        custom-model-data:
+          title: "&ابيانات النموذج المخصصة"
+          description:
+            - "&7بالنقر هنا ستكون قادرًا"
+            - "&7لتغيير بيانات النموذج المخصصة لهذا العنصر."
+            - ""
+            - "&fبيانات النموذج المخصصة: &7%custom_model_data%"
+            - ""
+            - "&6الضغط الأيسر: &eتغيير بيانات النموذج المخصصة."
+    reward-commands:
+      add:
+        title: "&ااضف أمر"
+        description:
+          - "&7بالنقر هنا ستكون قادرًا على إضافة"
+          - "&7أمر سيتم تنفيذه عندما"
+          - "&7يفوز لاعب بهذه المكافأة."
+          - ""
+          - "&7الأوامر التي تبدأ بـ &a* &7يتم تنفيذها بواسطة"
+          - "&7اللاعبين. بخلاف ذلك، يتم تنفيذها بواسطة وحدة التحكم."
+          - ""
+          - "&7يمكنك أيضًا استخدام العنصر النائب &a%player%"
+          - "&7وعناصر نائب من &aPlaceholderAPI&7."
+          - ""
+          - "&6نقر لليسار: &eإضافة أمر."
+      command:
+        title: "&aالأمر #%id%"
+        description:
+          - "&fالأمر: &7%command%"
+          - ""
+          - "&6نقر لليسار: &eإزالة الأمر."
+    alternative-reward:
+      enabled:
+        title: "&aالحالة"
+        description:
+          - "&7عندما تكون مكافأة بديلة نشطة،"
+          - "&7إذا تجاوز اللاعب حدود الفوز أو"
+          - "&7لدية صلاحيات سوداء فإنه"
+          - "&7سيتلقى هذه المكافأة."
+    edit-standby-animation:
+      add-effect:
+        title: "&aإضافة تأثير"
+        description:
+          - "&7من خلال النقر هنا ستتمكن من"
+          - "&7إضافة تأثير جديد إلى الرسوم المتحركة الثابتة."
+          - ""
+          - "&6نقر لليسار &eإضافة تأثير."
+      edit-effect:
+        title: "&eتأثير #%id%"
+        description:
+          - ""
+          - "&fنوع التأثير: &7%effect_type%"
+          - "&fنوع الجسيمات: &7%particle_type%"
+          - "&fسرعة الجسيمات: &7%particle_velocity%"
+          - "&fاللون: &7%color%"
+          - "&fالإزاحة: &7%offset%"
+          - "&fالانتشار: &7%spread%"
+          - "&fالكمية: &7%amount%"
+          - ""
+          - "&6نقر لليسار &eتحرير التأثير."
+          - "&6Shift + نقر لليسار: &eإزالة التأثير."
+    edit-standby-effect:
+      effect-type:
+        title: "&aنوع التأثير&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6نقر لليسار/اليمين: &eتبديل النوع."
+      particle-type:
+        title: "&aنوع الجسيمات"
+        description:
+          - "&fالحالي: &7%particle_type%"
+          - ""
+          - "&6نقر لليسار: &eتغيير الجسيم."
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&fالخصائص: &a%properties%"
+          - ""
+          - "&6نقر لليسار: &eاختيار الجسيم."
+      color:
+        title: "&aاللون"
+        description:
+          - "&fالحالي: &7%color%"
+          - ""
+          - "&e&nيعمل فقط مع الجسيمات القابلة للتلوين."
+          - ""
+          - "&6نقر لليسار: &eتغيير اللون."
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6نقر لليسار: &eاختيار اللون."
+      spread:
+        title: "&aالانتشار"
+        description:
+          - "&fالحالي: &7%spread%"
+          - ""
+          - "&6نقر لليسار: &eإضافة 0.1."
+          - "&6Shift + نقر لليسار: &eإضافة 1."
+          - "&6نقر لليمين: &eإزالة 0.1."
+          - "&6Shift + نقر لليمين: &eإزالة 1."
+      particle-velocity:
+        title: "&aسرعة الجسيمات"
+        description:
+          - "&fالحالي: &7%particle_velocity%"
+          - ""
+          - "&6نقر لليسار: &eإضافة 0.1."
+          - "&6Shift + نقر لليسار: &eإضافة 1."
+          - "&6نقر لليمين: &eإزالة 0.1."
+          - "&6Shift + نقر لليمين: &eإزالة 1."
+      amount:
+        title: "&aالكمية"
+        description:
+          - "&fالحالي: &7%amount%"
+          - ""
+          - "&6نقر لليسار: &eإضافة 1."
+          - "&6نقر لليمين: &eإزالة 1."
+      offset-x:
+        title: "&aالإزاحة X"
+        description:
+          - "&fالحالي: &7%offset_x%"
+          - ""
+          - "&6نقر لليسار: &eإضافة 0.1."
+          - "&6Shift + نقر لليسار: &eإضافة 1."
+          - "&6نقر لليمين: &eإزالة 0.1."
+          - "&6Shift + نقر لليمين: &eإزالة 1."
+      offset-y:
+        title: "&aالإزاحة Y"
+        description:
+          - "&fالحالي: &7%offset_y%"
+          - ""
+          - "&6نقر لليسار: &eإضافة 0.1."
+          - "&6Shift + نقر لليسار: &eإضافة 1."
+          - "&6نقر لليمين: &eإزالة 0.1."
+          - "&6Shift + نقر لليمين: &eإزالة 1."
+      offset-z:
+        title: "&aالإزاحة Z"
+        description:
+          - "&fالحالي: &7%offset_z%"
+          - ""
+          - "&6نقر لليسار: &eإضافة 0.1."
+          - "&6Shift + نقر لليسار: &eإضافة 1."
+          - "&6نقر لليمين: &eإزالة 0.1."
+          - "&6Shift + نقر لليمين: &eإزالة 1."
+    opening-animation:
+      phase-updated: "&aتم تحديث مرحلة الرسوم المتحركة."
+      preset-applied: "&aتم تطبيق الإعداد المسبق لرسوم الفتح."
+      preset-removed: "&aلم يتم اختيار أي إعداد مسبق."
+      phase:
+        title: "&a%phase% المرحلة"
+        description:
+          - "&7كل حركة فتح تتكون من"
+          - "&7مراحل، هذه واحدة من المراحل."
+          - ""
+          - "&fالمرحلة: &e%name%"
+      change-phases:
+        title: "&aمراحل الحركة"
+        description:
+          - "&7اختر الحركات ل"
+          - "&7مراحل حركة الفتح."
+          - ""
+          - "&6نقر لليسار: &eتغيير الحركة."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&a%phase% المرحلة"
+        description:
+          - "&7كل حركة فتح تتكون من"
+          - "&7مراحل، هذه واحدة من المراحل."
+          - ""
+          - "&fالمرحلة: &e%name%"
+          - ""
+          - "&6نقر لليسار: &eانتقل"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&fالإصدار المطلوب: &7%required_version%"
+          - ""
+          - "&6نقر لليسار: &eإنشاء مرحلة."
+          - "&6Shift + نقر لليسار: &eإنشاء مرحلة بسرعة."
+  command:
+    info:
+      - ""
+      - "&e➥ &6الأوامر المتاحة:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6معلومات إضافية:"
+      - " &9<argument> - معامل مطلوب"
+      - " &3[argument] - معامل اختياري"
+    usage:
+      - ""
+      - "&e➥ الاستخدام:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "عذراً، لكن ليس لديك الإذن لتنفيذ هذا الأمر."
+    permission-denied-parameter: "عذراً، لكن ليس لديك الإذن لتنفيذ هذا الأمر."
+    error-generic-logged: "حدث خطأ. تم تسجيل هذه المشكلة. نأسف للإزعاج."
+    unknown-command: "&cأمر غير معروف, الرجاء كتابة &4%command%"
+    error-prefix: "&cخطأ: %message%"
+    error-performing-command: "عذراً، ولكن حدث خطأ أثناء تنفيذ هذا الأمر."
+    please-specify-one-of: "يرجى تحديد واحد من (&2%valid%)."
+    must-be-a-number: "%num% يجب أن يكون رقماً."
+    must-be-min-length: "يجب ألا يقل الطول عن %min% حرفاً."
+    must-be-max-length: "يجب ألا يزيد الطول عن %max% حرفاً."
+    please-specify-at-most: "الرجاء تحديد قيمة لا تتجاوز %max%."
+    please-specify-at-least: "الرجاء تحديد قيمة لا تقل عن %min%."
+    player-offline: "اللاعب %player% غير متصل!"
+  plans:
+    unlock-premium: §cمتاح فقط في النسخة المميزة.
+    unlock-pro: §cمتاح فقط في النسخة الاحترافية.
+    upgrade-at: §4ترقية في phoenixplugins.com
+  crate-type-received: "&aلقد تلقيت صندوقًا قابلًا للتوضع."
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% صندوق"
+      lore: "&7ضع هذا الصندوق في مكان ما!"
+  loading-data: "&7جار تحميل بيانات اللاعب..."

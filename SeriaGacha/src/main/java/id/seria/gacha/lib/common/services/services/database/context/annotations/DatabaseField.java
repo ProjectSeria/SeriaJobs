@@ -1,0 +1,20 @@
+package id.seria.gacha.lib.common.services.services.database.context.annotations;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DatabaseField {
+   Class<?> type() default Object.class;
+
+   boolean nullable() default true;
+
+   boolean unique() default false;
+
+   boolean autoIncrement() default false;
+
+   int size() default -1;
+}

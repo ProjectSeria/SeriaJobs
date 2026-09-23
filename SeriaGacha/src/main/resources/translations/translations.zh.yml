@@ -1,0 +1,1417 @@
+zh:
+  error-processing:
+    - "&c处理此操作时出错（检查控制台）："
+    - "&7%message%"
+  unknown-argument: "&c未知参数！"
+  no-permission: "&c你没有权限执行此操作！"
+  command-not-allowed: "&c您不允许执行此命令！"
+  only-ingame-players: "&c该命令仅限游戏内玩家使用。"
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: 最后一个
+    swap-option: 交换选项
+    option: 选项
+    item: 物品
+    all: 全部
+    go-back: 返回
+    navigate: 导航
+    reload: 重载
+    switch-state: 切换状态
+    state: 状态
+    empty: "&7（空）"
+    default: "&7（默认）"
+    undefined: "&7未定义"
+    yes-word: "&a是"
+    no-word: "&c否"
+    location: 位置
+    region: 区域
+    material: 材料
+    # Others
+    menu: 菜单
+    enabled: 已启用
+    disabled: 已禁用
+    range: 范围
+    multiplier: 倍数
+    cooldown: 冷却
+    receive-crate: 领取箱子
+    receive-key: 接收钥匙
+    identifier: 标识符
+    display-name: 显示名称
+    line: 行
+    swap-engine: 交换引擎
+    edit-engine: 编辑引擎
+    documentation: 文档
+    not-installed: 未安装
+    not-available: 不可用
+    not-enabled: 未启用
+    command: 命令
+    none: 无
+    action: 操作
+    color: 颜色
+    flag: 标志
+    pattern: 图案
+    enchant: 附魔
+    effect: 效果
+    value: 值
+    red: 红
+    green: 绿
+    blue: 蓝
+    item-model: 物品模型
+    tooltip-style: 工具提示样式
+    trim-material: 修饰材料
+    trim-pattern: 修饰图案
+    model-data: 模型数据
+    title: 标题
+    particle: 粒子
+    velocity: 速度
+    spread: 散布
+    offset-x: 偏移 X
+    offset-y: 偏移 Y
+    offset-z: 偏移 Z
+    change-amount-money: 更改金额
+    money-necessary: 需要金钱
+    vault-installed: 已安装Vault
+    points-installed: PlayerPoints 已安装
+    swap-cost-engine: 切换花费引擎
+    set-cost-amount: 设置费用数额
+    cost-amount: 费用数额
+    required: 必需
+    permission: 权限
+    crate: 箱子
+    key: 钥匙
+    reward: 奖励
+    multiple-rewards: 多个奖励
+    items: 物品
+    cancel: 取消
+    animation: 动画
+    limited-time-offer: 限时优惠
+    see-more: 查看更多
+    attach-block: 附加方块
+    reorder-reward: 重新排序奖励
+    set-as-default-display-name: 设为默认显示名称
+    set-as-default-display-lore: 设为默认显示描述
+    update-block: "更新方块"
+    percentage: 百分比
+    weight: "权重"
+    chance: 概率
+    win-limit: 中奖限制
+    global-win-limit: 全局中奖限制
+    win-limit-cooldown: 中奖限制冷却
+    global-win-limit-cooldown: 全局中奖限制冷却
+    time-limited-cooldown: 限时冷却
+    unlimited: 无限制
+    virtual: 虚拟
+    broadcast: 广播
+    paid: 已付费
+    free: 免费
+    save: 保存
+    leave: 离开
+    select: 选择
+    add: 添加
+    edit: 编辑
+    remove: 移除
+    confirm: 确认
+    decline: 拒绝
+    locked-field: 锁定字段
+    add-items: 添加物品
+    no-cooldown: 无冷却
+    current: 当前
+    first: 第一
+    second: 第二
+    third: 第三
+    to-choose: 选择
+    not-colorable: 不可着色
+    previous-phase: 前一个阶段
+    next-phase: 下一个阶段
+    default-menu: 默认菜单
+    amount: "数量"
+    migrate-files: "迁移文件"
+    rerolls: "重投"
+    group: "分组"
+    broadcast-message: "广播消息"
+    only-premium: "仅限高级用户"
+    sharing: "共享"
+    everyone: "每个人"
+    openings: "开启"
+    required-keys: "所需钥匙"
+    key-required: "所需钥匙"
+    crates-linked: "链接的箱子"
+    keys-linked: "链接的钥匙"
+    rarity: "稀有度"
+    synced: "已同步"
+    not-set: "未设置"
+    clear-lines: "清除行"
+    add-empty-line: "添加空行"
+    receive-placeable-crate: 接收可放置箱
+    disable-money-requirement: 禁用金钱要求
+  readers:
+    exit-session: "&a要退出此会话键入 &e\\\"取消\\\"&a."
+    write-chat: "&a在聊天中输入."
+  time:
+    week: "周"
+    weeks: "周"
+    day: "天"
+    days: "天"
+    hour: "小时"
+    hours: "小时"
+    minute: "分钟"
+    minutes: "分钟"
+    second: "秒"
+    seconds: "秒"
+
+  unlock-addon:
+    - "&c需要 %addon% 插件."
+    - "&4在 phoenixplugins.com 解锁"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ Phoenix Crates 命令"
+      - "%commands%"
+      - ""
+      - "&e➥ 额外信息："
+      - " &9<argument> - 必需参数"
+      - " &3[argument] - 可选参数"
+    usage: "&e➥ 用法："
+    create: " &f/%command% create &9<identifier> &8- &7创建箱子类型"
+    delete: " &f/%command% delete &9<identifier> &8- &7删除箱子类型"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7给自己一个可放置的箱子"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8-
+      &7给玩家（或所有玩家）发放钥匙"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7给在场的每个人发一个钥匙"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8- &7设置玩家虚拟钥匙"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7设置玩家虚拟钥匙"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7允许您预览箱子奖励"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7给玩家（或所有玩家）重投"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8- &7扣留玩家重投"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8-
+      &7给玩家（或所有玩家）奖励"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7给玩家(或所有玩家)一个随机箱子奖励"
+    editor: " &f/%command% editor &8- &7允许您在游戏中编辑所有箱子"
+    reload: " &f/%command% reload &8- &7重新加载所有PhoenixCrates配置文件"
+  player-offline: "&c玩家 %name% 当前不在线！"
+  not-a-number: "&c输入的数量不是数字。"
+  plugin-reloaded: "&aPhoenixCrates已成功重新加载。"
+  crate-type-created: "&a箱子类型创建成功。"
+  crate-type-deleted: "&a箱子类型删除成功。"
+  cooldown-reset: "&a冷却: &e%player% &a在箱子 &e%crate% &a已被重置."
+  cooldown-reset-received: "&a你的箱子 &e%crate% &a的冷却已被重置."
+  cooldown-reset-no-cooldown: "&c此箱子未配置冷却."
+  cooldown-reset-not-active: "&c该玩家在此箱子没有有效的冷却."
+  global-win-limit-reset: "&a奖励 &e%reward% &a在箱子 &e%crate% &a的全局中奖计数已被重置."
+  global-win-limit-not-tracked: "&c此奖励未配置全局中奖限制，因此没有可重置的内容."
+  reward-cooldown-started: "&a奖励 &e%reward% &a在箱子 &e%crate% &a的限时冷却已开始."
+  reward-cooldown-started-all: "&a已为 &e%amount% &a个奖励在箱子 &e%crate% &a启动了限时冷却."
+  reward-cooldown-not-configured: "&c此奖励未配置限时冷却."
+  reward-cooldown-none-configured: "&c此箱子上的奖励均未配置限时冷却."
+  check-keys-header: "&#ffd500&l%player%'s 钥匙:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7钥匙"
+  check-keys-none: "&7- &7没有虚拟钥匙."
+  key-deleted: "&a钥匙删除成功。"
+
+  key-given: "&e%amount% &a把钥匙已成功给予 %player%."
+  key-given-all: "&a%amount% 个钥匙已成功发放给所有在线玩家。"
+  key-given-offline: "&e%amount% &a把钥匙已成功给予 %player%."
+  key-set: "&e%amount% &a把钥匙已成功设置给 %player%."
+  key-taken: "&e%amount% &a把钥匙已成功从 %player% 收回."
+
+  key-received: "&a您已收到 &ex%amount% &7%display_name% &r&akey(s)。"
+  virtual-key-received: "&a您已收到 &ex%amount% &7%display_name% &r&avirtual key(s)。"
+
+  key-lost: '&c%amount% 抽奖钥匙被取走了，匣子 &2\"%display_name%&2\"&c！'
+  virtual-key-lost: '&c%amount% 虚拟钥匙被取走了，匣子 &2\"%display_name%&2\"&c！'
+
+  crate-rerolls-received: '&a你收到了 %amount% 次重抽机会，匣子 &2\"%display_name%&2\"&a！'
+
+  crate-given: "&e%amount% &a个箱子已成功给予 %player%."
+
+  random-reward-given: "&a已成功给予 %player% 一个随机奖励."
+  no-available-rewards: "&c此箱子没有可用的奖励."
+
+  crate-received: "&a你已收到 &ex%amount% &7%display_name% &r&a箱子。"
+  crate-no-placed-instances: "&c未找到类型为 &e%crate%&c 的已放置箱子."
+  crate-open-command-disabled: "&c无法使用此命令打开箱子 &e%crate%&c."
+  crate-type-dont-exist: '&c没有与标识符 \"%identifier%\" 相对应的匣子类型！'
+  crate-type-already-exist: '&c已经存在标识符 \"%identifier%\" 的匣子类型！'
+  key-dont-exist: '&c没有与标识符 \"%identifier%\" 相对应的钥匙！'
+  key-already-exist: '&c已经存在标识符 \"%identifier%\" 的钥匙！'
+  need-plugin-reload: "&6需要插件重载！"
+
+  crate:
+    disabled: "&c此箱子目前已禁用！"
+    quick-open-available: "&e蹲下并再次点击以跳过动画并打开另一个匣子。"
+    already-opening: "&c有人已经在打开这个匣子，请稍候！"
+    no-linked-key: "&c这个匣子没有任何关联的钥匙！"
+    no-key: "&c你需要 %key%&r&c 来打开这个匣子！"
+    no-keys: "&c你没有足够的钥匙来打开这个匣子！"
+    no-keys-amount: "&c你需要 %amount% 把钥匙来打开这个箱子。"
+    redeem-no-keys: "&c你需要 %required_keys% 抽奖钥匙才能兑换这个奖励。"
+    cooldown-wait: "&c在再次打开这个匣子之前，你必须等待 %cooldown%。"
+    cost-engine-not-installed: "&c货币引擎似乎未设置（请联系管理员）."
+    no-money-none: "&c你现在无法打开此箱子."
+    no-money-level: "&c你需要 %money% 来打开此箱子."
+    no-money-vault: "&c你需要 %money% 来打开此箱子."
+    no-money-playerpoints: "&c你需要 %money% PlayerPoints 来打开此箱子."
+    no-money-votingplugin: "&c你需要 %money% 投票点数 来打开此箱子."
+    no-money-excellenteconomy: "&c你需要 %money% 来打开此箱子."
+    money-used-none: "&a你打开了此箱子."
+    money-used-level: "&a你刚刚使用了 %money_consumed% 来打开此箱子."
+    money-used-vault: "&a你刚刚使用了 %money_consumed% 来打开此箱子."
+    money-used-playerpoints: "&a你刚刚使用了 %money_consumed% PlayerPoints 来打开此箱子."
+    money-used-votingplugin: "&a你刚刚使用了 %money_consumed% 投票点数 来打开此箱子."
+    money-used-excellenteconomy: "&a你刚刚使用了 %money_consumed% 来打开此箱子."
+    need-crouched: "&e为了移除这个匣子，你必须蹲下。"
+    successfully-removed: "&a你已成功移除这个匣子。"
+    successfully-placed: "&a你成功放置了一个匣子！"
+    reward-received: "&a你收到了 &ex%amount% %item%"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &f获得了: &ex%amount% &r%reward%"
+    no-rewards: "&c这个匣子没有奖励。"
+    no-available-rewards: "&c这个匣子没有可用的奖励。"
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&c请稍候！我们还在加载你的数据。请稍后再试打开匣子！"
+    guaranteed-win-openings: "&3在 %openings% 次开启中保证中奖"
+    no-permission: "&c你没有权限打开这个匣子！[需要权限: %permission%]"
+    cooldown-display:
+      counting: "&f你可以在 &e%cooldown% 后再次打开"
+      over: "&a可以打开"
+    hologram-type-limited: "&c此全息显示引擎每种类型只支持放置一个箱子。"
+    no-money: "&c你需要 %necessary_money%$ 来打开这个匣子。"
+    money-used: "&a你刚刚用了 %money_consumed%$ 来打开这个匣子。"
+    crate:
+      no-rewards-for-key-rarities: "&c该箱子没有针对你钥匙稀有度的可用奖励：%rarities%"
+  actions:
+    need-item: "&c你需要添加一个物品才能执行此操作。"
+    force-close: "&c你强制取消了当前操作。"
+
+  layout:
+    actions:
+      left-click: "&6左键点击: &e%action%。"
+      right-click: "&6右键点击: &e%action%。"
+      left-right-click: "&6左/右键点击: &e%action%。"
+      shift-left-click: "&6Shift + 左键点击: &e%action%。"
+      shift-right-click: "&6Shift + 右键点击: &e%action%。"
+      drag-drop-click: "&6拖动 & 放置: &e%action%。"
+      drop-click: "&6按 Q: &e%action%."
+      description:
+        add: 添加 %value%
+        set: 设置 %value%
+        create: 创建 %value%
+        remove: 移除 %value%
+        edit: 编辑 %value%
+        delete: 删除 %value%
+        receive: 接收 %value%
+        clear: 清除 %value%
+        choose: 选择 %value%
+        change: 更改 %value%
+        select: 选择 %value%
+        replace: 替换 %value%
+        unlink: 解除链接 %value%
+        link: 链接 %value%
+        reorder: 重新排序 %value%
+    displays:
+      state: "&f状态 %type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&f材质: &7%material%"
+      location:
+        empty: "&f位置: &7空"
+        populated:
+          - "&f位置: "
+          - " &f世界: &7%world%"
+          - " &fX轴: &7%x%"
+          - " &fY轴: &7%y%"
+          - " &fZ轴: &7%z%"
+          - " &f偏航: &7%yaw%"
+          - " &f俯仰: &7%pitch%"
+      region:
+        empty: "&f区域: &7空"
+        populated:
+          - "&f区域: "
+          - " &f世界: &7%world%"
+          - " &f位置 #1: &7%minimum%"
+          - " &f位置 #2: &7%maximum%"
+      item:
+        empty: "&f物品: &7空"
+        populated:
+          - "&f物品: "
+          - " &f名称: &7%name%"
+          - " &f描述: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&a上一页 - 第 %page% 页"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&a下一页 - 第 %page% 页"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&c未找到数据。"
+        description:
+          - "&7没有使用这个过滤器找到数据。"
+      filter:
+        title: "&a过滤器"
+        description:
+          - "&7点击此处你将能够"
+          - "&7按名称进行过滤。"
+          - ""
+          - "&f过滤: &e%filter%"
+          - ""
+          - "&6左键点击: &e设置过滤器。"
+          - "&6右键点击: &e清除过滤器。"
+  editor:
+    messages:
+      write-identifier-chat: "&e在聊天中输入新的标识符。"
+      identifier-updated: '&a标识符已成功更新为 \"%identifier%&a\"！'
+      write-displayname-chat: "&e在聊天中写入新的显示名称。"
+      displayname-updated: '&a显示名称已成功更新为 \"%display_name%&a\"！'
+      write-in-chat: "&a在聊天中写入。"
+      value-updated: "&a值已成功更新！"
+      write-lore-line-chat: "&e在聊天中写入新的描述行。"
+      lore-line-added: "&a描述行已成功添加！"
+      lore-cleared: "&a描述已成功清除。"
+      opening-animation-changed: "&a开场动画已成功更改。"
+      crate-type-deleted: 箱子类型已成功删除。
+      migration-completed: "&a迁移完成。"
+    errors:
+      identifier-already-in-use: "&c该标识符已被使用。"
+      no-spaces: "&c不能有空格！"
+      invalid-input: "&c无效的输入！"
+      invalid-number: "&c无效的数字！"
+      inventory-full: "&c你的背包已满。"
+      inventory-full-reward: "&c一个箱子奖励因你的背包满而掉落在地上！"
+      inventory-full-key: "&c一把钥匙因你的物品栏已满而掉在了地面上！"
+      username-not-found: "&c找不到名字为 %username% 的原始账户。"
+      invalid-rewards: "有 %amount% 个奖励无效！"
+      no-rewards-configured: "没有配置任何奖励！"
+      invalid-reward-display: "无效的奖励：发现空的显示物品！"
+      hologram-engine-missing: "&c全息数据引用了另一个插件！请在插件设置中更改全息引擎。"
+    titles:
+      main: 凤凰箱子 v%version% > 编辑器
+      crates: 编辑器 > 箱子
+      keys: 编辑器 > 钥匙
+      migrations: 编辑器 > 迁移
+      addons: 编辑器 > 插件
+      rarities: 编辑器 > 稀有度
+      settings: 编辑器 > 设置
+      engines:
+        bettermodel: 编辑器 > ... > BetterModel
+      crate:
+        new: 编辑器 > ... > 新箱子
+        show: 编辑器 > ... > 箱子
+        display: 编辑器 > ... > 引擎
+        menus: 编辑器 > ... > 菜单
+        link-keys: 编辑器 > ... > 链接钥匙
+        idle-animation: 编辑器 > ... > 空闲动画
+        opening-animations: 编辑器 > ... > 开场动画
+        opening-animation: 编辑器 > ... > 开场动画
+        effect: 编辑器 > ... > 动画效果
+        rewards: 编辑器 > ... > 奖励
+        reward: 编辑器 > ... > 奖励
+        reward-cooldowns: 编辑器 > ... > 奖励冷却
+        reward-requirements: 编辑器 > ... > 奖励要求
+        reward-cooldown-duration: 编辑器 > ... > 冷却持续时间
+        reward-items: 编辑器 > ... > 编辑奖励物品
+        reward-commands: 编辑器 > ... > 编辑奖励指令
+        reward-rarity: 编辑器 > ... > 奖励稀有度
+        multiple-rewards: 编辑器 > ... > 添加多个奖励
+        engine: 编辑器 > ... > 引擎
+        hologram: 编辑器 > ... > 全息图
+        milestones: "编辑器 > ... > 里程碑"
+        rerolling: "编辑器 > ... > 重抽"
+        others: "编辑器 > ... > 其他"
+        open-cost: "编辑器 > ... > 打开花费"
+      key:
+        show: 编辑器 > ... > 钥匙
+        linked-crates: 编辑器 > ... > 链接的箱子
+
+    main:
+      crates:
+        title: "&a箱子"
+        description:
+          - "&7点击这里，你将能够"
+          - "&7探索和管理所有可用的箱子。"
+      keys:
+        title: "&a钥匙"
+        description:
+          - "&7点击这里，你将能够"
+          - "&7探索和管理所有可用的钥匙。"
+      rarities:
+        title: "&a稀有度"
+        description:
+          - "&7点击这里你可以配置"
+          - "&7并管理稀有度系统。"
+      migrations:
+        title: "&a迁移"
+        description:
+          - "&7探索从其他箱子插件迁移的选项"
+          - "&7并通过点击这里管理迁移过程。"
+      addons:
+        title: "&a插件"
+        description:
+          - "&7探索额外的功能和增强"
+          - "&7通过点击这里访问插件菜单。"
+      settings:
+        title: "&a设置"
+        description:
+          - "&7点击这里，你将能够"
+          - "&7探索和自定义插件设置。"
+      reload:
+        title: "&a重新加载配置"
+        description:
+          - "&7点击这里，你将启动"
+          - "&7所有插件配置的重新加载。"
+      pouches:
+        title: "&a小袋"
+        description:
+          - "&7点击这里，你将能够"
+          - "&7管理所有的小袋。"
+      crate-claim:
+        title: "&a箱子领取"
+        description:
+          - "&7通过点击这里，你可以配置"
+          - "&7箱子领取的行为和菜单。"
+    migrations:
+      plugin:
+        title: "&a从 %name% 迁移"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7点击这里你将能够"
+          - "&7将一些文件从 %name% 迁移到这个插件。"
+          - ""
+          - "&a支持的文件："
+          - "&8 &7- %files%"
+          - ""
+          - "&f支持的数据库： %database%"
+    addons:
+      loading:
+        title: "&e正在加载..."
+        description:
+          - "&7插件正在加载，"
+          - "&7请稍等几秒。"
+      empty:
+        title: "&c没有可用的插件"
+        description:
+          - "&7没有根据当前筛选器找到记录"
+          - "&7。"
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&f价格： &a%price%"
+    settings:
+      language:
+        title: "&a语言"
+        description:
+          - "&7此选项允许你更改"
+          - "&7此插件将使用的基础语言"
+          - ""
+          - "&e&n你可以随时配置 translations.en.yml。"
+      key-mainhand:
+        title: "&a主手钥匙要求"
+        description:
+          - "&7 此选项允许您定义"
+          - "&7 玩家是否需要"
+          - "&7 在主手持有钥匙才能打开箱子。"
+      crate-knockback:
+        title: "&a箱子击退"
+        description:
+          - "&7此选项允许你更改"
+          - "&7玩家在尝试"
+          - "&7使用错误钥匙打开箱子时的击退效果。"
+      crate-despawn-range:
+        title: "&a箱子消失范围"
+        description:
+          - "&7此选项允许你定义"
+          - "&7效果停止向玩家展示的"
+          - "&7距离。"
+          - ""
+          - "&c&n高值不推荐，因为它们可能造成延迟。"
+      crate-quick-open:
+        title: "&a箱子快速打开"
+        description:
+          - "&7此选项允许玩家在"
+          - "&7握住箱子钥匙并右键点击时"
+          - "&7快速打开箱子。"
+          - ""
+          - "&e&n仅在同时打开多个箱子时有效！"
+      disable-confirmation-menus:
+        title: "&a禁用确认菜单"
+        description:
+          - "&7此选项允许您跳过"
+          - "&7确认菜单以便玩家"
+          - "&7直接执行操作."
+      crate-claim:
+        title: "&a箱子领取"
+        description:
+          - "&7通过点击此处，您可以配置"
+          - "&7箱子领取的行为和菜单。"
+    keys:
+      key:
+        title: "&a%name% &7(编号: %identifier%)"
+        description:
+          - "&7点击这里你将能够"
+          - "&7配置这个钥匙。"
+        identifier:
+          title: "&a标识符"
+          description:
+            - "&7点击这里你将能够"
+            - "&7重命名你的钥匙标识符。"
+            - "&e这个标识符需要是唯一的。"
+        display-name:
+          title: "&a显示名称"
+          description:
+            - "&7点击这里你将能够"
+            - "&7重命名你的钥匙。"
+        link-crates:
+          title: "&a链接箱子"
+          description:
+            - "&7点击这里你将能够"
+            - "&7将这个钥匙与箱子链接。"
+        enabled:
+          title: "&a启用"
+          description:
+            - "&7点击这里你将能够"
+            - "&7更改此钥匙是否可用。"
+        delete:
+          title: "&a删除钥匙"
+          description:
+            - "&7点击这里此钥匙"
+            - "&7将从服务器中删除。"
+            - "&e世界中的所有钥匙将不再有效。"
+        item:
+          title: "&a钥匙物品"
+          description:
+            - "&7一个可以"
+            - "&7用于打开箱子的自定义钥匙物品。"
+      add:
+        title: "&a添加钥匙"
+        description:
+          - "&7点击这里你将能够"
+          - "&7创建一个钥匙。"
+    crates:
+      type:
+        title: "&a%name% &7(编号: %identifier%)"
+        description:
+          - "&7点击这里你将能够"
+          - "&7配置这个箱子。"
+      add:
+        title: "&a添加箱子"
+        description:
+          - "&7点击这里你将能够"
+          - "&7创建一种箱子类型。"
+    crate:
+      identifier:
+        title: "&a标识符"
+        description:
+          - "&7点击这里你将能够"
+          - "&7重命名你的箱子标识符。"
+          - "&e这个标识符需要是唯一的。"
+      item:
+        title: "&a物品"
+        description:
+          - "&7将用于显示的物品"
+          - "&7用来表示这个箱子。"
+        name:
+          title: "&a物品名称"
+          description:
+            - "&7将被使用的名称"
+            - "&7来表示这个物品"
+        lore:
+          title: "&a物品描述"
+          description:
+            - "&7将被使用的描述"
+            - "&7来表示这个物品"
+      link-keys:
+        title: "&a链接钥匙"
+        description:
+          - "&7点击这里您将能够"
+          - "&7将钥匙链接到此箱子。"
+      animations:
+        title: "&a动画"
+        description:
+          - "&7点击这里你将能够"
+          - "&7更改这个箱子的动画。"
+          - ""
+          - "&f你可以配置："
+          - "&8> &a空闲动画"
+          - "&8> &a打开动画"
+      rerolls:
+        title: "&a重新抽取"
+        description:
+          - "&7点击这里你将能够"
+          - "&7定义这个箱子的重新抽取次数。"
+      mass-opening:
+        title: "&a批量打开"
+        description:
+          - "&7点击这里你可以配置"
+          - "&7箱子的批量打开设置。"
+      display-settings:
+        block-material:
+          title: "&a方块材质"
+          description:
+            - "&7点击这里你将能够"
+            - "&7更改用于箱子方块的材质。"
+        crate-engine:
+          title: "&a箱子方块引擎"
+          description:
+            - "&7点击此处你将能够"
+            - "&7更改引擎并自定义它."
+            - ""
+            - "&b➥ 原版方块引擎:"
+            - "&7基于标准材料的箱子."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Vanilla Model engine: &9(1.12+)"
+            - "&7自定义资源包静态模型."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model Engine / Better Model:"
+            - "&7带动画的自定义模型."
+            - ""
+            - "&f引擎:"
+        rewards-mode:
+          title: "&a奖励模式"
+          description:
+            - "&7点击这里，您可以更改"
+            - "&7此奖励系统将使用的模式。"
+            - ""
+            - "&b➥ 随机模式："
+            - "&7奖励将根据其分配的权重（几率）"
+            - "&7随机选择。这种模式增加了惊喜和运气的元素。"
+            - ""
+            - "&b➥ 选择模式："
+            - "&7这种模式移除了随机性，允许"
+            - "&7用户从可用选项中直接选择他们想要的奖励。"
+            - "&7理想于给用户控制他们的奖励。"
+            - ""
+            - "&f模式："
+        hologram:
+          title: "&a全息图"
+          description:
+            - "&7点击这里，您将能够"
+            - "&7配置此箱子上方的全息图。"
+        idle-animation:
+          title: "&a静止动画"
+          description:
+            - "&7点击这里，您将能够"
+            - "&7自定义此箱子的静止动画。"
+            - ""
+            - "&7当玩家没有打开此箱子时，"
+            - "&7静止动画将会出现。"
+        opening-animation:
+          title: "&a开启动画"
+          description:
+            - "&7点击这里，您将能够"
+            - "&7自定义此箱子的开启动画。"
+            - ""
+            - "&f开启动画是如何工作的？"
+            - "&7该动画由3个阶段组成，每个"
+            - "&7阶段由不同的小动画"
+            - "&7和属性组成。简而言之，阶段"
+            - "&7代表动画的开始、中间和结束。"
+            - ""
+            - "&7如果您使用的是支持"
+            - "&7模型动画的引擎，您可以与每个级别"
+            - "&7同步某些模型动画。"
+        engine-mode:
+          title: "&a引擎模式"
+          description:
+            - "&7点击这里你将能够"
+            - "&7更改这个箱子将使用的引擎。"
+            - ""
+            - "&b➥ 原版方块引擎："
+            - "&7一个箱子的默认引擎，表示将"
+            - "&7是选择的作为此箱子的方块的材料。"
+            - ""
+            - "&b➥ 纯正模型引擎：&9(1.12+)"
+            - "&7可以为箱子分配一个自定义静态模型"
+            - "&7但不支持动画。此功能支持原版模型"
+            - "&7通过材料和自定义模型数据。"
+            - ""
+            - "&b➥ 其他：&9(1.16.5+)"
+            - "&7可以为箱子分配一个自定义模型以及"
+            - "&7自定义开启动画。"
+            - ""
+            - "&f引擎："
+      open-cooldown:
+        title: "&a开启冷却时间"
+        description:
+          - "&7点击这里更改玩家"
+          - "&7在打开另一个箱子之前必须等待的"
+          - "&7时间。"
+      open-cost:
+        title: "&a打开花费引擎"
+        description:
+          - "&7点击此处，你可以定义一个"
+          - "&7额外的开启此箱子的方法"
+          - ""
+          - "&e&l提示&r&e: &7禁用钥匙要求以使用"
+          - "      &7将此方法作为主要方法。"
+      open-cost-amount:
+        title: "&a开箱花费数量"
+        description:
+          - "&7当开启此箱时将收取的"
+          - "&7货币数量。"
+      open-cost-currency:
+        title: "&a货币"
+        description:
+          - "&7将用于收取费用的 ExcellentEconomy"
+          - "&7货币。"
+      simultaneous-openings:
+        title: "&a同时开启"
+        description:
+          - "&7此选项允许您定义"
+          - "&7一个或多个玩家是否可以"
+          - "&7同时打开此箱子。"
+          - ""
+          - "&e&n快速开启已禁用"
+          - "&e&n无同时开启"
+      preview-reward:
+        title: "&a预览奖励"
+        description:
+          - "&7通过点击这里，你将启用"
+          - "&7在每个箱子上方的预览奖励。"
+      permission-required:
+        title: "&a权限要求"
+        description:
+          - "&7通过点击这里，你将设置"
+          - "&7玩家必须拥有的权限"
+          - "&7以打开这个箱子。"
+      rewards:
+        title: "&a奖励"
+        description:
+          - "&7通过点击这里，你将能够"
+          - "&7配置玩家通过打开这个箱子"
+          - "&7可以获得的所有奖励。"
+        add:
+          title: "&a添加奖励"
+          description:
+            - "&7通过点击这里，你可以开始"
+            - "&7设置这个箱子的新奖励。"
+        edit:
+          title: "&a奖励 #%position%"
+          description: []
+        multiple-rewards:
+          title: "&a添加多个奖励"
+          description:
+            - "&7通过点击这里，你可以"
+            - "&7一次性添加多个奖励。"
+        reordering:
+          title: "&a重新排序"
+          description:
+            - "&7通过点击这里，你可以整理"
+            - "&7奖励的顺序。"
+          selected:
+            title: "&e已选择"
+        win-amount:
+          title: "&a最大赢取奖励"
+          description:
+            - "&7通过点击这里，你可以定义"
+            - "&7玩家一次可以赢得多少奖励。"
+      reward:
+        drag-item:
+          title: "&a拖动一个物品"
+          description:
+            - "&7拖动任何物品以设置奖励。"
+            - ""
+            - "&6拖动 & 放置: 替换物品。"
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6拖动 & 放置: &e替换物品。"
+        identifier:
+          title: "&a更改标识符"
+          description:
+            - "&7通过点击这里，你将能够"
+            - "&7重命名你的奖励标识符。"
+            - "&e这个标识符需要是唯一的。"
+        display-item:
+          title: "&a显示物品"
+          description:
+            - "&7这个物品将作为显示"
+            - "&7代表这个箱子的奖励。"
+          name:
+            title: "&a显示名称"
+            description:
+              - "&7将用于表示此奖励的名称"
+              - "&7"
+          lore:
+            title: "&a显示描述"
+            description:
+              - "&7将用于表示此奖励的描述"
+              - "&7"
+        alternative-item:
+          title: "&a替代物品"
+          description:
+            - "&7如果条件满足，这个物品将是用户"
+            - "&7将获得的额外物品。"
+        win-items:
+          title: "&a赢取物品"
+          description:
+            - "&7通过点击这里，你将能够"
+            - "&7添加玩家在赢得此奖励时将"
+            - "&7收到的物品。"
+          add-item:
+            title: "&a添加物品"
+            description:
+              - "&7从你的物品栏拖动一个物品"
+              - "&7到这里作为这个奖励的物品。"
+        weight:
+          title: "&a权重"
+          description:
+            - "&7权重将会影响"
+            - "&7玩家获得该物品的几率。"
+        virtual:
+          title: "&a虚拟物品"
+          description:
+            - "&7此选项设定赢家是否"
+            - "&7应收到实际物品。"
+        win-commands:
+          title: "&a赢取指令"
+          description:
+            - "&7通过点击这里你可以管理"
+            - "&7当玩家赢得此奖励时将执行的"
+            - "&7所有指令。"
+        max-win-item-amount:
+          title: "&a最大中奖物品数量"
+          description:
+            - "&7设置当中奖时"
+            - "&7从 win-items 列表中"
+            - "&7给予的最大物品数量。"
+            - "&7设置为 &e∞ &7表示无限制。"
+        max-win-command-amount:
+          title: "&a最大中奖命令数量"
+          description:
+            - "&7设置当中奖时"
+            - "&7从 win-commands 列表中"
+            - "&7将被执行的最大命令数量。"
+            - "&7设置为 &e∞ &7表示无限制。"
+        broadcast:
+          title: "&a广播消息"
+          description:
+            - "&7此选项设定当玩家赢得此奖励时，"
+            - "&7是否应出现广播消息。"
+        share-players-online:
+          title: "&a与在线玩家分享"
+          description:
+            - "&7此选项设定此奖励奖品"
+            - "&7是否应与在线每个人分享。"
+        allow-win-message:
+          title: "&a允许中奖消息"
+          description:
+            - "&7此选项设置当玩家"
+            - "&7中奖时是否会收到消息。"
+        notification-types:
+          title: "&a通知类型"
+          description:
+            - "&7点击此处可更改"
+            - "&7中奖消息的发送方式。"
+        enabled:
+          title: "&a已启用"
+          description:
+            - "&7点击此处你将能够"
+            - "&7更改此奖励是否可用。"
+        win-limit:
+          title: "&a赢取限制"
+          description:
+            - "&7此选项设定玩家可以"
+            - "&7赢得此奖励的次数。"
+            - ""
+            - "&e&l提示: &7你可以将此"
+            - "       &7与替代奖励结合使用。"
+        global-win-limit:
+          title: "&a全局中奖限制"
+          description:
+            - "&7此选项设置此奖励"
+            - "&7可被服务器上所有人"
+            - "&7总共中奖的次数。"
+            - ""
+            - "&e&l提示: &7你可以将此"
+            - "       &7与替代奖励结合。"
+        cooldowns:
+          title: "&a冷却时间"
+          description:
+            - "&7点击此处你将能够"
+            - "&7配置此奖励的"
+            - "&7冷却时间。"
+          win-limit-cooldown:
+            title: "&a中奖限制冷却"
+            description:
+              - "&7此选项设置玩家需要等待"
+              - "&7的时间，才能再次"
+              - "&7赢得此奖励。"
+          global-win-limit-cooldown:
+            title: "&a全局中奖限制冷却"
+            description:
+              - "&7此选项设置此奖励在"
+              - "&7被服务器上任何人再次赢得之前"
+              - "&7必须经过多长时间。"
+          time-limited-cooldown:
+            title: "&a限时冷却"
+            description:
+              - "&7此选项设置此奖励在其冷却开始"
+              - "&7后将保持可用的时长。"
+              - "&7cooldown is started."
+              - ""
+              - "&7当其到期时，奖励将"
+              - "&7自动禁用。"
+          duration:
+            weeks:
+              title: "&a周数"
+              description:
+                - "&7要添加到此冷却时长的周数"
+                - "&7。"
+            days:
+              title: "&a天数"
+              description:
+                - "&7要添加到此冷却时长的天数"
+                - "&7。"
+            hours:
+              title: "&a小时数"
+              description:
+                - "&7要添加到此冷却时长的小时数"
+                - "&7。"
+            minutes:
+              title: "&a分钟数"
+              description:
+                - "&7要添加到此冷却时长的分钟数"
+                - "&7。"
+            disable:
+              title: "&c禁用冷却"
+              description:
+                - "&7将此冷却的时长"
+                - "&7重置为零，从而禁用它。"
+        requirements:
+          title: "&a要求"
+          description:
+            - "&7配置此奖励的权限要求"
+            - "&7。"
+          required-permission:
+            title: "&a所需权限"
+            description:
+              - "&7设置玩家必须拥有的权限"
+              - "&7以将此奖励视为可用。"
+              - "&7如果玩家缺少该权限，奖励"
+              - "&7将在预览中显示为锁定状态。"
+        restricted-permissions:
+          title: "&a受限权限"
+          description:
+            - "&7此选项定义了"
+            - "&7玩家不能拥有的受限权限"
+            - "&7以赢得此奖励。"
+            - "&e如果玩家有op，则不适用。"
+            - ""
+            - "&e&l提示：&7您可以将其与一个替代奖励结合使用。"
+            - "       &7。"
+        alternative-reward:
+          title: "&a替代奖励"
+          description:
+            - "&7点击此处您将能够配置"
+            - "&7此奖励的替代奖励。"
+            - ""
+            - "&7如果在玩家超过赢得限制或拥有黑名单权限时，"
+            - "&7他将获得此奖励。"
+            - ""
+            - ""
+        delete:
+          title: "&a删除奖励"
+          description:
+            - "&7点击此处，此奖励将从此箱中删除。"
+            - ""
+        percentage:
+          title: "&a百分比"
+          description:
+            - "&7百分比将影响"
+            - "&7玩家赢得此物品的几率。"
+      menus:
+        title: "&a菜单"
+        description:
+          - "&7点击此处您将能够配置"
+          - "&7此箱的所有菜单。"
+      rewards-menu:
+        title: "&a奖励菜单"
+        description:
+          - "&7点击此处您将能够配置"
+          - "&7此箱将拥有的奖励菜单。"
+      preview-actions:
+        title: "&a预览操作"
+        description:
+          - "&7点击此处你将能够配置"
+          - "&7当玩家点击预览此箱子时将运行的"
+          - "&7动作。"
+          - "&7这些可以与奖励预览菜单一起使用，或"
+          - "&7代替奖励预览菜单。"
+      rerolls-menu:
+        title: "&a重抽菜单"
+        description:
+          - "&7点击此处您将能够配置"
+          - "&7此箱将拥有的重抽菜单。"
+      selective-rewards-menu:
+        title: "&a选择性奖励菜单"
+        description:
+          - "&7点击此处您将能够配置"
+          - "&7此箱将拥有的选择性奖励菜单。"
+      milestones-menu:
+        title: "&a里程碑菜单"
+        description:
+          - "&7点击此处您将能够配置"
+          - "&7此箱将拥有的预览菜单。"
+      broadcast-message:
+        title: "&a广播消息"
+        description:
+          - "&7点击此处您将能够配置"
+          - "&7奖励的广播消息。"
+          - ""
+          - "&e可用占位符："
+          - "&7%player%， %reward%， %crate%"
+      enabled:
+        title: "&a启用"
+        description:
+          - "&7点击此处您将能够"
+          - "&7更改此箱是否可用。"
+      allow-open-command:
+        title: "&a允许使用打开命令"
+        description:
+          - "&7点击此处你将能够"
+          - "&7切换此箱子是否可以"
+          - "&7通过 &f/crate open &7命令打开。"
+      attach-block:
+        title: "&a附加块"
+        description:
+          - "&7点击此处您将能够"
+          - "&7通过附加一个块来创建一个箱子。"
+      delete:
+        title: "&a删除箱子"
+        description:
+          - "&7点击此处此箱子"
+          - "&7将从服务器中删除。"
+          - ""
+          - "&e&n此箱中的所有钥匙将不再有效。"
+      hologram:
+        engine-mode:
+          title: "&a全息引擎模式"
+          description:
+            - "&7插件使用的引擎"
+            - "&7用于全息显示"
+            - ""
+            - "&f引擎: &7%engine%"
+        lines:
+          title: "&a全息行"
+          description:
+            - "&7通过点击此处您将能够"
+            - "&7配置此箱子的全息行。"
+            - ""
+            - "&e&lTIP: &7你可以使用 &ePlaceholderAPI&7."
+        identifier:
+          title: "&a标识符"
+          description:
+            - "&7通过点击此处您将能够"
+            - "&7定义全息插件的标识符。"
+            - ""
+            - "&f标识符: &7%id%"
+        offset:
+          title: "&a全息偏移"
+          description:
+            - "&7此选项允许您调整全息显示"
+            - "&7的位置，基于箱子位置。"
+      display-name:
+        title: "&a显示名称"
+        description:
+          - "&7点击这里你将能够"
+          - "&7重命名你的箱子。"
+      open-money-cost:
+        title: "&a开启花费金额"
+        description:
+          - "&7点击这里更改开启此箱子所需的"
+          - "&7金钱。"
+          - "&7按键并右键点击。"
+          - ""
+          - "&e&n仅与 Vault 一起工作！"
+    crate-engine:
+      first-phase-delay:
+        title: "&a第一阶段开始延迟"
+        description:
+          - "&7定义从箱子打开的时刻"
+          - "&7到第一阶段动画开始之间的"
+          - "&7延迟。"
+      second-phase-delay:
+        title: "&a第二阶段开始延迟"
+        description:
+          - "&7定义第一阶段与第二阶段"
+          - "&7开箱动画之间的延迟。"
+      third-phase-delay:
+        title: "&a第三阶段开始延迟"
+        description:
+          - "&7定义第二阶段与第三阶段"
+          - "&7开箱动画之间的延迟。"
+      idle:
+        title: "&a闲置动画"
+        description:
+          - "&7定义当箱子处于闲置时"
+          - "&7将播放的动画。"
+      close-animation:
+        title: "&a关闭动画"
+        description:
+          - "&7定义当箱子关闭时"
+          - "&7将播放的动画。"
+      model-name:
+        title: "&a模型名称"
+        description:
+          - "&7定义此箱子将使用的"
+          - "&7模型名称。"
+          - ""
+          - "&f当前模型: &7%name%"
+      model-engine:
+        model-name:
+          title: "&a模型名称"
+          description:
+            - "&7点击此处你将能够"
+            - "&7更改此箱子的模型名称。"
+            - ""
+            - "&f当前名称: &7%name%"
+      better-model:
+        model-name:
+          title: "&a模型名称"
+          description:
+            - "&7点击此处你将能够"
+            - "&7更改此箱子的模型名称。"
+            - ""
+            - "&f当前名称: &7%name%"
+        scale:
+          title: "&a缩放"
+          description:
+            - "&7为此定义大小倍数"
+            - "&7模型。 1.0 是模型的正常大小。"
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6左键点击：&e选择材料。"
+        custom-model-data:
+          title: "&a自定义模型数据"
+          description:
+            - "&7点击此处您将能够"
+            - "&7更改此物品的自定义模型数据。"
+            - ""
+            - "&f自定义模型数据：&7%custom_model_data%"
+            - ""
+            - "&6左键点击：&e更改自定义模型数据。"
+    reward-commands:
+      add:
+        title: "&a添加命令"
+        description:
+          - "&7点击此处您将能够添加"
+          - "&7一个将在玩家赢得此奖励时执行的命令。"
+          - ""
+          - "&7以&a* &7开头的命令由"
+          - "&7玩家执行。否则，将由控制台执行。"
+          - null
+          - ""
+          - "&7您还可以使用占位符 &a%player%"
+          - "&7和来自 &aPlaceholderAPI&7 的占位符。"
+          - ""
+          - "&6左键点击: &e添加命令。"
+      command:
+        title: "&a命令 #%id%"
+        description:
+          - "&f命令: &7%command%"
+          - ""
+          - "&6左键点击: &e移除命令。"
+    alternative-reward:
+      enabled:
+        title: "&a状态"
+        description:
+          - "&7当备用奖励处于激活状态时，"
+          - "&7如果玩家超过获胜限制或"
+          - "&7具有黑名单权限，他将"
+          - "&7获得此奖励。"
+    edit-standby-animation:
+      add-effect:
+        title: "&a添加效果"
+        description:
+          - "&7点击这里您将能够"
+          - "&7向空闲动画添加新效果。"
+          - ""
+          - "&6左键点击 &e添加效果。"
+      edit-effect:
+        title: "&e效果 #%id%"
+        description:
+          - ""
+          - "&f效果类型: &7%effect_type%"
+          - "&f粒子类型: &7%particle_type%"
+          - "&f粒子速度: &7%particle_velocity%"
+          - "&f颜色: &7%color%"
+          - "&f偏移: &7%offset%"
+          - "&f扩散: &7%spread%"
+          - "&f数量: &7%amount%"
+          - ""
+          - "&6左键点击 &e编辑效果。"
+          - "&6Shift + 左键点击: &e移除效果。"
+    edit-standby-effect:
+      effect-type:
+        title: "&a效果类型&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6左/右键点击: &e切换类型。"
+      particle-type:
+        title: "&a粒子类型"
+        description:
+          - "&f当前: &7%particle_type%"
+          - ""
+          - "&6左键点击: &e更改粒子。"
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&f属性: &a%properties%"
+          - ""
+          - "&6左键点击: &e选择粒子。"
+      color:
+        title: "&a颜色"
+        description:
+          - "&f当前: &7%color%"
+          - ""
+          - "&e&n仅适用于可着色粒子。"
+          - ""
+          - "&6左键点击: &e更改颜色。"
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6左键点击: &e选择颜色。"
+      spread:
+        title: "&a扩散"
+        description:
+          - "&f当前: &7%spread%"
+          - ""
+          - "&6左键点击: &e增加 0.1。"
+          - "&6Shift + 左键点击: &e增加 1。"
+          - "&6右键点击: &e减少 0.1。"
+          - "&6Shift + 右键点击: &e减少 1。"
+      particle-velocity:
+        title: "&a粒子速度"
+        description:
+          - "&f当前: &7%particle_velocity%"
+          - ""
+          - "&6左键点击: &e增加 0.1。"
+          - "&6Shift + 左键点击: &e增加 1。"
+          - "&6右键点击: &e减少 0.1。"
+          - "&6Shift + 右键点击: &e减少 1。"
+      amount:
+        title: "&a数量"
+        description:
+          - "&f当前: &7%amount%"
+          - ""
+          - "&6左键点击: &e增加 1。"
+          - "&6右键点击: &e减少 1。"
+      offset-x:
+        title: "&a偏移 X"
+        description:
+          - "&f当前: &7%offset_x%"
+          - ""
+          - "&6左键点击: &e增加 0.1。"
+          - "&6Shift + 左键点击: &e增加 1。"
+          - "&6右键点击: &e减少 0.1。"
+          - "&6Shift + 右键点击: &e减少 1。"
+      offset-y:
+        title: "&a偏移 Y"
+        description:
+          - "&f当前: &7%offset_y%"
+          - ""
+          - "&6左键点击: &e增加 0.1."
+          - "&6Shift + 左键点击: &e增加 1."
+          - "&6右键点击: &e减少 0.1."
+          - "&6Shift + 右键点击: &e减少 1."
+      offset-z:
+        title: "&a偏移 Z"
+        description:
+          - "&f当前: &7%offset_z%"
+          - ""
+          - "&6左键点击: &e增加 0.1."
+          - "&6Shift + 左键点击: &e增加 1."
+          - "&6右键点击: &e减少 0.1."
+          - "&6Shift + 右键点击: &e减少 1."
+    opening-animation:
+      phase-updated: "&a动画阶段已更新。"
+      preset-applied: "&a已应用开箱动画预设。"
+      preset-removed: "&a未选择预设。"
+      phase:
+        title: "&a%phase% 阶段"
+        description:
+          - "&7每个开启动画由"
+          - "&7多个阶段组成，这是其中一个阶段."
+          - ""
+          - "&f阶段: &e%name%"
+      change-phases:
+        title: "&a动画阶段"
+        description:
+          - "&7选择开启动画"
+          - "&7阶段的动画."
+          - ""
+          - "&6左键点击: &e更改动画."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&a%phase% 阶段"
+        description:
+          - "&7每个开启动画由"
+          - "&7多个阶段组成，这是其中一个阶段."
+          - ""
+          - "&f阶段: &e%name%"
+          - ""
+          - "&6左键点击: &e导航"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&f所需版本: &7%required_version%"
+          - ""
+          - "&6左键点击: &e创建阶段."
+          - "&6Shift + 左键点击: &e快速创建阶段."
+  command:
+    info:
+      - ""
+      - "&e➥ &6可用命令:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6附加信息:"
+      - " &9<argument> - 必需参数"
+      - " &3[argument] - 可选参数"
+    usage:
+      - ""
+      - "&e➥ 用法:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "抱歉，您没有权限执行此命令."
+    permission-denied-parameter: "抱歉，您没有权限执行此命令."
+    error-generic-logged: "发生错误. 此问题已被记录. 抱歉给您带来不便."
+    unknown-command: "&c未知命令, 请键入 &4%command%"
+    error-prefix: "&c错误: %message%"
+    error-performing-command: "抱歉，在执行此命令时发生错误."
+    please-specify-one-of: "请选择以下之一 (&2%valid%)."
+    must-be-a-number: "%num% 必须是一个数字."
+    must-be-min-length: "长度必须至少为 %min% 个字符."
+    must-be-max-length: "长度必须最多为 %max% 个字符."
+    please-specify-at-most: "请指定一个最大为 %max% 的值."
+    please-specify-at-least: "请指定一个最小为 %min% 的值."
+    player-offline: "玩家 %player% 不在线!"
+  plans:
+    unlock-premium: §c仅在高级版中可用。
+    unlock-pro: §c仅在专业版中可用。
+    upgrade-at: §4在phoenixplugins.com升级
+  crate-type-received: "&a你收到了一个可放置的匣子。"
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% 匣子"
+      lore: "&7在某个地方放置这个匣子！"
+  loading-data: "&7正在加载玩家数据..."

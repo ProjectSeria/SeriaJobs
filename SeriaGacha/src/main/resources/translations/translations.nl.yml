@@ -1,0 +1,1452 @@
+nl:
+  error-processing:
+    - "&cEr is een fout opgetreden bij het verwerken van deze actie (Controleer
+      de console):"
+    - "&7%message%"
+  unknown-argument: "&cOnbekend argument!"
+  no-permission: "&cJe mag dit niet doen!"
+  command-not-allowed: "&cJe bent niet toegestaan deze opdracht uit te voeren!"
+  only-ingame-players: "&cOpdracht alleen toegestaan voor spelers in het spel."
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: Laatste
+    swap-option: Optie verwisselen
+    option: Optie
+    item: Item
+    all: Alle
+    go-back: Teruggaan
+    navigate: Navigeren
+    reload: Herladen
+    switch-state: Toestand wisselen
+    state: Status
+    empty: "&7(Leeg)"
+    default: "&7(Standaard)"
+    undefined: "&7Onbepaald"
+    yes-word: "&aJa"
+    no-word: "&cNee"
+    location: Locatie
+    region: Regio
+    material: Materiaal
+    # Others
+    menu: Menu
+    enabled: Ingeschakeld
+    disabled: Uitgeschakeld
+    range: Bereik
+    multiplier: Vermenigvuldiger
+    cooldown: Afkoeltijd
+    receive-crate: Kist ontvangen
+    receive-key: Ontvang sleutel
+    identifier: Identificatie
+    display-name: Weergavenaam
+    line: Regel
+    swap-engine: Motor verwisselen
+    edit-engine: Motor bewerken
+    documentation: Documentatie
+    not-installed: Niet geïnstalleerd
+    not-available: Niet beschikbaar
+    not-enabled: Niet ingeschakeld
+    command: commando
+    none: Geen
+    action: Actie
+    color: Kleur
+    flag: Vlag
+    pattern: Patroon
+    enchant: Betovering
+    effect: Effect
+    value: Waarde
+    red: Rood
+    green: Groen
+    blue: Blauw
+    item-model: Item Model
+    tooltip-style: Tooltip Stijl
+    trim-material: Trim Materiaal
+    trim-pattern: Trim Patroon
+    model-data: Modelgegevens
+    title: Titel
+    particle: Partikel
+    velocity: Snelheid
+    spread: Verspreiding
+    offset-x: Offset X
+    offset-y: Offset Y
+    offset-z: Offset Z
+    change-amount-money: Verander bedrag aan geld
+    money-necessary: Geld nodig
+    vault-installed: Vault geïnstalleerd
+    points-installed: PlayerPoints geïnstalleerd
+    swap-cost-engine: Wissel kostensysteem
+    set-cost-amount: Stel kostbedrag in
+    cost-amount: Kostbedrag
+    required: Vereist
+    permission: Toestemming
+    crate: Crate
+    key: Sleutel
+    reward: Beloning
+    multiple-rewards: Meerdere beloningen
+    items: Items
+    cancel: Annuleren
+    animation: Animatie
+    limited-time-offer: Beperkte tijd aanbieding
+    see-more: Zie meer
+    attach-block: Hecht blok
+    reorder-reward: Herordenen beloning
+    set-as-default-display-name: Instellen als standaard weergavenaam
+    set-as-default-display-lore: Instellen als standaard uitvoer beschrijving
+    update-block: "Update blok"
+    percentage: Percentage
+    weight: "Gewicht"
+    chance: Kans
+    win-limit: Winnend limiet
+    global-win-limit: Globale winlimiet
+    win-limit-cooldown: Winlimiet cooldown
+    global-win-limit-cooldown: Globale winlimiet cooldown
+    time-limited-cooldown: Tijdgebonden cooldown
+    unlimited: Onbeperkt
+    virtual: Virtueel
+    broadcast: Uitzending
+    paid: Betaald
+    free: Gratis
+    save: Opslaan
+    leave: Verlaten
+    select: Selecteer
+    add: Toevoegen
+    edit: Bewerken
+    remove: Verwijderen
+    confirm: Bevestigen
+    decline: Afsluiten
+    locked-field: Vergrendeld veld
+    add-items: Items toevoegen
+    no-cooldown: Geen afkoeltijd
+    current: Huidig
+    first: Eerste
+    second: Tweede
+    third: Derde
+    to-choose: Te kiezen
+    not-colorable: Niet kleurbaar
+    previous-phase: Vorige fase
+    next-phase: Volgende fase
+    default-menu: Standaardmenu
+    amount: "Hoeveelheid"
+    migrate-files: "Migreren bestanden"
+    rerolls: "Herrols"
+    group: "Groep"
+    broadcast-message: "Uitzendbericht"
+    only-premium: "Beschikbaar op premium"
+    sharing: "Delen"
+    everyone: "Iedereen"
+    openings: "Openingen"
+    required-keys: "Vereiste sleutels"
+    key-required: "Sleutel vereist"
+    crates-linked: "Crates gekoppeld"
+    keys-linked: "Sleutels gekoppeld"
+    rarity: "Zeldzaamheid"
+    synced: "Gesynchroniseerd"
+    not-set: "Niet ingesteld"
+    clear-lines: "Regels wissen"
+    add-empty-line: "Lege regel toevoegen"
+    receive-placeable-crate: Ontvang plaatsbare crate
+    disable-money-requirement: Schakel geldvereiste uit
+  readers:
+    exit-session: "&aOm deze sessie te verlaten typ &e\\\"annuleren\\\"&a."
+    write-chat: "&aTyp in de chat."
+  time:
+    week: "Week"
+    weeks: "Weken"
+    day: "Dag"
+    days: "Dagen"
+    hour: "Uur"
+    hours: "Uren"
+    minute: "Minuut"
+    minutes: "Minuten"
+    second: "Seconde"
+    seconds: "Seconden"
+
+  unlock-addon:
+    - "&cVereist %addon% Addon."
+    - "&4Ontgrendel op phoenixplugins.com"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ Phoenix Crates Opdrachten"
+      - "%commands%"
+      - ""
+      - "&e➥ Aanvullende informatie:"
+      - " &9<argument> - vereist argument"
+      - " &3[argument] - optioneel argument"
+    usage: "&e➥ Gebruik:"
+    create: " &f/%command% create &9<identifier> &8- &7Creëer crate type"
+    delete: " &f/%command% delete &9<identifier> &8- &7Verwijder crate type"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7Geef jezelf een crate
+      om geplaatst te worden"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8- &7Geef
+      een speler(of alle spelers) een sleutel"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7Geef
+      iedereen online een sleutel"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8- &7Stel
+      virtuele sleutels van speler in"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7Stel
+      virtuele sleutels van speler in"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7Staat je toe om
+      crate beloningen te bekijken"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7Geef een speler(of alle spelers) herrollen"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8-
+      &7Neemt de herrollen van speler"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8-
+      &7Geef een speler(of alle spelers) een crate beloning"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7Geef een speler(of alle spelers) een willekeurige kistbeloning"
+    editor: " &f/%command% editor &8- &7Staat je toe om alle crates in-game te
+      bewerken"
+    reload: " &f/%command% reload &8- &7Herlaad alle PhoenixCrates
+      configuratiebestanden"
+  player-offline: "&cSpeler %name% is niet online!"
+  not-a-number: "&cHet geplaatste bedrag is geen nummer."
+  plugin-reloaded: "&aPhoenixCrates is succesvol herladen."
+  crate-type-created: "&aCrate type succesvol aangemaakt."
+  crate-type-deleted: "&aCrate type succesvol verwijderd."
+  cooldown-reset: "&aCooldown voor &e%player% &aop kist &e%crate% &ais gereset."
+  cooldown-reset-received: "&aJe cooldown voor kist &e%crate% &ais gereset."
+  cooldown-reset-no-cooldown: "&cDeze kist heeft geen cooldown ingesteld."
+  cooldown-reset-not-active: "&cDie speler heeft geen actieve cooldown voor deze kist."
+  global-win-limit-reset: "&aDe globale winstteller voor beloning &e%reward% &aop
+    kist &e%crate% &ais gereset."
+  global-win-limit-not-tracked: "&cDeze beloning heeft geen globale winlimiet
+    ingesteld, dus er is niets om te resetten."
+  reward-cooldown-started: "&aDe tijdgebonden cooldown voor beloning &e%reward%
+    &aop kist &e%crate% &ais gestart."
+  reward-cooldown-started-all: "&aDe tijdgebonden cooldown is gestart voor
+    &e%amount% &abeloning(en) op kist &e%crate%&a."
+  reward-cooldown-not-configured: "&cDeze beloning heeft geen tijdgebonden cooldown ingesteld."
+  reward-cooldown-none-configured: "&cGeen beloningen op deze kist hebben een tijdgebonden cooldown ingesteld."
+  check-keys-header: "&#ffd500&lSleutels van %player%:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7Sleutel(s)"
+  check-keys-none: "&7- &7Geen virtuele sleutels."
+  key-deleted: "&aSleutel succesvol verwijderd."
+
+  key-given: "&e%amount% &asleutel(s) met succes aan %player% gegeven."
+  key-given-all: "&a%amount% sleutel(s) zijn succesvol gegeven aan alle online spelers."
+  key-given-offline: "&e%amount% &asleutel(s) met succes aan %player% gegeven."
+  key-set: "&e%amount% &asleutel(s) met succes ingesteld voor %player%."
+  key-taken: "&e%amount% &asleutel(s) met succes van %player% afgenomen."
+
+  key-received: "&aJe hebt &ex%amount% &7%display_name% &r&alsleutel(s) ontvangen."
+  virtual-key-received: "&aJe hebt &ex%amount% &7%display_name% &r&avirtuele sleutel(s) ontvangen."
+
+  key-lost: '&c%amount% sleutel(s) voor kist &2\"%display_name%&2\"&c is van jou
+    afgenomen!'
+  virtual-key-lost: '&c%amount% virtuele sleutel(s) voor kist
+    &2\"%display_name%&2\"&c is van jou afgenomen!'
+
+  crate-rerolls-received: '&aJe hebt %amount% herkansingen voor kist
+    &2\"%display_name%&2\"&a ontvangen!'
+
+  crate-given: "&e%amount% &akist(en) met succes aan %player% gegeven."
+
+  random-reward-given: "&aEen willekeurige beloning is succesvol gegeven aan %player%."
+  no-available-rewards: "&cDeze kist heeft geen beschikbare beloningen."
+
+  crate-received: "&aJe hebt &ex%amount% &7%display_name% &r&akist(en) ontvangen."
+  crate-no-placed-instances: "&cGeen geplaatste kisten gevonden voor type &e%crate%&c."
+  crate-open-command-disabled: "&cDe kist &e%crate% &cka kan niet geopend worden met dit commando."
+  crate-type-dont-exist: '&cEr bestaat geen kisttype met de identificatie \"%identifier%\"!'
+  crate-type-already-exist: '&cEr bestaat al een kisttype met de identificatie \"%identifier%\"!'
+  key-dont-exist: '&cEr bestaat geen sleutel met de identificatie \"%identifier%\"!'
+  key-already-exist: '&cEr bestaat al een sleutel met de identificatie \"%identifier%\"!'
+  need-plugin-reload: "&6Plugin herladen nodig!"
+
+  crate:
+    disabled: "&cDeze crate is momenteel uitgeschakeld!"
+    quick-open-available: "&eAgteren en klik opnieuw om de animatie over te slaan en
+      een andere kist te openen."
+    already-opening: "&cIemand is al deze kist aan het openen, wacht!"
+    no-linked-key: "&cDeze kist heeft geen gekoppelde sleutels!"
+    no-key: "&cJe hebt %key%&r&c nodig om deze kist te openen!"
+    no-keys: "&cJe hebt niet genoeg sleutels om deze kist te openen!"
+    no-keys-amount: "&cJe hebt %amount% sleutel(s) nodig om deze kist te openen."
+    redeem-no-keys: "&cJe hebt %required_keys% sleutel(s) nodig om deze beloning in
+      te wisselen."
+    cooldown-wait: "&cJe moet wachten %cooldown% voordat je deze kist opnieuw kunt openen."
+    cost-engine-not-installed: "&cDe munten-engine lijkt niet ingesteld te zijn
+      (neem contact op met een admin)."
+    no-money-none: "&cJe kunt deze kist momenteel niet openen."
+    no-money-level: "&cJe hebt %money% nodig om deze kist te openen."
+    no-money-vault: "&cJe hebt %money% nodig om deze kist te openen."
+    no-money-playerpoints: "&cJe hebt %money% PlayerPoints nodig om deze kist te openen."
+    no-money-votingplugin: "&cJe hebt %money% stempunten nodig om deze kist te openen."
+    no-money-excellenteconomy: "&cJe hebt %money% nodig om deze kist te openen."
+    money-used-none: "&aJe hebt deze kist geopend."
+    money-used-level: "&aJe hebt zojuist %money_consumed% gebruikt om deze kist te openen."
+    money-used-vault: "&aJe hebt zojuist %money_consumed% gebruikt om deze kist te openen."
+    money-used-playerpoints: "&aJe hebt zojuist %money_consumed% PlayerPoints
+      gebruikt om deze kist te openen."
+    money-used-votingplugin: "&aJe hebt zojuist %money_consumed% stempunten gebruikt
+      om deze kist te openen."
+    money-used-excellenteconomy: "&aJe hebt zojuist %money_consumed% gebruikt om deze kist te openen."
+    need-crouched: "&eOm deze kist te verwijderen, moet je gehurkt zijn."
+    successfully-removed: "&aJe hebt deze kist succesvol verwijderd."
+    successfully-placed: "&aJe hebt een kist succesvol geplaatst!"
+    reward-received: "&aJe hebt &ex%amount% %item% ontvangen"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fgot: &ex%amount% &r%reward%"
+    no-rewards: "&cDeze kist heeft geen beloningen."
+    no-available-rewards: "&cDeze kist heeft geen beschikbare beloningen voor jou."
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cEven geduld! We laden je gegevens nog. Probeer de kist
+      over een moment opnieuw te openen!"
+    guaranteed-win-openings: "&3Gegarandeerde winst in %openings% opening(en)"
+    no-permission: "&cJe hebt niet de toestemming om deze kist te openen! [Vereist
+      toestemming: %permission%]"
+    cooldown-display:
+      counting: "&fJe kunt opnieuw openen in &e%cooldown%"
+      over: "&aBeschikbaar om te openen"
+    hologram-type-limited: "&cDeze hologram-engine ondersteunt slechts één geplaatste kist per type."
+    no-money: "&cJe hebt %necessary_money%$ nodig om deze kist te openen."
+    money-used: "&aJe hebt net %money_consumed%$ gebruikt om deze kist te openen."
+    crate:
+      no-rewards-for-key-rarities: "&cDeze kist heeft geen beloningen beschikbaar voor de zeldzaamheden van
+        je sleutels: %rarities%"
+  actions:
+    need-item: "&cJe moet een item toevoegen om deze actie uit te voeren."
+    force-close: "&cJe hebt gedwongen de annulering van wat je aan het doen was."
+
+  layout:
+    actions:
+      left-click: "&6Linker muisklik: &e%action%."
+      right-click: "&6Rechter muisklik: &e%action%."
+      left-right-click: "&6Linker/Rechter muisklik: &e%action%."
+      shift-left-click: "&6Shift + Linker muisklik: &e%action%."
+      shift-right-click: "&6Shift + Rechter muisklik: &e%action%."
+      drag-drop-click: "&6Sleur & Laat vallen: &e%action%."
+      drop-click: "&6Druk op Q: &e%action%."
+      description:
+        add: Voeg %value% toe
+        set: Stel %value% in
+        create: Maak %value% aan
+        remove: Verwijder %value%
+        edit: Bewerk %value%
+        delete: Verwijder %value%
+        receive: Ontvang %value%
+        clear: Wis %value%
+        choose: Kies %value%
+        change: Verander %value%
+        select: Selecteer %value%
+        replace: Vervang %value%
+        unlink: Koppel %value% los
+        link: Koppel %value% aan
+        reorder: Herschik %value%
+    displays:
+      state: "&fIs %type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&fMateriaal: &7%material%"
+      location:
+        empty: "&fLocatie: &7Leeg"
+        populated:
+          - "&fLocatie: "
+          - " &fWereld: &7%world%"
+          - " &fX-as: &7%x%"
+          - " &fY-as: &7%y%"
+          - " &fZ-as: &7%z%"
+          - " &fYaw: &7%yaw%"
+          - " &fPitch: &7%pitch%"
+      region:
+        empty: "&fRegio: &7Leeg"
+        populated:
+          - "&fRegio: "
+          - " &fWereld: &7%world%"
+          - " &fPositie #1: &7%minimum%"
+          - " &fPositie #2: &7%maximum%"
+      item:
+        empty: "&fItem: &7Leeg"
+        populated:
+          - "&fItem: "
+          - " &fNaam: &7%name%"
+          - " &fLore: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&aVorige pagina - Pagina %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&aVolgende pagina - Pagina %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cGeen gegevens gevonden."
+        description:
+          - "&7Geen gegevens gevonden met deze filter."
+      filter:
+        title: "&aFilter"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7filteren op naam."
+          - ""
+          - "&fFilter: &e%filter%"
+          - ""
+          - "&6Linker muisklik: &eStel filter in."
+          - "&6Rechter muisklik: &eWis filter."
+  editor:
+    messages:
+      write-identifier-chat: "&eSchrijf de nieuwe identificatie in de chat."
+      identifier-updated: '&aIdentifier succesvol bijgewerkt naar \"%identifier%&a\"!'
+      write-displayname-chat: "&eSchrijf de nieuwe weergavenaam in de chat."
+      displayname-updated: '&aWeergavenaam succesvol bijgewerkt naar \"%display_name%&a\"!'
+      write-in-chat: "&aSchrijf in de chat."
+      value-updated: "&aWaarde succesvol bijgewerkt!"
+      write-lore-line-chat: "&eSchrijf de nieuwe lore-regel in de chat."
+      lore-line-added: "&aLore-regel succesvol toegevoegd!"
+      lore-cleared: "&aLore succesvol gewist."
+      opening-animation-changed: "&aOpening Animatie succesvol gewijzigd."
+      crate-type-deleted: Crate Type succesvol verwijderd.
+      migration-completed: "&aMigratie voltooid."
+    errors:
+      identifier-already-in-use: "&cDeze identifier is al in gebruik."
+      no-spaces: "&cKan geen spaties hebben!"
+      invalid-input: "&cOngeldige invoer!"
+      invalid-number: "&cOngeldig nummer!"
+      inventory-full: "&cJe inventaris is vol."
+      inventory-full-reward: "&cEen crate beloning is op de grond gevallen omdat je
+        inventaris vol is!"
+      inventory-full-key: "&cEen sleutel viel op de grond omdat je inventaris vol is!"
+      username-not-found: "&cGeen origineel account met de naam %username% gevonden."
+      invalid-rewards: "Er zijn %amount% beloning(en) die ongeldig zijn!"
+      no-rewards-configured: "Er zijn geen beloningen geconfigureerd!"
+      invalid-reward-display: "Ongeldige Beloning: Leeg weergave-item gevonden!"
+      hologram-engine-missing: "&cHologramgegevens verwijzen naar een andere plugin!
+        Wijzig de Hologram Engine in de plugin-instellingen."
+    titles:
+      main: Phoenix Crates v%version% > Editor
+      crates: Editor > Crates
+      keys: Editor > Sleutels
+      migrations: Editor > Migraties
+      addons: Editor > Addons
+      rarities: Editor > Zeldzaamheden
+      settings: Editor > Instellingen
+      engines:
+        bettermodel: Editor > ... > BetterModel
+      crate:
+        new: Editor > ... > Nieuwe Crate
+        show: Editor > ... > Crate
+        display: Editor > ... > Engine
+        menus: Editor > ... > Menu's
+        link-keys: Editor > ... > Koppelen Sleutels
+        idle-animation: Editor > ... > Inactieve Animatie
+        opening-animations: Editor > ... > Opening Animaties
+        opening-animation: Editor > ... > Opening Animatie
+        effect: Editor > ... > Animatie Effect
+        rewards: Editor > ... > Beloningen
+        reward: Editor > ... > Beloning
+        reward-cooldowns: Editor > ... > Beloning Cooldowns
+        reward-requirements: Editor > ... > Beloningseisen
+        reward-cooldown-duration: Editor > ... > Cooldownduur
+        reward-items: Editor > ... > Beloning Items Bewerken
+        reward-commands: Editor > ... > Beloning Commando's Bewerken
+        reward-rarity: Editor > ... > Beloningszeldzaamheid
+        multiple-rewards: Editor > ... > Meerdere Beloningen Toevoegen
+        engine: Editor > ... > Engine
+        hologram: Editor > ... > Hologram
+        milestones: "Editor > ... > Mijlpalen"
+        rerolling: "Editor > ... > Herrollen"
+        others: "Editor > ... > Overigen"
+        open-cost: "Editor > ... > Openkosten"
+      key:
+        show: Editor > ... > Sleutel
+        linked-crates: Editor > ... > Gelinkte Crates
+
+    main:
+      crates:
+        title: "&aCrates"
+        description:
+          - "&7Door hier te klikken, kun je"
+          - "&7alle beschikbare crates verkennen en beheren."
+      keys:
+        title: "&aSleutels"
+        description:
+          - "&7Door hier te klikken, kun je"
+          - "&7alle beschikbare sleutels verkennen en beheren."
+      rarities:
+        title: "&aZeldzaamheden"
+        description:
+          - "&7Door hier te klikken kun je de"
+          - "&7zeldzaamheidsinstellingen configureren en beheren."
+      migrations:
+        title: "&aMigraties"
+        description:
+          - "&7Verken opties voor migratie van andere crate plugins"
+          - "&7en beheers het migratieproces door hier te klikken."
+      addons:
+        title: "&aAddons"
+        description:
+          - "&7Verken extra functies en verbeteringen"
+          - "&7door hier te klikken om het addons menu te openen."
+      settings:
+        title: "&aInstellingen"
+        description:
+          - "&7Door hier te klikken, kun je"
+          - "&7de plugininstellingen verkennen en aanpassen."
+      reload:
+        title: "&aHerlaad Config"
+        description:
+          - "&7Door hier te klikken, zal je een"
+          - "&7herlading van alle pluginconfiguraties starten."
+      pouches:
+        title: "&aTassen"
+        description:
+          - "&7Door hier te klikken, kun je"
+          - "&7alle tassen beheren."
+      crate-claim:
+        title: "&aKist Ophalen"
+        description:
+          - "&7Door hierop te klikken, kun je configureren"
+          - "&7het gedrag en de menu's voor het claimen van kisten."
+    migrations:
+      plugin:
+        title: "&aMigreer van %name%"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7Door hier te klikken kun je"
+          - "&7sommige bestanden migreren van %name% naar deze plugin."
+          - ""
+          - "&aOndersteunde bestanden:"
+          - "&8 &7- %files%"
+          - ""
+          - "&fOndersteunde database: %database%"
+    addons:
+      loading:
+        title: "&eLaden..."
+        description:
+          - "&7De addons worden geladen,"
+          - "&7wacht een paar seconden."
+      empty:
+        title: "&cGeen addons beschikbaar"
+        description:
+          - "&7Geen records gevonden"
+          - "&7volgens de huidige filter."
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&fPrijs: &a%price%"
+    settings:
+      language:
+        title: "&aTaal"
+        description:
+          - "&7Deze optie stelt je in staat om van taal te veranderen"
+          - "&7de basis taal die deze plugin zal gebruiken"
+          - ""
+          - "&e&nJe kunt altijd translations.en.yml configureren."
+      key-mainhand:
+        title: "&aSleutel in hoofdhand vereist"
+        description:
+          - "&7Deze optie stelt je in staat om te bepalen"
+          - "&7of spelers een sleutel in hun hoofdhand nodig zullen hebben"
+          - "&7om kisten te openen."
+      crate-knockback:
+        title: "&aCrate Knockback"
+        description:
+          - "&7Deze optie stelt je in staat om de"
+          - "&7knockback die de speler krijgt wanneer hij"
+          - "&7probeert een crate met de verkeerde sleutel te openen."
+      crate-despawn-range:
+        title: "&aCrate Despawn Range"
+        description:
+          - "&7Deze optie stelt je in staat om de"
+          - "&7afstand te definiëren waarop effecten"
+          - "&7stoppen met zichtbaar zijn voor de speler."
+          - ""
+          - "&c&nHoge waarden niet aanbevolen, omdat ze lag kunnen veroorzaken."
+      crate-quick-open:
+        title: "&aCrate Quick Open"
+        description:
+          - "&7Deze optie stelt spelers in staat om"
+          - "&7snel te openen wanneer ze de crate"
+          - "&7sleutel vasthouden en rechts klikken met shift."
+          - ""
+          - "&e&nWerkt alleen bij gelijktijdige openingen van crates!"
+      disable-confirmation-menus:
+        title: "&aBevestigingsmenu's uitschakelen"
+        description:
+          - "&7Met deze optie kun je"
+          - "&7bevestigingsmenu's overslaan zodat spelers"
+          - "&7direct overgaan tot de actie."
+      crate-claim:
+        title: "&aKist opeisen"
+        description:
+          - "&7Door hier te klikken kun je configureren"
+          - "&7het gedrag en de menu's voor kistclaims."
+    keys:
+      key:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7deze sleutel configureren."
+        identifier:
+          title: "&aIdentifier"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7je sleutelidentifier hernoemen."
+            - "&eDeze identifier moet uniek zijn."
+        display-name:
+          title: "&aWeergavenaam"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7je sleutel hernoemen."
+        link-crates:
+          title: "&aLink Crates"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7crates aan deze sleutel koppelen."
+        enabled:
+          title: "&aIngeschakeld"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7wijzigen of deze sleutel beschikbaar is."
+        delete:
+          title: "&aVerwijder Sleutel"
+          description:
+            - "&7Door hier te klikken wordt deze sleutel"
+            - "&7verwijderd van de server."
+            - "&eAlle sleutels in de wereld zijn dan niet meer geldig."
+        item:
+          title: "&aSleutelitem"
+          description:
+            - "&7Een aangepast sleutelitem dat kan"
+            - "&7worden gebruikt om een crate te openen."
+      add:
+        title: "&aVoeg Sleutel Toe"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7een sleutel aanmaken."
+    crates:
+      type:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7deze crate configureren."
+      add:
+        title: "&aVoeg Crate Toe"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7een crate-type aanmaken."
+    crate:
+      identifier:
+        title: "&aIdentifier"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7je crate identifier hernoemen."
+          - "&eDeze identifier moet uniek zijn."
+      item:
+        title: "&aVoorwerp"
+        description:
+          - "&7Weergave-item dat zal"
+          - "&7gebruikt worden om deze kist weer te geven."
+        name:
+          title: "&aItemnaam"
+          description:
+            - "&7De naam die gebruikt zal worden"
+            - "&7om dit item weer te geven"
+        lore:
+          title: "&aItem-lore"
+          description:
+            - "&7De lore die gebruikt zal worden"
+            - "&7om dit item weer te geven"
+      link-keys:
+        title: "&aLink Sleutels"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7sleutels aan deze crate koppelen."
+      animations:
+        title: "&aAnimaties"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7de animaties van deze crate wijzigen."
+          - ""
+          - "&fJe kunt configureren:"
+          - "&8> &aInactieve Animatie"
+          - "&8> &aOpeningsanimatie"
+      rerolls:
+        title: "&aRerolls"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7de rerolls van deze crate definiëren."
+      mass-opening:
+        title: "&aMassa Opening"
+        description:
+          - "&7Door hier te klikken kun je de"
+          - "&7instellingen voor massopening van de crate configureren."
+      display-settings:
+        block-material:
+          title: "&aBlok Materiaal"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7het materiaal wijzigen dat"
+            - "&7wordt gebruikt voor het crate blok."
+        crate-engine:
+          title: "&aKistblok-engine"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de engine wijzigen en aanpassen."
+            - ""
+            - "&b➥ Vanilla Block-engine:"
+            - "&7Standaard materiaal-gebaseerde kist."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Vanilla Model-engine: &9(1.12+)"
+            - "&7Statisch model uit een resource pack."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model Engine / Better Model:"
+            - "&7Aangepast model met animaties."
+            - ""
+            - "&fEngines:"
+        rewards-mode:
+          title: "&aBeloningenmodus"
+          description:
+            - "&7Door hier te klikken, kun je de"
+            - "&7modus wijzigen die dit beloningssysteem zal gebruiken."
+            - ""
+            - "&b➥ Willekeurige Modus:"
+            - "&7Beloningen worden willekeurig gekozen op basis"
+            - "&7van hun toegewezen gewichten (kansen). Dit"
+            - "&7mod maakt een element van verrassing en geluk mogelijk."
+            - ""
+            - "&b➥ Selectieve Modus:"
+            - "&7Deze modus verwijdert de willekeurigheid, waardoor"
+            - "&7gebruikers direct de beloning kunnen selecteren die ze"
+            - "&7willen uit de beschikbare opties. Ideaal voor"
+            - "&7gebruikers controle te geven over hun beloningen."
+            - ""
+            - "&fModi:"
+        hologram:
+          title: "&aHologram"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7het hologram boven deze crate configureren."
+        idle-animation:
+          title: "&aInactieve Animatie"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de inactieve animatie van deze crate aanpassen."
+            - ""
+            - "&7De inactieve animatie verschijnt wanneer"
+            - "&7een speler deze crate niet opent."
+        opening-animation:
+          title: "&aOpening Animatie"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de openingsanimatie van deze crate aanpassen."
+            - ""
+            - "&fHoe werkt de openingsanimatie?"
+            - "&7Deze animatie bestaat uit 3 fasen, elke"
+            - "&7fase bestaat uit verschillende mini-animaties"
+            - "&7en eigenschappen. In een vereenvoudigde vorm geven de fasen"
+            - "&7het begin, midden en einde van een animatie weer."
+            - ""
+            - "&7Ook als je een motor gebruikt die ondersteunt"
+            - "&7modelanimaties kun je bepaalde model"
+            - "&7animaties synchroniseren met elk niveau."
+        engine-mode:
+          title: "&aMotor Modus"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de motor wijzigen die deze crate zal gebruiken."
+            - ""
+            - "&b➥ Vanilla Blok motor:"
+            - "&7Standaard motor van een crate, de weergave zal"
+            - "&7het materiaal zijn dat is gekozen als het blok van deze crate."
+            - ""
+            - "&b➥ Vanilla Model motor: &9(1.12+)"
+            - "&7Mogelijkheid om een aangepast statisch model aan de crate toe
+              te wijzen"
+            - "&7maar ondersteunt geen animaties. Dit ondersteunt vanilla
+              modellen"
+            - "&7via materiaal en aangepaste modelgegevens."
+            - ""
+            - "&b➥ Overige: &9(1.16.5+)"
+            - "&7Mogelijkheid om een aangepast model aan de crate toe te wijzen
+              als"
+            - "&7ook een aangepaste openingsanimatie."
+            - ""
+            - "&fMotoren:"
+      open-cooldown:
+        title: "&aOpen Cooldown"
+        description:
+          - "&7Klik hier om de hoeveelheid te wijzigen"
+          - "&7tijd die een speler moet wachten"
+          - "&7om een andere crate te openen."
+      open-cost:
+        title: "&aOpenkosten-engine"
+        description:
+          - "&7Door hier te klikken, kun je een"
+          - "&7extra methode om deze kist te openen"
+          - ""
+          - "&e&lTip&r&e: &7Schakel de sleutelvereiste uit om te gebruiken"
+          - "      &7deze methode als de hoofdmanier."
+      open-cost-amount:
+        title: "&aOpenkosten Bedrag"
+        description:
+          - "&7Het bedrag aan valuta dat zal worden"
+          - "&7in rekening gebracht bij het openen van deze kist."
+      open-cost-currency:
+        title: "&aValuta"
+        description:
+          - "&7De ExcellentEconomy-valuta die"
+          - "&7gebruikt zal worden om de kosten in rekening te brengen."
+      simultaneous-openings:
+        title: "&aGelijktijdige Openingen"
+        description:
+          - "&7Deze optie stelt je in staat om te definiëren"
+          - "&7of één of meer spelers deze crate tegelijkertijd kunnen"
+          - "&7openen."
+          - ""
+          - "&e&nSnelle Openingen zijn uitgeschakeld"
+          - "&e&nzonder gelijktijdige openingen"
+      preview-reward:
+        title: "&aVoorbeeld Beloning"
+        description:
+          - "&7Door hier te klikken, schakel je"
+          - "&7een voorbeeldbeloning boven elke kist in."
+      permission-required:
+        title: "&aVereiste Machtiging"
+        description:
+          - "&7Door hier te klikken, stel je in"
+          - "&7de machtiging die een speler moet hebben"
+          - "&7om deze kist te openen."
+      rewards:
+        title: "&aBeloningen"
+        description:
+          - "&7Door hier te klikken, kun je"
+          - "&7alle beloningen configureren die een speler"
+          - "&7kan verdienen door deze kist te openen."
+        add:
+          title: "&aVoeg Beloning Toe"
+          description:
+            - "&7Door hier te klikken, kun je beginnen"
+            - "&7met het opzetten van een nieuwe beloning in deze kist."
+        edit:
+          title: "&aBeloning #%position%"
+          description: []
+        multiple-rewards:
+          title: "&aVoeg Meerdere Beloningen Toe"
+          description:
+            - "&7Door hier te klikken, kun je"
+            - "&7meerdere beloningen tegelijk toevoegen."
+        reordering:
+          title: "&aHerschikken"
+          description:
+            - "&7Door hier te klikken, kun je de"
+            - "&7beloningen in de gewenste volgorde sorteren."
+          selected:
+            title: "&eGeselecteerd"
+        win-amount:
+          title: "&aMax Win Beloningen"
+          description:
+            - "&7Door hier te klikken, kun je definiëren"
+            - "&7hoeveel beloningen een speler tegelijk wint."
+      reward:
+        drag-item:
+          title: "&aSleep een item"
+          description:
+            - "&7Sleep elk item om de beloning in te stellen."
+            - ""
+            - "&6Sleep & Drop: Vervang item."
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6Sleep & Drop: &eVervang item."
+        identifier:
+          title: "&aWijzig Identifier"
+          description:
+            - "&7Door hier te klikken, kun je"
+            - "&7je beloning identifier hernoemen."
+            - "&eDeze identifier moet uniek zijn."
+        display-item:
+          title: "&aWeergave Item"
+          description:
+            - "&7Dit item zal dienen als de weergave"
+            - "&7die de beloning voor deze kist vertegenwoordigt."
+          name:
+            title: "&aWeergave Naam"
+            description:
+              - "&7De naam die zal worden gebruikt"
+              - "&7om deze Beloning te vertegenwoordigen"
+          lore:
+            title: "&aWeergave Lore"
+            description:
+              - "&7De lore die zal worden gebruikt"
+              - "&7om deze Beloning te vertegenwoordigen"
+        alternative-item:
+          title: "&aAlternatief Item"
+          description:
+            - "&7Dit item zal het extra item zijn dat de gebruiker"
+            - "&7zal ontvangen als aan de voorwaarden wordt voldaan."
+        win-items:
+          title: "&aWin Items"
+          description:
+            - "&7Door hier te klikken, kun je"
+            - "&7items toevoegen die de speler zal"
+            - "&7ontvangen bij het winnen van deze beloning."
+          add-item:
+            title: "&aVoeg Item Toe"
+            description:
+              - "&7Sleep een item uit je inventaris"
+              - "&7hier om het toe te voegen als een item voor deze beloning."
+        weight:
+          title: "&aGewicht"
+          description:
+            - "&7Het gewicht draagt bij aan de"
+            - "&7kans van de speler om dit item te winnen."
+        virtual:
+          title: "&aVirtueel Item"
+          description:
+            - "&7Deze optie bepaalt of de winnaar."
+            - "&7een fysiek item moet ontvangen of niet."
+        win-commands:
+          title: "&aWin Commando's"
+          description:
+            - "&7Door hier te klikken, kun je beheren"
+            - "&7alle commando's die zullen worden uitgevoerd"
+            - "&7wanneer een speler deze beloning wint."
+        max-win-item-amount:
+          title: "&aMaximaal Aantal Gewonnen Items"
+          description:
+            - "&7Stelt het maximum aantal items in"
+            - "&7uit de lijst met win-items dat zal"
+            - "&7worden gegeven wanneer deze beloning wordt gewonnen."
+            - "&7Instellen op &e∞ &7voor geen limiet."
+        max-win-command-amount:
+          title: "&aMaximaal Aantal Gewonnen Commando's"
+          description:
+            - "&7Stelt het maximum aantal commando's in"
+            - "&7uit de lijst met win-commando's die zullen"
+            - "&7worden uitgevoerd wanneer deze beloning wordt gewonnen."
+            - "&7Instellen op &e∞ &7voor geen limiet."
+        broadcast:
+          title: "&aBericht Uitzenden"
+          description:
+            - "&7Deze optie bepaalt of een broadcast-bericht"
+            - "&7moet verschijnen wanneer een speler deze beloning wint."
+        share-players-online:
+          title: "&aDeel met Spelers Online"
+          description:
+            - "&7Deze optie bepaalt of deze beloningprijs"
+            - "&7moet worden gedeeld met iedereen die online is."
+        allow-win-message:
+          title: "&aWinbericht Toestaan"
+          description:
+            - "&7Deze optie bepaalt of de speler"
+            - "&7een bericht ontvangt bij het winnen van deze beloning."
+        notification-types:
+          title: "&aMeldingstype"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7het type wijzigen waarmee het winbericht wordt verzonden."
+        enabled:
+          title: "&aIngeschakeld"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7wijzigen of deze beloning beschikbaar is."
+        win-limit:
+          title: "&aWin Limiet"
+          description:
+            - "&7Deze optie bepaalt hoe vaak"
+            - "&7een speler deze beloning kan winnen."
+            - ""
+            - "&e&lTIP: &7Je kunt dit"
+            - "       &7combineren met een alternatieve beloning."
+        global-win-limit:
+          title: "&aGlobale Winlimiet"
+          description:
+            - "&7Deze optie bepaalt hoeveel keer"
+            - "&7deze beloning gewonnen kan worden door"
+            - "&7iedereen op de server samen."
+            - ""
+            - "&e&lTIP: &7Je kunt dit combineren"
+            - "       &7met een alternatieve beloning."
+        cooldowns:
+          title: "&aWachttijden"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de wachttijden configureren "
+            - "&7van deze beloning."
+          win-limit-cooldown:
+            title: "&aWachttijd bij winstlimiet"
+            description:
+              - "&7Deze optie bepaalt hoe lang een speler"
+              - "&7moet wachten voordat hij deze beloning"
+              - "&7weer kan winnen."
+          global-win-limit-cooldown:
+            title: "&aWachttijd voor globale winstlimiet"
+            description:
+              - "&7Deze optie bepaalt hoeveel tijd er moet verstrijken"
+              - "&7voordat deze beloning opnieuw gewonnen kan worden"
+              - "&7door iemand op de server."
+          time-limited-cooldown:
+            title: "&aTijdgebonden Wachttijd"
+            description:
+              - "&7Deze optie bepaalt hoe lang deze"
+              - "&7beloning beschikbaar blijft zodra de"
+              - "&7wachttijd is gestart."
+              - ""
+              - "&7Wanneer deze verloopt, zal de beloning"
+              - "&7zich automatisch uitschakelen."
+          duration:
+            weeks:
+              title: "&aWeken"
+              description:
+                - "&7Het aantal weken om toe te voegen"
+                - "&7aan de duur van deze wachttijd."
+            days:
+              title: "&aDagen"
+              description:
+                - "&7Het aantal dagen om toe te voegen"
+                - "&7aan de duur van deze wachttijd."
+            hours:
+              title: "&aUren"
+              description:
+                - "&7Het aantal uren om toe te voegen"
+                - "&7aan de duur van deze wachttijd."
+            minutes:
+              title: "&aMinuten"
+              description:
+                - "&7Het aantal minuten om toe te voegen"
+                - "&7aan de duur van deze wachttijd."
+            disable:
+              title: "&cWachttijd Uitschakelen"
+              description:
+                - "&7Stelt de duur van deze wachttijd in"
+                - "&7terug op nul, waardoor deze wordt uitgeschakeld."
+        requirements:
+          title: "&aVereisten"
+          description:
+            - "&7Stel permissievereisten in"
+            - "&7voor deze beloning."
+          required-permission:
+            title: "&aVereiste permissie"
+            description:
+              - "&7Stel een permissie in die de speler moet hebben"
+              - "&7om deze beloning als beschikbaar te zien."
+              - "&7Als de speler deze niet heeft, zal de beloning"
+              - "&7in de voorvertoning als vergrendeld verschijnen."
+        restricted-permissions:
+          title: "&aBeperkte Permissies"
+          description:
+            - "&7Deze optie definieert de"
+            - "&7beperkte permissies die de speler"
+            - "&7niet kan hebben om deze beloning te winnen."
+            - "&eDit is niet van toepassing als de speler op heeft."
+            - ""
+            - "&e&lTIP: &7Je kunt dit combineren met een"
+            - "       &7alternatieve beloning."
+        alternative-reward:
+          title: "&aAlternatieve Beloning"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de alternatieve beloning van deze beloning"
+            - "&7instellen."
+            - ""
+            - "&7Als dit actief is wanneer een speler de"
+            - "&7winstlimieten overschrijdt of blacklist-permissies heeft"
+            - "&7zal hij in plaats daarvan deze beloning ontvangen."
+        delete:
+          title: "&aVerwijder Beloning"
+          description:
+            - "&7Door hier te klikken zal deze beloning"
+            - "&7van deze crate worden verwijderd."
+        percentage:
+          title: "&aPercentage"
+          description:
+            - "&7Het percentage zal bijdragen aan de"
+            - "&7kans van een speler om dit item te winnen."
+      menus:
+        title: "&aMenu's"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7alle menu's voor deze crate configureren."
+      rewards-menu:
+        title: "&aBeloningen Menu"
+        description:
+          - "&7Door hier te klikken kun je configureren"
+          - "&7welk beloningenmenu deze crate zal hebben."
+      preview-actions:
+        title: "&aVoorvertoning Acties"
+        description:
+          - "&7Door hier te klikken kun je configureren"
+          - "&7de acties die uitgevoerd worden wanneer een speler"
+          - "&7klikt om deze kist te bekijken."
+          - "&7Deze kunnen samen met, of"
+          - "&7in plaats van, het beloningen-voorvertoningsmenu."
+      rerolls-menu:
+        title: "&aHerschikkingen Menu"
+        description:
+          - "&7Door hier te klikken kun je configureren"
+          - "&7welk herschikkingenmenu deze crate zal hebben."
+      selective-rewards-menu:
+        title: "&aSelectieve Beloningen Menu"
+        description:
+          - "&7Door hier te klikken kun je configureren"
+          - "&7welk selectieve beloningenmenu deze crate zal hebben."
+      milestones-menu:
+        title: "&aMijlpalen Menu"
+        description:
+          - "&7Door hier te klikken kun je configureren"
+          - "&7welk preview-menu deze crate zal hebben."
+      broadcast-message:
+        title: "&aUitgezonden Bericht"
+        description:
+          - "&7Door hier te klikken kun je configureren"
+          - "&7het uitgezonden bericht voor de beloningen."
+          - ""
+          - "&eBeschikbare plaatsaanduidingen:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&aIngeschakeld"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7veranderen of deze crate beschikbaar is."
+      allow-open-command:
+        title: "&aOpen-commando toestaan"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7aan/uitzetten of deze kist kan worden"
+          - "&7geopend met het &f/crate open &7commando."
+      attach-block:
+        title: "&aKoppel Blok"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7een crate creëren door een blok te koppelen."
+      delete:
+        title: "&aVerwijder Crate"
+        description:
+          - "&7Door hier te klikken zal deze crate"
+          - "&7van de server worden verwijderd."
+          - ""
+          - "&e&nAlle sleutels in deze crate zijn niet langer geldig."
+      hologram:
+        engine-mode:
+          title: "&aHologram Engine Modus"
+          description:
+            - "&7De engine die de plugin"
+            - "&7gebruikt voor hologrammen"
+            - ""
+            - "&fEngine: &7%engine%"
+        lines:
+          title: "&aHologramregels"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de hologramregels van deze kist configureren."
+            - ""
+            - "&e&lTIP: &7Je kunt &ePlaceholderAPI&7 gebruiken."
+        identifier:
+          title: "&aIdentifier"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de identifier van de hologram-plugin definiëren."
+            - ""
+            - "&fIdentifier: &7%id%"
+        offset:
+          title: "&aHologram Offset"
+          description:
+            - "&7Deze optie stelt je in staat om het hologram"
+            - "&7positie aan te passen op basis van de locatie van de kist."
+      display-name:
+        title: "&aWeergavenaam"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7je crate hernoemen."
+      open-money-cost:
+        title: "&aOpen Geldkosten"
+        description:
+          - "&7Klik hier om het geld te wijzigen"
+          - "&7dat nodig is om deze crate te openen."
+          - "&7sleutel en verschuiven rechts klikken."
+          - ""
+          - "&e&nWerkt alleen met Vault!"
+    crate-engine:
+      first-phase-delay:
+        title: "&aStartvertraging eerste fase"
+        description:
+          - "&7Stel de vertraging in tussen het moment"
+          - "&7dat de kist opent en de start van"
+          - "&7de eerste fase van de animaties."
+      second-phase-delay:
+        title: "&aStartvertraging tweede fase"
+        description:
+          - "&7Stel de vertraging in tussen de eerste"
+          - "&7en tweede fase van de openingsanimatie."
+      third-phase-delay:
+        title: "&aStartvertraging derde fase"
+        description:
+          - "&7Stel de vertraging in tussen de tweede"
+          - "&7en derde fase van de openingsanimatie."
+      idle:
+        title: "&aRustanimatie"
+        description:
+          - "&7Stel de animatie in die zal"
+          - "&7afspelen wanneer de kist inactief is."
+      close-animation:
+        title: "&aSluitanimatie"
+        description:
+          - "&7Bepaal de animatie die zal worden"
+          - "&7afgespeeld wanneer de kist sluit."
+      model-name:
+        title: "&aModelnaam"
+        description:
+          - "&7Bepaal de modelnaam die deze"
+          - "&7kist zal gebruiken."
+          - ""
+          - "&fCurrent Model: &7%name%"
+      model-engine:
+        model-name:
+          title: "&aModelnaam"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de modelnaam van deze kist wijzigen."
+            - ""
+            - "&fCurrent Name: &7%name%"
+      better-model:
+        model-name:
+          title: "&aModelnaam"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de modelnaam van deze kist wijzigen."
+            - ""
+            - "&fCurrent Name: &7%name%"
+        scale:
+          title: "&aSchaal"
+          description:
+            - "&7Definieer de schaalfactor voor dit"
+            - "&7model. 1.0 is de normale grootte van het model."
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6Linker-muisklik: &eSelecteer materiaal."
+        custom-model-data:
+          title: "&aAangepaste Modeldata"
+          description:
+            - "&7Door hier te klikken kun je"
+            - "&7de aangepaste modeldata van dit item wijzigen."
+            - ""
+            - "&fAangepaste Modeldata: &7%custom_model_data%"
+            - ""
+            - "&6Linker-muisklik: &eWijzig Aangepaste Modeldata."
+    reward-commands:
+      add:
+        title: "&aVoeg Commando Toe"
+        description:
+          - "&7Door hier te klikken kun je een"
+          - "&7commando toevoegen dat wordt uitgevoerd wanneer"
+          - "&7een speler deze beloning wint."
+          - ""
+          - "&7Commando's die beginnen met &a* &7worden uitgevoerd door"
+          - "&7spelers. Anders worden ze uitgevoerd door de console."
+          - ""
+          - "&7Je kunt ook de placeholder &a%player% gebruiken"
+          - "&7en placeholders van &aPlaceholderAPI&7."
+          - ""
+          - "&6Linker-Muisklik: &eVoeg commando toe."
+      command:
+        title: "&aCommando #%id%"
+        description:
+          - "&fCommando: &7%command%"
+          - ""
+          - "&6Linker-Muisklik: &eVerwijder commando."
+    alternative-reward:
+      enabled:
+        title: "&aStaat"
+        description:
+          - "&7Wanneer een alternatieve beloning actief is,"
+          - "&7als de speler de winstlimieten overschrijdt of"
+          - "&7zwartlijstmachtigingen heeft, zal hij"
+          - "&7deze beloning ontvangen."
+    edit-standby-animation:
+      add-effect:
+        title: "&aEffect Toevoegen"
+        description:
+          - "&7Door hier te klikken kun je"
+          - "&7een nieuw effect aan de inactieve animatie toevoegen."
+          - ""
+          - "&6Linker-Muisklik &eEffect toevoegen."
+      edit-effect:
+        title: "&eEffect #%id%"
+        description:
+          - ""
+          - "&fEffecttype: &7%effect_type%"
+          - "&fDeeltype: &7%particle_type%"
+          - "&fDeelversnelling: &7%particle_velocity%"
+          - "&fKleur: &7%color%"
+          - "&fOffset: &7%offset%"
+          - "&fVerspreiding: &7%spread%"
+          - "&fHoeveelheid: &7%amount%"
+          - ""
+          - "&6Linker-Muisklik &eEffect bewerken."
+          - "&6Shift + Linker-Muisklik: &eEffect verwijderen."
+    edit-standby-effect:
+      effect-type:
+        title: "&aEffecttype&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6Linker/Rechter-Muisklik: &eType wisselen."
+      particle-type:
+        title: "&aDeeltype"
+        description:
+          - "&fHuidig: &7%particle_type%"
+          - ""
+          - "&6Linker-Muisklik: &eVerander deel."
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&fEigenschappen: &a%properties%"
+          - ""
+          - "&6Linker-Muisklik: &eSelecteer deel."
+      color:
+        title: "&aKleur"
+        description:
+          - "&fHuidig: &7%color%"
+          - ""
+          - "&e&nWerkt alleen met kleurbare deeltjes."
+          - ""
+          - "&6Linker-Muisklik: &eVerander kleur."
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6Linker-Muisklik: &eSelecteer kleur."
+      spread:
+        title: "&aVerspreiding"
+        description:
+          - "&fHuidig: &7%spread%"
+          - ""
+          - "&6Linker-Muisklik: &eVoeg 0.1 toe."
+          - "&6Shift + Linker-Muisklik: &eVoeg 1 toe."
+          - "&6Rechter-Muisklik: &eVerwijder 0.1."
+          - "&6Shift + Rechter-Muisklik: &eVerwijder 1."
+      particle-velocity:
+        title: "&aDeelversnelling"
+        description:
+          - "&fHuidig: &7%particle_velocity%"
+          - ""
+          - "&6Linker-Muisklik: &eVoeg 0.1 toe."
+          - "&6Shift + Linker-Muisklik: &eVoeg 1 toe."
+          - "&6Rechter-Muisklik: &eVerwijder 0.1."
+          - "&6Shift + Rechter-Muisklik: &eVerwijder 1."
+      amount:
+        title: "&aHoeveelheid"
+        description:
+          - "&fHuidig: &7%amount%"
+          - ""
+          - "&6Linker-Muisklik: &eVoeg 1 toe."
+          - "&6Rechter-Muisklik: &eVerwijder 1."
+      offset-x:
+        title: "&aOffset X"
+        description:
+          - "&fHuidig: &7%offset_x%"
+          - ""
+          - "&6Linker-Muisklik: &eVoeg 0.1 toe."
+          - "&6Shift + Linker-Muisklik: &eVoeg 1 toe."
+          - "&6Rechter-Muisklik: &eVerwijder 0.1."
+          - "&6Shift + Rechter-Muisklik: &eVerwijder 1."
+      offset-y:
+        title: "&aOffset Y"
+        description:
+          - "&fHuidig: &7%offset_y%"
+          - ""
+          - "&6Linker-Muisklik: &eVoeg 0.1 toe."
+          - "&6Shift + Linker-Muisklik: &eVoeg 1 toe."
+          - "&6Rechter-Muisklik: &eVerwijder 0.1."
+          - "&6Shift + Rechter-Muisklik: &eVerwijder 1."
+      offset-z:
+        title: "&aOffset Z"
+        description:
+          - "&fHuidig: &7%offset_z%"
+          - ""
+          - "&6Linker-Muisklik: &eVoeg 0.1 toe."
+          - "&6Shift + Linker-Muisklik: &eVoeg 1 toe."
+          - "&6Rechter-Muisklik: &eVerwijder 0.1."
+          - "&6Shift + Rechter-Muisklik: &eVerwijder 1."
+    opening-animation:
+      phase-updated: "&aAnimatiefase bijgewerkt."
+      preset-applied: "&aPreset voor openingsanimatie toegepast."
+      preset-removed: "&aGeen preset geselecteerd."
+      phase:
+        title: "&a%fase% Fase"
+        description:
+          - "&7Elke opening animatie is opgebouwd"
+          - "&7uit fasen, dit is een van de fasen."
+          - ""
+          - "&fFase: &e%naam%"
+      change-phases:
+        title: "&aAnimatie Fasen"
+        description:
+          - "&7Kies animaties voor de"
+          - "&7opening animatie stadia."
+          - ""
+          - "&6Linker-Muisklik: &eVerander animatie."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&a%fase% Fase"
+        description:
+          - "&7Elke opening animatie is opgebouwd"
+          - "&7uit fasen, dit is een van de fasen."
+          - ""
+          - "&fFase: &e%naam%"
+          - ""
+          - "&6Linker-Muisklik: &eNavigeer"
+      select-phase:
+        title: "&a%naam%"
+        description:
+          - "&fVereiste Versie: &7%required_version%"
+          - ""
+          - "&6Linker-Muisklik: &eMaak fase."
+          - "&6Shift + Linker-Muisklik: &eMaak fase snel."
+  command:
+    info:
+      - ""
+      - "&e➥ &6Beschikbare commando's:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6Aanvullende informatie:"
+      - " &9<argument> - verplicht argument"
+      - " &3[argument] - optioneel argument"
+    usage:
+      - ""
+      - "&e➥ Gebruik:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "Het spijt me, maar je hebt geen toestemming om dit commando
+      uit te voeren."
+    permission-denied-parameter: "Het spijt me, maar je hebt geen toestemming om dit
+      commando uit te voeren."
+    error-generic-logged: "Er is een fout opgetreden. Dit probleem is gelogd. Sorry
+      voor het ongemak."
+    unknown-command: "&cOnbekend commando, typ &4%command%"
+    error-prefix: "&cFout: %message%"
+    error-performing-command: "Het spijt me, maar er was een fout bij het uitvoeren van dit commando."
+    please-specify-one-of: "Geef één van (&2%valid%) op."
+    must-be-a-number: "%num% moet een getal zijn."
+    must-be-min-length: "Moet minimaal %min% tekens lang zijn."
+    must-be-max-length: "Mag maximaal %max% tekens lang zijn."
+    please-specify-at-most: "Geef een waarde op van maximaal %max%."
+    please-specify-at-least: "Geef een waarde op van minimaal %min%."
+    player-offline: "Speler %player% is niet online!"
+  plans:
+    unlock-premium: §cAlleen beschikbaar in de Premium versie.
+    unlock-pro: §cAlleen beschikbaar in de Pro versie.
+    upgrade-at: §4Upgrade bij phoenixplugins.com
+  crate-type-received: "&aJe hebt een plaatsbare kist ontvangen."
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% Kist"
+      lore: "&7Plaats deze kist ergens!"
+  loading-data: "&7Spelersgegevens laden..."

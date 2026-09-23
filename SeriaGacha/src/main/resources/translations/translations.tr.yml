@@ -1,0 +1,1446 @@
+tr:
+  error-processing:
+    - "&cBu işlemi işlerken bir hata oluştu (Konsolu kontrol et):"
+    - "&7%message%"
+  unknown-argument: "&cBilinmeyen Argüman!"
+  no-permission: "&cYou are not allowed to do this!"
+  command-not-allowed: "&cBu komutu çalıştırmanıza izin verilmiyor!"
+  only-ingame-players: "&cBu komut yalnızca oyunda olan oyuncular için geçerlidir."
+  labels:
+    # Layout
+    currency-symbol: "$"
+    last-one: Sonuncusu
+    swap-option: Seçeneği Değiştir
+    option: Seçenek
+    item: Öğe
+    all: Hepsi
+    go-back: Geri Dön
+    navigate: Navigasyon
+    reload: Yenile
+    switch-state: Durumu Değiştir
+    state: Durum
+    empty: "&7(Boş)"
+    default: "&7(Standart)"
+    undefined: "&7Tanımsız"
+    yes-word: "&aEvet"
+    no-word: "&cHayır"
+    location: Konum
+    region: Bölge
+    material: Malzeme
+    # Others
+    menu: Menü
+    enabled: Açık
+    disabled: Kapalı
+    range: Menzi
+    multiplier: Çarpan
+    cooldown: Bekleme Süresi
+    receive-crate: Kasa Al
+    receive-key: Anahtar al
+    identifier: Tanımlayıcı
+    display-name: Görünen Ad
+    line: Satır
+    swap-engine: Motoru Değiştir
+    edit-engine: Motoru Düzenle
+    documentation: Dokümantasyon
+    not-installed: Yüklenmedi
+    not-available: Mevcut Değil
+    not-enabled: Açık Değil
+    command: komut
+    none: Yok
+    action: Eylem
+    color: Renk
+    flag: Bayrak
+    pattern: Desen
+    enchant: Büyü
+    effect: Efekt
+    value: Değer
+    red: Kırmızı
+    green: Yeşil
+    blue: Mavi
+    item-model: Eşya Modeli
+    tooltip-style: Araç İpucu Stili
+    trim-material: Süs Malzemesi
+    trim-pattern: Süs Deseni
+    model-data: Model Verisi
+    title: Başlık
+    particle: Parçacık
+    velocity: Hız
+    spread: Dağılım
+    offset-x: X Ofseti
+    offset-y: Y Ofseti
+    offset-z: Z Ofseti
+    change-amount-money: Para miktarını değiştir
+    money-necessary: Gerekli Para
+    vault-installed: Vault yüklü
+    points-installed: PlayerPoints yüklü
+    swap-cost-engine: Değişim maliyeti motoru
+    set-cost-amount: Maliyet miktarını ayarla
+    cost-amount: Maliyet Miktarı
+    required: Gerekli
+    permission: İzin
+    crate: Kutu
+    key: Anahtar
+    reward: Ödül
+    multiple-rewards: Birden Fazla Ödül
+    items: Ögeler
+    cancel: İptal
+    animation: Animasyon
+    limited-time-offer: Sınırlı Süreli Teklif
+    see-more: Daha Fazla Gör
+    attach-block: Blok Ekle
+    reorder-reward: Ödülü Yeniden Sırala
+    set-as-default-display-name: Varsayılan görünen adı olarak ayarla
+    set-as-default-display-lore: Varsayılan görünen bilgiyi ayarla
+    update-block: "Bloku Güncelle"
+    percentage: Yüzde
+    weight: "Ağırlık"
+    chance: Şans
+    win-limit: Kazanma Limiti
+    global-win-limit: Genel Kazanma Limiti
+    win-limit-cooldown: Kazanma Limiti Bekleme Süresi
+    global-win-limit-cooldown: Genel Kazanma Limiti Bekleme Süresi
+    time-limited-cooldown: Zamana Bağlı Bekleme Süresi
+    unlimited: Sınırsız
+    virtual: Sanal
+    broadcast: Yayınla
+    paid: Ücretli
+    free: Ücretsiz
+    save: Kaydet
+    leave: Ayrıl
+    select: Seç
+    add: Ekle
+    edit: Düzenle
+    remove: Kaldır
+    confirm: Onayla
+    decline: Reddet
+    locked-field: Kilitleme Alanı
+    add-items: Öğeleri Ekle
+    no-cooldown: Bekleme süresi yok
+    current: Mevcut
+    first: Birinci
+    second: İkinci
+    third: Üçüncü
+    to-choose: Seçmek için
+    not-colorable: Renklenemez
+    previous-phase: Önceki Aşama
+    next-phase: Sonraki Aşama
+    default-menu: Varsayılan Menü
+    amount: "Miktar"
+    migrate-files: "Dosyaları Taşı"
+    rerolls: "Yeniden Dönüş"
+    group: "Grup"
+    broadcast-message: "Yayın Mesajı"
+    only-premium: "Sadece premiumda mevcut"
+    sharing: "Paylaşım"
+    everyone: "Herkes"
+    openings: "Açılışlar"
+    required-keys: "Gerekli Anahtarlar"
+    key-required: "Anahtar Gerekli"
+    crates-linked: "Kutular Bağlandı"
+    keys-linked: "Anahtarlar Bağlandı"
+    rarity: "Nadirlik"
+    synced: "Eşitlendi"
+    not-set: "Belirlenmedi"
+    clear-lines: "Satırları Temizle"
+    add-empty-line: "Boş Satır Ekle"
+    receive-placeable-crate: Yerleştirilebilir kutu al
+    disable-money-requirement: Para gereksinimini devre dışı bırak
+  readers:
+    exit-session: "&aBu oturumdan çıkmak için yazın &e\\\"iptal\\\"&a."
+    write-chat: "&aSohbete yazın."
+  time:
+    week: "Hafta"
+    weeks: "Haftalar"
+    day: "Gün"
+    days: "Günler"
+    hour: "Saat"
+    hours: "Saatler"
+    minute: "Dakika"
+    minutes: "Dakikalar"
+    second: "Saniye"
+    seconds: "Saniyeler"
+
+  unlock-addon:
+    - "&c%addon% eklentisi gerekiyor."
+    - "&4phoenixplugins.com adresinden kilidi açın"
+
+  commands:
+    info:
+      - ""
+      - "&e➥ Phoenix Crates Komutları"
+      - "%commands%"
+      - ""
+      - "&e➥ Ek bilgiler:"
+      - " &9<argument> - gerekli argüman"
+      - " &3[argument] - isteğe bağlı argüman"
+    usage: "&e➥ Kullanım:"
+    create: " &f/%command% create &9<identifier> &8- &7Kutu türü oluştur"
+    delete: " &f/%command% delete &9<identifier> &8- &7Kutu türünü sil"
+    give-crate: " &f/%command% giveCrate &9<identifier> &8- &7Kendinize
+      yerleştirilecek bir kutu verin"
+    give-key: " &f/%command% giveKey &9<identifier> <player/all> [amount] &8- &7Bir
+      oyuncuya (veya tüm oyunculara) bir anahtar verin"
+    give-key-all: " &f/%command% giveKeyAll &9<identifier> [amount] &8- &7Herkese
+      çevrimiçi bir anahtar ver"
+    take-key: " &f/%command% takeKey &9<identifier> <player> [amount] &8-
+      &7Oyuncunun sanal anahtarlarını ayarlayın"
+    set-key: " &f/%command% setKey &9<identifier> <player> [amount] &8- &7Oyuncunun
+      sanal anahtarlarını ayarlayın"
+    preview: " &f/%command% preview &9<identifier> [player] &8- &7Kutu ödüllerini ön
+      izlemenizi sağlar"
+    give-reroll: " &f/%command% giveReroll &9<identifier> <player/all> [amount] &8-
+      &7Bir oyuncuya (veya tüm oyunculara) yeniden dönüş verin"
+    take-reroll: " &f/%command% takeReroll &9<identifier> <player> [amount] &8-
+      &7Oyuncunun yeniden dönüşlerini alın"
+    give-reward: " &f/%command% giveReward &9<crate> <reward> <player/all> &8- &7Bir
+      oyuncuya (veya tüm oyunculara) bir kutu ödülü verin"
+    give-random-reward: " &f/%command% giveRandomReward &9<crate> <player/all> &8-
+      &7Give a player(or all players) a random crate reward"
+    editor: " &f/%command% editor &8- &7Oyun içindeki tüm kutuları düzenlemenizi
+      sağlar"
+    reload: " &f/%command% reload &8- &7Tüm PhoenixCrates yapılandırma dosyalarını
+      yenileyin"
+  player-offline: "&c%name% adlı oyuncu çevrimdışı!"
+  not-a-number: "&cGirilen miktar bir sayı değil."
+  plugin-reloaded: "&aPhoenixCrates başarıyla yenilendi."
+  crate-type-created: "&aKutu türü başarıyla oluşturuldu."
+  crate-type-deleted: "&aKutu türü başarıyla silindi."
+  cooldown-reset: "&a%player% için &e%crate% sandığında bekleme süresi sıfırlandı."
+  cooldown-reset-received: "&a%crate% sandığı için bekleme süreniz sıfırlandı."
+  cooldown-reset-no-cooldown: "&cBu sandık için herhangi bir bekleme süresi yapılandırılmamış."
+  cooldown-reset-not-active: "&cO oyuncunun bu sandık için aktif bir bekleme süresi yok."
+  global-win-limit-reset: "&a%crate% sandığında &e%reward% ödülü için genel kazanma sayısı sıfırlandı."
+  global-win-limit-not-tracked: "&cBu ödül için herhangi bir genel kazanma limiti
+    yapılandırılmamış, bu yüzden sıfırlanacak bir şey yok."
+  reward-cooldown-started: "&a%crate% sandığında &e%reward% ödülü için zamana
+    bağlı bekleme süresi başlatıldı."
+  reward-cooldown-started-all: "&a%crate% sandığında &e%amount% ödül(ler) için
+    zamana bağlı bekleme süresi başlatıldı."
+  reward-cooldown-not-configured: "&cBu ödül için zamana bağlı bir bekleme süresi yapılandırılmamış."
+  reward-cooldown-none-configured: "&cBu sandıkta herhangi bir ödül için zamana
+    bağlı bekleme süresi yapılandırılmamış."
+  check-keys-header: "&#ffd500&l%player%'s Anahtarları:"
+  check-keys-entry: "&7- &f%key%&8: &e%amount% &7Anahtar(lar)"
+  check-keys-none: "&7- &7Sanal anahtar yok."
+  key-deleted: "&aAnahtar başarıyla silindi."
+
+  key-given: "&e%amount% &aanahtar(lar) başarıyla %player% adlı oyuncuya verildi."
+  key-given-all: "&a%amount% anahtar(lar) başarıyla tüm çevrimiçi oyunculara verildi."
+  key-given-offline: "&e%amount% &aanahtar(lar) başarıyla %player% adlı oyuncuya verildi."
+  key-set: "&e%amount% &aanahtar(lar) başarıyla %player% için ayarlandı."
+  key-taken: "&e%amount% &aanahtar(lar) başarıyla %player% adlı oyuncudan alındı."
+
+  key-received: "&a&ex%amount% &7%display_name% &r&anahtar(lar) aldınız."
+  virtual-key-received: "&a&ex%amount% &7%display_name% &r&asanalsan anahtar(lar) aldınız."
+
+  key-lost: '&c%amount% anahtar(lar) kutu &2\"%display_name%&2\"&c sizden alındı!'
+  virtual-key-lost: '&c%amount% sanal anahtar(lar) kutu &2\"%display_name%&2\"&c sizden alındı!'
+
+  crate-rerolls-received: '&aKutu &2\"%display_name%&2\"&a için %amount% yeniden atış aldınız!'
+
+  crate-given: "&e%amount% &akasa(lar) başarıyla %player% adlı oyuncuya verildi."
+
+  random-reward-given: "&aRastgele bir ödül başarıyla %player% kişisine verildi."
+  no-available-rewards: "&cBu sandıkta mevcut ödül yok."
+
+  crate-received: "&aAldınız &ex%amount% &7%display_name% &r&akasa(lar)."
+  crate-no-placed-instances: "&c&e%crate% &ctipi için yerleştirilmiş sandık bulunamadı."
+  crate-open-command-disabled: "&c&e%crate% &cbu komut ile açılamıyor."
+  crate-type-dont-exist: '&c\"%identifier%\" tanımlayıcısına sahip bir kutu tipi yok!'
+  crate-type-already-exist: '&c\"%identifier%\" tanımlayıcısına sahip bir kutu tipi zaten var!'
+  key-dont-exist: '&c\"%identifier%\" tanımlayıcısına sahip bir anahtar yok!'
+  key-already-exist: '&c\"%identifier%\" tanımlayıcısına sahip bir anahtar zaten var!'
+  need-plugin-reload: "&6Eklenti yenilemesi gerekli!"
+
+  crate:
+    disabled: "&cBu kasa şu anda devre dışı!"
+    quick-open-available: "&eAnimasyonu atlamak ve başka bir kutu açmak için tekrar
+      crouch ve tıklayın."
+    already-opening: "&cBiri bu kutuyu açıyor, bekleyin!"
+    no-linked-key: "&cBu kutunun bağlı anahtarı yok!"
+    no-key: "&cBu kutuyu açmak için %key%&r&c gerekiyor!"
+    no-keys: "&cBu kutuyu açmak için yeterli anahtarınız yok!"
+    no-keys-amount: "&cBu kasayı açmak için %amount% anahtar(lar) gerekiyor."
+    redeem-no-keys: "&cBu ödülü almak için %required_keys% anahtar(lar) gereklidir."
+    cooldown-wait: "&cBu kutuyu tekrar açmadan önce %cooldown% beklemelisiniz."
+    cost-engine-not-installed: "&cCoin motoru kurulu görünmüyor (bir yöneticiyle iletişime geçin)."
+    no-money-none: "&cŞu anda bu sandığı açamazsınız."
+    no-money-level: "&cBu sandığı açmak için %money% gereklidir."
+    no-money-vault: "&cBu sandığı açmak için %money% gereklidir."
+    no-money-playerpoints: "&cBu sandığı açmak için %money% PlayerPoints gereklidir."
+    no-money-votingplugin: "&cBu sandığı açmak için %money% oy puanı gereklidir."
+    no-money-excellenteconomy: "&cBu sandığı açmak için %money% gereklidir."
+    money-used-none: "&aBu sandığı açtınız."
+    money-used-level: "&aBu sandığı açmak için %money_consumed% kullandınız."
+    money-used-vault: "&aBu sandığı açmak için %money_consumed% kullandınız."
+    money-used-playerpoints: "&aBu sandığı açmak için %money_consumed% PlayerPoints kullandınız."
+    money-used-votingplugin: "&aBu sandığı açmak için %money_consumed% oy puanı kullandınız."
+    money-used-excellenteconomy: "&aBu sandığı açmak için %money_consumed% kullandınız."
+    need-crouched: "&eBu kutuyu kaldırmak için crouched olmalısınız."
+    successfully-removed: "&aBu kutuyu başarıyla kaldırdınız."
+    successfully-placed: "&aBir kutuyu başarıyla yerleştirdiniz!"
+    reward-received: "&aAldınız &ex%amount% %item%"
+    reward-got: "&ex%amount% &a%reward%"
+    player-got: "&e%player% &fşunu aldı: &ex%amount% &r%reward%"
+    no-rewards: "&cBu kutunun ödülleri yok."
+    no-available-rewards: "&cBu kutu için size uygun ödül yok."
+    crate.no-rewards-for-key-rarities: "&cThis crate does not have any rewards
+      available for the rarities of your keys: %rarities%"
+    data-not-available: "&cBekle! Verilerinizi yüklemeye devam ediyoruz. Kutu açmayı
+      bir süre sonra tekrar deneyin!"
+    guaranteed-win-openings: "&3%openings% açılışında garantili kazanım"
+    no-permission: "&cBu kutuyu açmak için izin verilmedi! [Gerekli izin: %permission%]"
+    cooldown-display:
+      counting: "&fTekrar açabilirsiniz &e%cooldown%"
+      over: "&aAçmak için mevcut"
+    hologram-type-limited: "&cBu hologram motoru her tür için yalnızca bir
+      yerleştirilmiş kasa destekler."
+    no-money: "&cBu kutuyu açmak için %necessary_money%$ gereklidir."
+    money-used: "&aBu kutuyu açmak için %money_consumed%$ harcadınız."
+    crate:
+      no-rewards-for-key-rarities: "&cBu kasada anahtarlarınızın nadirlikleri için herhangi bir ödül yok:
+        %rarities%"
+  actions:
+    need-item: "&cBu işlemi yapabilmek için bir öğe eklemeniz gerekiyor."
+    force-close: "&cYaptığınız işlemi iptal ettiniz."
+
+  layout:
+    actions:
+      left-click: "&6Sol Tıklama: &e%action%."
+      right-click: "&6Sağ Tıklama: &e%action%."
+      left-right-click: "&6Sol/Sağ Tıklama: &e%action%."
+      shift-left-click: "&6Shift + Sol Tıklama: &e%action%."
+      shift-right-click: "&6Shift + Sağ Tıklama: &e%action%."
+      drag-drop-click: "&6Sürükle & Bırak: &e%action%."
+      drop-click: "&6Q'ye bas: &e%action%."
+      description:
+        add: "%value% ekle"
+        set: "%value% ayarla"
+        create: "%value% oluştur"
+        remove: "%value% kaldır"
+        edit: "%value% düzenle"
+        delete: "%value% sil"
+        receive: Al %value%
+        clear: "%value% temizle"
+        choose: "%value% seç"
+        change: "%value% değiştir"
+        select: "%value% seç"
+        replace: "%value% değiştir"
+        unlink: "%value% bağlantısını kes"
+        link: "%value% bağlantısını oluştur"
+        reorder: "%value% sıralamasını değiştir"
+    displays:
+      state: "&f%type%: &7%state%"
+      value: "&f%type%: &7%value%"
+      material: "&fMalzeme: &7%material%"
+      location:
+        empty: "&fKonum: &7Boş"
+        populated:
+          - "&fKonum: "
+          - " &fDünya: &7%world%"
+          - " &fX ekseni: &7%x%"
+          - " &fY ekseni: &7%y%"
+          - " &fZ ekseni: &7%z%"
+          - " &fYaw: &7%yaw%"
+          - " &fPitch: &7%pitch%"
+      region:
+        empty: "&fBölge: &7Boş"
+        populated:
+          - "&fBölge: "
+          - " &fDünya: &7%world%"
+          - " &fPozisyon #1: &7%minimum%"
+          - " &fPozisyon #2: &7%maximum%"
+      item:
+        empty: "&fÖğe: &7Boş"
+        populated:
+          - "&fÖğe: "
+          - " &fİsim: &7%name%"
+          - " &fLore: &7%lore_if_empty%"
+          - " &f- &5&o%lore%"
+    extras:
+      previous-page:
+        title: "&aÖnceki sayfa - Sayfa %page%"
+        description:
+          - "&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<&a<&2<"
+      next-page:
+        title: "&aSonraki sayfa - Sayfa %page%"
+        description:
+          - "&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>&a>&2>"
+      no-data-found:
+        title: "&cVeri bulunamadı."
+        description:
+          - "&7Bu filtre ile hiçbir veri bulunamadı."
+      filter:
+        title: "&aFiltre"
+        description:
+          - "&7Buraya tıklayarak"
+          - "&7isimle filtreleme yapabileceksiniz."
+          - ""
+          - "&fFiltre: &e%filter%"
+          - ""
+          - "&6Sol Tıklama: &eFiltreyi ayarla."
+          - "&6Sağ Tıklama: &eFiltreyi temizle."
+  editor:
+    messages:
+      write-identifier-chat: "&eYeni tanımlayıcıyı sohbette yazın."
+      identifier-updated: '&aTanımlayıcı başarıyla \"%identifier%&a\" olarak güncellendi!'
+      write-displayname-chat: "&eYeni görüntü adını sohbete yazın."
+      displayname-updated: '&aGörüntü adı başarıyla \"%display_name%&a\" olarak güncellendi!'
+      write-in-chat: "&aSohbette yazın."
+      value-updated: "&aDeğer başarıyla güncellendi!"
+      write-lore-line-chat: "&eYeni hikaye satırını sohbete yazın."
+      lore-line-added: "&aHikaye satırı başarıyla eklendi!"
+      lore-cleared: "&aHikaye başarıyla temizlendi."
+      opening-animation-changed: "&aAçılış Animasyonu başarıyla değiştirildi."
+      crate-type-deleted: Kasa türü başarıyla silindi.
+      migration-completed: "&aGöç tamamlandı."
+    errors:
+      identifier-already-in-use: "&cBu tanımlayıcı zaten kullanımda."
+      no-spaces: "&cBoşluk olamaz!"
+      invalid-input: "&cGeçersiz giriş!"
+      invalid-number: "&cGeçersiz sayı!"
+      inventory-full: "&cEnvanteriniz dolu."
+      inventory-full-reward: "&cEnvanteriniz dolu olduğu için yerde bir kasa ödülü bırakıldı!"
+      inventory-full-key: "&cEnvanteriniz dolu olduğu için bir Anahtar yere düştü!"
+      username-not-found: "&c%username% adına sahip orijinal hesap bulunamadı."
+      invalid-rewards: "Geçersiz %amount% ödül/ödüller var!"
+      no-rewards-configured: "Hiç ödül yapılandırılmamış!"
+      invalid-reward-display: "Geçersiz Ödül: Boş görüntü öğesi bulundu!"
+      hologram-engine-missing: "&cHologram verileri başka bir plugine referans
+        veriyor! Lütfen eklenti ayarlarından Hologram Motoru'nu değiştirin."
+    titles:
+      main: Phoenix Crates v%version% > Editör
+      crates: Editör > Kasalar
+      keys: Editör > Anahtarlar
+      migrations: Editör > Göçler
+      addons: Editör > Eklentiler
+      rarities: Editör > Nadirlikler
+      settings: Editör > Ayarlar
+      engines:
+        bettermodel: Editor > ... > BetterModel
+      crate:
+        new: Editör > ... > Yeni Kasa
+        show: Editör > ... > Kasa
+        display: Editör > ... > Motor
+        menus: Editör > ... > Menüler
+        link-keys: Editör > ... > Anahtarları Bağla
+        idle-animation: Editör > ... > Bekleme Animasyonu
+        opening-animations: Editör > ... > Açılış Animasyonları
+        opening-animation: Editör > ... > Açılış Animasyonu
+        effect: Editör > ... > Animasyon Etkisi
+        rewards: Editör > ... > Ödüller
+        reward: Editör > ... > Ödül
+        reward-cooldowns: Editor > ... > Ödül Bekleme Süreleri
+        reward-requirements: Editor > ... > Ödül Gereksinimleri
+        reward-cooldown-duration: Editor > ... > Bekleme Süresi Süresi
+        reward-items: Editör > ... > Ödül Öğelerini Düzenle
+        reward-commands: Editör > ... > Ödül Komutlarını Düzenle
+        reward-rarity: Editör > ... > Ödül Nadirliği
+        multiple-rewards: Editör > ... > Birden Fazla Ödül Ekle
+        engine: Editör > ... > Motor
+        hologram: Editör > ... > Hologram
+        milestones: "Editör > ... > Aşama"
+        rerolling: "Editör > ... > Yeniden Çevirme"
+        others: "Editör > ... > Diğerleri"
+        open-cost: "Editor > ... > Açma Maliyeti"
+      key:
+        show: Editör > ... > Anahtar
+        linked-crates: Editör > ... > Bağlı Kasalar
+
+    main:
+      crates:
+        title: "&aKasa"
+        description:
+          - "&7Buraya tıklayarak, mevcut"
+          - "&7tüm kasaları keşfedip yönetebileceksiniz."
+      keys:
+        title: "&aAnahtarlar"
+        description:
+          - "&7Buraya tıklayarak, mevcut"
+          - "&7tüm anahtarları keşfedip yönetebileceksiniz."
+      rarities:
+        title: "&aNadirlikler"
+        description:
+          - "&7Buraya tıklayarak, nadirlik"
+          - "&7sistemini yapılandırabilir ve yönetebilirsiniz."
+      migrations:
+        title: "&aGöçler"
+        description:
+          - "&7Diğer kasa eklentilerinden göç etme seçeneklerini keşfedin"
+          - "&7ve buraya tıklayarak göç sürecini yönetin."
+      addons:
+        title: "&aEklentiler"
+        description:
+          - "&7Ek özellikleri ve iyileştirmeleri keşfedin"
+          - "&7eklentiler menüsüne erişmek için buraya tıklayın."
+      settings:
+        title: "&aAyarlar"
+        description:
+          - "&7Buraya tıklayarak, eklenti ayarlarını"
+          - "&7keşfedip özelleştirebilirsiniz."
+      reload:
+        title: "&aYeniden Yükle Konfigürasyonu"
+        description:
+          - "&7Buraya tıklayarak, tüm eklenti konfigürasyonlarının"
+          - "&7yeniden yüklenmesini başlatacaksınız."
+      pouches:
+        title: "&aTorba"
+        description:
+          - "&7Buraya tıklayarak, mevcut"
+          - "&7tüm torbaları yönetebileceksiniz."
+      crate-claim:
+        title: "&aKasa Talebi"
+        description:
+          - "&7Buraya tıklayarak,"
+          - "&7kasa talep davranışını ve menülerini yapılandırabilirsiniz."
+    migrations:
+      plugin:
+        title: "&a%name%'den Göç Et"
+        description:
+          - "&8%url%"
+          - ""
+          - "&7Buraya tıklayarak,"
+          - "&7%name%'den bu eklentiye bazı dosyaları göç ettirebilirsiniz."
+          - ""
+          - "&aDesteklenen dosyalar:"
+          - "&8 &7- %files%"
+          - ""
+          - "&fDesteklenen Veritabanı: %database%"
+    addons:
+      loading:
+        title: "&eYükleniyor..."
+        description:
+          - "&7Eklentiler yükleniyor,"
+          - "&7birkaç saniye bekleyin."
+      empty:
+        title: "&cEklenti mevcut değil"
+        description:
+          - "&7Mevcut filtreye göre"
+          - "&7hiç kayıt bulunamadı."
+      addon:
+        title: "&a%name%"
+        description:
+          - "&7%description%"
+          - ""
+          - "&fFiyat: &a%price%"
+    settings:
+      language:
+        title: "&aDil"
+        description:
+          - "&7Bu seçenek, değiştirmenizi sağlar"
+          - "&7Bu eklentinin kullanacağı temel dil"
+          - ""
+          - "&e&nHer zaman translations.en.yml dosyasını yapılandırabilirsiniz."
+      key-mainhand:
+        title: "&aAna Elde Anahtar Gereksinimi"
+        description:
+          - "&7Bu seçenek, şunu belirlemenizi sağlar"
+          - "&7oyuncuların sandıkları açmak için"
+          - "&7ana ellerinde bir anahtara sahip olmaları gerekip gerekmediğini."
+      crate-knockback:
+        title: "&aKasa Geri Sarması"
+        description:
+          - "&7Bu seçenek, oyuncunun"
+          - "&7yanlış anahtarla bir kasayı açmaya çalışırken"
+          - "&7alacağı geri sarmayı değiştirmeye olanak tanır."
+      crate-despawn-range:
+        title: "&aKasa Yok Olma Aralığı"
+        description:
+          - "&7Bu seçenek, etkilerin "
+          - "&7oyuncuya göstermeyi durdurması için gerekli olan"
+          - "&7mesafeyi tanımlamanıza olanak tanır."
+          - ""
+          - "&c&nYüksek değerler önerilmez, çünkü gecikmeye neden olabilir."
+      crate-quick-open:
+        title: "&aKasa Hızlı Açma"
+        description:
+          - "&7Bu seçenek, oyuncuların"
+          - "&7kasa anahtarını tutarken hızlı açmalarına"
+          - "&7ve sağ tıklarken kaydırmalarına olanak tanır."
+          - ""
+          - "&e&nSadece kasa eş zamanlı açılımlarında çalışır!"
+      disable-confirmation-menus:
+        title: "&aOnay Menülerini Devre Dışı Bırak"
+        description:
+          - "&7Bu seçenek"
+          - "&7onay menülerini atlamanızı sağlar, böylece oyuncular"
+          - "&7doğrudan eyleme geçer."
+      crate-claim:
+        title: "&aKasa Alma"
+        description:
+          - "&7Buraya tıklayarak yapılandırabilirsiniz"
+          - "&7kasa alma davranışını ve menülerini."
+    keys:
+      key:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Buraya tıkladığınızda bu anahtarı"
+          - "&7yapılandırabileceksiniz."
+        identifier:
+          title: "&aTanımlayıcı"
+          description:
+            - "&7Buraya tıkladığınızda anahtar tanımlayıcınızı"
+            - "&7yeniden adlandırabileceksiniz."
+            - "&eBu tanımlayıcı benzersiz olmalıdır."
+        display-name:
+          title: "&aGörünen İsim"
+          description:
+            - "&7Buraya tıkladığınızda anahtarınızı"
+            - "&7yeniden adlandırabileceksiniz."
+        link-crates:
+          title: "&aKasa Bağla"
+          description:
+            - "&7Buraya tıkladığınızda bu anahtar ile"
+            - "&7kasa bağlayabileceksiniz."
+        enabled:
+          title: "&aAçık"
+          description:
+            - "&7Buraya tıkladığınızda bu anahtarın"
+            - "&7mevcut olup olmadığını değiştirebileceksiniz."
+        delete:
+          title: "&aAnahtarı Sil"
+          description:
+            - "&7Buraya tıkladığınızda bu anahtar"
+            - "&7sunucudan silinecektir."
+            - "&eDünyadaki tüm anahtarlar geçersiz olacaktır."
+        item:
+          title: "&aAnahtar Eşyası"
+          description:
+            - "&7Bir kasayı açmak için kullanılabilecek"
+            - "&7özel bir anahtar eşyası."
+      add:
+        title: "&aAnahtar Ekle"
+        description:
+          - "&7Buraya tıkladığınızda bir anahtar"
+          - "&7oluşturabileceksiniz."
+    crates:
+      type:
+        title: "&a%name% &7(Id: %identifier%)"
+        description:
+          - "&7Buraya tıkladığınızda bu kasayı"
+          - "&7yapılandırabileceksiniz."
+      add:
+        title: "&aKasa Ekle"
+        description:
+          - "&7Buraya tıkladığınızda bir kasa tipi"
+          - "&7oluşturabileceksiniz."
+    crate:
+      identifier:
+        title: "&aTanımlayıcı"
+        description:
+          - "&7Buraya tıkladığınızda kasa tanımlayıcınızı"
+          - "&7yeniden adlandırabileceksiniz."
+          - "&eBu tanımlayıcı benzersiz olmalıdır."
+      item:
+        title: "&aEşya"
+        description:
+          - "&7Bu kasayı temsil etmek için kullanılacak"
+          - "&7gösterim eşyası."
+        name:
+          title: "&aEşya Adı"
+          description:
+            - "&7Bu eşya için kullanılacak"
+            - "&7isim"
+        lore:
+          title: "&aEşya Açıklaması"
+          description:
+            - "&7Kullanılacak açıklama"
+            - "&7bu eşyayı temsil etmek için"
+      link-keys:
+        title: "&aAnahtarları Bağla"
+        description:
+          - "&7Buraya tıklayarak"
+          - "&7bu kaseye anahtar ekleyebilirsiniz."
+      animations:
+        title: "&aAnimasyonlar"
+        description:
+          - "&7Buraya tıkladığınızda bu kasanın"
+          - "&7animasyonlarını değiştirebileceksiniz."
+          - ""
+          - "&fŞunları yapılandırabilirsiniz:"
+          - "&8> &aDurma Animasyonu"
+          - "&8> &aAçılma Animasyonu"
+      rerolls:
+        title: "&aYeniden Atmalar"
+        description:
+          - "&7Buraya tıkladığınızda bu kasanın"
+          - "&7yeniden atmalarını tanımlayabileceksiniz."
+      mass-opening:
+        title: "&aToplu Açma"
+        description:
+          - "&7Buraya tıkladığınızda"
+          - "&7kasanın toplu açılma ayarlarını yapılandırabilirsiniz."
+      display-settings:
+        block-material:
+          title: "&aBlok Malzemesi"
+          description:
+            - "&7Buraya tıkladığınızda"
+            - "&7kasa bloğu için kullanılan"
+            - "&7malzemeyi değiştirebileceksiniz."
+        crate-engine:
+          title: "&aSandık Blok Motoru"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7motoru değiştirebilir ve özelleştirebilirsiniz."
+            - ""
+            - "&b➥ Vanilla Block engine:"
+            - "&7Standart malzeme tabanlı sandık."
+            - "&eᴇ.ɢ. ꜱʜᴜʟᴋᴇʀ, ᴄʜᴇꜱᴛ ᴘʟᴀʏᴇʀʜᴇᴀᴅ"
+            - ""
+            - "&b➥ Vanilla Model engine: &9(1.12+)"
+            - "&7Özel resource pack statik modeli."
+            - "&eᴇ.ɢ. ꜰᴜʀɴɪᴛᴜʀᴇ ᴏꜰ ɪᴛᴇᴍꜱᴀᴅᴅᴇʀ."
+            - ""
+            - "&b➥ Model Engine / Better Model:"
+            - "&7Animasyonlu özel model."
+            - ""
+            - "&fMotorlar:"
+        rewards-mode:
+          title: "&aÖdül Modu"
+          description:
+            - "&7Buraya tıklayarak, bu ödül sisteminin"
+            - "&7kullanacağı modu değiştirebilirsiniz."
+            - ""
+            - "&b➥ Rastgele Mod:"
+            - "&7Ödüller, atanmış ağırlıklarına (şanslarına) göre rastgele
+              seçilecektir. Bu"
+            - "&7mod sürpriz ve şans unsuru ekler."
+            - ""
+            - "&b➥ Seçici Mod:"
+            - "&7Bu mod rastgeleliği kaldırır, kullanıcıların"
+            - "&7mevcut seçeneklerden istedikleri ödülü doğrudan seçmelerine
+              olanak tanır. Kullanıcılara ödülleri hakkında kontrol verme
+              idealidir."
+            - ""
+            - "&fModlar:"
+        hologram:
+          title: "&aHologram"
+          description:
+            - "&7Buraya tıkladığınızda, bu sandığın üstündeki"
+            - "&7hologramı yapılandırabileceksiniz."
+        idle-animation:
+          title: "&aBekleme Animasyonu"
+          description:
+            - "&7Buraya tıkladığınızda, bu sandığın"
+            - "&7bekleme animasyonunu özelleştirebileceksiniz."
+            - ""
+            - "&7Bekleme animasyonu,"
+            - "&7bir oyuncunun bu sandığı açmadığı zaman görünecektir."
+        opening-animation:
+          title: "&aAçılış Animasyonu"
+          description:
+            - "&7Buraya tıkladığınızda, bu sandığın"
+            - "&7açılış animasyonunu özelleştirebileceksiniz."
+            - ""
+            - "&fAçılış animasyonu nasıl çalışıyor?"
+            - "&7Bu animasyon 3 aşamadan oluşur, her bir"
+            - "&7aşama farklı mini-animasyonlar ve"
+            - "&7özelliklerden oluşur. Basit bir şekilde, aşamalar"
+            - "&7bir animasyonun başlangıcını, ortasını ve sonunu temsil eder."
+            - ""
+            - "&7Ayrıca, model animasyonlarını destekleyen bir motor
+              kullanıyorsanız,"
+            - "&7belirli model animasyonlarını her seviyeyle senkronize
+              edebilirsiniz."
+        engine-mode:
+          title: "&aMotor Modu"
+          description:
+            - "&7Buraya tıkladığınızda bu kasanın kullanılacağı"
+            - "&7motoru değiştirebileceksiniz."
+            - ""
+            - "&b➥ Vanilla Block motoru:"
+            - "&7Bir sandığın varsayılan motoru, gösterimi"
+            - "&7bu sandığın bloğu olarak seçilen malzeme olacak."
+            - ""
+            - "&b➥ Vanilla Model motoru: &9(1.12+)"
+            - "&7Sandığa özel bir statik model atama imkanı"
+            - "&7ama animasyonları desteklemez. Bu, vanilla modelleri destekler"
+            - "&7malzeme ve özel model verileri aracılığıyla."
+            - ""
+            - "&b➥ Diğerleri: &9(1.16.5+)"
+            - "&7Sandığa hem özel bir model atama imkanı"
+            - "&7hem de özel bir açılış animasyonu."
+            - ""
+            - "&fMotorlar:"
+      open-cooldown:
+        title: "&aAçma Bekleme Süresi"
+        description:
+          - "&7Buraya tıklayarak bir oyuncunun"
+          - "&7başka bir sandığı açmak için beklemesi gereken süreyi"
+          - "&7değiştirebilirsiniz."
+      open-cost:
+        title: "&aAçma Maliyeti Motoru"
+        description:
+          - "&7Buraya tıklayarak bu sandığı açmanın"
+          - "&7ek bir yöntemini tanımlayabilirsiniz"
+          - ""
+          - "&e&lİpucu&r&e: &7Anahtar gereksinimini devre dışı bırakarak"
+          - "      &7bu yöntemi ana yöntem olarak."
+      open-cost-amount:
+        title: "&aAçma Ücreti Miktarı"
+        description:
+          - "&7Alınacak para miktarı"
+          - "&7bu sandığı açarken tahsil edilecektir."
+      open-cost-currency:
+        title: "&aCurrency"
+        description:
+          - "&7ExcellentEconomy para birimi"
+          - "&7ücretin tahsil edilmesinde kullanılacak."
+      simultaneous-openings:
+        title: "&aEşzamanlı Açılışlar"
+        description:
+          - "&7Bu seçenek, bir veya daha fazla oyuncunun"
+          - "&7bu sandığı aynı anda açıp açamayacağını"
+          - "&7tanımlamanıza olanak tanır."
+          - ""
+          - "&e&nHızlı Açma devre dışı bırakıldı"
+          - "&e&naynı anda açma olmadan"
+      preview-reward:
+        title: "&aÖdülü Önizle"
+        description:
+          - "&7Buraya tıklayarak etkinleştireceksiniz"
+          - "&7her sandığın üstünde bir önizleme ödülü."
+      permission-required:
+        title: "&aİzin Gereksinimi"
+        description:
+          - "&7Buraya tıklayarak ayarlayacaksınız"
+          - "&7bir oyuncunun bu sandığı açmak için"
+          - "&7sahip olması gereken izni."
+      rewards:
+        title: "&aÖdüller"
+        description:
+          - "&7Buraya tıklayarak"
+          - "&7bir oyuncunun bu sandığı açarak"
+          - "&7kazanabileceği tüm ödülleri yapılandırabileceksiniz."
+        add:
+          title: "&aÖdül Ekle"
+          description:
+            - "&7Buraya tıklayarak yeni bir"
+            - "&7ödül ayarlamaya başlayabilirsiniz."
+        edit:
+          title: "&aÖdül #%position%"
+          description: []
+        multiple-rewards:
+          title: "&aBirden Fazla Ödül Ekle"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7bir seferde birden fazla ödül ekleyebilirsiniz."
+        reordering:
+          title: "&aSıralama"
+          description:
+            - "&7Buraya tıklayarak ödülleri"
+            - "&7istediğiniz sıraya göre sıralayabilirsiniz."
+          selected:
+            title: "&eSeçilen"
+        win-amount:
+          title: "&aMax Kazanma Ödülleri"
+          description:
+            - "&7Buraya tıklayarak tanımlayabilirsiniz"
+            - "&7bir oyuncunun kaç ödül kazanacağını."
+      reward:
+        drag-item:
+          title: "&aBir öğeyi sürükleyin"
+          description:
+            - "&7Ödülü ayarlamak için herhangi bir öğeyi sürükleyin."
+            - ""
+            - "&6Sürükle & Bırak: Öğeyi değiştir."
+        filled-item:
+          title: "&7%name%"
+          description:
+            - "%lore%"
+            - ""
+            - "&6Sürükle & Bırak: &eÖğeyi değiştir."
+        identifier:
+          title: "&aTanımlayıcıyı Değiştir"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7ödül tanımlayıcınızı yeniden adlandırabileceksiniz."
+            - "&eBu tanımlayıcı benzersiz olmalıdır."
+        display-item:
+          title: "&aGösterim Öğesi"
+          description:
+            - "&7Bu öğe, bu sandığın"
+            - "&7ödülünü temsil edecek gösterim olarak hizmet edecektir."
+          name:
+            title: "&aGösterim Adı"
+            description:
+              - "&7Bu Ödülü temsil etmek için kullanılacak"
+              - "&7isim."
+          lore:
+            title: "&aGösterim Lore"
+            description:
+              - "&7Bu Ödülü temsil etmek için kullanılacak"
+              - "&7lore."
+        alternative-item:
+          title: "&aAlternatif Öğesi"
+          description:
+            - "&7Bu öğe, kullanıcıya"
+            - "&7şartlar sağlanırsa verilecek ekstra öğe olacaktır."
+        win-items:
+          title: "&aKazanılan Öğeler"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7bir oyuncunun bu ödülü kazanırken"
+            - "&7alacağı öğeleri ekleyebileceksiniz."
+          add-item:
+            title: "&aÖğe Ekle"
+            description:
+              - "&7Envanterinizden bir öğeyi sürükleyin"
+              - "&7buraya eklemek için bu ödül için."
+        weight:
+          title: "&aAğırlık"
+          description:
+            - "&7Ağırlık, oyuncunun"
+            - "&7bu ödülü kazanma şansına katkıda bulunacak."
+        virtual:
+          title: "&aSanal Öğesi"
+          description:
+            - "&7Bu seçenek, kazananın"
+            - "&7bir fiziksel öğe alıp almayacağını belirler."
+        win-commands:
+          title: "&aKazanma Komutları"
+          description:
+            - "&7Buraya tıklayarak tüm komutları yönetebilirsiniz"
+            - "&7bir oyuncu bu ödülü kazandığında çalıştırılacak."
+            - ""
+        max-win-item-amount:
+          title: "&aMaks. Kazanılan Öğe Miktarı"
+          description:
+            - "&7Verilecek maksimum öğe sayısını"
+            - "&7win-items listesinden"
+            - "&7bu ödül kazanıldığında verilecek."
+            - "&7Sınır yoksa &e∞ &7 olarak ayarlayın."
+        max-win-command-amount:
+          title: "&aMaksimum Kazanılan Komut Sayısı"
+          description:
+            - "&7Çalıştırılacak maksimum komut sayısını ayarlar"
+            - "&7win-commands listesinden"
+            - "&7bu ödül kazanıldığında çalıştırılacak."
+            - "&7Sınır yoksa &e∞ &7 olarak ayarlayın."
+        broadcast:
+          title: "&aYayın Mesajı"
+          description:
+            - "&7Bu seçenek, bir yayın mesajının"
+            - "&7bir oyuncu bu ödülü kazandığında görünüp görünmeyeceğini
+              ayarlar."
+        share-players-online:
+          title: "&aÇevrimiçi Oyuncularla Paylaş"
+          description:
+            - "&7Bu seçenek, bu ödülün"
+            - "&7herkesle paylaşılması gerektiğini belirler."
+        allow-win-message:
+          title: "&aKazanma Mesajına İzin Ver"
+          description:
+            - "&7Bu seçenek, oyuncunun"
+            - "&7bu ödülü kazandığında bir mesaj alıp almayacağını belirler."
+        notification-types:
+          title: "&aBildirim Türü"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7kazanç mesajının gönderileceği türü değiştirebilirsiniz."
+        enabled:
+          title: "&aEtkin"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7bu ödülün kullanılabilir olup olmadığını değiştirebilirsiniz."
+        win-limit:
+          title: "&aKazanma Sınırı"
+          description:
+            - "&7Bu seçenek, bir oyuncunun"
+            - "&7bu ödülü kaç kez kazanabileceğini ayarlar."
+            - ""
+            - "&e&lİP UCU: &7Bunu bir alternatif ödül ile"
+            - "       &7birleştirebilirsiniz."
+        global-win-limit:
+          title: "&aGenel Kazanma Limiti"
+          description:
+            - "&7Bu seçenek, kaç kez"
+            - "&7bu ödülün kazanılabileceğini"
+            - "&7sunucudaki herkes tarafından toplamda."
+            - ""
+            - "&e&lİPUCU: &7Bunu"
+            - "       &7bir alternatif ödülle birleştirebilirsiniz."
+        cooldowns:
+          title: "&aBekleme Süreleri"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7bu ödülün bekleme sürelerini"
+            - "&7ayarlayabilirsiniz."
+          win-limit-cooldown:
+            title: "&aKazanma Limiti Bekleme Süresi"
+            description:
+              - "&7Bu seçenek, bir oyuncunun ne kadar süre"
+              - "&7yeniden bu ödülü kazanabilmek için beklemesi"
+              - "&7gerektiğini ayarlar."
+          global-win-limit-cooldown:
+            title: "&aGenel Kazanma Limiti Bekleme Süresi"
+            description:
+              - "&7Bu seçenek, bu ödülün tekrar kazanılabilmesi için"
+              - "&7ne kadar süre geçmesi gerektiğini"
+              - "&7sunucudaki herkes için belirler."
+          time-limited-cooldown:
+            title: "&aZaman Sınırlı Bekleme Süresi"
+            description:
+              - "&7Bu seçenek, bu ödülün"
+              - "&7bekleme süresi başladığında ne kadar süre"
+              - "&7kadar kullanılabilir kalacağını ayarlar."
+              - ""
+              - "&7Süresi dolduğunda ödül"
+              - "&7otomatik olarak devre dışı kalacaktır."
+          duration:
+            weeks:
+              title: "&aHaftalar"
+              description:
+                - "&7Eklenecek hafta sayısı"
+                - "&7bu bekleme süresine."
+            days:
+              title: "&aGünler"
+              description:
+                - "&7Eklenecek gün sayısı"
+                - "&7bu bekleme süresine."
+            hours:
+              title: "&aSaatler"
+              description:
+                - "&7Eklenecek saat sayısı"
+                - "&7bu bekleme süresine."
+            minutes:
+              title: "&aDakikalar"
+              description:
+                - "&7Eklenecek dakika sayısı"
+                - "&7bu bekleme süresine."
+            disable:
+              title: "&cBekleme Süresini Devre Dışı Bırak"
+              description:
+                - "&7Bu bekleme süresinin süresini"
+                - "&7sıfıra ayarlar, böylece devre dışı bırakır."
+        requirements:
+          title: "&aGereksinimler"
+          description:
+            - "&7İzin gereksinimlerini yapılandırın"
+            - "&7bu ödül için."
+          required-permission:
+            title: "&aGerekli İzin"
+            description:
+              - "&7Oyuncunun sahip olması gereken izni ayarlayın"
+              - "&7bu ödülü kullanılabilir olarak görebilmesi için."
+              - "&7Oyuncuda yoksa, ödül"
+              - "&7önizlemede kilitli olarak görünecek."
+        restricted-permissions:
+          title: "&aKısıtlı İzinler"
+          description:
+            - "&7Bu seçenek, oyuncunun"
+            - "&7bu ödülü kazanmak için"
+            - "&7sahip olamayacağı kısıtlı izinleri"
+            - "&eUygulanmayacaktır eğer oyuncu op ise."
+            - ""
+            - "&e&lİPUCU: &7Bunu alternatif bir"
+            - "       &7ödül ile birleştirebilirsiniz."
+        alternative-reward:
+          title: "&aAlternatif Ödül"
+          description:
+            - "&7Buraya tıklayarak alternatif"
+            - "&7ödülü yapılandırabileceksiniz."
+            - "&7Bu ödülün alternatif ödülü."
+            - ""
+            - "&7Eğer oyuncunun kazanma sınırlarını"
+            - "&7aştığında veya kara liste izinlerine"
+            - "&7sahip olduğunda, bu ödülü alacaktır."
+        delete:
+          title: "&aÖdülü Sil"
+          description:
+            - "&7Buraya tıklayarak bu ödül"
+            - "&7bu sandıktan silinecek."
+        percentage:
+          title: "&aYüzde"
+          description:
+            - "&7Yüzde, bir"
+            - "&7oyuncunun bu öğeyi kazanma şansına katkıda bulunacaktır."
+      menus:
+        title: "&aMenüler"
+        description:
+          - "&7Buraya tıklayarak tüm menüleri"
+          - "&7bu sandık için yapılandırabileceksiniz."
+      rewards-menu:
+        title: "&aÖdüller Menüsü"
+        description:
+          - "&7Buraya tıklayarak bu sandığın"
+          - "&7hangi ödüller menüsüne sahip olacağını"
+          - "&7yapılandırabileceksiniz."
+      preview-actions:
+        title: "&aÖnizleme Eylemleri"
+        description:
+          - "&7Buraya tıklayarak yapılandırabileceksiniz"
+          - "&7bir oyuncu tıkladığında çalışacak eylemleri"
+          - "&7bu sandığı önizlemek için."
+          - "&7Bunlar birlikte veya"
+          - "&7ödüller önizleme menosu yerine kullanılabilir."
+      rerolls-menu:
+        title: "&aYeniden Atma Menüsü"
+        description:
+          - "&7Buraya tıklayarak bu sandığın"
+          - "&7hangi yeniden atma menüsüne sahip olacağını"
+          - "&7yapılandırabileceksiniz."
+      selective-rewards-menu:
+        title: "&aSeçici Ödüller Menüsü"
+        description:
+          - "&7Buraya tıklayarak bu sandığın"
+          - "&7hangi seçici ödüller menüsüne sahip olacağını"
+          - "&7yapılandırabileceksiniz."
+      milestones-menu:
+        title: "&aKilometre Taşları Menüsü"
+        description:
+          - "&7Buraya tıklayarak bu sandığın"
+          - "&7hangi önizleme menüsüne sahip olacağını"
+          - "&7yapılandırabileceksiniz."
+      broadcast-message:
+        title: "&a Yayın Mesajı"
+        description:
+          - "&7Buraya tıklayarak ödüller için"
+          - "&7yayın mesajını yapılandırabileceksiniz."
+          - ""
+          - "&eKullanılabilir Yer Tutucular:"
+          - "&7%player%, %reward%, %crate%"
+      enabled:
+        title: "&aAçık"
+        description:
+          - "&7Buraya tıklayarak bu sandığın"
+          - "&7mevcut olup olmayacağını değiştirebilirsiniz."
+      allow-open-command:
+        title: "&aAçma Komutuna İzin Ver"
+        description:
+          - "&7Buraya tıklayarak"
+          - "&7bu sandığın"
+          - "&7&f/crate open &7komutuyla açılıp açılmayacağını
+            değiştirebileceksiniz."
+      attach-block:
+        title: "&aBlok Ekle"
+        description:
+          - "&7Buraya tıklayarak bir bloğu"
+          - "&7ekleyerek bir sandık oluşturabileceksiniz."
+      delete:
+        title: "&aSandığı Sil"
+        description:
+          - "&7Buraya tıklayarak bu sandık"
+          - "&7sunucudan silinecek."
+          - ""
+          - "&e&nBu sandıktaki tüm anahtarlar artık geçerli olmayacak."
+      hologram:
+        engine-mode:
+          title: "&aHologram Motoru Modu"
+          description:
+            - "&7Eklentinin hologramlar için"
+            - "&7kullandığı motor"
+            - ""
+            - "&fMotor: &7%engine%"
+        lines:
+          title: "&aHologram Satırları"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7bu kasanın hologram satırlarını yapılandırabilirsiniz."
+            - ""
+            - "&e&lİPUCU: &7Kullanabilirsiniz &ePlaceholderAPI&7."
+        identifier:
+          title: "&aTanımlayıcı"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7hologram eklentisinin tanımlayıcısını belirleyebilirsiniz."
+            - ""
+            - "&fTanımlayıcı: &7%id%"
+        offset:
+          title: "&aHologram Ofseti"
+          description:
+            - "&7Bu seçenek hologramın"
+            - "&7kasa konumuna göre pozisyonunu ayarlamanıza izin verir."
+      display-name:
+        title: "&aGörünen İsim"
+        description:
+          - "&7Buraya tıkladığınızda kasanızı"
+          - "&7yeniden adlandırabileceksiniz."
+      open-money-cost:
+        title: "&aAçma Para Maliyeti"
+        description:
+          - "&7Buraya tıkladığınızda, bu sandığı açmak için"
+          - "&7gerekli olan paranın miktarını değiştirebilirsiniz."
+          - "&7anahtar ve sağ tıklamayı kaydırarak."
+          - ""
+          - "&e&nSadece Vault ile çalışır!"
+    crate-engine:
+      first-phase-delay:
+        title: "&aBirinci Aşama Başlangıç Gecikmesi"
+        description:
+          - "&7Sandığın açıldığı an ile"
+          - "&7animasyonların birinci aşamasının"
+          - "&7başlangıcı arasındaki gecikmeyi tanımlayın."
+      second-phase-delay:
+        title: "&aİkinci Aşama Başlangıç Gecikmesi"
+        description:
+          - "&7Açılma animasyonunun birinci"
+          - "&7ve ikinci aşamaları arasındaki gecikmeyi tanımlayın."
+      third-phase-delay:
+        title: "&aÜçüncü Aşama Başlangıç Gecikmesi"
+        description:
+          - "&7Açılma animasyonunun ikinci"
+          - "&7ve üçüncü aşamaları arasındaki gecikmeyi tanımlayın."
+      idle:
+        title: "&aBekleme Animasyonu"
+        description:
+          - "&7Sandık boşta iken çalışacak"
+          - "&7animasyonu tanımlayın."
+      close-animation:
+        title: "&aKapanış Animasyonu"
+        description:
+          - "&7Sandık kapanırken oynatılacak"
+          - "&7animasyonu tanımlayın."
+      model-name:
+        title: "&aModel Adı"
+        description:
+          - "&7Bu sandığın kullanacağı model adını"
+          - "&7tanımlayın."
+          - ""
+          - "&fCurrent Model: &7%name%"
+      model-engine:
+        model-name:
+          title: "&aModel Adı"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7bu sandığın model adını değiştirebileceksiniz."
+            - ""
+            - "&fCurrent Name: &7%name%"
+      better-model:
+        model-name:
+          title: "&aModel Adı"
+          description:
+            - "&7Buraya tıklayarak"
+            - "&7bu sandığın model adını değiştirebileceksiniz."
+            - ""
+            - "&fCurrent Name: &7%name%"
+        scale:
+          title: "&aÖlçek"
+          description:
+            - "&7Bunun için boyut çarpanını tanımlayın"
+            - "&7model. 1.0 modelin normal boyutudur."
+      vanilla-model:
+        material-select:
+          title: "&a%name%"
+          description:
+            - ""
+            - "&6Sol Tıklama: &eMalzemi seç."
+        custom-model-data:
+          title: "&aÖzel Model Verisi"
+          description:
+            - "&7Buraya tıklayarak bu nesnenin"
+            - "&7özel model verisini değiştirebileceksiniz."
+            - ""
+            - "&fÖzel Model Verisi: &7%custom_model_data%"
+            - ""
+            - "&6Sol Tıklama: &eÖzel Model Verisini Değiştir."
+    reward-commands:
+      add:
+        title: "&aKomut Ekle"
+        description:
+          - "&7Buraya tıklayarak eklemeyi"
+          - "&7başarabileceğiniz bir komut"
+          - "&7bir oyuncu bu ödülü kazandığında"
+          - ""
+          - "&7&akyıldız: &7* ile başlayan komutlar"
+          - "&7oyuncular tarafından yürütülür. Aksi halde, konsol tarafından
+            yürütülür."
+          - ""
+          - "&7Ayrıca &a%player%&7 yer tutucusunu kullanabilirsiniz."
+          - "&7ve &aPlaceholderAPI&7'den yer tutucuları."
+          - ""
+          - "&6Sol-Tık: &eKomut ekle."
+      command:
+        title: "&aKomut #%id%"
+        description:
+          - "&fKomut: &7%command%"
+          - ""
+          - "&6Sol-Tık: &eKomutu kaldır."
+    alternative-reward:
+      enabled:
+        title: "&aDurum"
+        description:
+          - "&7Alternatif ödül aktif olduğunda,"
+          - "&7eğer oyuncu kazanma sınırlarını aşarsa ya da"
+          - "&7kara liste izinleri varsa,"
+          - "&7bu ödülü alacaktır."
+    edit-standby-animation:
+      add-effect:
+        title: "&aEfekt Ekle"
+        description:
+          - "&7Buraya tıklayarak,"
+          - "&7boşta bekleme animasyonuna yeni bir efekt ekleyebilirsiniz."
+          - ""
+          - "&6Sol-Tık &eEfekt ekle."
+      edit-effect:
+        title: "&eEfekt #%id%"
+        description:
+          - ""
+          - "&fEfekt Türü: &7%effect_type%"
+          - "&fParçacık Türü: &7%particle_type%"
+          - "&fParçacık Hızı: &7%particle_velocity%"
+          - "&fRenk: &7%color%"
+          - "&fOfset: &7%offset%"
+          - "&fDağılım: &7%spread%"
+          - "&fMiktar: &7%amount%"
+          - ""
+          - "&6Sol-Tık &eEfekti düzenle."
+          - "&6Shift + Sol-Tık: &eEfekti kaldır."
+    edit-standby-effect:
+      effect-type:
+        title: "&aEfekt Türü&8: &e%effect_type%"
+        description:
+          - ""
+          - "%effects%"
+          - ""
+          - "&6Sol/sağ-Tık: &eTürü değiştir."
+      particle-type:
+        title: "&aParçacık Türü"
+        description:
+          - "&fMevcut: &7%particle_type%"
+          - ""
+          - "&6Sol-Tık: &eParçacığı değiştir."
+      particle-select:
+        title: "&a%name%"
+        description:
+          - "&fÖzellikler: &a%properties%"
+          - ""
+          - "&6Sol-Tık: &eParçacığı seç."
+      color:
+        title: "&aRenk"
+        description:
+          - "&fMevcut: &7%color%"
+          - ""
+          - "&e&nSadece renkli parçacıklarla çalışır."
+          - ""
+          - "&6Sol-Tık: &eRengi değiştir."
+      color-select:
+        title: "&a%name%"
+        description:
+          - ""
+          - "&6Sol-Tık: &eRengi seç."
+      spread:
+        title: "&aDağılım"
+        description:
+          - "&fMevcut: &7%spread%"
+          - ""
+          - "&6Sol-Tık: &e0.1 ekle."
+          - "&6Shift + Sol-Tık: &e1 ekle."
+          - "&6Sağ-Tık: &e0.1 kaldır."
+          - "&6Shift + Sağ-Tık: &e1 kaldır."
+      particle-velocity:
+        title: "&aParçacık Hızı"
+        description:
+          - "&fMevcut: &7%particle_velocity%"
+          - ""
+          - "&6Sol-Tık: &e0.1 ekle."
+          - "&6Shift + Sol-Tık: &e1 ekle."
+          - "&6Sağ-Tık: &e0.1 kaldır."
+          - "&6Shift + Sağ-Tık: &e1 kaldır."
+      amount:
+        title: "&aMiktar"
+        description:
+          - "&fMevcut: &7%amount%"
+          - ""
+          - "&6Sol-Tık: &e1 ekle."
+          - "&6Sağ-Tık: &e1 kaldır."
+      offset-x:
+        title: "&aOfset X"
+        description:
+          - "&fMevcut: &7%offset_x%"
+          - ""
+          - "&6Sol-Tık: &e0.1 ekle."
+          - "&6Shift + Sol-Tık: &e1 ekle."
+          - "&6Sağ-Tık: &e0.1 kaldır."
+          - "&6Shift + Sağ-Tık: &e1 kaldır."
+      offset-y:
+        title: "&aOfset Y"
+        description:
+          - "&fMevcut: &7%offset_y%"
+          - ""
+          - "&6Sol-Tık: &e0.1 ekle."
+          - "&6Shift + Sol-Tık: &e1 ekle."
+          - "&6Sağ-Tık: &e0.1 çıkar."
+          - "&6Shift + Sağ-Tık: &e1 çıkar."
+      offset-z:
+        title: "&aOfset Z"
+        description:
+          - "&fMevcut: &7%offset_z%"
+          - ""
+          - "&6Sol-Tık: &e0.1 ekle."
+          - "&6Shift + Sol-Tık: &e1 ekle."
+          - "&6Sağ-Tık: &e0.1 çıkar."
+          - "&6Shift + Sağ-Tık: &e1 çıkar."
+    opening-animation:
+      phase-updated: "&aAnimasyon aşaması güncellendi."
+      preset-applied: "&aAçılma animasyonu ön ayarı uygulandı."
+      preset-removed: "&aHiçbir ön ayar seçilmedi."
+      phase:
+        title: "&a%phase% Aşaması"
+        description:
+          - "&7Her açılış animasyonu,"
+          - "&7aşamalardan oluşur, bu aşamalardan biridir."
+          - ""
+          - "&fAşama: &e%name%"
+      change-phases:
+        title: "&aAnimasyon Aşamaları"
+        description:
+          - "&7Açılış animasyonu için"
+          - "&7aşama animasyonlarını seçin."
+          - ""
+          - "&6Sol-Tık: &eAnimasyonu değiştir."
+    edit-opening-animation:
+      phase-navbar:
+        title: "&a%phase% Aşaması"
+        description:
+          - "&7Her açılış animasyonu,"
+          - "&7aşamalardan oluşur, bu aşamalardan biridir."
+          - ""
+          - "&fAşama: &e%name%"
+          - ""
+          - "&6Sol-Tık: &eGezin"
+      select-phase:
+        title: "&a%name%"
+        description:
+          - "&fGerekli Versiyon: &7%required_version%"
+          - ""
+          - "&6Sol-Tık: &eAşama oluştur."
+          - "&6Shift + Sol-Tık: &eHızlı aşama oluştur."
+  command:
+    info:
+      - ""
+      - "&e➥ &6Kullanılabilir Komutlar:"
+      - "%commands%"
+      - ""
+      - "&e➥ &6Ek bilgiler:"
+      - " &9<argument> - zorunlu argüman"
+      - " &3[argument] - isteğe bağlı argüman"
+    usage:
+      - ""
+      - "&e➥ Kullanım:"
+      - "%syntax%"
+    syntax: " &f%command% %arguments% &8- &7%description%"
+    permission-denied: "Üzgünüm, ancak bu komutu çalıştırma izniniz yok."
+    permission-denied-parameter: "Üzgünüm, ancak bu komutu çalıştırma izniniz yok."
+    error-generic-logged: "Bir hata oluştu. Bu sorun kaydedildi. Verdiğimiz
+      rahatsızlık için özür dileriz."
+    unknown-command: "&cBilinmeyen komut, lütfen yazın &4%command%"
+    error-prefix: "&cHata: %message%"
+    error-performing-command: "Üzgünüm, bu komutu çalıştırırken bir hata oluştu."
+    please-specify-one-of: "Lütfen şu seçeneklerden birini belirtin (&2%valid%)."
+    must-be-a-number: "%num% bir sayı olmalı."
+    must-be-min-length: "En az %min% karakter uzunluğunda olmalıdır."
+    must-be-max-length: "En fazla %max% karakter uzunluğunda olmalıdır."
+    please-specify-at-most: "Lütfen en fazla %max% olacak şekilde bir değer belirtin."
+    please-specify-at-least: "Lütfen en az %min% olacak şekilde bir değer belirtin."
+    player-offline: "Oyuncu %player% çevrimiçi değil!"
+  plans:
+    unlock-premium: §cSadece Premium Versiyonda mevcut.
+    unlock-pro: §cSadece Pro Versiyonda mevcut.
+    upgrade-at: §4phoenixplugins.com adresinden yükseltin.
+  crate-type-received: "&aYerleştirilebilir kutu aldınız."
+  items:
+    placeable-crate:
+      display-name: "&e%display_name% Kutu"
+      lore: "&7Bu kutuyu bir yere yerleştirin!"
+  loading-data: "&7Oyuncu verileri yükleniyor..."
