@@ -1,0 +1,17 @@
+target/
+lib/
+build/
+.gradle/
+.vscode/
+bin/
+out/
+*.log
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.factorypath
+.DS_Store
+Thumbs.db
+dependency-reduced-pom.xml
