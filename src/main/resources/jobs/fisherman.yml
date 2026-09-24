@@ -8,6 +8,15 @@ income-progression-equation: baseincome+(baseincome*(joblevel-1)*0.58)-((baseinc
 points-progression-equation: basepoints+(basepoints*(joblevel-1)*0.01)-((basepoints+(basepoints*(joblevel-1)*0.01))    * ((numjobs-1)*0.05))
 experience-progression-equation: baseexperience*(1+(joblevel-1)*0.08)
 max-level: 100
+icon: "FISHING_ROD"
+description:
+  - "<gray>Supplies fresh catch and sea treasures"
+  - "<gray>to the harbor traders of Seria."
+  - ""
+  - "<yellow>Click to view open work orders!</yellow>"
+
+# Jumlah order aktif per shift (dipilih acak dari orders-pool)
+active-orders-count: 3
 ia-action-bar-symbol: ""
 
 # JOB LEVEL REWARDS #
@@ -997,6 +1006,228 @@ display-action-mapping:
     material: FURNACE
     name: "<title-color>Smelt"
 
+
+# ==============================================================================
+# WORK ORDERS (dibaca plugin)
+# Digenerate dari data `actions:` di bawah (skema Jobs Reborn, tidak dibaca plugin).
+# - Nilai relatif antar item  = experience per unit di actions (range 0-200)
+# - Skala reward             = dikalibrasi ke alchemist.yml (order median ~1000 uang / 150 XP)
+# - Jumlah (amount)          = makin langka item, makin sedikit yang diminta
+# Angka di sini adalah DRAFT balancing: silakan disesuaikan.
+# ==============================================================================
+orders-pool:
+  cod_supply:
+    display-name: "<title-color>Cod"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Cod</accentuation-color>"
+      - "<lore-color>Deliver cod to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "COD"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1650.0
+      - type: "JOB_XP"
+        amount: 250
+
+  salmon_supply:
+    display-name: "<title-color>Salmon"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Salmon</accentuation-color>"
+      - "<lore-color>Deliver salmon to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "SALMON"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2000.0
+      - type: "JOB_XP"
+        amount: 300
+
+  pufferfish_supply:
+    display-name: "<title-color>Pufferfish"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Pufferfish</accentuation-color>"
+      - "<lore-color>Deliver pufferfish to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "PUFFERFISH"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 3850.0
+      - type: "JOB_XP"
+        amount: 575
+
+  tropical_fish_supply:
+    display-name: "<title-color>Tropical Fish"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Tropical Fish</accentuation-color>"
+      - "<lore-color>Deliver tropical fish to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "TROPICAL_FISH"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 6000.0
+      - type: "JOB_XP"
+        amount: 800
+
+  lily_pad_supply:
+    display-name: "<title-color>Lily Pad"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Lily Pad</accentuation-color>"
+      - "<lore-color>Deliver lily pad to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "LILY_PAD"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2000.0
+      - type: "JOB_XP"
+        amount: 300
+
+  leather_supply:
+    display-name: "<title-color>Leather"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Leather</accentuation-color>"
+      - "<lore-color>Deliver leather to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "LEATHER"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2000.0
+      - type: "JOB_XP"
+        amount: 300
+
+  string_supply:
+    display-name: "<title-color>String"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} String</accentuation-color>"
+      - "<lore-color>Deliver string to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "STRING"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2000.0
+      - type: "JOB_XP"
+        amount: 300
+
+  bone_supply:
+    display-name: "<title-color>Bone"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Bone</accentuation-color>"
+      - "<lore-color>Deliver bone to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "BONE"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2000.0
+      - type: "JOB_XP"
+        amount: 300
+
+  ink_sac_supply:
+    display-name: "<title-color>Ink Sac"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Ink Sac</accentuation-color>"
+      - "<lore-color>Deliver ink sac to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "INK_SAC"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2000.0
+      - type: "JOB_XP"
+        amount: 300
+
+  name_tag_supply:
+    display-name: "<title-color>Name Tag"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Name Tag</accentuation-color>"
+      - "<lore-color>Deliver name tag to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "NAME_TAG"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2400.0
+      - type: "JOB_XP"
+        amount: 360
+
+  nautilus_shell_supply:
+    display-name: "<title-color>Nautilus Shell"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Nautilus Shell</accentuation-color>"
+      - "<lore-color>Deliver nautilus shell to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "NAUTILUS_SHELL"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2400.0
+      - type: "JOB_XP"
+        amount: 360
+
+  cooked_cod_supply:
+    display-name: "<title-color>Cooked Cod"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Cooked Cod</accentuation-color>"
+      - "<lore-color>Deliver cooked cod to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "COOKED_COD"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1700.0
+      - type: "JOB_XP"
+        amount: 255
+
+  cooked_salmon_supply:
+    display-name: "<title-color>Cooked Salmon"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Cooked Salmon</accentuation-color>"
+      - "<lore-color>Deliver cooked salmon to the Harbor Market."
+    required-item:
+      source: "VANILLA"
+      material: "COOKED_SALMON"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2000.0
+      - type: "JOB_XP"
+        amount: 305
+
+# ------------------------------------------------------------------------------
+# LEGACY: skema Jobs Reborn. TIDAK dibaca SeriaJobs, disimpan sebagai referensi
+# nilai balancing untuk orders-pool di atas.
+# ------------------------------------------------------------------------------
 # JOB ACTIONS #
 actions:
   FISHING:

@@ -8,6 +8,15 @@ income-progression-equation: baseincome+(baseincome*(joblevel-1)*0.58)-((baseinc
 points-progression-equation: basepoints+(basepoints*(joblevel-1)*0.01)-((basepoints+(basepoints*(joblevel-1)*0.01))    * ((numjobs-1)*0.05))
 experience-progression-equation: baseexperience*(1+(joblevel-1)*0.08)
 max-level: 100
+icon: "IRON_PICKAXE"
+description:
+  - "<gray>Supplies ore, stone, and refined ingots"
+  - "<gray>to keep the forges of Seria running."
+  - ""
+  - "<yellow>Click to view open work orders!</yellow>"
+
+# Jumlah order aktif per shift (dipilih acak dari orders-pool)
+active-orders-count: 3
 ia-action-bar-symbol: ""
 
 # JOB LEVEL REWARDS #
@@ -1020,6 +1029,388 @@ display-action-mapping:
     material: FURNACE
     name: "<title-color>Smelt"
 
+
+# ==============================================================================
+# WORK ORDERS (dibaca plugin)
+# Digenerate dari data `actions:` di bawah (skema Jobs Reborn, tidak dibaca plugin).
+# - Nilai relatif antar item  = experience per unit di actions (range 0-200)
+# - Skala reward             = dikalibrasi ke alchemist.yml (order median ~1000 uang / 150 XP)
+# - Jumlah (amount)          = makin langka item, makin sedikit yang diminta
+# Angka di sini adalah DRAFT balancing: silakan disesuaikan.
+# ==============================================================================
+orders-pool:
+  cobblestone_supply:
+    display-name: "<title-color>Cobblestone"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Cobblestone</accentuation-color>"
+      - "<lore-color>Deliver cobblestone to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "COBBLESTONE"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  andesite_supply:
+    display-name: "<title-color>Andesite"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Andesite</accentuation-color>"
+      - "<lore-color>Deliver andesite to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "ANDESITE"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  diorite_supply:
+    display-name: "<title-color>Diorite"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Diorite</accentuation-color>"
+      - "<lore-color>Deliver diorite to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "DIORITE"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  granite_supply:
+    display-name: "<title-color>Granite"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Granite</accentuation-color>"
+      - "<lore-color>Deliver granite to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "GRANITE"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  sandstone_supply:
+    display-name: "<title-color>Sandstone"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Sandstone</accentuation-color>"
+      - "<lore-color>Deliver sandstone to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "SANDSTONE"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  tuff_supply:
+    display-name: "<title-color>Tuff"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Tuff</accentuation-color>"
+      - "<lore-color>Deliver tuff to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "TUFF"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  amethyst_block_supply:
+    display-name: "<title-color>Amethyst Block"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Amethyst Block</accentuation-color>"
+      - "<lore-color>Deliver amethyst block to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "AMETHYST_BLOCK"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  calcite_supply:
+    display-name: "<title-color>Calcite"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Calcite</accentuation-color>"
+      - "<lore-color>Deliver calcite to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "CALCITE"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  cobbled_deepslate_supply:
+    display-name: "<title-color>Cobbled Deepslate"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Cobbled Deepslate</accentuation-color>"
+      - "<lore-color>Deliver cobbled deepslate to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "COBBLED_DEEPSLATE"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 250.0
+      - type: "JOB_XP"
+        amount: 30
+
+  coal_supply:
+    display-name: "<title-color>Coal"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Coal</accentuation-color>"
+      - "<lore-color>Deliver coal to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "COAL"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1850.0
+      - type: "JOB_XP"
+        amount: 280
+
+  raw_copper_supply:
+    display-name: "<title-color>Raw Copper"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Raw Copper</accentuation-color>"
+      - "<lore-color>Deliver raw copper to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "RAW_COPPER"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1850.0
+      - type: "JOB_XP"
+        amount: 280
+
+  raw_iron_supply:
+    display-name: "<title-color>Raw Iron"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Raw Iron</accentuation-color>"
+      - "<lore-color>Deliver raw iron to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "RAW_IRON"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1400.0
+      - type: "JOB_XP"
+        amount: 210
+
+  raw_gold_supply:
+    display-name: "<title-color>Raw Gold"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Raw Gold</accentuation-color>"
+      - "<lore-color>Deliver raw gold to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "RAW_GOLD"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2950.0
+      - type: "JOB_XP"
+        amount: 445
+
+  redstone_supply:
+    display-name: "<title-color>Redstone"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Redstone</accentuation-color>"
+      - "<lore-color>Deliver redstone to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "REDSTONE"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1750.0
+      - type: "JOB_XP"
+        amount: 260
+
+  lapis_lazuli_supply:
+    display-name: "<title-color>Lapis Lazuli"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Lapis Lazuli</accentuation-color>"
+      - "<lore-color>Deliver lapis lazuli to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "LAPIS_LAZULI"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 3600.0
+      - type: "JOB_XP"
+        amount: 540
+
+  diamond_supply:
+    display-name: "<title-color>Diamond"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Diamond</accentuation-color>"
+      - "<lore-color>Deliver diamond to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "DIAMOND"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 3850.0
+      - type: "JOB_XP"
+        amount: 580
+
+  emerald_supply:
+    display-name: "<title-color>Emerald"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Emerald</accentuation-color>"
+      - "<lore-color>Deliver emerald to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "EMERALD"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 6000.0
+      - type: "JOB_XP"
+        amount: 800
+
+  gold_nugget_supply:
+    display-name: "<title-color>Gold Nugget"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Gold Nugget</accentuation-color>"
+      - "<lore-color>Deliver gold nugget to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "GOLD_NUGGET"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1400.0
+      - type: "JOB_XP"
+        amount: 210
+
+  ancient_debris_supply:
+    display-name: "<title-color>Ancient Debris"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Ancient Debris</accentuation-color>"
+      - "<lore-color>Deliver ancient debris to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "ANCIENT_DEBRIS"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 4850.0
+      - type: "JOB_XP"
+        amount: 725
+
+  copper_ingot_supply:
+    display-name: "<title-color>Copper Ingot"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Copper Ingot</accentuation-color>"
+      - "<lore-color>Deliver copper ingot to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "COPPER_INGOT"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2000.0
+      - type: "JOB_XP"
+        amount: 300
+
+  iron_ingot_supply:
+    display-name: "<title-color>Iron Ingot"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Iron Ingot</accentuation-color>"
+      - "<lore-color>Deliver iron ingot to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "IRON_INGOT"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1550.0
+      - type: "JOB_XP"
+        amount: 230
+
+  gold_ingot_supply:
+    display-name: "<title-color>Gold Ingot"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Gold Ingot</accentuation-color>"
+      - "<lore-color>Deliver gold ingot to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "GOLD_INGOT"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 3100.0
+      - type: "JOB_XP"
+        amount: 460
+
+  netherite_scrap_supply:
+    display-name: "<title-color>Netherite Scrap"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Netherite Scrap</accentuation-color>"
+      - "<lore-color>Deliver netherite scrap to the Mining Guild."
+    required-item:
+      source: "VANILLA"
+      material: "NETHERITE_SCRAP"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 4900.0
+      - type: "JOB_XP"
+        amount: 735
+
+# ------------------------------------------------------------------------------
+# LEGACY: skema Jobs Reborn. TIDAK dibaca SeriaJobs, disimpan sebagai referensi
+# nilai balancing untuk orders-pool di atas.
+# ------------------------------------------------------------------------------
 # JOB ACTIONS #
 actions:
   BREAK:
