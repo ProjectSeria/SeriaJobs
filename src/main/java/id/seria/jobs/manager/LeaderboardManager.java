@@ -489,6 +489,39 @@ public class LeaderboardManager {
         return -1;
     }
 
+    @Nullable
+    public LeaderboardEntry getPlayerGlobalEntry(UUID uuid, LeaderboardPeriod period) {
+        if (uuid == null) return null;
+        List<LeaderboardEntry> list = period == LeaderboardPeriod.WEEKLY
+                ? weeklyGlobalLeaderboard
+                : (period == LeaderboardPeriod.MONTHLY ? monthlyGlobalLeaderboard : allTimeGlobalLeaderboard);
+
+        for (LeaderboardEntry entry : list) {
+            if (entry.getUuid().equals(uuid)) {
+                return entry;
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    public LeaderboardEntry getPlayerJobEntry(UUID uuid, String jobId, LeaderboardPeriod period) {
+        if (uuid == null || jobId == null) return null;
+        Map<String, List<LeaderboardEntry>> map = period == LeaderboardPeriod.WEEKLY
+                ? weeklyJobLeaderboards
+                : (period == LeaderboardPeriod.MONTHLY ? monthlyJobLeaderboards : allTimeJobLeaderboards);
+
+        List<LeaderboardEntry> list = map.get(jobId.toLowerCase());
+        if (list != null) {
+            for (LeaderboardEntry entry : list) {
+                if (entry.getUuid().equals(uuid)) {
+                    return entry;
+                }
+            }
+        }
+        return null;
+    }
+
     public String getWeeklyCountdown() {
         LocalDateTime now = LocalDateTime.now();
         String targetDayStr = plugin.getConfig().getString("leaderboards.weekly.day-of-week", "SUNDAY").toUpperCase();

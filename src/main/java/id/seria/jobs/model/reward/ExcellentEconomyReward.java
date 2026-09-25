@@ -11,10 +11,16 @@ public class ExcellentEconomyReward implements Reward {
 
     private final String currencyId;
     private final double amount;
+    private final String customDisplay;
 
     public ExcellentEconomyReward(@Nullable String currencyId, double amount) {
+        this(currencyId, amount, null);
+    }
+
+    public ExcellentEconomyReward(@Nullable String currencyId, double amount, @Nullable String customDisplay) {
         this.currencyId = currencyId;
         this.amount = amount;
+        this.customDisplay = customDisplay;
     }
 
     public String getCurrencyId() {
@@ -23,6 +29,11 @@ public class ExcellentEconomyReward implements Reward {
 
     public double getAmount() {
         return amount;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -38,12 +49,18 @@ public class ExcellentEconomyReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            return customDisplay
+                    .replace("{amount}", String.format(java.util.Locale.US, "%,.0f", amount))
+                    .replace("{amount_raw}", String.valueOf(amount))
+                    .replace("{currency}", currencyId != null ? currencyId : "");
+        }
         ExcellentEconomyHook hook = SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook();
         if (hook != null && hook.isLoaded()) {
             String formatted = hook.format(currencyId, amount);
             return "<green>+ " + formatted + "</green>";
         }
         String name = currencyId != null ? currencyId : "Currency";
-        return "<green>+ " + String.format("%.2f", amount) + " " + name + "</green>";
+        return "<green>+ " + String.format(java.util.Locale.US, "%.2f", amount) + " " + name + "</green>";
     }
 }

@@ -13,10 +13,16 @@ public class SeriaMagicBundleReward implements Reward {
 
     private final String bundleId;
     private final int amount;
+    private final String customDisplay;
 
     public SeriaMagicBundleReward(String bundleId, int amount) {
+        this(bundleId, amount, null);
+    }
+
+    public SeriaMagicBundleReward(String bundleId, int amount, String customDisplay) {
         this.bundleId = bundleId;
         this.amount = Math.max(1, amount);
+        this.customDisplay = customDisplay;
     }
 
     public String getBundleId() {
@@ -25,6 +31,11 @@ public class SeriaMagicBundleReward implements Reward {
 
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -58,6 +69,11 @@ public class SeriaMagicBundleReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            return customDisplay
+                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{id}", bundleId != null ? bundleId : "");
+        }
         return "<light_purple>+ " + amount + "x MagicBundle (" + bundleId + ")</light_purple>";
     }
 }

@@ -49,3 +49,68 @@ items:
 
 # Dynamic slots where level tier cards are placed (21 slots per page)
 level-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+
+# Level cards display configuration (amount fixed at 1 to prevent 64+ stack glitch)
+# Supports placeholders: {level}, {job_name}, {job_id}, {required_xp}, {current_xp}, {needed_xp}, {status}, {milestone_info}, {rewards_list}, and PAPI/custom placeholders!
+level-display:
+  amount: 1
+  reached:
+    material: "LIME_STAINED_GLASS_PANE"
+    name: "<green><bold>Level {level}</bold></green> <dark_gray>[TERCAPAI]</dark_gray>"
+    lore:
+      - "<gray>Kebutuhan XP: <white>{required_xp} XP</white></gray>"
+      - ""
+      - "{milestone_info}"
+      - ""
+      - "<green>✔ Anda sudah mencapai level ini!</green>"
+  reached-milestone:
+    material: "EMERALD"
+    name: "<green><bold>Level {level}</bold></green> <dark_gray>[TERCAPAI - MILESTONE]</dark_gray>"
+    lore:
+      - "<gray>Kebutuhan XP: <white>{required_xp} XP</white></gray>"
+      - ""
+      - "<gold><bold>Hadiah Milestone Khusus:</bold></gold>"
+      - "{rewards_list}"
+      - ""
+      - "<green>✔ Anda sudah mencapai level ini!</green>"
+  next:
+    material: "YELLOW_STAINED_GLASS_PANE"
+    name: "<yellow><bold>Level {level}</bold></yellow> <gold>[LEVEL BERIKUTNYA]</gold>"
+    lore:
+      - "<gray>Kebutuhan XP: <white>{required_xp} XP</white></gray>"
+      - "<gray>Progres Anda: <yellow>{current_xp} / {required_xp} XP</yellow> <dark_gray>(Sisa: {needed_xp} XP)</dark_gray>"
+      - ""
+      - "{milestone_info}"
+      - ""
+      - "<yellow>▶ Selesaikan kontrak kerja untuk naik ke level ini!</yellow>"
+  next-milestone:
+    material: "GOLD_BLOCK"
+    name: "<yellow><bold>Level {level}</bold></yellow> <gold>[LEVEL BERIKUTNYA - MILESTONE]</gold>"
+    lore:
+      - "<gray>Kebutuhan XP: <white>{required_xp} XP</white></gray>"
+      - "<gray>Progres Anda: <yellow>{current_xp} / {required_xp} XP</yellow> <dark_gray>(Sisa: {needed_xp} XP)</dark_gray>"
+      - ""
+      - "<gold><bold>Hadiah Milestone Khusus:</bold></gold>"
+      - "{rewards_list}"
+      - ""
+      - "<yellow>▶ Selesaikan kontrak kerja untuk naik ke level ini!</yellow>"
+  locked:
+    material: "GRAY_STAINED_GLASS_PANE"
+    name: "<gray>Level {level}</gray> <dark_gray>[TERKUNCI]</dark_gray>"
+    lore:
+      - "<gray>Kebutuhan XP: <white>{required_xp} XP</white></gray>"
+      - ""
+      - "{milestone_info}"
+      - ""
+      - "<red>✖ Capai level sebelumnya terlebih dahulu.</red>"
+  locked-milestone:
+    material: "CHEST"
+    name: "<gray>Level {level}</gray> <dark_gray>[TERKUNCI - MILESTONE]</dark_gray>"
+    lore:
+      - "<gray>Kebutuhan XP: <white>{required_xp} XP</white></gray>"
+      - ""
+      - "<gold><bold>Hadiah Milestone Khusus:</bold></gold>"
+      - "{rewards_list}"
+      - ""
+      - "<red>✖ Capai level sebelumnya terlebih dahulu.</red>"
+

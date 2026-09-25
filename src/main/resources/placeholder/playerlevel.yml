@@ -1,0 +1,89 @@
+# ==============================================================================
+# SeriaJobs - Custom Placeholders Engine
+# File: placeholder/playerlevel.yml
+# Usage:
+#   %custom_<filename>_<key>%      -> e.g. %custom_playerlevel_math-message-next%
+#   %custom_<key>%                 -> e.g. %custom_math-message-next%
+#   %seriajobs_custom_<key>%       -> e.g. %seriajobs_custom_playerlevel_math-jobs-level%
+#
+# Supported functions & operators in tracks:
+#   Operators: ==, !=, <, <=, >, >=, min..max (e.g. 1..10), default / else
+#   Types: function (short-track, track, math)
+# ==============================================================================
+
+math-message:
+  type: "function"
+  function: "short-track"
+  input: "%playerlevel_ascension%"
+  tracks:
+    "==1": "0 - 25"
+    "==2": "25 - 50"
+    "==3": "50 - 75"
+    "==4": "75 - 100"
+    "==5": "100- 125"
+    "==6": "125 - 150"
+    "==7": "150 - 175"
+    "==8": "175 - 200"
+    "==9": "Ascension Max"
+
+ascension-next-level:
+  type: "function"
+  function: "short-track"
+  input: "%playerlevel_ascension%"
+  tracks:
+    "==1": "<info-message>Next ascent: Level <accentuation-color>25"
+    "==2": "<info-message>Next ascent: Level <accentuation-color>50"
+    "==3": "<info-message>Next ascent: Level <accentuation-color>75"
+    "==4": "<info-message>Next ascent: Level <accentuation-color>100"
+    "==5": "<info-message>Next ascent: Level <accentuation-color>125"
+    "==6": "<info-message>Next ascent: Level <accentuation-color>150"
+    "==7": "<info-message>Next ascent: Level <accentuation-color>175"
+    "==8": "<info-message>Next ascent: Level <accentuation-color>200"
+    "==9": "<error-message>You have reached the maximum ascension! Player level is limited to 200."
+
+math-message-next:
+  type: "function"
+  function: "short-track"
+  input: "%playerlevel_ascension%"
+  tracks:
+    "==0": "0 - 24"
+    "==1": "25 - 49"
+    "==2": "50 - 74"
+    "==3": "75 - 99"
+    "==4": "100 - 124"
+    "==5": "125 - 149"
+    "==6": "150 - 174"
+    "==7": "175 - 199"
+    "==8": "Ascension Max"
+    "==9": "Ascension Max"
+    "!=1": "Ascension Max"
+
+math-jobs-level:
+  type: "function"
+  function: "short-track"
+  input: "%playerlevel_ascension%"
+  tracks:
+    "==0": "25"
+    "==1": "50"
+    "==2": "75"
+    "==3": "100"
+    "==4": "125"
+    "==5": "150"
+    "==6": "175"
+    "==7": "200"
+    "==8": "Ascension Max"
+
+math-currency:
+  type: "function"
+  function: "short-track"
+  input: "%playerlevel_ascension%"
+  tracks:
+    "==0": "1000000"
+    "==1": "5000000"
+    "==2": "15000000"
+    "==3": "30000000"
+    "==4": "50000000"
+    "==5": "90000000"
+    "==6": "150000000"
+    "==7": "250000000"
+    "==8": "Ascension Max"

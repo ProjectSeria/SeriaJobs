@@ -8,13 +8,24 @@ import org.jetbrains.annotations.NotNull;
 public class JobXPReward implements Reward {
 
     private final int xp;
+    private final String customDisplay;
 
     public JobXPReward(int xp) {
+        this(xp, null);
+    }
+
+    public JobXPReward(int xp, String customDisplay) {
         this.xp = xp;
+        this.customDisplay = customDisplay;
     }
 
     public int getXp() {
         return xp;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -25,6 +36,11 @@ public class JobXPReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            return customDisplay
+                    .replace("{amount}", String.valueOf(xp))
+                    .replace("{xp}", String.valueOf(xp));
+        }
         return "<yellow>+ " + xp + " Job XP</yellow>";
     }
 }

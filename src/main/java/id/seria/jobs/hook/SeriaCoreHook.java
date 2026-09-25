@@ -54,4 +54,33 @@ public class SeriaCoreHook {
             return false;
         }
     }
+
+    public void registerToSeriaCore(id.seria.jobs.SeriaJobs jobsPlugin, PAPIExpansion expansion) {
+        if (!available) return;
+        try {
+            // 1. Register internal SeriaJobs provider with SeriaCore
+            SeriaCorePlugin.getInstance().getPlaceholderManager().registerProvider(new id.seria.core.placeholder.SeriaPlaceholderProvider() {
+                @Override
+                public String getPrefix() {
+                    return "seriajobs";
+                }
+
+                @Override
+                public String onRequest(org.bukkit.entity.Player player, String params) {
+                    if (expansion != null) {
+                        return expansion.onRequest(player, params);
+                    }
+                    return null;
+                }
+            });
+
+            // 2. Register SeriaJobs placeholder folder with SeriaCore
+            java.io.File folder = new java.io.File(jobsPlugin.getDataFolder(), "placeholder");
+            if (folder.exists() && folder.isDirectory()) {
+                SeriaCorePlugin.getInstance().getPlaceholderManager().registerFolder(folder);
+            }
+        } catch (Throwable t) {
+            Bukkit.getLogger().warning("[SeriaJobs] Failed to register placeholders with SeriaCore: " + t.getMessage());
+        }
+    }
 }

@@ -9,10 +9,16 @@ public class AuraSkillsXPReward implements Reward {
 
     private final String skillName;
     private final double xp;
+    private final String customDisplay;
 
     public AuraSkillsXPReward(String skillName, double xp) {
+        this(skillName, xp, null);
+    }
+
+    public AuraSkillsXPReward(String skillName, double xp, String customDisplay) {
         this.skillName = skillName;
         this.xp = xp;
+        this.customDisplay = customDisplay;
     }
 
     public String getSkillName() {
@@ -21,6 +27,11 @@ public class AuraSkillsXPReward implements Reward {
 
     public double getXp() {
         return xp;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -33,6 +44,19 @@ public class AuraSkillsXPReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
-        return "<aqua>+ " + (int) xp + " " + skillName.substring(0, 1).toUpperCase() + skillName.substring(1) + " Skill XP</aqua>";
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            String skillTitle = skillName != null && !skillName.isEmpty()
+                    ? skillName.substring(0, 1).toUpperCase() + skillName.substring(1)
+                    : "";
+            return customDisplay
+                    .replace("{amount}", String.valueOf((int) xp))
+                    .replace("{xp}", String.valueOf((int) xp))
+                    .replace("{skill}", skillTitle)
+                    .replace("{skill_raw}", skillName != null ? skillName : "");
+        }
+        String skillTitle = skillName != null && !skillName.isEmpty()
+                ? skillName.substring(0, 1).toUpperCase() + skillName.substring(1)
+                : "";
+        return "<aqua>+ " + (int) xp + " " + skillTitle + " Skill XP</aqua>";
     }
 }

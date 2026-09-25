@@ -137,13 +137,18 @@ public class HookManager {
             }
         }
 
-        // PlaceholderAPI Hook
+        // PlaceholderAPI Hook & SeriaCore Internal Provider
+        papiExpansion = new PAPIExpansion(plugin);
         if (plugin.getConfigManager().isHookEnabled("placeholderapi") && Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            papiExpansion = new PAPIExpansion(plugin);
             if (papiExpansion.register()) {
                 papiLoaded = true;
                 plugin.getLogger().info("Registered %seriajobs% placeholders to PlaceholderAPI.");
             }
+        }
+
+        // Connect to SeriaCore hierarchy (internal placeholders and custom folder)
+        if (seriaCoreLoaded && seriaCoreHook != null) {
+            seriaCoreHook.registerToSeriaCore(plugin, papiExpansion);
         }
     }
 

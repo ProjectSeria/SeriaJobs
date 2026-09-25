@@ -45,6 +45,15 @@ public class PAPIExpansion extends PlaceholderExpansion {
     @Override
     public @Nullable String onRequest(OfflinePlayer offlinePlayer, @NotNull String params) {
         String lower = params.toLowerCase();
+        Player onlinePlayer = (offlinePlayer != null && offlinePlayer.isOnline()) ? offlinePlayer.getPlayer() : null;
+
+        // Custom placeholder support via %seriajobs_custom_<name>%
+        if (plugin.getCustomPlaceholderManager() != null) {
+            if (lower.startsWith("custom_")) {
+                String res = plugin.getCustomPlaceholderManager().evaluate(onlinePlayer, params.substring(7));
+                if (res != null) return res;
+            }
+        }
 
         // 1. Countdown Placeholders (Server-wide)
         if (lower.equals("rotation_countdown")) {
@@ -58,15 +67,21 @@ public class PAPIExpansion extends PlaceholderExpansion {
         }
 
         // 2. Global Leaderboard Top Entries (Server-wide)
-        // Format: top_global_[period_]<pos>_<field>
-        if (lower.startsWith("top_global_") && !lower.contains("player_rank")) {
-            return handleGlobalLeaderboard(lower.substring("top_global_".length()));
+        // Format: top_global_[period_]<pos>_<field> or leaderboard_global_[period_]<pos>_<field>
+        if ((lower.startsWith("top_global_") || lower.startsWith("leaderboard_global_")) && !lower.contains("player_rank")) {
+            String sub = lower.startsWith("top_global_")
+                    ? lower.substring("top_global_".length())
+                    : lower.substring("leaderboard_global_".length());
+            return handleGlobalLeaderboard(sub);
         }
 
         // 3. Per-Job Leaderboard Top Entries (Server-wide)
-        // Format: top_job_<job_id>_[period_]<pos>_<field>
-        if (lower.startsWith("top_job_") && !lower.contains("player_rank")) {
-            return handleJobLeaderboard(lower.substring("top_job_".length()));
+        // Format: top_job_<job_id>_[period_]<pos>_<field> or leaderboard_job_<job_id>_[period_]<pos>_<field>
+        if ((lower.startsWith("top_job_") || lower.startsWith("leaderboard_job_")) && !lower.contains("player_rank")) {
+            String sub = lower.startsWith("top_job_")
+                    ? lower.substring("top_job_".length())
+                    : lower.substring("leaderboard_job_".length());
+            return handleJobLeaderboard(sub);
         }
 
         // 4. Offline/Null Player Check for Player-Specific Placeholders
@@ -107,8 +122,8 @@ public class PAPIExpansion extends PlaceholderExpansion {
         }
 
         // 6. Player Global Rank
-        // Format: top_global_player_rank or top_global_player_rank_<period>
-        if (lower.startsWith("top_global_player_rank")) {
+        // Format: top_global_player_rank or player_rank_global or leaderboard_player_rank [_<period>]
+        if (lower.startsWith("top_global_player_rank") || lower.startsWith("player_rank_global") || lower.equals("leaderboard_player_rank")) {
             LeaderboardPeriod period = LeaderboardPeriod.WEEKLY;
             if (lower.endsWith("_monthly")) period = LeaderboardPeriod.MONTHLY;
             else if (lower.endsWith("_alltime")) period = LeaderboardPeriod.ALL_TIME;
@@ -121,29 +136,58 @@ public class PAPIExpansion extends PlaceholderExpansion {
         }
 
         // 7. Player Job Rank
-        // Format: top_job_<job_id>_player_rank or top_job_<job_id>_player_rank_<period>
-        if (lower.startsWith("top_job_") && lower.contains("_player_rank")) {
-            String sub = lower.substring("top_job_".length());
+        // Format: top_job_<job_id>_player_rank or player_rank_job_<job_id> [_<period>]
+        if ((lower.startsWith("top_job_") && lower.contains("_player_rank")) || lower.startsWith("player_rank_job_")) {
             LeaderboardPeriod period = LeaderboardPeriod.WEEKLY;
-            if (sub.endsWith("_weekly")) {
-                period = LeaderboardPeriod.WEEKLY;
-                sub = sub.substring(0, sub.length() - "_weekly".length());
-            } else if (sub.endsWith("_monthly")) {
+            String clean = lower;
+            if (clean.endsWith("_monthly")) {
                 period = LeaderboardPeriod.MONTHLY;
-                sub = sub.substring(0, sub.length() - "_monthly".length());
-            } else if (sub.endsWith("_alltime")) {
+                clean = clean.substring(0, clean.length() - "_monthly".length());
+            } else if (clean.endsWith("_alltime")) {
                 period = LeaderboardPeriod.ALL_TIME;
-                sub = sub.substring(0, sub.length() - "_alltime".length());
+                clean = clean.substring(0, clean.length() - "_alltime".length());
+            } else if (clean.endsWith("_weekly")) {
+                period = LeaderboardPeriod.WEEKLY;
+                clean = clean.substring(0, clean.length() - "_weekly".length());
             }
 
-            if (sub.endsWith("_player_rank")) {
-                String jobId = sub.substring(0, sub.length() - "_player_rank".length());
-                if (plugin.getLeaderboardManager() != null) {
-                    int rank = plugin.getLeaderboardManager().getPlayerJobRank(player.getUniqueId(), jobId, period);
-                    return rank == -1 ? "-" : String.valueOf(rank);
-                }
+            String jobId = null;
+            if (clean.startsWith("top_job_") && clean.endsWith("_player_rank")) {
+                jobId = clean.substring("top_job_".length(), clean.length() - "_player_rank".length());
+            } else if (clean.startsWith("player_rank_job_")) {
+                jobId = clean.substring("player_rank_job_".length());
+            }
+
+            if (jobId != null && plugin.getLeaderboardManager() != null) {
+                int rank = plugin.getLeaderboardManager().getPlayerJobRank(player.getUniqueId(), jobId, period);
+                return rank == -1 ? "-" : String.valueOf(rank);
             }
             return "-";
+        }
+
+        // 7b. Player Leaderboard Stats in Current Cycle
+        // Format: player_leaderboard_[xp|orders][_period]
+        if (lower.startsWith("player_leaderboard_")) {
+            LeaderboardPeriod period = LeaderboardPeriod.WEEKLY;
+            if (lower.endsWith("_monthly")) period = LeaderboardPeriod.MONTHLY;
+            else if (lower.endsWith("_alltime")) period = LeaderboardPeriod.ALL_TIME;
+
+            if (plugin.getLeaderboardManager() != null) {
+                LeaderboardEntry entry = plugin.getLeaderboardManager().getPlayerGlobalEntry(player.getUniqueId(), period);
+                if (lower.contains("_xp_formatted") || lower.contains("_formatted_xp")) {
+                    return entry != null ? String.format(java.util.Locale.US, "%,d", entry.getXp()) : "0";
+                }
+                if (lower.contains("_xp")) {
+                    return entry != null ? String.valueOf(entry.getXp()) : "0";
+                }
+                if (lower.contains("_orders_formatted") || lower.contains("_formatted_orders")) {
+                    return entry != null ? String.format(java.util.Locale.US, "%,d", entry.getOrdersCompleted()) : "0";
+                }
+                if (lower.contains("_orders")) {
+                    return entry != null ? String.valueOf(entry.getOrdersCompleted()) : "0";
+                }
+            }
+            return "0";
         }
 
         // 8. General Job Placeholders
@@ -309,6 +353,11 @@ public class PAPIExpansion extends PlaceholderExpansion {
             return "0";
         }
 
+        if (plugin.getCustomPlaceholderManager() != null) {
+            String customRes = plugin.getCustomPlaceholderManager().evaluate(onlinePlayer, params);
+            if (customRes != null) return customRes;
+        }
+
         return null;
     }
 
@@ -346,47 +395,65 @@ public class PAPIExpansion extends PlaceholderExpansion {
     private @Nullable String handleJobLeaderboard(String sub) {
         if (plugin.getLeaderboardManager() == null) return "-";
 
-        int lastUnderscore = sub.lastIndexOf('_');
-        if (lastUnderscore == -1) return null;
-        String field = sub.substring(lastUnderscore + 1);
-        String rem = sub.substring(0, lastUnderscore);
+        String[] parts = sub.split("_");
+        if (parts.length < 3) return null;
 
-        int prevUnderscore = rem.lastIndexOf('_');
-        if (prevUnderscore == -1) return null;
-
-        int rank;
-        try {
-            rank = Integer.parseInt(rem.substring(prevUnderscore + 1));
-        } catch (NumberFormatException e) {
+        // Find the index of the rank (which is an integer)
+        int rankIndex = -1;
+        int rank = -1;
+        for (int i = 0; i < parts.length; i++) {
+            try {
+                rank = Integer.parseInt(parts[i]);
+                rankIndex = i;
+                break;
+            } catch (NumberFormatException ignored) {}
+        }
+        if (rankIndex == -1 || rank <= 0 || rankIndex == 0 || rankIndex == parts.length - 1) {
             return null;
         }
 
-        String jobPart = rem.substring(0, prevUnderscore);
+        // Everything before rankIndex is period + jobId
         LeaderboardPeriod period = LeaderboardPeriod.WEEKLY;
-        if (jobPart.endsWith("_weekly")) {
-            period = LeaderboardPeriod.WEEKLY;
-            jobPart = jobPart.substring(0, jobPart.length() - "_weekly".length());
-        } else if (jobPart.endsWith("_monthly")) {
-            period = LeaderboardPeriod.MONTHLY;
-            jobPart = jobPart.substring(0, jobPart.length() - "_monthly".length());
-        } else if (jobPart.endsWith("_alltime")) {
-            period = LeaderboardPeriod.ALL_TIME;
-            jobPart = jobPart.substring(0, jobPart.length() - "_alltime".length());
+        List<String> jobTokens = new java.util.ArrayList<>();
+        for (int i = 0; i < rankIndex; i++) {
+            String token = parts[i];
+            if (token.equalsIgnoreCase("weekly")) {
+                period = LeaderboardPeriod.WEEKLY;
+            } else if (token.equalsIgnoreCase("monthly")) {
+                period = LeaderboardPeriod.MONTHLY;
+            } else if (token.equalsIgnoreCase("alltime")) {
+                period = LeaderboardPeriod.ALL_TIME;
+            } else {
+                jobTokens.add(token);
+            }
         }
+        String jobId = String.join("_", jobTokens);
 
-        LeaderboardEntry entry = plugin.getLeaderboardManager().getJobTop(jobPart, period, rank);
+        // Everything after rankIndex is field
+        StringBuilder fieldBuilder = new StringBuilder();
+        for (int i = rankIndex + 1; i < parts.length; i++) {
+            if (fieldBuilder.length() > 0) fieldBuilder.append("_");
+            fieldBuilder.append(parts[i]);
+        }
+        String field = fieldBuilder.toString();
+
+        LeaderboardEntry entry = plugin.getLeaderboardManager().getJobTop(jobId, period, rank);
         return formatEntryField(entry, field);
     }
 
     private String formatEntryField(@Nullable LeaderboardEntry entry, String field) {
         if (entry == null) {
-            return field.equalsIgnoreCase("name") ? "-" : "0";
+            return (field.equalsIgnoreCase("name") || field.equalsIgnoreCase("player") || field.equalsIgnoreCase("player_name"))
+                    ? "-" : "0";
         }
         return switch (field.toLowerCase()) {
-            case "name" -> entry.getPlayerName();
+            case "name", "player", "player_name" -> entry.getPlayerName();
             case "xp" -> String.valueOf(entry.getXp());
+            case "xp_formatted", "formatted_xp" -> String.format(java.util.Locale.US, "%,d", entry.getXp());
             case "orders" -> String.valueOf(entry.getOrdersCompleted());
+            case "orders_formatted", "formatted_orders" -> String.format(java.util.Locale.US, "%,d", entry.getOrdersCompleted());
             case "level" -> String.valueOf(entry.getLevel());
+            case "rank" -> String.valueOf(entry.getRank());
             default -> "-";
         };
     }

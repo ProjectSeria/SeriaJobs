@@ -9,10 +9,16 @@ public class CommandReward implements Reward {
 
     private final String executor; // "CONSOLE" or "PLAYER"
     private final String command;
+    private final String customDisplay;
 
     public CommandReward(String executor, String command) {
+        this(executor, command, null);
+    }
+
+    public CommandReward(String executor, String command, String customDisplay) {
         this.executor = executor != null ? executor.toUpperCase() : "CONSOLE";
         this.command = command;
+        this.customDisplay = customDisplay;
     }
 
     public String getExecutor() {
@@ -21,6 +27,11 @@ public class CommandReward implements Reward {
 
     public String getCommand() {
         return command;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -40,6 +51,9 @@ public class CommandReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            return customDisplay;
+        }
         return "<gray>+ Bonus Spesial Server</gray>";
     }
 }

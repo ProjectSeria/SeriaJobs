@@ -28,6 +28,7 @@ public class Job {
     private final Map<String, JobOrder> ordersPool;
     private final Map<Integer, List<Reward>> levelRewards;
     private final Map<Integer, List<String>> levelDisplayRewards;
+    private final Map<Integer, org.bukkit.configuration.ConfigurationSection> levelIcons;
 
     public Job(@NotNull String id,
                @NotNull String displayName,
@@ -44,6 +45,28 @@ public class Job {
                @NotNull Map<String, JobOrder> ordersPool,
                @NotNull Map<Integer, List<Reward>> levelRewards,
                @NotNull Map<Integer, List<String>> levelDisplayRewards) {
+        this(id, displayName, icon, description, maxLevel, baseXp, multiplier,
+                levelingProgressionEquation, incomeProgressionEquation, pointsProgressionEquation,
+                experienceProgressionEquation, activeOrdersCount, ordersPool, levelRewards,
+                levelDisplayRewards, Collections.emptyMap());
+    }
+
+    public Job(@NotNull String id,
+               @NotNull String displayName,
+               @NotNull Material icon,
+               @NotNull List<String> description,
+               int maxLevel,
+               int baseXp,
+               double multiplier,
+               @Nullable String levelingProgressionEquation,
+               @Nullable String incomeProgressionEquation,
+               @Nullable String pointsProgressionEquation,
+               @Nullable String experienceProgressionEquation,
+               int activeOrdersCount,
+               @NotNull Map<String, JobOrder> ordersPool,
+               @NotNull Map<Integer, List<Reward>> levelRewards,
+               @NotNull Map<Integer, List<String>> levelDisplayRewards,
+               @NotNull Map<Integer, org.bukkit.configuration.ConfigurationSection> levelIcons) {
         this.id = id;
         this.displayName = displayName;
         this.icon = icon;
@@ -59,6 +82,7 @@ public class Job {
         this.ordersPool = ordersPool;
         this.levelRewards = levelRewards;
         this.levelDisplayRewards = levelDisplayRewards;
+        this.levelIcons = levelIcons != null ? levelIcons : Collections.emptyMap();
     }
 
     @NotNull
@@ -148,7 +172,17 @@ public class Job {
     }
 
     public boolean hasRewardsForLevel(int level) {
-        return levelRewards.containsKey(level) && !levelRewards.get(level).isEmpty();
+        return (levelRewards.containsKey(level) && !levelRewards.get(level).isEmpty()) || levelIcons.containsKey(level);
+    }
+
+    @NotNull
+    public Map<Integer, org.bukkit.configuration.ConfigurationSection> getLevelIcons() {
+        return Collections.unmodifiableMap(levelIcons);
+    }
+
+    @Nullable
+    public org.bukkit.configuration.ConfigurationSection getLevelIcon(int level) {
+        return levelIcons.get(level);
     }
 
     /**

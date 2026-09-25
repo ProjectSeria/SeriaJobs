@@ -117,9 +117,13 @@ public class JobRegistry {
                 if (customItemId == null) customItemId = sec.getString("required-item.item-id");
 
                 List<Reward> rewards = parseRewardsList(sec.getMapList("rewards"));
+                List<String> customRewardsDisplay = sec.getStringList("display-rewards");
+                if (customRewardsDisplay.isEmpty()) {
+                    customRewardsDisplay = sec.getStringList("rewards-display");
+                }
 
                 JobOrder order = new JobOrder(orderKey, id, orderDisplayName, orderLore, source, mat,
-                        customModelData, strictNbt, mmoType, mmoId, customItemId, amount, rewards);
+                        customModelData, strictNbt, mmoType, mmoId, customItemId, amount, rewards, customRewardsDisplay);
                 ordersMap.put(orderKey.toLowerCase(), order);
             }
         }
@@ -127,6 +131,7 @@ public class JobRegistry {
         // Parse level progression milestone rewards (supports both level-rewards and reward-levels)
         Map<Integer, List<Reward>> levelRewards = new LinkedHashMap<>();
         Map<Integer, List<String>> levelDisplayRewards = new LinkedHashMap<>();
+        Map<Integer, ConfigurationSection> levelIcons = new LinkedHashMap<>();
 
         ConfigurationSection rewardsSec = config.getConfigurationSection("reward-levels");
         if (rewardsSec == null) {
@@ -142,6 +147,12 @@ public class JobRegistry {
                     if (rewardsSec.isConfigurationSection(lvlKey)) {
                         ConfigurationSection singleLvl = rewardsSec.getConfigurationSection(lvlKey);
                         if (singleLvl != null) {
+                            if (singleLvl.isConfigurationSection("icon")) {
+                                levelIcons.put(lvl, singleLvl.getConfigurationSection("icon"));
+                            } else if (singleLvl.isConfigurationSection("item")) {
+                                levelIcons.put(lvl, singleLvl.getConfigurationSection("item"));
+                            }
+
                             if (singleLvl.contains("display-rewards")) {
                                 levelDisplayRewards.put(lvl, singleLvl.getStringList("display-rewards"));
                             }
@@ -167,7 +178,7 @@ public class JobRegistry {
 
         return new Job(id, displayName, icon, description, maxLevel, baseXp, multiplier,
                 levelingEquation, incomeEquation, pointsEquation, expEquation,
-                activeOrdersCount, ordersMap, levelRewards, levelDisplayRewards);
+                activeOrdersCount, ordersMap, levelRewards, levelDisplayRewards, levelIcons);
     }
 
     public List<Reward> parseRewardsList(List<Map<?, ?>> rewardList) {
@@ -176,10 +187,23 @@ public class JobRegistry {
 
         for (Map<?, ?> rMap : rewardList) {
             String type = String.valueOf(rMap.get("type")).toUpperCase();
+            String customDisplay = null;
+            if (rMap.containsKey("display")) {
+                customDisplay = String.valueOf(rMap.get("display"));
+            } else if (rMap.containsKey("display-name")) {
+                customDisplay = String.valueOf(rMap.get("display-name"));
+            } else if (rMap.containsKey("text")) {
+                customDisplay = String.valueOf(rMap.get("text"));
+            } else if (rMap.containsKey("name")) {
+                customDisplay = String.valueOf(rMap.get("name"));
+            } else if (rMap.containsKey("lore")) {
+                customDisplay = String.valueOf(rMap.get("lore"));
+            }
+
             switch (type) {
                 case "VAULT":
                     double vAmount = Double.parseDouble(String.valueOf(rMap.get("amount")));
-                    rewards.add(new VaultReward(vAmount));
+                    rewards.add(new VaultReward(vAmount, customDisplay));
                     break;
                 case "EXCELLENT_ECONOMY":
                 case "EXCELLENTECONOMY":
@@ -188,16 +212,16 @@ public class JobRegistry {
                 case "COINSENGINE":
                     String currId = rMap.containsKey("currency") ? String.valueOf(rMap.get("currency")) : null;
                     double eAmount = Double.parseDouble(String.valueOf(rMap.get("amount")));
-                    rewards.add(new ExcellentEconomyReward(currId, eAmount));
+                    rewards.add(new ExcellentEconomyReward(currId, eAmount, customDisplay));
                     break;
                 case "JOB_XP":
                     int jXp = Integer.parseInt(String.valueOf(rMap.get("amount")));
-                    rewards.add(new JobXPReward(jXp));
+                    rewards.add(new JobXPReward(jXp, customDisplay));
                     break;
                 case "AURASKILLS_XP":
                     String skill = String.valueOf(rMap.get("skill"));
                     double aXp = Double.parseDouble(String.valueOf(rMap.get("amount")));
-                    rewards.add(new AuraSkillsXPReward(skill, aXp));
+                    rewards.add(new AuraSkillsXPReward(skill, aXp, customDisplay));
                     break;
                 case "ITEM":
                 case "VANILLA":
@@ -210,13 +234,13 @@ public class JobRegistry {
                     } else if (rMap.containsKey("extra-meta")) {
                         extraMetaKey = String.valueOf(rMap.get("extra-meta"));
                     }
-                    rewards.add(new VanillaItemReward(rMat, rAmount, extraMetaKey));
+                    rewards.add(new VanillaItemReward(rMat, rAmount, extraMetaKey, customDisplay));
                     break;
                 case "MMOITEM":
                     String rMmoType = String.valueOf(rMap.get("mmoitem-type"));
                     String rMmoId = String.valueOf(rMap.get("mmoitem-id"));
                     int rMmoAmount = Integer.parseInt(String.valueOf(rMap.get("amount")));
-                    rewards.add(new MMOItemReward(rMmoType, rMmoId, rMmoAmount));
+                    rewards.add(new MMOItemReward(rMmoType, rMmoId, rMmoAmount, customDisplay));
                     break;
                 case "MYTHICITEM":
                 case "MYTHICMOBS":
@@ -227,7 +251,7 @@ public class JobRegistry {
                     String itemId = String.valueOf(idObj);
                     Object amtObj = rMap.get("amount");
                     int rAmt = amtObj != null ? Integer.parseInt(String.valueOf(amtObj)) : 1;
-                    rewards.add(new MythicItemReward(itemId, rAmt));
+                    rewards.add(new MythicItemReward(itemId, rAmt, customDisplay));
                     break;
                 }
                 case "CUSTOMFISHING":
@@ -238,7 +262,7 @@ public class JobRegistry {
                     String itemId = String.valueOf(idObj);
                     Object amtObj = rMap.get("amount");
                     int rAmt = amtObj != null ? Integer.parseInt(String.valueOf(amtObj)) : 1;
-                    rewards.add(new CustomFishingReward(itemId, rAmt));
+                    rewards.add(new CustomFishingReward(itemId, rAmt, customDisplay));
                     break;
                 }
                 case "SERIAMAGICBUNDLE":
@@ -250,7 +274,7 @@ public class JobRegistry {
                     String itemId = String.valueOf(idObj);
                     Object amtObj = rMap.get("amount");
                     int rAmt = amtObj != null ? Integer.parseInt(String.valueOf(amtObj)) : 1;
-                    rewards.add(new SeriaMagicBundleReward(itemId, rAmt));
+                    rewards.add(new SeriaMagicBundleReward(itemId, rAmt, customDisplay));
                     break;
                 }
                 case "SERIACRAFTING":
@@ -261,13 +285,13 @@ public class JobRegistry {
                     String itemId = String.valueOf(idObj);
                     Object amtObj = rMap.get("amount");
                     int rAmt = amtObj != null ? Integer.parseInt(String.valueOf(amtObj)) : 1;
-                    rewards.add(new SeriaCraftingReward(itemId, rAmt));
+                    rewards.add(new SeriaCraftingReward(itemId, rAmt, customDisplay));
                     break;
                 }
                 case "COMMAND":
                     String exec = rMap.containsKey("executor") ? String.valueOf(rMap.get("executor")) : "CONSOLE";
                     String cmd = String.valueOf(rMap.get("command"));
-                    rewards.add(new CommandReward(exec, cmd));
+                    rewards.add(new CommandReward(exec, cmd, customDisplay));
                     break;
             }
         }

@@ -11,8 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class JobProgressionMenu extends BaseMenu {
 
@@ -103,66 +102,8 @@ public class JobProgressionMenu extends BaseMenu {
             boolean isReached = level <= currentLevel;
             boolean isNext = level == currentLevel + 1;
             int requiredXp = job.getRequiredXp(level);
-            boolean hasMilestone = job.hasRewardsForLevel(level);
 
-            // Material selection based on status & milestone
-            Material mat;
-            if (isReached) {
-                mat = hasMilestone ? Material.EMERALD : Material.LIME_STAINED_GLASS_PANE;
-            } else if (isNext) {
-                mat = hasMilestone ? Material.GOLD_BLOCK : Material.YELLOW_STAINED_GLASS_PANE;
-            } else {
-                mat = hasMilestone ? Material.CHEST : Material.GRAY_STAINED_GLASS_PANE;
-            }
-
-            ItemStack item = new ItemStack(mat, Math.min(64, Math.max(1, level)));
-            ItemMeta meta = item.getItemMeta();
-
-            if (meta != null) {
-                String title;
-                if (isReached) {
-                    title = "<green><bold>Level " + level + "</bold></green> <dark_gray>[TERCAPAI]</dark_gray>";
-                } else if (isNext) {
-                    title = "<yellow><bold>Level " + level + "</bold></yellow> <gold>[LEVEL BERIKUTNYA]</gold>";
-                } else {
-                    title = "<gray>Level " + level + "</gray> <dark_gray>[TERKUNCI]</dark_gray>";
-                }
-                meta.displayName(TextUtil.parseForPlayer(player, title));
-
-                List<Component> lore = new ArrayList<>();
-                lore.add(TextUtil.parseForPlayer(player, "<gray>Kebutuhan XP: <white>" + (level == 1 ? 0 : requiredXp) + " XP</white></gray>"));
-
-                if (isNext) {
-                    int needed = Math.max(0, requiredXp - currentXp);
-                    lore.add(TextUtil.parseForPlayer(player, "<gray>Progres Anda: <yellow>" + currentXp + " / " + requiredXp + " XP</yellow> <dark_gray>(Sisa: " + needed + " XP)</dark_gray>"));
-                }
-
-                lore.add(Component.empty().decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
-                if (hasMilestone) {
-                    lore.add(TextUtil.parseForPlayer(player, "<gold><bold>Hadiah Milestone Khusus:</bold></gold>"));
-                    List<Reward> rewards = job.getRewardsForLevel(level);
-                    if (rewards != null) {
-                        for (Reward r : rewards) {
-                            lore.add(TextUtil.parseForPlayer(player, "  " + r.getFormattedDisplay()));
-                        }
-                    }
-                } else {
-                    lore.add(TextUtil.parseForPlayer(player, "<dark_gray>Tidak ada reward khusus di level ini.</dark_gray>"));
-                }
-
-                lore.add(Component.empty().decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
-                if (isReached) {
-                    lore.add(TextUtil.parseForPlayer(player, "<green>✔ Anda sudah mencapai level ini!</green>"));
-                } else if (isNext) {
-                    lore.add(TextUtil.parseForPlayer(player, "<yellow>▶ Selesaikan kontrak kerja untuk naik ke level ini!</yellow>"));
-                } else {
-                    lore.add(TextUtil.parseForPlayer(player, "<red>✖ Capai level sebelumnya terlebih dahulu.</red>"));
-                }
-
-                meta.lore(lore);
-                item.setItemMeta(meta);
-            }
-
+            ItemStack item = createLevelItem(level, isReached, isNext, requiredXp, currentXp);
             inventory.setItem(slot, item);
             clickActions.put(slot, e -> e.setCancelled(true));
         }
@@ -193,6 +134,181 @@ public class JobProgressionMenu extends BaseMenu {
                 clickActions.put(nextSlot, e -> e.setCancelled(true));
             }
         }
+    }
+
+    private ItemStack createLevelItem(int level, boolean isReached, boolean isNext, int requiredXp, int currentXp) {
+        int needed = Math.max(0, requiredXp - currentXp);
+        boolean hasMilestone = job.hasRewardsForLevel(level);
+
+        // Pre-build milestone reward display lines
+        List<String> rewardLines = new ArrayList<>();
+        List<String> displayRewards = job.getDisplayRewardsForLevel(level);
+        if (displayRewards != null && !displayRewards.isEmpty()) {
+            for (String d : displayRewards) {
+                rewardLines.add("  " + d);
+            }
+        } else {
+            List<Reward> rewards = job.getRewardsForLevel(level);
+            if (rewards != null && !rewards.isEmpty()) {
+                for (Reward r : rewards) {
+                    rewardLines.add("  " + r.getFormattedDisplay());
+                }
+            }
+        }
+
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("{level}", String.valueOf(level));
+        placeholders.put("{job_name}", job.getDisplayName());
+        placeholders.put("{job_id}", job.getId());
+        placeholders.put("{required_xp}", String.valueOf(level == 1 ? 0 : requiredXp));
+        placeholders.put("{current_xp}", String.valueOf(currentXp));
+        placeholders.put("{needed_xp}", String.valueOf(needed));
+        placeholders.put("{status}", isReached ? "TERCAPAI" : (isNext ? "LEVEL BERIKUTNYA" : "TERKUNCI"));
+        placeholders.put("{status_color}", isReached ? "<green>" : (isNext ? "<yellow>" : "<gray>"));
+
+        // 1. Check if specific custom icon/item is configured for this level in job config
+        org.bukkit.configuration.ConfigurationSection customIconSec = job.getLevelIcon(level);
+        if (customIconSec != null) {
+            return buildConfiguredLevelItem(customIconSec, placeholders, rewardLines, isReached, isNext);
+        }
+
+        // 2. Check if menuConfig defines level-display templates
+        String state = isReached ? "reached" : (isNext ? "next" : "locked");
+        org.bukkit.configuration.ConfigurationSection displaySec = null;
+        if (menuConfig != null) {
+            if (hasMilestone && menuConfig.isConfigurationSection("level-display." + state + "-milestone")) {
+                displaySec = menuConfig.getConfigurationSection("level-display." + state + "-milestone");
+            } else if (menuConfig.isConfigurationSection("level-display." + state)) {
+                displaySec = menuConfig.getConfigurationSection("level-display." + state);
+            }
+        }
+
+        if (displaySec != null) {
+            return buildConfiguredLevelItem(displaySec, placeholders, rewardLines, isReached, isNext);
+        }
+
+        // 3. Fallback default item (amount is 1, not level, avoiding 64+ stack glitch)
+        Material mat;
+        if (isReached) {
+            mat = hasMilestone ? Material.EMERALD : Material.LIME_STAINED_GLASS_PANE;
+        } else if (isNext) {
+            mat = hasMilestone ? Material.GOLD_BLOCK : Material.YELLOW_STAINED_GLASS_PANE;
+        } else {
+            mat = hasMilestone ? Material.CHEST : Material.GRAY_STAINED_GLASS_PANE;
+        }
+
+        ItemStack item = new ItemStack(mat, 1);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            String title;
+            if (isReached) {
+                title = "<green><bold>Level " + level + "</bold></green> <dark_gray>[TERCAPAI]</dark_gray>";
+            } else if (isNext) {
+                title = "<yellow><bold>Level " + level + "</bold></yellow> <gold>[LEVEL BERIKUTNYA]</gold>";
+            } else {
+                title = "<gray>Level " + level + "</gray> <dark_gray>[TERKUNCI]</dark_gray>";
+            }
+            meta.displayName(TextUtil.parseForPlayer(player, title));
+
+            List<Component> lore = new ArrayList<>();
+            lore.add(TextUtil.parseForPlayer(player, "<gray>Kebutuhan XP: <white>" + (level == 1 ? 0 : requiredXp) + " XP</white></gray>"));
+
+            if (isNext) {
+                lore.add(TextUtil.parseForPlayer(player, "<gray>Progres Anda: <yellow>" + currentXp + " / " + requiredXp + " XP</yellow> <dark_gray>(Sisa: " + needed + " XP)</dark_gray>"));
+            }
+
+            lore.add(Component.empty().decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
+            if (hasMilestone) {
+                lore.add(TextUtil.parseForPlayer(player, "<gold><bold>Hadiah Milestone Khusus:</bold></gold>"));
+                if (!rewardLines.isEmpty()) {
+                    for (String rLine : rewardLines) {
+                        lore.add(TextUtil.parseForPlayer(player, rLine));
+                    }
+                } else {
+                    lore.add(TextUtil.parseForPlayer(player, "  <dark_gray>Tidak ada rincian hadiah.</dark_gray>"));
+                }
+            } else {
+                lore.add(TextUtil.parseForPlayer(player, "<dark_gray>Tidak ada reward khusus di level ini.</dark_gray>"));
+            }
+
+            lore.add(Component.empty().decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
+            if (isReached) {
+                lore.add(TextUtil.parseForPlayer(player, "<green>✔ Anda sudah mencapai level ini!</green>"));
+            } else if (isNext) {
+                lore.add(TextUtil.parseForPlayer(player, "<yellow>▶ Selesaikan kontrak kerja untuk naik ke level ini!</yellow>"));
+            } else {
+                lore.add(TextUtil.parseForPlayer(player, "<red>✖ Capai level sebelumnya terlebih dahulu.</red>"));
+            }
+
+            meta.lore(lore);
+            item.setItemMeta(meta);
+        }
+
+        return item;
+    }
+
+    private ItemStack buildConfiguredLevelItem(org.bukkit.configuration.ConfigurationSection sec,
+                                              Map<String, String> placeholders,
+                                              List<String> rewardLines,
+                                              boolean isReached,
+                                              boolean isNext) {
+        ItemStack item = resolveBaseItem(sec, player);
+        int amount = sec.getInt("amount", 1);
+        item.setAmount(Math.max(1, amount));
+
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            if (sec.contains("custom-model-data")) {
+                meta.setCustomModelData(sec.getInt("custom-model-data"));
+            }
+
+            if (sec.getBoolean("glow", false)) {
+                try {
+                    meta.setEnchantmentGlintOverride(true);
+                } catch (Throwable t) {
+                    meta.addEnchant(org.bukkit.enchantments.Enchantment.UNBREAKING, 1, true);
+                    meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS);
+                }
+            }
+
+            if (sec.contains("name")) {
+                String rawName = sec.getString("name");
+                for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+                    rawName = rawName.replace(entry.getKey(), entry.getValue());
+                }
+                rawName = replacePlaceholders(rawName);
+                meta.displayName(TextUtil.parseForPlayer(player, rawName));
+            }
+
+            if (sec.contains("lore")) {
+                List<String> rawLore = sec.getStringList("lore");
+                List<Component> lore = new ArrayList<>();
+                for (String line : rawLore) {
+                    if (line.contains("{rewards_list}") || line.contains("{milestone_info}")) {
+                        if (!rewardLines.isEmpty()) {
+                            for (String rLine : rewardLines) {
+                                lore.add(TextUtil.parseForPlayer(player, rLine));
+                            }
+                        } else {
+                            lore.add(TextUtil.parseForPlayer(player, "<dark_gray>Tidak ada reward khusus di level ini.</dark_gray>"));
+                        }
+                        continue;
+                    }
+
+                    String replaced = line;
+                    for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+                        replaced = replaced.replace(entry.getKey(), entry.getValue());
+                    }
+                    replaced = replacePlaceholders(replaced);
+                    lore.add(TextUtil.parseForPlayer(player, replaced));
+                }
+                meta.lore(lore);
+            }
+
+            item.setItemMeta(meta);
+        }
+
+        return item;
     }
 
     private void applyCustomStaticItems() {

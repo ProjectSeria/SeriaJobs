@@ -163,8 +163,18 @@ public class OrderDepositMenu extends BaseMenu {
                             finalLore.add(TextUtil.parseForPlayer(player, parsedOLine));
                         }
                     } else if (line.contains("{rewards_list}")) {
-                        for (Reward r : order.getRewards()) {
-                            finalLore.add(TextUtil.parseForPlayer(player, "  " + r.getFormattedDisplay()));
+                        if (order.hasCustomRewardsDisplay()) {
+                            for (String rLine : order.getCustomRewardsDisplay()) {
+                                finalLore.add(TextUtil.parseForPlayer(player, rLine));
+                            }
+                        } else {
+                            for (Reward r : order.getRewards()) {
+                                String disp = r.getFormattedDisplay();
+                                if (!disp.startsWith(" ") && !disp.startsWith("<lore-color>▪") && !disp.startsWith("▪")) {
+                                    disp = "  " + disp;
+                                }
+                                finalLore.add(TextUtil.parseForPlayer(player, disp));
+                            }
                         }
                     } else if (line.contains("{progress_bar}")) {
                         finalLore.add(TextUtil.parseForPlayer(player, createProgressBar(progress, required)));

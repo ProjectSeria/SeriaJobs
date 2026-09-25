@@ -13,11 +13,22 @@ public class MMOItemReward implements Reward {
     private final String mmoType;
     private final String mmoId;
     private final int amount;
+    private final String customDisplay;
 
     public MMOItemReward(String mmoType, String mmoId, int amount) {
+        this(mmoType, mmoId, amount, null);
+    }
+
+    public MMOItemReward(String mmoType, String mmoId, int amount, String customDisplay) {
         this.mmoType = mmoType;
         this.mmoId = mmoId;
         this.amount = amount;
+        this.customDisplay = customDisplay;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -51,6 +62,12 @@ public class MMOItemReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            return customDisplay
+                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{id}", mmoId != null ? mmoId : "")
+                    .replace("{type}", mmoType != null ? mmoType : "");
+        }
         return "<light_purple>+ " + amount + "x MMOItem (" + mmoId + ")</light_purple>";
     }
 }

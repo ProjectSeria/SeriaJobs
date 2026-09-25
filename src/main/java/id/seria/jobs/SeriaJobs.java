@@ -31,6 +31,7 @@ public class SeriaJobs extends JavaPlugin {
     private PlayerDataManager playerDataManager;
     private SlotPermissionManager slotPermissionManager;
     private LeaderboardManager leaderboardManager;
+    private id.seria.jobs.placeholder.CustomPlaceholderManager customPlaceholderManager;
 
     @Override
     public void onEnable() {
@@ -71,6 +72,9 @@ public class SeriaJobs extends JavaPlugin {
         this.leaderboardManager = new LeaderboardManager(this);
         this.leaderboardManager.init();
 
+        this.customPlaceholderManager = new id.seria.jobs.placeholder.CustomPlaceholderManager(this);
+        this.customPlaceholderManager.init();
+
         // 5. Register Listeners
         Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
@@ -96,6 +100,10 @@ public class SeriaJobs extends JavaPlugin {
     public void onDisable() {
         getLogger().info("Disabling SeriaJobs...");
 
+        if (customPlaceholderManager != null) {
+            customPlaceholderManager.unregisterExpansion();
+        }
+
         if (leaderboardManager != null) {
             leaderboardManager.shutdown();
         }
@@ -120,6 +128,9 @@ public class SeriaJobs extends JavaPlugin {
         languageManager.load();
         menuRegistry.load();
         jobRegistry.load();
+        if (customPlaceholderManager != null) {
+            customPlaceholderManager.load();
+        }
         TranslationExporter.setupTranslationFolders(this);
         getLogger().info("SeriaJobs configurations and job registries reloaded.");
     }
@@ -162,5 +173,9 @@ public class SeriaJobs extends JavaPlugin {
 
     public LeaderboardManager getLeaderboardManager() {
         return leaderboardManager;
+    }
+
+    public id.seria.jobs.placeholder.CustomPlaceholderManager getCustomPlaceholderManager() {
+        return customPlaceholderManager;
     }
 }

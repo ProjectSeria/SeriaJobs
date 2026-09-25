@@ -13,10 +13,16 @@ public class SeriaCraftingReward implements Reward {
 
     private final String craftingId;
     private final int amount;
+    private final String customDisplay;
 
     public SeriaCraftingReward(String craftingId, int amount) {
+        this(craftingId, amount, null);
+    }
+
+    public SeriaCraftingReward(String craftingId, int amount, String customDisplay) {
         this.craftingId = craftingId;
         this.amount = Math.max(1, amount);
+        this.customDisplay = customDisplay;
     }
 
     public String getCraftingId() {
@@ -25,6 +31,11 @@ public class SeriaCraftingReward implements Reward {
 
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -58,6 +69,11 @@ public class SeriaCraftingReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            return customDisplay
+                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{id}", craftingId != null ? craftingId : "");
+        }
         return "<gold>+ " + amount + "x CraftedItem (" + craftingId + ")</gold>";
     }
 }

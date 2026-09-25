@@ -14,15 +14,26 @@ public class VanillaItemReward implements Reward {
     private final Material material;
     private final int amount;
     private final String extraMetaKey;
+    private final String customDisplay;
 
     public VanillaItemReward(Material material, int amount) {
-        this(material, amount, null);
+        this(material, amount, null, null);
     }
 
     public VanillaItemReward(Material material, int amount, String extraMetaKey) {
+        this(material, amount, extraMetaKey, null);
+    }
+
+    public VanillaItemReward(Material material, int amount, String extraMetaKey, String customDisplay) {
         this.material = material;
         this.amount = amount;
         this.extraMetaKey = extraMetaKey;
+        this.customDisplay = customDisplay;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -69,7 +80,15 @@ public class VanillaItemReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
-        String name = material.name().replace('_', ' ').toLowerCase();
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            String name = material != null ? material.name().replace('_', ' ').toLowerCase() : "Item";
+            name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+            return customDisplay
+                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{item}", name)
+                    .replace("{material}", material != null ? material.name() : "");
+        }
+        String name = material != null ? material.name().replace('_', ' ').toLowerCase() : "Item";
         name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
         return "<white>+ " + amount + "x " + name + "</white>";
     }

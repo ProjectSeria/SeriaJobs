@@ -10,6 +10,57 @@ experience-progression-equation: baseexperience*(1+(joblevel-1)*0.08)
 max-level: 100
 ia-action-bar-symbol: ""
 
+active-orders-count: 3
+
+# MARKET ORDERS POOL (Pesanan Pasar)
+orders-pool:
+  wheat_delivery:
+    display-name: "<yellow>Panen Gandum Berkualitas</yellow>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Gandum</yellow>"
+      - "<gray>Kirim hasil panen gandum segar untuk lumbung desa."
+    required-item:
+      source: "VANILLA"
+      material: "WHEAT"
+      amount: 64
+      strict-nbt: false
+    # Hadiah disesuaikan manual (tidak hardcoded)
+    rewards:
+      - type: "VAULT"
+        amount: 30000.0
+        display: "  <lore-color>▪ <money-color>30.000 $"
+      - type: "JOB_XP"
+        amount: 190
+        display: "  <lore-color>▪ <yellow>190 Job XP"
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 380
+        display: "  <lore-color>▪ <green>380 Farming XP"
+
+  carrot_supply:
+    display-name: "<gold>Pasokan Wortel Segar</gold>"
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Wortel</yellow>"
+      - "<gray>Kirim stok wortel panen ke pasar kota."
+    required-item:
+      source: "VANILLA"
+      material: "CARROT"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 45000.0
+      - type: "JOB_XP"
+        amount: 280
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 550
+    # Opsi kedua: Menulis format tampilan langsung via display-rewards
+    display-rewards:
+      - "  <lore-color>▪ <money-color>45.000 $"
+      - "  <lore-color>▪ <yellow>280 Job XP"
+      - "  <lore-color>▪ <green>550 Farming XP"
+
 # JOB LEVEL REWARDS #
 reward-levels:
   1:
@@ -50,6 +101,17 @@ reward-levels:
     commands:
       - "squidceco give %player% default 8000"
   5:
+    icon:
+      material: "GOLDEN_HOE"
+      name: "<yellow><bold>Level 5 Milestone: Golden Sickle</bold></yellow>"
+      lore:
+        - "<gray>Kebutuhan XP: <white>{required_xp} XP</white></gray>"
+        - ""
+        - "<gold><bold>Hadiah Milestone Khusus:</bold></gold>"
+        - "{rewards_list}"
+        - ""
+        - "<yellow>★ Milestone tingkat 5 dari pekerjaan Petani!</yellow>"
+        - "{status_color}Status: {status}"
     display-rewards:
       - ""
       - "<sub-title-color>Reward:"

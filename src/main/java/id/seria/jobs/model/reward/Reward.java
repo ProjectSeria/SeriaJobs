@@ -22,4 +22,13 @@ public interface Reward {
      */
     @NotNull
     String getFormattedDisplay();
+
+    /**
+     * Optional custom display string defined in YAML.
+     *
+     * @return Custom display or null if using default formatting
+     */
+    default String getCustomDisplay() {
+        return null;
+    }
 }

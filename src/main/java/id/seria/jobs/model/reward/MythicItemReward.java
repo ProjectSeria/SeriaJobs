@@ -13,10 +13,16 @@ public class MythicItemReward implements Reward {
 
     private final String itemId;
     private final int amount;
+    private final String customDisplay;
 
     public MythicItemReward(String itemId, int amount) {
+        this(itemId, amount, null);
+    }
+
+    public MythicItemReward(String itemId, int amount, String customDisplay) {
         this.itemId = itemId;
         this.amount = Math.max(1, amount);
+        this.customDisplay = customDisplay;
     }
 
     public String getItemId() {
@@ -25,6 +31,11 @@ public class MythicItemReward implements Reward {
 
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public String getCustomDisplay() {
+        return customDisplay;
     }
 
     @Override
@@ -58,6 +69,11 @@ public class MythicItemReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        if (customDisplay != null && !customDisplay.trim().isEmpty()) {
+            return customDisplay
+                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{id}", itemId != null ? itemId : "");
+        }
         return "<light_purple>+ " + amount + "x MythicItem (" + itemId + ")</light_purple>";
     }
 }

@@ -29,6 +29,7 @@ public class JobOrder {
 
     // Rewards
     private final List<Reward> rewards;
+    private final List<String> customRewardsDisplay;
 
     public JobOrder(@NotNull String id,
                     @NotNull String jobId,
@@ -43,6 +44,24 @@ public class JobOrder {
                     @Nullable String customItemId,
                     int amount,
                     @NotNull List<Reward> rewards) {
+        this(id, jobId, displayName, lore, source, material, customModelData, strictNbt,
+                mmoItemType, mmoItemId, customItemId, amount, rewards, null);
+    }
+
+    public JobOrder(@NotNull String id,
+                    @NotNull String jobId,
+                    @NotNull String displayName,
+                    @NotNull List<String> lore,
+                    @NotNull String source,
+                    @Nullable Material material,
+                    @Nullable Integer customModelData,
+                    boolean strictNbt,
+                    @Nullable String mmoItemType,
+                    @Nullable String mmoItemId,
+                    @Nullable String customItemId,
+                    int amount,
+                    @NotNull List<Reward> rewards,
+                    @Nullable List<String> customRewardsDisplay) {
         this.id = id;
         this.jobId = jobId;
         this.displayName = displayName;
@@ -56,6 +75,7 @@ public class JobOrder {
         this.customItemId = customItemId;
         this.amount = amount;
         this.rewards = rewards;
+        this.customRewardsDisplay = customRewardsDisplay != null ? customRewardsDisplay : Collections.emptyList();
     }
 
     @NotNull
@@ -136,5 +156,14 @@ public class JobOrder {
     @NotNull
     public List<Reward> getRewards() {
         return Collections.unmodifiableList(rewards);
+    }
+
+    @NotNull
+    public List<String> getCustomRewardsDisplay() {
+        return Collections.unmodifiableList(customRewardsDisplay);
+    }
+
+    public boolean hasCustomRewardsDisplay() {
+        return customRewardsDisplay != null && !customRewardsDisplay.isEmpty();
     }
 }
