@@ -135,7 +135,7 @@ reward-levels:
 
 | Plugin | Versi | Status | Modul / Pembaruan |
 |---|---|---|---|
-| **`SeriaCore`** | 2.0.0 | ✅ Built | MenuRequirementEvaluator, MiniMessage Semantic Tags, Dynamic Slots & Parameters |
+| **`SeriaCore`** | 2.0.0 | ✅ Built | MenuRequirementEvaluator, ItemProviderRegistry (`%itemsproviders_...%`), MiniMessage Semantic Tags, Dynamic Slots & Parameters |
 | **`SeriaJobs`** | 2.0.0 | ✅ Built | Math equations, 100-level reward tiers, YAML Menus (actions, menu, leaderboard) |
 | **`SeriaGacha`** | 2.0.0 | ✅ Built | New plugin refactor (NMS 1.21.4, Paper Dialog stubs, modern GUI) |
 | **`SeriaCrafting`** | 2.0.0 | ✅ Updated | Standardized YAML menu schemas (`menus/default.yml`, `menus/crafting.yml`) |
@@ -155,6 +155,56 @@ reward-levels:
 
 ---
 
+## 🔮 4. Item Providers & Cross-Plugin Placeholder Integration
+
+Sistem baru pada `SeriaCore` yang memungkinkan pembacaan item dari berbagai plugin eksternal (seperti `AdvancedEnchantments`, `MMOItems`, `Nexo`, `Oraxen`, `ItemsAdder`, `MythicMobs`, `EcoItems`, `HeadDatabase`, `Minecraft/Vanilla`) langsung melalui placeholder PlaceholderAPI (`%itemsproviders_...%`, `%itemprovider_...%`, `%itemproviders_...%`) untuk digunakan di **DeluxeMenus** maupun sistem menu internal Seria.
+
+### 🏷️ Format Placeholder:
+```text
+%itemsproviders_<plugin>_<category>_<id>_<property>%
+%itemsproviders_<plugin>_<id>_<property>%
+```
+
+### 🧩 Plugin Providers yang Didukung:
+- `advancedenchantments` / `ae` : Mengambil custom items, enchantment books (`ae_book_<enchant>:<lvl>`), scrolls, dust.
+- `mmoitems` / `mi` : Mengambil item MMOItems berdasarkan `Type` dan `ID`.
+- `nexo` : Mengambil item Nexo berdasarkan item ID.
+- `oraxen` : Mengambil item Oraxen berdasarkan item ID.
+- `itemsadder` / `ia` : Mengambil custom stack ItemsAdder.
+- `mythicmobs` / `mm` : Mengambil custom item MythicMobs.
+- `ecoitems` / `eco` : Mengambil custom item EcoItems.
+- `headdatabase` / `hdb` : Mengambil custom head HeadDatabase berdasarkan head ID.
+- `vanilla` / `minecraft` : Mengambil item default Minecraft.
+
+### 📌 Properti yang Tersedia (`<property>`):
+- `name` / `display-name` : Nama display item terformat beserta kode warna (`§` / `&`).
+- `raw_name` / `stripped_name` : Nama display bersih tanpa warna.
+- `material` / `type` : Nama Bukkit Material (contoh: `DIAMOND_SWORD`, `ENCHANTED_BOOK`).
+- `lore` / `description` : Seluruh baris lore item digabungkan dengan newline (`\n`). DeluxeMenus & SeriaCore otomatis memecahnya menjadi baris terpisah tanpa menimpa lore manual.
+- `lore_<index>` : Baris lore spesifik (1-indexed atau 0-indexed, contoh `lore_1`).
+- `custommodeldata` / `cmd` : Custom model data angka integer.
+- `amount` : Jumlah stack item.
+- `enchantments` : Daftar enchantment item.
+- `exists` : Nilai boolean `true`/`false` apakah item ditemukan.
+
+### 📋 Contoh Konfigurasi DeluxeMenus (`.yml`):
+```yaml
+items:
+  'lifesteal_sword':
+    material: '%itemsproviders_ae_shadow_blade_material%'
+    slot: 13
+    display_name: '%itemsproviders_ae_shadow_blade_name%'
+    lore:
+      - '&8&m------------------------'
+      - '&6▶ &eSpesifikasi Senjata:'
+      # Otomatis mengekspansi seluruh lore asli dari plugin:
+      - '%itemsproviders_ae_shadow_blade_lore%'
+      - '&8&m------------------------'
+      - '&a▶ Klik Kiri: &fBeli seharga &6100.000 Gins'
+```
+
+---
+
 ## 🔧 Build & Deployment Guide
 
 Untuk mem-build ulang modul utama:
@@ -162,7 +212,7 @@ Untuk mem-build ulang modul utama:
 ```bash
 # Build SeriaCore
 cd SeriaCore
-mvn clean install -DskipTests
+mvn clean package -DskipTests
 
 # Build SeriaJobs
 cd ../SeriaJobs
@@ -173,4 +223,6 @@ cd ../SeriaGacha
 ./gradlew build
 ```
 
-Semua file `.jar` output akan tersimpan di direktori `target/` atau `build/libs/` masing-masing plugin.
+Semua file `.jar` output kompilasi final otomatis disalin dan diverifikasi pada folder:
+`Project Seria/OutputJar/`
+
