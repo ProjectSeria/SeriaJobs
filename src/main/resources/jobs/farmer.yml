@@ -8,6 +8,15 @@ income-progression-equation: baseincome+(baseincome*(joblevel-1)*0.58)-((baseinc
 points-progression-equation: basepoints+(basepoints*(joblevel-1)*0.01)-((basepoints+(basepoints*(joblevel-1)*0.01))    * ((numjobs-1)*0.05))
 experience-progression-equation: baseexperience*(1+(joblevel-1)*0.08)
 max-level: 100
+icon: "WHEAT"
+description:
+  - "<gray>Supplies crops and produce to feed"
+  - "<gray>the markets and kitchens of Seria."
+  - ""
+  - "<yellow>Click to view open work orders!</yellow>"
+
+# Jumlah order aktif per shift (dipilih acak dari orders-pool)
+active-orders-count: 3
 ia-action-bar-symbol: ""
 
 # JOB LEVEL REWARDS #
@@ -1001,6 +1010,244 @@ display-action-mapping:
     material: STONE_HOE
     name: "<title-color><title-color>Harvest"
 
+
+# ==============================================================================
+# WORK ORDERS (dibaca plugin)
+# Digenerate dari data `actions:` di bawah (skema Jobs Reborn, tidak dibaca plugin).
+# - Nilai relatif antar item  = experience per unit di actions (range 0-200)
+# - Skala reward             = dikalibrasi ke alchemist.yml (order median ~1000 uang / 150 XP)
+# - Jumlah (amount)          = makin langka item, makin sedikit yang diminta
+# Angka di sini adalah DRAFT balancing: silakan disesuaikan.
+# ==============================================================================
+orders-pool:
+  wheat_supply:
+    display-name: "<title-color>Wheat"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Wheat</accentuation-color>"
+      - "<lore-color>Deliver wheat to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "WHEAT"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1000.0
+      - type: "JOB_XP"
+        amount: 145
+
+  potato_supply:
+    display-name: "<title-color>Potato"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Potato</accentuation-color>"
+      - "<lore-color>Deliver potato to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "POTATO"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 900.0
+      - type: "JOB_XP"
+        amount: 130
+
+  carrot_supply:
+    display-name: "<title-color>Carrot"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Carrot</accentuation-color>"
+      - "<lore-color>Deliver carrot to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "CARROT"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 950.0
+      - type: "JOB_XP"
+        amount: 140
+
+  beetroot_supply:
+    display-name: "<title-color>Beetroot"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Beetroot</accentuation-color>"
+      - "<lore-color>Deliver beetroot to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "BEETROOT"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 800.0
+      - type: "JOB_XP"
+        amount: 115
+
+  melon_slice_supply:
+    display-name: "<title-color>Melon Slice"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Melon Slice</accentuation-color>"
+      - "<lore-color>Deliver melon slice to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "MELON_SLICE"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1200.0
+      - type: "JOB_XP"
+        amount: 180
+
+  pumpkin_supply:
+    display-name: "<title-color>Pumpkin"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Pumpkin</accentuation-color>"
+      - "<lore-color>Deliver pumpkin to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "PUMPKIN"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1200.0
+      - type: "JOB_XP"
+        amount: 180
+
+  sugar_cane_supply:
+    display-name: "<title-color>Sugar Cane"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Sugar Cane</accentuation-color>"
+      - "<lore-color>Deliver sugar cane to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "SUGAR_CANE"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 1600.0
+      - type: "JOB_XP"
+        amount: 240
+
+  cactus_supply:
+    display-name: "<title-color>Cactus"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Cactus</accentuation-color>"
+      - "<lore-color>Deliver cactus to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "CACTUS"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 4900.0
+      - type: "JOB_XP"
+        amount: 730
+
+  cocoa_beans_supply:
+    display-name: "<title-color>Cocoa Beans"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Cocoa Beans</accentuation-color>"
+      - "<lore-color>Deliver cocoa beans to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "COCOA_BEANS"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 3900.0
+      - type: "JOB_XP"
+        amount: 585
+
+  vine_supply:
+    display-name: "<title-color>Vine"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Vine</accentuation-color>"
+      - "<lore-color>Deliver vine to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "VINE"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2600.0
+      - type: "JOB_XP"
+        amount: 395
+
+  brown_mushroom_supply:
+    display-name: "<title-color>Brown Mushroom"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Brown Mushroom</accentuation-color>"
+      - "<lore-color>Deliver brown mushroom to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "BROWN_MUSHROOM"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2400.0
+      - type: "JOB_XP"
+        amount: 360
+
+  red_mushroom_supply:
+    display-name: "<title-color>Red Mushroom"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Red Mushroom</accentuation-color>"
+      - "<lore-color>Deliver red mushroom to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "RED_MUSHROOM"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 2400.0
+      - type: "JOB_XP"
+        amount: 360
+
+  nether_wart_supply:
+    display-name: "<title-color>Nether Wart"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Nether Wart</accentuation-color>"
+      - "<lore-color>Deliver nether wart to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "NETHER_WART"
+      amount: 256
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 950.0
+      - type: "JOB_XP"
+        amount: 140
+
+  bamboo_supply:
+    display-name: "<title-color>Bamboo"
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Bamboo</accentuation-color>"
+      - "<lore-color>Deliver bamboo to the Farmers' Co-op."
+    required-item:
+      source: "VANILLA"
+      material: "BAMBOO"
+      amount: 512
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 900.0
+      - type: "JOB_XP"
+        amount: 135
+
+# ------------------------------------------------------------------------------
+# LEGACY: skema Jobs Reborn. TIDAK dibaca SeriaJobs, disimpan sebagai referensi
+# nilai balancing untuk orders-pool di atas.
+# ------------------------------------------------------------------------------
 # JOB ACTIONS #
 actions:
   BREAK:

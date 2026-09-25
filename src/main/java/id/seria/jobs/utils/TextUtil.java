@@ -24,7 +24,7 @@ public class TextUtil {
         if (text == null || text.isEmpty()) {
             return Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         }
-        String prepared = prepareLegacyAndHex(text);
+        String prepared = prepareLegacyAndHex(formatSemanticColors(text));
         Component component;
         try {
             // Enforce <!italic> base context unless explicitly starting with italic tag
@@ -37,6 +37,23 @@ public class TextUtil {
         }
         component = component.applyFallbackStyle(net.kyori.adventure.text.format.Style.style().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).build());
         return removeDefaultItalic(component);
+    }
+
+    /**
+     * Ubah tag warna semantik Seria ({@code <title-color>}, {@code <lore-color>}, {@code <money-color>}, ...)
+     * menjadi tag MiniMessage biasa memakai palet SeriaCore. Tanpa ini, tag tersebut tampil mentah di GUI
+     * karena MiniMessage tidak mengenalnya.
+     *
+     * <p>SeriaCore hanya softdepend, jadi kelasnya dipanggil setelah dicek aktif.
+     */
+    private static String formatSemanticColors(String text) {
+        if (!text.contains("-color>") && !text.contains("<action-icon>")) return text;
+        if (!org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) return text;
+        try {
+            return id.seria.core.gui.menu.BaseSeriaMenu.formatSemanticColorTags(text);
+        } catch (LinkageError ignored) {
+            return text; // SeriaCore versi lama tanpa formatter
+        }
     }
 
     /**
