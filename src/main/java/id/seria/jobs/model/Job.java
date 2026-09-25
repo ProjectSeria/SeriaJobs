@@ -186,8 +186,18 @@ public class Job {
     }
 
     /**
-     * Calculates the required XP to reach the next level.
-     * Evaluates polynomial levelingProgressionEquation if present, otherwise defaults to exponential.
+     * XP yang dibutuhkan untuk naik dari {@code level} ke level berikutnya.
+     *
+     * <p>Urutan sumber:
+     * <ol>
+     *   <li>{@code leveling-progression-equation} di file job ({@code joblevel} diganti level saat ini),
+     *       dievaluasi lewat {@code $e()} SeriaCore</li>
+     *   <li>Fallback: {@code leveling.base-xp × leveling.multiplier^(level-1)}</li>
+     * </ol>
+     * Hasil dibatasi ke {@link Integer#MAX_VALUE} supaya rumus eksponensial di level tinggi
+     * tidak overflow jadi angka negatif.
+     *
+     * @return XP yang dibutuhkan, atau {@link Integer#MAX_VALUE} bila sudah max level
      */
     public int getRequiredXp(int level) {
         if (level >= maxLevel) {
@@ -200,11 +210,19 @@ public class Job {
                 String eval = MenuRequirementEvaluator.evaluateMathExpressions("$e(" + expr + ")");
                 double val = Double.parseDouble(eval.trim());
                 if (val > 0) {
-                    return (int) Math.round(val);
+                    return clampToInt(val);
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+                // Rumus tidak valid -> pakai fallback di bawah
+            }
         }
 
-        return (int) Math.round(baseXp * Math.pow(multiplier, Math.max(0, level - 1)));
+        return clampToInt(baseXp * Math.pow(multiplier, Math.max(0, level - 1)));
+    }
+
+    /** Bulatkan lalu batasi ke rentang int positif (minimal 1 XP). */
+    private static int clampToInt(double value) {
+        if (value >= Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        return (int) Math.max(1, Math.round(value));
     }
 }

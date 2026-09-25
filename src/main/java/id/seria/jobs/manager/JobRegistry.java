@@ -20,19 +20,24 @@ public class JobRegistry {
         this.plugin = plugin;
     }
 
+    /** File job bawaan yang disalin ke plugins/SeriaJobs/jobs/ saat folder masih kosong. */
+    private static final String[] DEFAULT_JOBS = {"miner.yml", "farmer.yml", "fisherman.yml", "alchemist.yml"};
+
+    /**
+     * Muat ulang semua job dari plugins/SeriaJobs/jobs/*.yml.
+     * Bila folder belum ada / kosong, semua job bawaan disalin dulu.
+     */
     public void load() {
         jobs.clear();
         File jobsFolder = new File(plugin.getDataFolder(), "jobs");
         if (!jobsFolder.exists()) {
             jobsFolder.mkdirs();
-            saveDefaultJob("farmer.yml");
-            saveDefaultJob("alchemist.yml");
+            saveDefaultJobs();
         }
 
         File[] files = jobsFolder.listFiles((dir, name) -> name.endsWith(".yml") || name.endsWith(".yaml"));
         if (files == null || files.length == 0) {
-            saveDefaultJob("farmer.yml");
-            saveDefaultJob("alchemist.yml");
+            saveDefaultJobs();
             files = jobsFolder.listFiles((dir, name) -> name.endsWith(".yml") || name.endsWith(".yaml"));
         }
 
@@ -43,6 +48,7 @@ public class JobRegistry {
                     if (job != null) {
                         jobs.put(job.getId().toLowerCase(), job);
                         plugin.getLogger().info("Loaded job: " + job.getId() + " (" + job.getOrdersPool().size() + " orders, " + job.getLevelRewards().size() + " level reward milestones)");
+                        warnIfNoOrders(job, file);
                     }
                 } catch (Exception e) {
                     plugin.getLogger().severe("Failed to load job file " + file.getName() + ": " + e.getMessage());
@@ -51,6 +57,25 @@ public class JobRegistry {
             }
         }
         plugin.getLogger().info("Successfully loaded " + jobs.size() + " total job(s) from registry.");
+    }
+
+    /**
+     * Job tanpa orders-pool tidak akan pernah punya Work Order. Biasanya ini terjadi karena
+     * file memakai skema lama {@code actions:} (gaya Jobs Reborn) yang tidak dibaca plugin ini.
+     */
+    private void warnIfNoOrders(Job job, File file) {
+        if (!job.getOrdersPool().isEmpty()) return;
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+        String hint = config.isConfigurationSection("actions")
+                ? " File ini memakai skema 'actions:' yang tidak didukung; pindahkan ke 'orders-pool:'."
+                : " Tambahkan section 'orders-pool:'.";
+        plugin.getLogger().warning("Job '" + job.getId() + "' (" + file.getName() + ") tidak punya Work Order." + hint);
+    }
+
+    private void saveDefaultJobs() {
+        for (String fileName : DEFAULT_JOBS) {
+            saveDefaultJob(fileName);
+        }
     }
 
     private void saveDefaultJob(String fileName) {
