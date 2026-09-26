@@ -25,6 +25,9 @@ public class JobProfile {
     // Blueprint: Active work orders per slot index (1–5)
     private final Map<Integer, WorkOrder> activeOrders = new ConcurrentHashMap<>();
 
+    // Total orders completed by player
+    private volatile int ordersCompleted = 0;
+
     public JobProfile(@NotNull UUID uuid) {
         this.uuid = uuid;
     }
@@ -202,5 +205,17 @@ public class JobProfile {
 
     public void clearActiveOrders() {
         activeOrders.clear();
+    }
+
+    public int getOrdersCompleted() {
+        return ordersCompleted;
+    }
+
+    public void setOrdersCompleted(int count) {
+        this.ordersCompleted = Math.max(0, count);
+    }
+
+    public void incrementOrdersCompleted() {
+        this.ordersCompleted++;
     }
 }

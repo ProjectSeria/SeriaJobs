@@ -50,7 +50,9 @@ public class MainJobsMenu extends BaseMenu {
             if (plugin.getSlotPermissionManager() != null) {
                 maxSlots = plugin.getSlotPermissionManager().getMaxSlots(player);
             }
-            if (plugin.getLeaderboardManager() != null) {
+            if (profile != null) {
+                ordersCompleted = profile.getOrdersCompleted();
+            } else if (plugin.getLeaderboardManager() != null) {
                 var entry = plugin.getLeaderboardManager().getPlayerGlobalEntry(player.getUniqueId(), id.seria.jobs.model.LeaderboardPeriod.ALL_TIME);
                 if (entry != null) {
                     ordersCompleted = entry.getOrdersCompleted();

@@ -39,14 +39,17 @@ public class JobProgressionMenu extends BaseMenu {
         int level = 1;
         int xp = 0;
         int reqXp = 100;
+        int ordersCompleted = 0;
         if (player != null && plugin.getPlayerDataManager() != null) {
             JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
             if (profile != null) {
                 level = profile.getJobLevel(job.getId());
                 xp = profile.getJobXp(job.getId());
                 reqXp = job.getRequiredXp(level);
+                ordersCompleted = profile.getOrdersCompleted();
             }
         }
+        String ordersCompletedStr = String.valueOf(ordersCompleted);
         text = text.replace("{job_name}", job.getDisplayName())
                 .replace("%job_name%", job.getDisplayName())
                 .replace("{job}", job.getDisplayName())
@@ -69,7 +72,16 @@ public class JobProgressionMenu extends BaseMenu {
                 .replace("{req_xp}", String.valueOf(reqXp))
                 .replace("%req_xp%", String.valueOf(reqXp))
                 .replace("{page}", String.valueOf(page))
-                .replace("%page%", String.valueOf(page));
+                .replace("%page%", String.valueOf(page))
+                .replace("{seriajobs_order_completed}%", ordersCompletedStr)
+                .replace("{seriajobs_order_completed}", ordersCompletedStr)
+                .replace("%seriajobs_order_completed%", ordersCompletedStr)
+                .replace("{seriajobs_orders_completed}", ordersCompletedStr)
+                .replace("%seriajobs_orders_completed%", ordersCompletedStr)
+                .replace("{order_completed}", ordersCompletedStr)
+                .replace("%order_completed%", ordersCompletedStr)
+                .replace("{orders_completed}", ordersCompletedStr)
+                .replace("%orders_completed%", ordersCompletedStr);
         return super.replacePlaceholders(text);
     }
 
@@ -79,9 +91,19 @@ public class JobProgressionMenu extends BaseMenu {
         applyFillers();
         applyCustomStaticItems();
 
-        List<Integer> slots = menuConfig != null && menuConfig.isList("level-slots")
-                ? menuConfig.getIntegerList("level-slots")
-                : List.of(10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34);
+        List<Integer> slots = null;
+        if (menuConfig != null) {
+            if (menuConfig.isList("layout.level-slots.slots")) {
+                slots = menuConfig.getIntegerList("layout.level-slots.slots");
+            } else if (menuConfig.isList("layout.levels.slots")) {
+                slots = menuConfig.getIntegerList("layout.levels.slots");
+            } else if (menuConfig.isList("level-slots")) {
+                slots = menuConfig.getIntegerList("level-slots");
+            }
+        }
+        if (slots == null || slots.isEmpty()) {
+            slots = List.of(10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34);
+        }
 
         int perPage = slots.size();
         int maxLevel = job.getMaxLevel();
@@ -170,6 +192,10 @@ public class JobProgressionMenu extends BaseMenu {
         placeholders.put("{needed_xp}", String.valueOf(needed));
         placeholders.put("{status}", isReached ? "TERCAPAI" : (isNext ? "LEVEL BERIKUTNYA" : "TERKUNCI"));
         placeholders.put("{status_color}", isReached ? "<green>" : (isNext ? "<yellow>" : "<gray>"));
+        placeholders.put("{is_reached}", String.valueOf(isReached));
+        placeholders.put("{is_next}", String.valueOf(isNext));
+        placeholders.put("{is_locked}", String.valueOf(!isReached && !isNext));
+        placeholders.put("{has_milestone}", String.valueOf(hasMilestone));
 
         // 1. Check if specific custom icon/item is configured for this level in job config
         org.bukkit.configuration.ConfigurationSection customIconSec = job.getLevelIcon(level);
@@ -177,11 +203,44 @@ public class JobProgressionMenu extends BaseMenu {
             return buildConfiguredLevelItem(customIconSec, placeholders, rewardLines, isReached, isNext);
         }
 
-        // 2. Check if menuConfig defines level-display templates
-        String state = isReached ? "reached" : (isNext ? "next" : "locked");
+        // 2. Check candidates in items sorted by priority descending
         org.bukkit.configuration.ConfigurationSection displaySec = null;
-        if (menuConfig != null) {
-            if (hasMilestone && menuConfig.isConfigurationSection("level-display." + state + "-milestone")) {
+        if (menuConfig != null && menuConfig.isConfigurationSection("items")) {
+            org.bukkit.configuration.ConfigurationSection itemsSec = menuConfig.getConfigurationSection("items");
+            List<org.bukkit.configuration.ConfigurationSection> candidates = new ArrayList<>();
+            for (String key : itemsSec.getKeys(false)) {
+                org.bukkit.configuration.ConfigurationSection sec = itemsSec.getConfigurationSection(key);
+                if (sec != null && (sec.contains("taints.levels-item") || sec.contains("taint.levels-item") || sec.getBoolean("taints.levels-item", false))) {
+                    candidates.add(sec);
+                }
+            }
+            if (!candidates.isEmpty()) {
+                candidates.sort((a, b) -> Integer.compare(b.getInt("priority", 0), a.getInt("priority", 0)));
+                for (org.bukkit.configuration.ConfigurationSection candidate : candidates) {
+                    if (candidate.contains("view-requirement") || candidate.contains("view_requirement")) {
+                        org.bukkit.configuration.ConfigurationSection reqSec = candidate.getConfigurationSection("view-requirement");
+                        if (reqSec == null) reqSec = candidate.getConfigurationSection("view_requirement");
+                        if (evaluateLocalRequirement(reqSec, placeholders)) {
+                            displaySec = candidate;
+                            break;
+                        }
+                    } else {
+                        // Fallback default item without view-requirement
+                        displaySec = candidate;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 3. Fallback direct match if no priority match found
+        if (displaySec == null && menuConfig != null) {
+            String state = isReached ? "reached" : (isNext ? "next" : "locked");
+            if (hasMilestone && menuConfig.isConfigurationSection("items." + state + "-milestone")) {
+                displaySec = menuConfig.getConfigurationSection("items." + state + "-milestone");
+            } else if (menuConfig.isConfigurationSection("items." + state)) {
+                displaySec = menuConfig.getConfigurationSection("items." + state);
+            } else if (hasMilestone && menuConfig.isConfigurationSection("level-display." + state + "-milestone")) {
                 displaySec = menuConfig.getConfigurationSection("level-display." + state + "-milestone");
             } else if (menuConfig.isConfigurationSection("level-display." + state)) {
                 displaySec = menuConfig.getConfigurationSection("level-display." + state);
@@ -360,5 +419,27 @@ public class JobProgressionMenu extends BaseMenu {
             }
         }
         super.handleActions(actions);
+    }
+
+    private boolean evaluateLocalRequirement(org.bukkit.configuration.ConfigurationSection reqSec, Map<String, String> placeholders) {
+        if (reqSec == null) return true;
+        org.bukkit.configuration.ConfigurationSection reqs = reqSec.getConfigurationSection("requirements");
+        if (reqs == null) reqs = reqSec;
+        for (String k : reqs.getKeys(false)) {
+            org.bukkit.configuration.ConfigurationSection single = reqs.getConfigurationSection(k);
+            if (single == null) continue;
+            String input = single.getString("input", "");
+            for (Map.Entry<String, String> e : placeholders.entrySet()) {
+                input = input.replace(e.getKey(), e.getValue());
+            }
+            String comparison = single.getString("comparison", "==");
+            String output = single.getString("output", single.getString("value", ""));
+            for (Map.Entry<String, String> e : placeholders.entrySet()) {
+                output = output.replace(e.getKey(), e.getValue());
+            }
+            if (comparison.equals("==") && !input.equalsIgnoreCase(output)) return false;
+            if (comparison.equals("!=") && input.equalsIgnoreCase(output)) return false;
+        }
+        return true;
     }
 }

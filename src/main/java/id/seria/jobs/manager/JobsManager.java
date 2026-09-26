@@ -162,6 +162,7 @@ public class JobsManager {
         order.setCompleted(true);
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
         profile.markOrderCompleted(shiftId, job.getId(), order.getTemplate().getTemplateId());
+        profile.incrementOrdersCompleted();
 
         // Increment leaderboard completed orders
         dataManager.recordLeaderboardOrderCompletion(player.getUniqueId(), job.getId());

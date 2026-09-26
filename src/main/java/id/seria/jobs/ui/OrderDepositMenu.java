@@ -39,14 +39,17 @@ public class OrderDepositMenu extends BaseMenu {
         int level = 1;
         int xp = 0;
         int reqXp = 100;
+        int ordersCompleted = 0;
         if (player != null && plugin.getPlayerDataManager() != null) {
             JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
             if (profile != null) {
                 level = profile.getJobLevel(job.getId());
                 xp = profile.getJobXp(job.getId());
                 reqXp = job.getRequiredXp(level);
+                ordersCompleted = profile.getOrdersCompleted();
             }
         }
+        String ordersCompletedStr = String.valueOf(ordersCompleted);
         text = text.replace("{job_name}", job.getDisplayName())
                 .replace("%job_name%", job.getDisplayName())
                 .replace("{job}", job.getDisplayName())
@@ -67,7 +70,16 @@ public class OrderDepositMenu extends BaseMenu {
                 .replace("{required_xp}", String.valueOf(reqXp))
                 .replace("%required_xp%", String.valueOf(reqXp))
                 .replace("{req_xp}", String.valueOf(reqXp))
-                .replace("%req_xp%", String.valueOf(reqXp));
+                .replace("%req_xp%", String.valueOf(reqXp))
+                .replace("{seriajobs_order_completed}%", ordersCompletedStr)
+                .replace("{seriajobs_order_completed}", ordersCompletedStr)
+                .replace("%seriajobs_order_completed%", ordersCompletedStr)
+                .replace("{seriajobs_orders_completed}", ordersCompletedStr)
+                .replace("%seriajobs_orders_completed%", ordersCompletedStr)
+                .replace("{order_completed}", ordersCompletedStr)
+                .replace("%order_completed%", ordersCompletedStr)
+                .replace("{orders_completed}", ordersCompletedStr)
+                .replace("%orders_completed%", ordersCompletedStr);
         return super.replacePlaceholders(text);
     }
 
@@ -531,6 +543,7 @@ public class OrderDepositMenu extends BaseMenu {
 
         if (newProgress >= required) {
             profile.markOrderCompleted(shiftId, job.getId(), order.getId());
+            profile.incrementOrdersCompleted();
             Bukkit.getPluginManager().callEvent(new OrderCompleteEvent(player, job, order));
 
             // Execute all rewards
@@ -604,6 +617,7 @@ public class OrderDepositMenu extends BaseMenu {
 
                 if (newProgress >= required) {
                     profile.markOrderCompleted(shiftId, job.getId(), order.getId());
+                    profile.incrementOrdersCompleted();
                     Bukkit.getPluginManager().callEvent(new OrderCompleteEvent(player, job, order));
 
                     for (Reward reward : order.getRewards()) {

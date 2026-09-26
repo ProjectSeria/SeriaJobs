@@ -121,7 +121,12 @@ public class PlayerDataManager {
                 stmt.execute("CREATE TABLE IF NOT EXISTS seriajobs_players (" +
                         "uuid VARCHAR(36) PRIMARY KEY, " +
                         "last_name VARCHAR(64), " +
+                        "orders_completed INT DEFAULT 0, " +
                         "updated_at BIGINT);");
+
+                try {
+                    stmt.execute("ALTER TABLE seriajobs_players ADD COLUMN orders_completed INT DEFAULT 0;");
+                } catch (SQLException ignored) {}
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS seriajobs_player_jobs (" +
                         "uuid VARCHAR(36), " +
@@ -301,6 +306,42 @@ public class PlayerDataManager {
                         }
                     }
                 }
+                // Load total completed orders
+                int totalOrders = 0;
+                try (PreparedStatement ps = conn.prepareStatement("SELECT orders_completed FROM seriajobs_players WHERE uuid = ?")) {
+                    ps.setString(1, uuid.toString());
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (rs.next()) {
+                            totalOrders = rs.getInt("orders_completed");
+                        }
+                    }
+                } catch (Exception ignored) {}
+
+                if (totalOrders == 0) {
+                    try (PreparedStatement ps = conn.prepareStatement(
+                            "SELECT COALESCE(SUM(alltime_orders), 0) AS lb_orders FROM seriajobs_leaderboard_stats WHERE uuid = ?")) {
+                        ps.setString(1, uuid.toString());
+                        try (ResultSet rs = ps.executeQuery()) {
+                            if (rs.next()) {
+                                totalOrders = Math.max(totalOrders, rs.getInt("lb_orders"));
+                            }
+                        }
+                    } catch (Exception ignored) {}
+                }
+
+                if (totalOrders == 0) {
+                    try (PreparedStatement ps = conn.prepareStatement(
+                            "SELECT COUNT(*) AS prog_orders FROM seriajobs_order_progress WHERE uuid = ? AND is_completed = 1")) {
+                        ps.setString(1, uuid.toString());
+                        try (ResultSet rs = ps.executeQuery()) {
+                            if (rs.next()) {
+                                totalOrders = Math.max(totalOrders, rs.getInt("prog_orders"));
+                            }
+                        }
+                    } catch (Exception ignored) {}
+                }
+
+                profile.setOrdersCompleted(totalOrders);
             } catch (SQLException e) {
                 plugin.getLogger().warning("Error loading data for player " + uuid + ": " + e.getMessage());
             }
@@ -484,6 +525,14 @@ public class PlayerDataManager {
                     } catch (SQLException ignored) {}
                 }
             }
+
+            // Save total completed orders
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "UPDATE seriajobs_players SET orders_completed = ? WHERE uuid = ?;")) {
+                ps.setInt(1, profile.getOrdersCompleted());
+                ps.setString(2, uuidStr);
+                ps.executeUpdate();
+            } catch (SQLException ignored) {}
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to save player direct data: " + e.getMessage());
         }

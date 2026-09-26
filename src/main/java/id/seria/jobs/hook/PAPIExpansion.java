@@ -277,9 +277,24 @@ public class PAPIExpansion extends PlaceholderExpansion {
         // %seriajobs_order_completed% / %seriajobs_orders_completed% / %seriajobs_total_orders_completed%
         if (params.equalsIgnoreCase("order_completed") || params.equalsIgnoreCase("orders_completed")
                 || params.equalsIgnoreCase("completed_orders") || params.equalsIgnoreCase("total_orders_completed")) {
+            if (profile != null) {
+                return String.valueOf(profile.getOrdersCompleted());
+            }
             if (plugin.getLeaderboardManager() != null) {
                 LeaderboardEntry entry = plugin.getLeaderboardManager().getPlayerGlobalEntry(player.getUniqueId(), LeaderboardPeriod.ALL_TIME);
                 return entry != null ? String.valueOf(entry.getOrdersCompleted()) : "0";
+            }
+            return "0";
+        }
+
+        if (params.equalsIgnoreCase("order_completed_formatted") || params.equalsIgnoreCase("orders_completed_formatted")
+                || params.equalsIgnoreCase("completed_orders_formatted") || params.equalsIgnoreCase("total_orders_completed_formatted")) {
+            if (profile != null) {
+                return String.format(java.util.Locale.US, "%,d", profile.getOrdersCompleted());
+            }
+            if (plugin.getLeaderboardManager() != null) {
+                LeaderboardEntry entry = plugin.getLeaderboardManager().getPlayerGlobalEntry(player.getUniqueId(), LeaderboardPeriod.ALL_TIME);
+                return entry != null ? String.format(java.util.Locale.US, "%,d", entry.getOrdersCompleted()) : "0";
             }
             return "0";
         }
@@ -290,6 +305,9 @@ public class PAPIExpansion extends PlaceholderExpansion {
                     ? lower.substring("order_completed_".length())
                     : lower.substring("orders_completed_".length());
             if (sub.equals("weekly") || sub.equals("monthly") || sub.equals("alltime")) {
+                if (sub.equals("alltime") && profile != null) {
+                    return String.valueOf(profile.getOrdersCompleted());
+                }
                 LeaderboardPeriod period = sub.equals("weekly") ? LeaderboardPeriod.WEEKLY : (sub.equals("monthly") ? LeaderboardPeriod.MONTHLY : LeaderboardPeriod.ALL_TIME);
                 if (plugin.getLeaderboardManager() != null) {
                     LeaderboardEntry entry = plugin.getLeaderboardManager().getPlayerGlobalEntry(player.getUniqueId(), period);
