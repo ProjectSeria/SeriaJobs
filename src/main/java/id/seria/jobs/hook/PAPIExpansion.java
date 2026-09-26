@@ -110,23 +110,30 @@ public class PAPIExpansion extends PlaceholderExpansion {
                 } catch (NumberFormatException ignored) {}
                 return "0";
             }
-            if (subParam.equals("reroll_current")) {
+            int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
+            if (subParam.equals("reroll_current") || subParam.equals("reroll_count")) {
                 return String.valueOf(profile.getRerollCount());
             }
-            if (subParam.equals("reroll_max")) {
-                return "10";
+            if (subParam.equals("reroll_max") || subParam.equals("reroll_max_count")) {
+                return String.valueOf(maxReroll);
             }
             if (subParam.equals("reroll_remaining")) {
-                return String.valueOf(Math.max(0, 10 - profile.getRerollCount()));
+                return String.valueOf(Math.max(0, maxReroll - profile.getRerollCount()));
+            }
+            if (subParam.equals("reroll_ratio") || subParam.equals("reroll_quota")) {
+                return profile.getRerollCount() + "/" + maxReroll;
             }
             if (subParam.equals("can_reroll")) {
-                return String.valueOf(profile.canReroll());
+                return String.valueOf(profile.canReroll(maxReroll));
             }
             if (subParam.equals("reroll_cost_gins")) {
                 int cost = plugin.getOrderGenerationService() != null
                         ? plugin.getOrderGenerationService().calculateRerollCost(profile.getRerollCount())
                         : 3000;
                 return String.valueOf(cost);
+            }
+            if (subParam.equals("reroll_cost_serium")) {
+                return String.valueOf(plugin.getConfig().getInt("reroll.serium-cost", 1));
             }
             if (subParam.equals("max_slots") || subParam.equals("order_max_slots")) {
                 int rep = plugin.getReputationBridgeService() != null

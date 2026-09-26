@@ -87,10 +87,8 @@ public class JobsMenuListener implements Listener {
 
         java.util.List<String> actions = getClickActions(sec, event);
         if (actions.isEmpty()) {
-            if (event.isShiftClick() && event.isRightClick()) {
-                actions = java.util.List.of("[REROLL_GINS]");
-            } else if (event.isRightClick()) {
-                actions = java.util.List.of("[REROLL_GINS]");
+            if (event.isRightClick()) {
+                actions = java.util.List.of("[jobs_reroll]");
             } else {
                 actions = java.util.List.of("[TURN_IN]");
             }
@@ -105,11 +103,7 @@ public class JobsMenuListener implements Listener {
 
         java.util.List<String> actions = getClickActions(sec, event);
         if (actions.isEmpty()) {
-            if (event.isRightClick()) {
-                actions = java.util.List.of("[REROLL_SERIUM]");
-            } else {
-                actions = java.util.List.of("[REROLL_GINS]");
-            }
+            actions = java.util.List.of("[jobs_reroll]");
         }
 
         executeActionsForSlot(player, job, profile, slotIndex, actions);
@@ -150,22 +144,8 @@ public class JobsMenuListener implements Listener {
                 if (plugin.getJobsManager().executeTurnIn(player, job.getId(), slotIndex)) {
                     shouldRefresh = true;
                 }
-            } else if (trimmed.equalsIgnoreCase("[REROLL]") || trimmed.equalsIgnoreCase("[REROLL_GINS]")) {
-                if (!profile.canReroll()) {
-                    player.sendMessage("§cBatas maksimal reroll (10x) periode ini sudah habis!");
-                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
-                    return;
-                }
-                if (plugin.getJobsManager().executeRerollGins(player, job.getId(), slotIndex)) {
-                    shouldRefresh = true;
-                }
-            } else if (trimmed.equalsIgnoreCase("[REROLL_SERIUM]")) {
-                if (!profile.canReroll()) {
-                    player.sendMessage("§cBatas maksimal reroll (10x) periode ini sudah habis!");
-                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
-                    return;
-                }
-                if (plugin.getJobsManager().executeRerollSerium(player, job.getId(), slotIndex)) {
+            } else if (trimmed.equalsIgnoreCase("[jobs_reroll]") || trimmed.equalsIgnoreCase("[reroll]")) {
+                if (plugin.getJobsManager().executeReroll(player, job.getId(), slotIndex)) {
                     shouldRefresh = true;
                 }
             } else if (trimmed.equalsIgnoreCase("[REFRESH]")) {
@@ -178,13 +158,17 @@ public class JobsMenuListener implements Listener {
                         .replace("%player%", player.getName())
                         .replace("%slot%", String.valueOf(slotIndex))
                         .replace("%job%", job.getId());
-                org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), cmd);
+                if (!cmd.isEmpty()) {
+                    org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), cmd);
+                }
             } else if (trimmed.toLowerCase().startsWith("[player]")) {
                 String cmd = trimmed.substring("[player]".length()).trim()
                         .replace("%player%", player.getName())
                         .replace("%slot%", String.valueOf(slotIndex))
                         .replace("%job%", job.getId());
-                player.performCommand(cmd);
+                if (!cmd.isEmpty()) {
+                    player.performCommand(cmd);
+                }
             } else if (trimmed.toLowerCase().startsWith("[message]")) {
                 String msg = trimmed.substring("[message]".length()).trim()
                         .replace("%player%", player.getName())

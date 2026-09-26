@@ -68,30 +68,42 @@ public class JobsPlaceholderExpansion extends PlaceholderExpansion {
             return "0";
         }
 
-        // %jobsorder_reroll_current%
-        if (lower.equals("reroll_current")) {
+        int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
+
+        // %jobsorder_reroll_current% / %jobsorder_reroll_count%
+        if (lower.equals("reroll_current") || lower.equals("reroll_count")) {
             return String.valueOf(profile.getRerollCount());
         }
 
-        // %jobsorder_reroll_max%
-        if (lower.equals("reroll_max")) {
-            return "10";
+        // %jobsorder_reroll_max% / %jobsorder_reroll_max_count%
+        if (lower.equals("reroll_max") || lower.equals("reroll_max_count")) {
+            return String.valueOf(maxReroll);
         }
 
         // %jobsorder_reroll_remaining%
         if (lower.equals("reroll_remaining")) {
-            return String.valueOf(Math.max(0, 10 - profile.getRerollCount()));
+            return String.valueOf(Math.max(0, maxReroll - profile.getRerollCount()));
+        }
+
+        // %jobsorder_reroll_ratio% / %jobsorder_reroll_quota% -> (e.g. "1/10")
+        if (lower.equals("reroll_ratio") || lower.equals("reroll_quota")) {
+            return profile.getRerollCount() + "/" + maxReroll;
         }
 
         // %jobsorder_can_reroll%
         if (lower.equals("can_reroll")) {
-            return String.valueOf(profile.canReroll());
+            return String.valueOf(profile.canReroll(maxReroll));
         }
 
         // %jobsorder_reroll_cost_gins%
         if (lower.equals("reroll_cost_gins")) {
             int cost = plugin.getOrderGenerationService().calculateRerollCost(profile.getRerollCount());
             return String.valueOf(cost);
+        }
+
+        // %jobsorder_reroll_cost_serium%
+        if (lower.equals("reroll_cost_serium")) {
+            return String.valueOf(plugin.getConfig().getInt("reroll.serium-cost", 1));
         }
 
         // %jobsorder_has_gins%

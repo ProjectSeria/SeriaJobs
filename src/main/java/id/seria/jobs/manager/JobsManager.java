@@ -181,6 +181,49 @@ public class JobsManager {
     }
 
     /**
+     * Eksekusi reroll order murni tanpa pemotongan ekonomi otomatis di Java.
+     * Logika ekonomi (Gins, Serium, saldo, token) dapat sepenuhnya diatur melalui
+     * click-requirement dan click-actions pada file menu YAML.
+     */
+    public boolean executeReroll(@NotNull Player player, int slotIndex) {
+        JobProfile profile = dataManager.getProfile(player.getUniqueId());
+        if (profile.getActiveJobs().isEmpty()) return false;
+        String firstJobId = profile.getActiveJobs().iterator().next();
+        return executeReroll(player, firstJobId, slotIndex);
+    }
+
+    public boolean executeReroll(@NotNull Player player, @NotNull String jobId, int slotIndex) {
+        JobProfile profile = dataManager.getProfile(player.getUniqueId());
+        Job job = plugin.getJobRegistry().getJob(jobId);
+        if (job == null) return false;
+
+        // 1. Validasi kuota reroll
+        int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
+        if (!profile.canReroll(maxReroll)) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-max-reached",
+                    "<red>Batas maksimal reroll (" + maxReroll + "x) periode ini sudah habis!</red>"));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            return false;
+        }
+
+        // 2. Generate order baru untuk slot target
+        rollNewOrderForSlot(player, job, profile, slotIndex);
+
+        // 3. Increment counter reroll
+        profile.incrementReroll();
+
+        // 4. Notifikasi & Sound
+        player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-success",
+                "<green>Berhasil meroll pesanan slot #{slot}! Sisa kuota: <yellow>{remaining}/" + maxReroll + "</yellow>.</green>",
+                "{slot}", String.valueOf(slotIndex),
+                "{remaining}", String.valueOf(Math.max(0, maxReroll - profile.getRerollCount()))));
+        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.2f);
+
+        dataManager.saveProfileAsync(profile);
+        return true;
+    }
+
+    /**
      * Eksekusi reroll order menggunakan Gins (mata uang utama Vault).
      */
     public boolean executeRerollGins(@NotNull Player player, int slotIndex) {

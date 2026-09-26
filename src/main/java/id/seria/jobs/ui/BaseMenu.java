@@ -72,11 +72,89 @@ public abstract class BaseMenu implements InventoryHolder {
             open();
             return;
         }
-        refresh();
+        if (slots == null || slots.length == 0) {
+            refresh();
+            return;
+        }
+        for (int s : slots) {
+            refreshSlot(s);
+        }
+    }
+
+    public void refreshSlot(int slot) {
+        if (inventory == null || slot < 0 || slot >= inventory.getSize())
+            return;
+
+        // 1. Delegate to custom slot refresh first if handled (e.g. OrderDepositMenu
+        // cards)
+        if (refreshCustomSlot(slot)) {
+            player.updateInventory();
+            return;
+        }
+
+        // 2. Check static items
+        if (menuConfig != null && menuConfig.isConfigurationSection("items")) {
+            ConfigurationSection itemsSec = menuConfig.getConfigurationSection("items");
+            List<ConfigurationSection> candidates = new ArrayList<>();
+            for (String key : itemsSec.getKeys(false)) {
+                ConfigurationSection sec = itemsSec.getConfigurationSection(key);
+                if (sec == null)
+                    continue;
+                List<Integer> targetSlots = getSlots(sec);
+                if (targetSlots.contains(slot)) {
+                    candidates.add(sec);
+                }
+            }
+            if (!candidates.isEmpty()) {
+                candidates.sort((a, b) -> Integer.compare(b.getInt("priority", 0), a.getInt("priority", 0)));
+                for (ConfigurationSection candidate : candidates) {
+                    if (MenuRequirementEvaluator.checkViewRequirement(candidate, player)) {
+                        ItemStack item = buildItem(candidate);
+                        inventory.setItem(slot, item);
+                        clickActions.remove(slot);
+                        leftClickActions.remove(slot);
+                        rightClickActions.remove(slot);
+                        shiftLeftClickActions.remove(slot);
+                        shiftRightClickActions.remove(slot);
+                        middleClickActions.remove(slot);
+                        bindActions(slot, candidate);
+                        player.updateInventory();
+                        return;
+                    }
+                }
+            }
+        }
+
+        // 3. Check fillers
+        if (menuConfig != null && menuConfig.isConfigurationSection("fillers")) {
+            ConfigurationSection fillersSec = menuConfig.getConfigurationSection("fillers");
+            for (String key : fillersSec.getKeys(false)) {
+                ConfigurationSection sec = fillersSec.getConfigurationSection(key);
+                if (sec == null)
+                    continue;
+                List<Integer> slots = getSlots(sec);
+                if (slots.contains(slot)) {
+                    if (MenuRequirementEvaluator.checkViewRequirement(sec, player)) {
+                        ItemStack item = buildItem(sec);
+                        inventory.setItem(slot, item.clone());
+                        clickActions.put(slot, e -> e.setCancelled(true));
+                        player.updateInventory();
+                        return;
+                    }
+                }
+            }
+        }
+
+        player.updateInventory();
+    }
+
+    protected boolean refreshCustomSlot(int slot) {
+        return false;
     }
 
     protected String replacePlaceholders(String text) {
-        if (text == null) return "";
+        if (text == null)
+            return "";
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             text = PlaceholderAPI.setPlaceholders(player, text);
         }
@@ -97,7 +175,8 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
     public ItemStack resolveBaseItem(ConfigurationSection sec, Player player) {
-        if (sec == null) return new ItemStack(Material.STONE);
+        if (sec == null)
+            return new ItemStack(Material.STONE);
 
         // 1. MMOItems
         if (sec.contains("mmoitem") || sec.contains("mmoitem-id")) {
@@ -116,7 +195,8 @@ public abstract class BaseMenu implements InventoryHolder {
                 }
                 if (mmoType != null && mmoId != null) {
                     ItemStack item = plugin.getHookManager().getMMOItemsHook().getItem(mmoType, mmoId);
-                    if (item != null) return item.clone();
+                    if (item != null)
+                        return item.clone();
                 }
             }
         }
@@ -127,7 +207,8 @@ public abstract class BaseMenu implements InventoryHolder {
                 String itemId = sec.getString("mythicitem", sec.getString("mythic-id"));
                 if (itemId != null) {
                     ItemStack item = plugin.getHookManager().getMythicMobsHook().generateItem(itemId, 1);
-                    if (item != null) return item.clone();
+                    if (item != null)
+                        return item.clone();
                 }
             }
         }
@@ -138,7 +219,8 @@ public abstract class BaseMenu implements InventoryHolder {
                 String itemId = sec.getString("customfishing", sec.getString("fishing-id"));
                 if (itemId != null) {
                     ItemStack item = plugin.getHookManager().getCustomFishingHook().generateItem(itemId, 1);
-                    if (item != null) return item.clone();
+                    if (item != null)
+                        return item.clone();
                 }
             }
         }
@@ -149,7 +231,8 @@ public abstract class BaseMenu implements InventoryHolder {
                 String itemId = sec.getString("magicbundle", sec.getString("bundle-id"));
                 if (itemId != null) {
                     ItemStack item = plugin.getHookManager().getSeriaMagicBundleHook().generateItem(itemId, 1);
-                    if (item != null) return item.clone();
+                    if (item != null)
+                        return item.clone();
                 }
             }
         }
@@ -160,7 +243,8 @@ public abstract class BaseMenu implements InventoryHolder {
                 String itemId = sec.getString("seriacrafting", sec.getString("crafting-id"));
                 if (itemId != null) {
                     ItemStack item = plugin.getHookManager().getSeriaCraftingHook().generateItem(itemId, 1);
-                    if (item != null) return item.clone();
+                    if (item != null)
+                        return item.clone();
                 }
             }
         }
@@ -170,17 +254,20 @@ public abstract class BaseMenu implements InventoryHolder {
         rawMat = resolvePlaceholdersAndFunctions(rawMat);
 
         Material mat = Material.matchMaterial(rawMat.toUpperCase().trim());
-        if (mat == null) mat = Material.STONE;
+        if (mat == null)
+            mat = Material.STONE;
         return new ItemStack(mat);
     }
 
     protected void applyFillers() {
-        if (menuConfig == null || !menuConfig.isConfigurationSection("fillers")) return;
+        if (menuConfig == null || !menuConfig.isConfigurationSection("fillers"))
+            return;
 
         ConfigurationSection fillersSec = menuConfig.getConfigurationSection("fillers");
         for (String key : fillersSec.getKeys(false)) {
             ConfigurationSection sec = fillersSec.getConfigurationSection(key);
-            if (sec == null) continue;
+            if (sec == null)
+                continue;
 
             // Check view-requirement
             if (!MenuRequirementEvaluator.checkViewRequirement(sec, player)) {
@@ -199,7 +286,8 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
     protected void applyStaticItems() {
-        if (menuConfig == null || !menuConfig.isConfigurationSection("items")) return;
+        if (menuConfig == null || !menuConfig.isConfigurationSection("items"))
+            return;
 
         ConfigurationSection itemsSec = menuConfig.getConfigurationSection("items");
 
@@ -208,7 +296,8 @@ public abstract class BaseMenu implements InventoryHolder {
 
         for (String key : itemsSec.getKeys(false)) {
             ConfigurationSection sec = itemsSec.getConfigurationSection(key);
-            if (sec == null) continue;
+            if (sec == null)
+                continue;
 
             List<Integer> slots = getSlots(sec);
             for (int slot : slots) {
@@ -218,7 +307,8 @@ public abstract class BaseMenu implements InventoryHolder {
             }
         }
 
-        // Sort candidates by priority descending and place the highest-priority item passing view-requirement
+        // Sort candidates by priority descending and place the highest-priority item
+        // passing view-requirement
         for (Map.Entry<Integer, List<ConfigurationSection>> entry : slotCandidates.entrySet()) {
             int slot = entry.getKey();
             List<ConfigurationSection> candidates = entry.getValue();
@@ -239,7 +329,8 @@ public abstract class BaseMenu implements InventoryHolder {
     public ItemStack buildItem(ConfigurationSection sec) {
         ItemStack item = resolveBaseItem(sec, player);
         int amount = sec.getInt("amount", 1);
-        if (amount > 1) item.setAmount(amount);
+        if (amount > 1)
+            item.setAmount(amount);
 
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
@@ -270,7 +361,8 @@ public abstract class BaseMenu implements InventoryHolder {
                 for (String flagStr : sec.getStringList("item-flags")) {
                     try {
                         meta.addItemFlags(ItemFlag.valueOf(flagStr.trim().toUpperCase()));
-                    } catch (IllegalArgumentException ignored) {}
+                    } catch (IllegalArgumentException ignored) {
+                    }
                 }
             }
 
@@ -284,10 +376,12 @@ public abstract class BaseMenu implements InventoryHolder {
             if (sec.contains("lore")) {
                 List<String> rawLore = sec.getStringList("lore");
                 List<Component> lore = new ArrayList<>();
-                ConfigurationSection phSec = menuConfig != null ? menuConfig.getConfigurationSection("placeholders") : null;
+                ConfigurationSection phSec = menuConfig != null ? menuConfig.getConfigurationSection("placeholders")
+                        : null;
 
                 for (String line : rawLore) {
-                    // Check if line is custom placeholder returning a list (e.g. %placeholders_playerlevel-tier-get-status%)
+                    // Check if line is custom placeholder returning a list (e.g.
+                    // %placeholders_playerlevel-tier-get-status%)
                     if (phSec != null && line.trim().startsWith("%placeholders_") && line.trim().endsWith("%")) {
                         String phKey = line.trim().substring(1, line.trim().length() - 1);
                         Object res = MenuFunctionEngine.resolveCustomPlaceholder(phSec, phKey, player);
@@ -315,9 +409,11 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
     private String resolvePlaceholdersAndFunctions(String text) {
-        if (text == null || text.isEmpty()) return "";
+        if (text == null || text.isEmpty())
+            return "";
 
-        if (menuConfig != null && menuConfig.isConfigurationSection("placeholders") && text.contains("%placeholders_")) {
+        if (menuConfig != null && menuConfig.isConfigurationSection("placeholders")
+                && text.contains("%placeholders_")) {
             ConfigurationSection phSec = menuConfig.getConfigurationSection("placeholders");
             for (String key : phSec.getKeys(false)) {
                 String token = "%placeholders_" + key + "%";
@@ -356,10 +452,12 @@ public abstract class BaseMenu implements InventoryHolder {
         final List<String> rightActions = rawRight.isEmpty() ? sec.getStringList("right-click") : rawRight;
 
         List<String> rawShiftLeft = sec.getStringList("shift-left-click-actions");
-        final List<String> shiftLeftActions = rawShiftLeft.isEmpty() ? sec.getStringList("shift-left-click") : rawShiftLeft;
+        final List<String> shiftLeftActions = rawShiftLeft.isEmpty() ? sec.getStringList("shift-left-click")
+                : rawShiftLeft;
 
         List<String> rawShiftRight = sec.getStringList("shift-right-click-actions");
-        final List<String> shiftRightActions = rawShiftRight.isEmpty() ? sec.getStringList("shift-right-click") : rawShiftRight;
+        final List<String> shiftRightActions = rawShiftRight.isEmpty() ? sec.getStringList("shift-right-click")
+                : rawShiftRight;
 
         List<String> rawMiddle = sec.getStringList("middle-click-actions");
         final List<String> middleActions = rawMiddle.isEmpty() ? sec.getStringList("middle-click") : rawMiddle;
@@ -403,66 +501,89 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
     protected void handleActions(List<String> actions) {
-        if (actions == null || actions.isEmpty()) return;
+        if (actions == null || actions.isEmpty())
+            return;
         for (String act : actions) {
             String trimmed = act.trim();
             if (trimmed.equalsIgnoreCase("[CLOSE]")) {
                 player.closeInventory();
-            } else if (trimmed.startsWith("[OPEN_MENU]")) {
-                String menuName = trimmed.substring("[OPEN_MENU]".length()).trim();
+            } else if (trimmed.toLowerCase().startsWith("[open_menu]")
+                    || trimmed.toLowerCase().startsWith("[open-menu]")) {
+                String menuName = trimmed.substring(trimmed.indexOf(']') + 1).trim();
                 if (menuName.equalsIgnoreCase("main_jobs_menu.yml")) {
                     new MainJobsMenu(plugin, player).open();
                 }
-            } else if (trimmed.equalsIgnoreCase("[REFRESH]") || trimmed.equalsIgnoreCase("[REFRESH] all")) {
-                refresh();
-            } else if (trimmed.toUpperCase().startsWith("[REFRESH]")) {
-                String param = trimmed.substring("[REFRESH]".length()).trim();
-                if (param.equalsIgnoreCase("all") || param.isEmpty()) {
-                    refresh();
-                } else {
-                    String[] parts = param.split("[, ]+");
-                    List<Integer> slotsToRefresh = new ArrayList<>();
-                    for (String p : parts) {
-                        try {
-                            slotsToRefresh.add(Integer.parseInt(p.trim()));
-                        } catch (NumberFormatException ignored) {}
-                    }
-                    refreshSlots(slotsToRefresh.stream().mapToInt(i -> i).toArray());
-                }
-            } else if (trimmed.toLowerCase().startsWith("[refresh delay=")) {
-                handleRefreshDelay(trimmed);
+            } else if (trimmed.toLowerCase().startsWith("[refresh")) {
+                handleRefreshAction(trimmed);
             } else if (trimmed.toLowerCase().startsWith("[player]")) {
                 String cmd = replacePlaceholders(trimmed.substring("[player]".length()).trim())
                         .replace("%player%", player.getName()).replace("{player}", player.getName());
-                player.performCommand(cmd);
+                if (!cmd.isEmpty()) {
+                    player.performCommand(cmd);
+                }
             } else if (trimmed.toLowerCase().startsWith("[console]")) {
                 String cmd = replacePlaceholders(trimmed.substring("[console]".length()).trim())
                         .replace("%player%", player.getName()).replace("{player}", player.getName());
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                if (!cmd.isEmpty()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                }
             } else if (trimmed.toUpperCase().startsWith("[PLAYER_COMMAND]")) {
                 String cmd = trimmed.substring("[PLAYER_COMMAND]".length()).trim()
                         .replace("%player%", player.getName());
-                player.performCommand(cmd);
+                if (!cmd.isEmpty()) {
+                    player.performCommand(cmd);
+                }
             } else if (trimmed.toUpperCase().startsWith("[CONSOLE_COMMAND]")) {
                 String cmd = trimmed.substring("[CONSOLE_COMMAND]".length()).trim()
                         .replace("%player%", player.getName());
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                if (!cmd.isEmpty()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                }
             }
         }
     }
 
-    private void handleRefreshDelay(String actionStr) {
+    private void handleRefreshAction(String actionStr) {
         long delay = 1L;
-        try {
-            int start = actionStr.indexOf("delay=") + 6;
-            int end = actionStr.indexOf(']', start);
-            if (end != -1) {
-                double delaySec = Double.parseDouble(actionStr.substring(start, end).trim());
-                delay = Math.max(1L, (long) (delaySec * 20L));
+        if (actionStr.contains("delay=")) {
+            try {
+                int start = actionStr.indexOf("delay=") + 6;
+                int end = actionStr.indexOf(']', start);
+                if (end != -1) {
+                    double delaySec = Double.parseDouble(actionStr.substring(start, end).trim());
+                    delay = Math.max(1L, (long) (delaySec * 20L));
+                }
+            } catch (Exception ignored) {
             }
-        } catch (Exception ignored) {}
+        }
 
-        Bukkit.getScheduler().runTaskLater(plugin, this::refresh, delay);
+        int closingBracket = actionStr.indexOf(']');
+        String param = closingBracket != -1 && closingBracket + 1 < actionStr.length()
+                ? actionStr.substring(closingBracket + 1).trim()
+                : "";
+
+        final long finalDelay = delay;
+        if (param.isEmpty() || param.equalsIgnoreCase("all")) {
+            Bukkit.getScheduler().runTaskLater(plugin, this::refresh, finalDelay);
+        } else {
+            String[] tokens = param.split("[,\\s]+");
+            List<Integer> slots = new ArrayList<>();
+            for (String tok : tokens) {
+                try {
+                    slots.add(Integer.parseInt(tok.trim()));
+                } catch (NumberFormatException ignored) {
+                }
+            }
+            if (slots.isEmpty()) {
+                Bukkit.getScheduler().runTaskLater(plugin, this::refresh, finalDelay);
+            } else {
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    for (int s : slots) {
+                        refreshSlot(s);
+                    }
+                }, finalDelay);
+            }
+        }
     }
 
     public void handleClick(InventoryClickEvent event) {
@@ -478,7 +599,8 @@ public abstract class BaseMenu implements InventoryHolder {
                 shiftLeftClickActions.get(rawSlot).accept(event);
                 return;
             }
-            if (event.getClick() == org.bukkit.event.inventory.ClickType.MIDDLE && middleClickActions.containsKey(rawSlot)) {
+            if (event.getClick() == org.bukkit.event.inventory.ClickType.MIDDLE
+                    && middleClickActions.containsKey(rawSlot)) {
                 middleClickActions.get(rawSlot).accept(event);
                 return;
             }
@@ -501,7 +623,8 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
     private Color parseHexColor(String hex) {
-        if (hex == null) return null;
+        if (hex == null)
+            return null;
         String clean = hex.replace("#", "").trim();
         try {
             int rgb = Integer.parseInt(clean, 16);

@@ -4,18 +4,21 @@
 # Usage:
 #   %custom_reroll_status%                -> Tampilan status / instruksi reroll dinamis
 #   %custom_reroll_choice%                -> 'gins', 'serium', atau 'none'
-#   %custom_reroll_choice-message%        -> Teks pilihan sesuai kondisi saldo
+#   %custom_reroll_command%               -> Command dinamis: 'eco take ...' atau 'serium take ...'
+#   %custom_reroll_deduct-command%        -> Alias command dinamis
+#   %custom_reroll_deduct-action%         -> Action lengkap: '[console] eco take ...' dsb.
+#   %custom_reroll_deny-message%          -> Pesan deny dinamis sesuai alasan gagal
 #   %seriajobs_custom_reroll_status%
 # ==============================================================================
 
-# 1. Pengecekan Batas Maksimal Kuota Reroll (10/10)
+# 1. Pengecekan Batas Maksimal Kuota Reroll
 # Jika can_reroll = false, langsung tampilkan batas maksimal tercapai
 status:
   type: "function"
   function: "short-track"
   input: "%jobsorder_can_reroll%"
   tracks:
-    "==false": "<red>✖ Batas maksimal reroll periode ini tercapai (10/10)</red>"
+    "==false": "<red>✖ Batas maksimal reroll periode ini tercapai (%jobsorder_reroll_ratio%)</red>"
     "==true": "%custom_reroll_payment-check%"
     default: "%custom_reroll_payment-check%"
 
@@ -43,12 +46,13 @@ serium-check:
   function: "short-track"
   input: "%jobsorder_serium_balance%"
   tracks:
-    # Jika memiliki minimal 1 Serium, tampilkan opsi Reroll Serium
-    ">=1": "<aqua>▶ Shift + Klik Kanan:</aqua> <white>Reroll Kontrak (<aqua>1 Serium</aqua>)</white>"
+    # Jika memiliki minimal jumlah Serium yang dibutuhkan, tampilkan opsi Reroll Serium
+    ">=1": "<aqua>▶ Shift + Klik Kanan:</aqua> <white>Reroll Kontrak (<aqua>%jobsorder_reroll_cost_serium% Serium</aqua>)</white>"
     # Jika saldo Gins maupun Serium dua-duanya tidak mencukupi
-    default: "<red>✖ Saldo tidak cukup untuk Reroll (<yellow>%jobsorder_reroll_cost_gins% Gins</yellow> / <aqua>1 Serium</aqua>)</red>"
+    default: "<red>✖ Saldo tidak cukup untuk Reroll (<yellow>%jobsorder_reroll_cost_gins% Gins</yellow> / <aqua>%jobsorder_reroll_cost_serium% Serium</aqua>)</red>"
 
 # 5. Identifier Pilihan Ringkas (Mengembalikan kata kunci 'gins', 'serium', atau 'none')
+# Mengevaluasi apakah reroll diizinkan dan mata uang apa yang tersedia (Gins diprioritaskan)
 choice:
   type: "function"
   function: "short-track"
@@ -74,3 +78,55 @@ choice-serium:
   tracks:
     ">=1": "serium"
     default: "none"
+
+# 6. Dynamic Console Command untuk Pemotongan Biaya Reroll
+# Format: %serium/eco% take %player_name% %amount%
+# - Jika 'gins'   -> eco take %player_name% %jobsorder_reroll_cost_gins%
+# - Jika 'serium' -> serium take %player_name% %jobsorder_reroll_cost_serium%
+# - Jika 'none'   -> "" (kosong / tidak dieksekusi)
+command:
+  type: "function"
+  function: "short-track"
+  input: "%custom_reroll_choice%"
+  tracks:
+    "==gins": "eco take %player_name% %jobsorder_reroll_cost_gins%"
+    "==serium": "serium take %player_name% %jobsorder_reroll_cost_serium%"
+    default: ""
+
+# Alias alternatif untuk %custom_reroll_command%
+deduct-command:
+  type: "function"
+  function: "short-track"
+  input: "%custom_reroll_choice%"
+  tracks:
+    "==gins": "eco take %player_name% %jobsorder_reroll_cost_gins%"
+    "==serium": "serium take %player_name% %jobsorder_reroll_cost_serium%"
+    default: ""
+
+# Format Action Lengkap dengan prefix [console]
+deduct-action:
+  type: "function"
+  function: "short-track"
+  input: "%custom_reroll_choice%"
+  tracks:
+    "==gins": "[console] eco take %player_name% %jobsorder_reroll_cost_gins%"
+    "==serium": "[console] serium take %player_name% %jobsorder_reroll_cost_serium%"
+    default: ""
+
+# 7. Pesan Deny Dinamis untuk GUI Requirement (Menggunakan prefix tema %sc_error-message%)
+deny-message:
+  type: "function"
+  function: "short-track"
+  input: "%jobsorder_can_reroll%"
+  tracks:
+    "==false": "%sc_error-message% Batas maksimal reroll periode ini sudah habis!"
+    "==true": "%custom_reroll_deny-message-payment%"
+    default: "%custom_reroll_deny-message-payment%"
+
+deny-message-payment:
+  type: "function"
+  function: "short-track"
+  input: "%custom_reroll_choice%"
+  tracks:
+    "==none": "%sc_error-message% Tidak punya cukup Gins maupun Serium untuk reroll!"
+    default: ""

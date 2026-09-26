@@ -191,10 +191,9 @@ reroll:
 # Pengaturan Aksi Klik Kartu Pesanan Pasar (Order Click Actions)
 # Aksi yang didukung:
 #  - [TURN_IN] / [DEPOSIT] : Setorkan barang pesanan dari inventaris
-#  - [REROLL_GINS] / [REROLL] : Reroll pesanan di slot ini dengan Gins
-#  - [REROLL_SERIUM] : Reroll pesanan di slot ini dengan Serium
+#  - [jobs_reroll] : Reroll pesanan di slot ini (bersih tanpa auto-potong ekonomi)
 #  - [DEPOSIT_ALL] : Setor semua pesanan sekaligus
-#  - [REFRESH] : Refresh tampilan menu
+#  - [REFRESH] / [REFRESH] <slot> : Refresh tampilan menu atau slot tertentu
 #  - [CLOSE] : Tutup menu
 #  - [OPEN_PROGRESSION] : Buka menu roadmap level
 #  - [CONSOLE] <command> : Jalankan perintah console (%player%, %slot%, %job%)
@@ -208,10 +207,7 @@ order-clicks:
     - "[TURN_IN]"
   # Aksi klik kanan pada kartu pesanan
   right-click:
-    - "[REROLL_GINS]"
-  # Aksi shift + klik kanan pada kartu pesanan
-  shift-right-click:
-    - "[REROLL_SERIUM]"
+    - "[jobs_reroll]"
   # Aksi shift + klik kiri pada kartu pesanan
   shift-left-click:
     - "[DEPOSIT_ALL]"
@@ -225,10 +221,10 @@ order-clicks:
 reroll-button-clicks:
   # Aksi klik kiri pada tombol reroll
   left-click:
-    - "[REROLL_GINS]"
+    - "[jobs_reroll]"
   # Aksi klik kanan pada tombol reroll
   right-click:
-    - "[REROLL_SERIUM]"
+    - "[jobs_reroll]"
 
 # ==============================================================
 # Hadiah Bonus Drop Langka (Rare Drop & Weight Table)

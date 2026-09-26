@@ -152,10 +152,14 @@ public class JobProfile {
     }
 
     /**
-     * Evaluasi langsung rerollCount < 10.
+     * Evaluasi langsung rerollCount < max (default 10).
      */
     public boolean canReroll() {
-        return rerollCount < 10;
+        return canReroll(10);
+    }
+
+    public boolean canReroll(int max) {
+        return rerollCount < max;
     }
 
     /**

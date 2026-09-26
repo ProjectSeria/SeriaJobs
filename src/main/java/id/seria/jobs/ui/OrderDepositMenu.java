@@ -77,131 +77,155 @@ public class OrderDepositMenu extends BaseMenu {
 
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
+
+        for (int i = 0; i < slots.size(); i++) {
+            renderOrderCard(slots.get(i), i + 1, profile, shiftId);
+        }
+    }
+
+    @Override
+    protected boolean refreshCustomSlot(int slot) {
+        List<Integer> slots = menuConfig != null
+                ? menuConfig.getIntegerList("order-slots")
+                : List.of(20, 22, 24);
+        int idx = slots.indexOf(slot);
+        if (idx != -1) {
+            JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+            String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
+            renderOrderCard(slot, idx + 1, profile, shiftId);
+            return true;
+        }
+        return false;
+    }
+
+    private void renderOrderCard(int slot, int slotNumber, JobProfile profile, String shiftId) {
+        if (job == null) return;
         List<JobOrder> activeOrders = plugin.getOrderPoolManager().getActiveOrders(job.getId());
+
+        JobOrder order = null;
+        if (profile != null && profile.getActiveOrder(slotNumber) != null) {
+            id.seria.jobs.model.WorkOrder wo = profile.getActiveOrder(slotNumber);
+            order = job.getOrder(wo.getTemplate().getTemplateId());
+        }
+        if (order == null && (slotNumber - 1) < activeOrders.size()) {
+            order = activeOrders.get(slotNumber - 1);
+        }
+        if (order == null) return;
 
         int jobLevel = profile != null ? profile.getJobLevel(job.getId()) : 1;
         double resourceMultiplier = plugin.getConfigManager().getResourceMultiplier(jobLevel);
         String multFormatted = String.format(java.util.Locale.US, "%.2fx", resourceMultiplier);
 
-        int slotIdx = 0;
-        for (JobOrder order : activeOrders) {
-            if (slotIdx >= slots.size()) break;
-            int slot = slots.get(slotIdx++);
+        boolean isCompleted = profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId());
+        int progress = profile != null ? profile.getOrderProgress(shiftId, job.getId(), order.getId()) : 0;
+        int required = order.getRequiredAmount(jobLevel);
+        int percentage = Math.min(100, (int) Math.round(((double) progress / required) * 100));
 
-            boolean isCompleted = profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId());
-            int progress = profile != null ? profile.getOrderProgress(shiftId, job.getId(), order.getId()) : 0;
-            int required = order.getRequiredAmount(jobLevel);
-            int percentage = Math.min(100, (int) Math.round(((double) progress / required) * 100));
-
-            ItemStack cardItem = null;
-            if (!isCompleted) {
-                String src = order.getSource().toUpperCase();
-                if (src.equals("MMOITEMS") && plugin.getHookManager().isMMOItemsLoaded()) {
-                    cardItem = plugin.getHookManager().getMMOItemsHook().getItem(order.getMmoItemType(), order.getMmoItemId());
-                } else if ((src.equals("MYTHICMOBS") || src.equals("MYTHIC")) && plugin.getHookManager().isMythicMobsLoaded()) {
-                    cardItem = plugin.getHookManager().getMythicMobsHook().generateItem(order.getCustomItemId(), 1);
-                } else if ((src.equals("CUSTOMFISHING") || src.equals("FISHING")) && plugin.getHookManager().isCustomFishingLoaded()) {
-                    cardItem = plugin.getHookManager().getCustomFishingHook().generateItem(order.getCustomItemId(), 1);
-                } else if ((src.equals("SERIAMAGICBUNDLE") || src.equals("MAGICBUNDLE")) && plugin.getHookManager().isSeriaMagicBundleLoaded()) {
-                    cardItem = plugin.getHookManager().getSeriaMagicBundleHook().generateItem(order.getCustomItemId(), 1);
-                } else if ((src.equals("SERIACRAFTING") || src.equals("CRAFTING")) && plugin.getHookManager().isSeriaCraftingLoaded()) {
-                    cardItem = plugin.getHookManager().getSeriaCraftingHook().generateItem(order.getCustomItemId(), 1);
-                }
+        ItemStack cardItem = null;
+        if (!isCompleted) {
+            String src = order.getSource().toUpperCase();
+            if (src.equals("MMOITEMS") && plugin.getHookManager().isMMOItemsLoaded()) {
+                cardItem = plugin.getHookManager().getMMOItemsHook().getItem(order.getMmoItemType(), order.getMmoItemId());
+            } else if ((src.equals("MYTHICMOBS") || src.equals("MYTHIC")) && plugin.getHookManager().isMythicMobsLoaded()) {
+                cardItem = plugin.getHookManager().getMythicMobsHook().generateItem(order.getCustomItemId(), 1);
+            } else if ((src.equals("CUSTOMFISHING") || src.equals("FISHING")) && plugin.getHookManager().isCustomFishingLoaded()) {
+                cardItem = plugin.getHookManager().getCustomFishingHook().generateItem(order.getCustomItemId(), 1);
+            } else if ((src.equals("SERIAMAGICBUNDLE") || src.equals("MAGICBUNDLE")) && plugin.getHookManager().isSeriaMagicBundleLoaded()) {
+                cardItem = plugin.getHookManager().getSeriaMagicBundleHook().generateItem(order.getCustomItemId(), 1);
+            } else if ((src.equals("SERIACRAFTING") || src.equals("CRAFTING")) && plugin.getHookManager().isSeriaCraftingLoaded()) {
+                cardItem = plugin.getHookManager().getSeriaCraftingHook().generateItem(order.getCustomItemId(), 1);
             }
-            if (cardItem == null) {
-                Material cardMat = order.getMaterial() != null ? order.getMaterial() : Material.CHEST;
-                if (isCompleted) cardMat = Material.EMERALD_BLOCK;
-                cardItem = new ItemStack(cardMat);
-            } else {
-                cardItem = cardItem.clone();
-            }
-            if (isCompleted) {
-                cardItem = new ItemStack(Material.EMERALD_BLOCK);
-            }
+        }
+        if (cardItem == null) {
+            Material cardMat = order.getMaterial() != null ? order.getMaterial() : Material.CHEST;
+            if (isCompleted) cardMat = Material.EMERALD_BLOCK;
+            cardItem = new ItemStack(cardMat);
+        } else {
+            cardItem = cardItem.clone();
+        }
+        if (isCompleted) {
+            cardItem = new ItemStack(Material.EMERALD_BLOCK);
+        }
 
-            ItemMeta meta = cardItem.getItemMeta();
+        ItemMeta meta = cardItem.getItemMeta();
+        if (meta != null) {
+            String statusSection = isCompleted ? "order-card.completed" : "order-card.incomplete";
+            String nameFormat = menuConfig != null
+                    ? menuConfig.getString(statusSection + ".name", order.getDisplayName())
+                    : order.getDisplayName();
 
-            if (meta != null) {
-                String statusSection = isCompleted ? "order-card.completed" : "order-card.incomplete";
-                String nameFormat = menuConfig != null
-                        ? menuConfig.getString(statusSection + ".name", order.getDisplayName())
-                        : order.getDisplayName();
+            nameFormat = nameFormat.replace("{order_display_name}", order.getDisplayName())
+                    .replace("{order_id}", order.getId())
+                    .replace("{job_name}", job.getDisplayName())
+                    .replace("{job_id}", job.getId())
+                    .replace("{required_amount}", String.valueOf(required))
+                    .replace("{required}", String.valueOf(required))
+                    .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
+                    .replace("{progress}", String.valueOf(progress))
+                    .replace("{percentage}", String.valueOf(percentage))
+                    .replace("{multiplier}", multFormatted)
+                    .replace("{resource_multiplier}", multFormatted);
 
-                nameFormat = nameFormat.replace("{order_display_name}", order.getDisplayName())
-                        .replace("{order_id}", order.getId())
-                        .replace("{job_name}", job.getDisplayName())
-                        .replace("{job_id}", job.getId())
-                        .replace("{required_amount}", String.valueOf(required))
-                        .replace("{required}", String.valueOf(required))
-                        .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
-                        .replace("{progress}", String.valueOf(progress))
-                        .replace("{percentage}", String.valueOf(percentage))
-                        .replace("{multiplier}", multFormatted)
-                        .replace("{resource_multiplier}", multFormatted);
+            meta.displayName(TextUtil.parseForPlayer(player, nameFormat));
 
-                meta.displayName(TextUtil.parseForPlayer(player, nameFormat));
+            List<String> rawLore = menuConfig != null
+                    ? menuConfig.getStringList(statusSection + ".lore")
+                    : new ArrayList<>();
 
-                List<String> rawLore = menuConfig != null
-                        ? menuConfig.getStringList(statusSection + ".lore")
-                        : new ArrayList<>();
-
-                List<Component> finalLore = new ArrayList<>();
-                for (String line : rawLore) {
-                    if (line.contains("{order_lore}")) {
-                        for (String oLine : order.getLore()) {
-                            String parsedOLine = oLine.replace("{progress}", String.valueOf(progress))
-                                    .replace("{required}", String.valueOf(required))
-                                    .replace("{required_amount}", String.valueOf(required))
-                                    .replace("{percentage}", String.valueOf(percentage))
-                                    .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
-                                    .replace("{order_display_name}", order.getDisplayName())
-                                    .replace("{order_id}", order.getId())
-                                    .replace("{job_name}", job.getDisplayName())
-                                    .replace("{job_id}", job.getId())
-                                    .replace("{multiplier}", multFormatted)
-                                    .replace("{resource_multiplier}", multFormatted);
-                            finalLore.add(TextUtil.parseForPlayer(player, parsedOLine));
-                        }
-                    } else if (line.contains("{rewards_list}")) {
-                        if (order.hasCustomRewardsDisplay()) {
-                            for (String rLine : order.getCustomRewardsDisplay()) {
-                                finalLore.add(TextUtil.parseForPlayer(player, rLine));
-                            }
-                        } else {
-                            for (Reward r : order.getRewards()) {
-                                String disp = r.getFormattedDisplay();
-                                if (!disp.startsWith(" ") && !disp.startsWith("<lore-color>▪") && !disp.startsWith("▪")) {
-                                    disp = "  " + disp;
-                                }
-                                finalLore.add(TextUtil.parseForPlayer(player, disp));
-                            }
-                        }
-                    } else if (line.contains("{progress_bar}")) {
-                        finalLore.add(TextUtil.parseForPlayer(player, createProgressBar(progress, required)));
-                    } else {
-                        String replaced = line.replace("{order_display_name}", order.getDisplayName())
+            List<Component> finalLore = new ArrayList<>();
+            for (String line : rawLore) {
+                if (line.contains("{order_lore}")) {
+                    for (String oLine : order.getLore()) {
+                        String parsedOLine = oLine.replace("{progress}", String.valueOf(progress))
+                                .replace("{required}", String.valueOf(required))
+                                .replace("{required_amount}", String.valueOf(required))
+                                .replace("{percentage}", String.valueOf(percentage))
+                                .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
+                                .replace("{order_display_name}", order.getDisplayName())
                                 .replace("{order_id}", order.getId())
                                 .replace("{job_name}", job.getDisplayName())
                                 .replace("{job_id}", job.getId())
-                                .replace("{required_amount}", String.valueOf(required))
-                                .replace("{required}", String.valueOf(required))
-                                .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
-                                .replace("{progress}", String.valueOf(progress))
-                                .replace("{percentage}", String.valueOf(percentage))
                                 .replace("{multiplier}", multFormatted)
                                 .replace("{resource_multiplier}", multFormatted);
-                        finalLore.add(TextUtil.parseForPlayer(player, replaced));
+                        finalLore.add(TextUtil.parseForPlayer(player, parsedOLine));
                     }
+                } else if (line.contains("{rewards_list}")) {
+                    if (order.hasCustomRewardsDisplay()) {
+                        for (String rLine : order.getCustomRewardsDisplay()) {
+                            finalLore.add(TextUtil.parseForPlayer(player, rLine));
+                        }
+                    } else {
+                        for (Reward r : order.getRewards()) {
+                            String disp = r.getFormattedDisplay();
+                            if (!disp.startsWith(" ") && !disp.startsWith("<lore-color>▪") && !disp.startsWith("▪")) {
+                                disp = "  " + disp;
+                            }
+                            finalLore.add(TextUtil.parseForPlayer(player, disp));
+                        }
+                    }
+                } else if (line.contains("{progress_bar}")) {
+                    finalLore.add(TextUtil.parseForPlayer(player, createProgressBar(progress, required)));
+                } else {
+                    String replaced = line.replace("{order_display_name}", order.getDisplayName())
+                            .replace("{order_id}", order.getId())
+                            .replace("{job_name}", job.getDisplayName())
+                            .replace("{job_id}", job.getId())
+                            .replace("{required_amount}", String.valueOf(required))
+                            .replace("{required}", String.valueOf(required))
+                            .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
+                            .replace("{progress}", String.valueOf(progress))
+                            .replace("{percentage}", String.valueOf(percentage))
+                            .replace("{multiplier}", multFormatted)
+                            .replace("{resource_multiplier}", multFormatted);
+                    finalLore.add(TextUtil.parseForPlayer(player, replaced));
                 }
-                meta.lore(finalLore);
-                cardItem.setItemMeta(meta);
             }
-
-            inventory.setItem(slot, cardItem);
-
-            int slotNumber = slotIdx;
-            bindOrderCardActions(slot, order, profile, shiftId, slotNumber);
+            meta.lore(finalLore);
+            cardItem.setItemMeta(meta);
         }
+
+        inventory.setItem(slot, cardItem);
+        bindOrderCardActions(slot, order, profile, shiftId, slotNumber);
     }
 
     @Override
@@ -224,71 +248,143 @@ public class OrderDepositMenu extends BaseMenu {
         org.bukkit.configuration.ConfigurationSection incompleteSec = orderCardSec != null ? orderCardSec.getConfigurationSection("incomplete") : null;
         org.bukkit.configuration.ConfigurationSection globalSec = plugin.getConfig().getConfigurationSection("order-clicks");
 
-        List<String> leftActions = getActionList(incompleteSec, orderCardSec, globalSec, "left-click", "left-click-actions");
-        List<String> rightActions = getActionList(incompleteSec, orderCardSec, globalSec, "right-click", "right-click-actions");
-        List<String> shiftRightActions = getActionList(incompleteSec, orderCardSec, globalSec, "shift-right-click", "shift-right-click-actions");
-        List<String> shiftLeftActions = getActionList(incompleteSec, orderCardSec, globalSec, "shift-left-click", "shift-left-click-actions");
-        List<String> middleActions = getActionList(incompleteSec, orderCardSec, globalSec, "middle-click", "middle-click-actions");
-        List<String> generalActions = getActionList(incompleteSec, orderCardSec, globalSec, "click-actions", "actions");
+        List<String> leftActions = getActionList(incompleteSec, orderCardSec, globalSec, "left-click");
+        List<String> rightActions = getActionList(incompleteSec, orderCardSec, globalSec, "right-click");
+        List<String> shiftRightActions = getActionList(incompleteSec, orderCardSec, globalSec, "shift-right-click");
+        List<String> shiftLeftActions = getActionList(incompleteSec, orderCardSec, globalSec, "shift-left-click");
+        List<String> middleActions = getActionList(incompleteSec, orderCardSec, globalSec, "middle-click");
+        List<String> generalActions = getActionList(incompleteSec, orderCardSec, globalSec, "click-actions");
+        if (generalActions.isEmpty()) generalActions = getActionList(incompleteSec, orderCardSec, globalSec, "actions");
 
         final List<String> fLeftActions = (leftActions.isEmpty() && generalActions.isEmpty()) ? List.of("[TURN_IN]") : leftActions;
-        final List<String> fShiftRightActions = shiftRightActions.isEmpty() ? List.of("[REROLL_GINS]") : shiftRightActions;
+        final List<String> fShiftRightActions = shiftRightActions;
         final List<String> fRightActions = rightActions;
         final List<String> fShiftLeftActions = shiftLeftActions;
         final List<String> fMiddleActions = middleActions;
         final List<String> fGeneralActions = generalActions;
 
+        org.bukkit.configuration.ConfigurationSection generalReq = getSection(incompleteSec, orderCardSec, "click-requirement", "click-requirements", "requirement", "requirements");
+        org.bukkit.configuration.ConfigurationSection leftReq = getSection(incompleteSec, orderCardSec, "left-click-requirement", "left-click-requirements");
+        org.bukkit.configuration.ConfigurationSection rightReq = getSection(incompleteSec, orderCardSec, "right-click-requirement", "right-click-requirements");
+        org.bukkit.configuration.ConfigurationSection shiftLeftReq = getSection(incompleteSec, orderCardSec, "shift-left-click-requirement", "shift-left-click-requirements");
+        org.bukkit.configuration.ConfigurationSection shiftRightReq = getSection(incompleteSec, orderCardSec, "shift-right-click-requirement", "shift-right-click-requirements");
+        org.bukkit.configuration.ConfigurationSection middleReq = getSection(incompleteSec, orderCardSec, "middle-click-requirement", "middle-click-requirements");
+
         if (!fGeneralActions.isEmpty()) {
-            clickActions.put(slot, e -> executeOrderActions(fGeneralActions, order, profile, shiftId, slotNumber));
+            clickActions.put(slot, e -> {
+                if (checkClickRequirement(generalReq)) {
+                    executeOrderActions(fGeneralActions, order, profile, shiftId, slotNumber, slot);
+                }
+            });
         }
         if (!fLeftActions.isEmpty()) {
-            leftClickActions.put(slot, e -> executeOrderActions(fLeftActions, order, profile, shiftId, slotNumber));
+            leftClickActions.put(slot, e -> {
+                if (checkClickRequirement(leftReq != null ? leftReq : generalReq)) {
+                    executeOrderActions(fLeftActions, order, profile, shiftId, slotNumber, slot);
+                }
+            });
         }
         if (!fRightActions.isEmpty()) {
-            rightClickActions.put(slot, e -> executeOrderActions(fRightActions, order, profile, shiftId, slotNumber));
+            rightClickActions.put(slot, e -> {
+                if (checkClickRequirement(rightReq != null ? rightReq : generalReq)) {
+                    executeOrderActions(fRightActions, order, profile, shiftId, slotNumber, slot);
+                }
+            });
         }
         if (!fShiftLeftActions.isEmpty()) {
-            shiftLeftClickActions.put(slot, e -> executeOrderActions(fShiftLeftActions, order, profile, shiftId, slotNumber));
+            shiftLeftClickActions.put(slot, e -> {
+                if (checkClickRequirement(shiftLeftReq != null ? shiftLeftReq : generalReq)) {
+                    executeOrderActions(fShiftLeftActions, order, profile, shiftId, slotNumber, slot);
+                }
+            });
         }
         if (!fShiftRightActions.isEmpty()) {
-            shiftRightClickActions.put(slot, e -> executeOrderActions(fShiftRightActions, order, profile, shiftId, slotNumber));
+            shiftRightClickActions.put(slot, e -> {
+                if (checkClickRequirement(shiftRightReq != null ? shiftRightReq : generalReq)) {
+                    executeOrderActions(fShiftRightActions, order, profile, shiftId, slotNumber, slot);
+                }
+            });
         }
         if (!fMiddleActions.isEmpty()) {
-            middleClickActions.put(slot, e -> executeOrderActions(fMiddleActions, order, profile, shiftId, slotNumber));
+            middleClickActions.put(slot, e -> {
+                if (checkClickRequirement(middleReq != null ? middleReq : generalReq)) {
+                    executeOrderActions(fMiddleActions, order, profile, shiftId, slotNumber, slot);
+                }
+            });
         }
+    }
+
+    private org.bukkit.configuration.ConfigurationSection getSection(org.bukkit.configuration.ConfigurationSection s1,
+                                                                     org.bukkit.configuration.ConfigurationSection s2,
+                                                                     String... keys) {
+        if (s1 != null) {
+            for (String k : keys) {
+                if (s1.isConfigurationSection(k)) return s1.getConfigurationSection(k);
+            }
+        }
+        if (s2 != null) {
+            for (String k : keys) {
+                if (s2.isConfigurationSection(k)) return s2.getConfigurationSection(k);
+            }
+        }
+        return null;
+    }
+
+    private boolean checkClickRequirement(org.bukkit.configuration.ConfigurationSection reqSec) {
+        if (reqSec == null) return true;
+        if (!id.seria.core.gui.menu.MenuRequirementEvaluator.checkRequirement(reqSec, player)) {
+            String denyMsg = reqSec.getString("deny-message", reqSec.getString("deny_message"));
+            if (denyMsg != null && !denyMsg.isBlank()) {
+                player.sendMessage(TextUtil.parseForPlayer(player, denyMsg));
+            }
+            List<String> denyActs = reqSec.getStringList("deny-actions");
+            if (denyActs.isEmpty()) denyActs = reqSec.getStringList("deny_actions");
+            if (!denyActs.isEmpty()) {
+                handleActions(denyActs);
+            }
+            return false;
+        }
+        return true;
     }
 
     private List<String> getActionList(org.bukkit.configuration.ConfigurationSection s1,
                                        org.bukkit.configuration.ConfigurationSection s2,
                                        org.bukkit.configuration.ConfigurationSection s3,
-                                       String k1, String k2) {
-        if (s1 != null && s1.contains(k1)) return s1.getStringList(k1);
-        if (s1 != null && s1.contains(k2)) return s1.getStringList(k2);
-        if (s2 != null && s2.contains(k1)) return s2.getStringList(k1);
-        if (s2 != null && s2.contains(k2)) return s2.getStringList(k2);
-        if (s3 != null && s3.contains(k1)) return s3.getStringList(k1);
-        if (s3 != null && s3.contains(k2)) return s3.getStringList(k2);
+                                       String baseKey) {
+        String[] keys = {baseKey, baseKey + "-action", baseKey + "-actions", baseKey + "_action", baseKey + "_actions"};
+        if (s1 != null) {
+            for (String k : keys) {
+                if (s1.contains(k)) return s1.getStringList(k);
+            }
+        }
+        if (s2 != null) {
+            for (String k : keys) {
+                if (s2.contains(k)) return s2.getStringList(k);
+            }
+        }
+        if (s3 != null) {
+            for (String k : keys) {
+                if (s3.contains(k)) return s3.getStringList(k);
+            }
+        }
         return List.of();
     }
 
-    private void executeOrderActions(List<String> actions, JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
+    private void executeOrderActions(List<String> actions, JobOrder order, JobProfile profile, String shiftId, int slotNumber, int slot) {
         if (actions == null || actions.isEmpty()) return;
+        boolean hasRefresh = actions.stream().anyMatch(a -> a.trim().toLowerCase().startsWith("[refresh"));
         for (String act : actions) {
             String trimmed = act.trim();
             if (trimmed.equalsIgnoreCase("[TURN_IN]") || trimmed.equalsIgnoreCase("[DEPOSIT]")) {
                 handleDepositOrder(order, profile, shiftId);
-            } else if (trimmed.equalsIgnoreCase("[REROLL]") || trimmed.equalsIgnoreCase("[REROLL_GINS]")) {
-                if (plugin.getJobsManager().executeRerollGins(player, job.getId(), slotNumber)) {
-                    refresh();
-                }
-            } else if (trimmed.equalsIgnoreCase("[REROLL_SERIUM]")) {
-                if (plugin.getJobsManager().executeRerollSerium(player, job.getId(), slotNumber)) {
-                    refresh();
+            } else if (trimmed.equalsIgnoreCase("[jobs_reroll]") || trimmed.equalsIgnoreCase("[reroll]")) {
+                if (plugin.getJobsManager().executeReroll(player, job.getId(), slotNumber)) {
+                    if (!hasRefresh) {
+                        refreshSlot(slot);
+                    }
                 }
             } else if (trimmed.equalsIgnoreCase("[DEPOSIT_ALL]")) {
                 handleDepositAll();
-            } else if (trimmed.equalsIgnoreCase("[REFRESH]")) {
-                refresh();
             } else if (trimmed.equalsIgnoreCase("[CLOSE]")) {
                 player.closeInventory();
             } else {
