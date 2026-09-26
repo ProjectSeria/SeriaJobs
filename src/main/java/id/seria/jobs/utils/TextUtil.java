@@ -47,13 +47,36 @@ public class TextUtil {
      * <p>SeriaCore hanya softdepend, jadi kelasnya dipanggil setelah dicek aktif.
      */
     private static String formatSemanticColors(String text) {
-        if (!text.contains("-color>") && !text.contains("<action-icon>")) return text;
-        if (!org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) return text;
-        try {
-            return id.seria.core.gui.menu.BaseSeriaMenu.formatSemanticColorTags(text);
-        } catch (LinkageError ignored) {
-            return text; // SeriaCore versi lama tanpa formatter
+        if (text == null || text.isEmpty()) return "";
+        if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
+            try {
+                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(null, text);
+            } catch (Throwable ignored) {}
+            try {
+                text = id.seria.core.gui.menu.BaseSeriaMenu.formatSemanticColorTags(text);
+            } catch (Throwable ignored) {}
         }
+
+        // Direct fallback replacements for common SeriaPrefix and semantic tags
+        if (text.contains("<sc:") || text.contains("<p:") || text.contains("<prefix>") || text.contains("%sc_") || text.contains("%menu-prefix%")) {
+            text = text
+                    .replace("<sc:menu-prefix>", "<black><bold>| </bold><dark_gray>")
+                    .replace("<p:menu-prefix>", "<black><bold>| </bold><dark_gray>")
+                    .replace("<menu-prefix>", "<black><bold>| </bold><dark_gray>")
+                    .replace("%sc_menu-prefix%", "<black><bold>| </bold><dark_gray>")
+                    .replace("%menu-prefix%", "<black><bold>| </bold><dark_gray>")
+                    .replace("<sc:prefix>", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
+                    .replace("<p:prefix>", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
+                    .replace("<prefix>", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
+                    .replace("%sc_prefix%", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
+                    .replace("%prefix%", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
+                    .replace("<sc:server-name>", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient>")
+                    .replace("%sc_server-name%", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient>")
+                    .replace("<sc:success>", "<green><bold>SUCCESS</bold></green> <white>┃</white> ")
+                    .replace("<sc:error-prefix>", "<red><bold>ERROR</bold></red> <white>┃</white> ");
+        }
+
+        return text;
     }
 
     /**
@@ -85,7 +108,14 @@ public class TextUtil {
             text = replaceLuckPermsPlaceholders(player, text);
         }
 
-        // Parse PAPI first if player is available
+        // Delegate to SeriaCore universal placeholder & semantic engine first
+        if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
+            try {
+                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
+            } catch (Throwable ignored) {}
+        }
+
+        // Parse PAPI if player is available
         if (player != null && SeriaJobs.getInstance().getHookManager().isPapiLoaded()) {
             try {
                 text = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, text);

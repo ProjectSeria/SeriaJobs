@@ -114,6 +114,14 @@ public class JobsPlaceholderExpansion extends PlaceholderExpansion {
             return String.valueOf(has);
         }
 
+        // %jobsorder_balance% / %jobsorder_gins_balance%
+        if (lower.equals("balance") || lower.equals("gins_balance")) {
+            double bal = plugin.getJobsManager().getEconomyService() != null
+                    ? plugin.getJobsManager().getEconomyService().getBalance(player)
+                    : 0.0;
+            return String.valueOf((long) bal);
+        }
+
         // %jobsorder_has_serium%
         if (lower.equals("has_serium")) {
             int seriumCost = plugin.getConfig().getInt("reroll.serium-cost", 1);

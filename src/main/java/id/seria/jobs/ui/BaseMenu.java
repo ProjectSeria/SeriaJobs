@@ -155,7 +155,13 @@ public abstract class BaseMenu implements InventoryHolder {
     protected String replacePlaceholders(String text) {
         if (text == null)
             return "";
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+        try {
+            if (Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
+                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
+            }
+        } catch (Throwable ignored) {}
+
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && text.contains("%")) {
             text = PlaceholderAPI.setPlaceholders(player, text);
         }
         return text;
@@ -299,6 +305,10 @@ public abstract class BaseMenu implements InventoryHolder {
             if (sec == null)
                 continue;
 
+            if (sec.contains("taint") || sec.contains("taints")) {
+                continue;
+            }
+
             List<Integer> slots = getSlots(sec);
             for (int slot : slots) {
                 if (slot >= 0 && slot < inventory.getSize()) {
@@ -426,8 +436,91 @@ public abstract class BaseMenu implements InventoryHolder {
             }
         }
 
+        // 1. SeriaCore universal placeholder engine
+        try {
+            if (Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
+                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
+            }
+        } catch (Throwable ignored) {}
+
+        // 2. Direct custom placeholder resolution (%custom_...% and %seriajobs_custom_...%)
+        if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
+            text = resolveCustomPlaceholdersDirectly(text);
+        }
+
+        // 3. Direct jobsorder placeholder resolution (%jobsorder_...)
+        if (text.contains("%jobsorder_")) {
+            text = resolveJobsOrderPlaceholdersDirectly(text);
+        }
+
         text = MenuRequirementEvaluator.evaluateMathExpressions(text);
         text = replacePlaceholders(text);
+
+        // 3. Fallback pass for nested custom placeholders after PAPI / Math
+        if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
+            text = resolveCustomPlaceholdersDirectly(text);
+        }
+        if (text.contains("%jobsorder_")) {
+            text = resolveJobsOrderPlaceholdersDirectly(text);
+        }
+
+        return text;
+    }
+
+    protected String resolveCustomPlaceholdersDirectly(String text) {
+        if (text == null || text.isEmpty() || plugin.getCustomPlaceholderManager() == null) {
+            return text;
+        }
+        var mgr = plugin.getCustomPlaceholderManager();
+        int maxLoop = 5;
+        while (maxLoop-- > 0 && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
+            String prev = text;
+            int start;
+            while ((start = text.indexOf("%custom_")) != -1) {
+                int end = text.indexOf('%', start + 8);
+                if (end == -1) break;
+                String token = text.substring(start, end + 1);
+                String param = text.substring(start + 8, end);
+                String resolved = mgr.evaluate(player, param);
+                if (resolved != null) {
+                    text = text.replace(token, resolved);
+                } else {
+                    break;
+                }
+            }
+            while ((start = text.indexOf("%seriajobs_custom_")) != -1) {
+                int end = text.indexOf('%', start + 18);
+                if (end == -1) break;
+                String token = text.substring(start, end + 1);
+                String param = text.substring(start + 18, end);
+                String resolved = mgr.evaluate(player, param);
+                if (resolved != null) {
+                    text = text.replace(token, resolved);
+                } else {
+                    break;
+                }
+            }
+            if (text.equals(prev)) break;
+        }
+        return text;
+    }
+
+    protected String resolveJobsOrderPlaceholdersDirectly(String text) {
+        if (text == null || text.isEmpty()) return text;
+        id.seria.jobs.hook.JobsPlaceholderExpansion expansion = new id.seria.jobs.hook.JobsPlaceholderExpansion(plugin);
+        int start;
+        while ((start = text.indexOf("%jobsorder_")) != -1) {
+            int end = text.indexOf('%', start + 11);
+            if (end == -1) break;
+            String token = text.substring(start, end + 1);
+            String param = text.substring(start + 11, end);
+            String resolved = expansion.onRequest(player, param);
+            if (resolved != null) {
+                text = text.replace(token, resolved);
+            } else {
+                break;
+            }
+        }
         return text;
     }
 
@@ -504,42 +597,152 @@ public abstract class BaseMenu implements InventoryHolder {
         if (actions == null || actions.isEmpty())
             return;
         for (String act : actions) {
+            if (act == null || act.isBlank()) continue;
             String trimmed = act.trim();
+
+            // 1. Resolve custom placeholders and PAPI in action if present
+            if (trimmed.contains("%") || trimmed.contains("{")) {
+                trimmed = resolvePlaceholdersAndFunctions(trimmed);
+                if (player != null) {
+                    trimmed = trimmed.replace("%player_name%", player.getName())
+                            .replace("{player_name}", player.getName())
+                            .replace("%player%", player.getName())
+                            .replace("{player}", player.getName());
+                }
+                trimmed = trimmed.trim();
+            }
+
+            if (trimmed.isEmpty()) continue;
+
             if (trimmed.equalsIgnoreCase("[CLOSE]")) {
                 player.closeInventory();
             } else if (trimmed.toLowerCase().startsWith("[open_menu]")
-                    || trimmed.toLowerCase().startsWith("[open-menu]")) {
-                String menuName = trimmed.substring(trimmed.indexOf(']') + 1).trim();
-                if (menuName.equalsIgnoreCase("main_jobs_menu.yml")) {
-                    new MainJobsMenu(plugin, player).open();
+                    || trimmed.toLowerCase().startsWith("[open-menu]")
+                    || trimmed.toLowerCase().startsWith("[open]")) {
+                int closing = trimmed.indexOf(']');
+                String menuTarget = closing != -1 && closing + 1 < trimmed.length()
+                        ? trimmed.substring(closing + 1).trim()
+                        : "";
+                menuTarget = resolvePlaceholdersAndFunctions(menuTarget);
+                if (player != null) {
+                    menuTarget = menuTarget.replace("%player_name%", player.getName())
+                            .replace("{player_name}", player.getName())
+                            .replace("%player%", player.getName())
+                            .replace("{player}", player.getName());
                 }
+                openMenuByName(menuTarget);
             } else if (trimmed.toLowerCase().startsWith("[refresh")) {
                 handleRefreshAction(trimmed);
             } else if (trimmed.toLowerCase().startsWith("[player]")) {
-                String cmd = replacePlaceholders(trimmed.substring("[player]".length()).trim())
-                        .replace("%player%", player.getName()).replace("{player}", player.getName());
+                String cmd = trimmed.substring("[player]".length()).trim();
+                while (cmd.toLowerCase().startsWith("[player]")) {
+                    cmd = cmd.substring("[player]".length()).trim();
+                }
+                cmd = resolvePlaceholdersAndFunctions(cmd);
+                if (player != null) {
+                    cmd = cmd.replace("%player_name%", player.getName())
+                            .replace("{player_name}", player.getName())
+                            .replace("%player%", player.getName())
+                            .replace("{player}", player.getName());
+                }
                 if (!cmd.isEmpty()) {
                     player.performCommand(cmd);
                 }
             } else if (trimmed.toLowerCase().startsWith("[console]")) {
-                String cmd = replacePlaceholders(trimmed.substring("[console]".length()).trim())
-                        .replace("%player%", player.getName()).replace("{player}", player.getName());
+                String cmd = trimmed.substring("[console]".length()).trim();
+                while (cmd.toLowerCase().startsWith("[console]")) {
+                    cmd = cmd.substring("[console]".length()).trim();
+                }
+                cmd = resolvePlaceholdersAndFunctions(cmd);
+                if (player != null) {
+                    cmd = cmd.replace("%player_name%", player.getName())
+                            .replace("{player_name}", player.getName())
+                            .replace("%player%", player.getName())
+                            .replace("{player}", player.getName());
+                }
                 if (!cmd.isEmpty()) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                    if (cmd.startsWith("%") && cmd.endsWith("%")) {
+                        plugin.getLogger().warning("Skipping execution of unresolved placeholder command: " + cmd);
+                        continue;
+                    }
+                    // Check if command is "serium take <player> <amount>" -> translate to excellent economy or hook
+                    if (cmd.toLowerCase().startsWith("serium take ")) {
+                        String[] parts = cmd.split("\\s+");
+                        int amount = parts.length > 3 ? (int) Double.parseDouble(parts[3]) : 1;
+                        if (!plugin.getJobsManager().deductSerium(player, amount)) {
+                            String altCmd = "excelenteconomy withdraw " + player.getName() + " serium " + amount;
+                            plugin.getLogger().info("Intercepting serium command for " + player.getName() + ": /" + altCmd);
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), altCmd);
+                        } else {
+                            plugin.getLogger().info("Successfully deducted " + amount + " Serium via hook for " + player.getName());
+                        }
+                    } else {
+                        plugin.getLogger().info("Executing [console] action for " + player.getName() + ": /" + cmd);
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                    }
                 }
             } else if (trimmed.toUpperCase().startsWith("[PLAYER_COMMAND]")) {
-                String cmd = trimmed.substring("[PLAYER_COMMAND]".length()).trim()
-                        .replace("%player%", player.getName());
+                String cmd = trimmed.substring("[PLAYER_COMMAND]".length()).trim();
+                if (player != null) {
+                    cmd = cmd.replace("%player_name%", player.getName())
+                            .replace("{player_name}", player.getName())
+                            .replace("%player%", player.getName())
+                            .replace("{player}", player.getName());
+                }
                 if (!cmd.isEmpty()) {
                     player.performCommand(cmd);
                 }
             } else if (trimmed.toUpperCase().startsWith("[CONSOLE_COMMAND]")) {
-                String cmd = trimmed.substring("[CONSOLE_COMMAND]".length()).trim()
-                        .replace("%player%", player.getName());
+                String cmd = trimmed.substring("[CONSOLE_COMMAND]".length()).trim();
+                if (player != null) {
+                    cmd = cmd.replace("%player_name%", player.getName())
+                            .replace("{player_name}", player.getName())
+                            .replace("%player%", player.getName())
+                            .replace("{player}", player.getName());
+                }
                 if (!cmd.isEmpty()) {
+                    plugin.getLogger().info("Executing [CONSOLE_COMMAND] action: /" + cmd);
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
                 }
+            } else if (trimmed.toLowerCase().startsWith("[sound]")) {
+                String soundStr = trimmed.substring("[sound]".length()).trim();
+                playSound(soundStr);
+            } else if (trimmed.toLowerCase().startsWith("[deduct_gins]") || trimmed.toLowerCase().startsWith("[deduct-gins]")) {
+                int closing = trimmed.indexOf(']');
+                String param = closing != -1 && closing + 1 < trimmed.length() ? trimmed.substring(closing + 1).trim() : "";
+                id.seria.jobs.model.JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+                int amount = !param.isEmpty() ? (int) Double.parseDouble(param) : plugin.getOrderGenerationService().calculateRerollCost(profile.getRerollCount());
+                if (plugin.getJobsManager().getEconomyService() != null) {
+                    plugin.getJobsManager().getEconomyService().withdraw(player, amount);
+                    plugin.getLogger().info("Deducted " + amount + " Gins directly via Vault for " + player.getName());
+                }
+            } else if (trimmed.toLowerCase().startsWith("[deduct_serium]") || trimmed.toLowerCase().startsWith("[deduct-serium]")) {
+                int closing = trimmed.indexOf(']');
+                String param = closing != -1 && closing + 1 < trimmed.length() ? trimmed.substring(closing + 1).trim() : "";
+                int amount = !param.isEmpty() ? (int) Double.parseDouble(param) : plugin.getConfig().getInt("reroll.serium-cost", 1);
+                plugin.getJobsManager().deductSerium(player, amount);
+                plugin.getLogger().info("Deducted " + amount + " Serium directly for " + player.getName());
             }
+        }
+    }
+
+    private void playSound(String soundStr) {
+        if (soundStr == null || soundStr.isBlank()) return;
+        try {
+            String[] parts = soundStr.split("\\s+");
+            String soundName = parts[0].replace("minecraft:", "").toUpperCase();
+            float vol = parts.length > 1 ? Float.parseFloat(parts[1]) : 1.0f;
+            float pitch = parts.length > 2 ? Float.parseFloat(parts[2]) : 1.0f;
+            org.bukkit.Sound sound = org.bukkit.Sound.valueOf(soundName);
+            player.playSound(player.getLocation(), sound, vol, pitch);
+        } catch (Throwable t) {
+            try {
+                String keyStr = soundStr.split("\\s+")[0].toLowerCase();
+                if (!keyStr.contains(":")) keyStr = "minecraft:" + keyStr;
+                player.playSound(net.kyori.adventure.sound.Sound.sound(
+                        net.kyori.adventure.key.Key.key(keyStr),
+                        net.kyori.adventure.sound.Sound.Source.MASTER, 1f, 1f));
+            } catch (Throwable ignored) {}
         }
     }
 
@@ -569,6 +772,13 @@ public abstract class BaseMenu implements InventoryHolder {
             String[] tokens = param.split("[,\\s]+");
             List<Integer> slots = new ArrayList<>();
             for (String tok : tokens) {
+                if (tok.equalsIgnoreCase("order-card") || tok.equalsIgnoreCase("orders")
+                        || tok.equalsIgnoreCase("order_card") || tok.equalsIgnoreCase("cards")) {
+                    if (this instanceof OrderDepositMenu odm) {
+                        slots.addAll(odm.getOrderSlots());
+                        continue;
+                    }
+                }
                 try {
                     slots.add(Integer.parseInt(tok.trim()));
                 } catch (NumberFormatException ignored) {
@@ -632,6 +842,99 @@ public abstract class BaseMenu implements InventoryHolder {
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    public void openMenuByName(String menuTarget) {
+        if (menuTarget == null || menuTarget.isBlank()) return;
+        menuTarget = menuTarget.trim();
+
+        String[] tokens = menuTarget.split("\\s+");
+        String rawTarget = tokens[0].trim();
+        String param = tokens.length > 1 ? tokens[1].trim() : null;
+
+        String clean = rawTarget.toLowerCase();
+        if (clean.endsWith(".yml")) {
+            clean = clean.substring(0, clean.length() - 4);
+        } else if (clean.endsWith(".yaml")) {
+            clean = clean.substring(0, clean.length() - 5);
+        }
+
+        // 1. Main Jobs Menu aliases
+        if (clean.equals("main_job_menu") || clean.equals("main_jobs_menu")
+                || clean.equals("main_job") || clean.equals("main_jobs")
+                || clean.equals("main") || clean.equals("jobs")
+                || clean.equals("jobs_menu") || clean.equals("jobs-menu")
+                || clean.equals("bursa")) {
+            new MainJobsMenu(plugin, player).open();
+            return;
+        }
+
+        // 2. Orders GUI aliases
+        if (clean.equals("job_order_gui") || clean.equals("job_orders_gui")
+                || clean.equals("job_order") || clean.equals("job_orders")
+                || clean.equals("order") || clean.equals("orders")
+                || clean.equals("order_deposit_menu") || clean.equals("orders_gui")) {
+            id.seria.jobs.model.Job targetJob = resolveJob(param);
+            if (targetJob != null) {
+                new OrderDepositMenu(plugin, player, targetJob).open();
+            } else {
+                new MainJobsMenu(plugin, player).open();
+            }
+            return;
+        }
+
+        // 3. Progression GUI aliases
+        if (clean.equals("job_progression_gui") || clean.equals("job_progression")
+                || clean.equals("progression") || clean.equals("roadmap")
+                || clean.equals("rewards_roadmap")) {
+            id.seria.jobs.model.Job targetJob = resolveJob(param);
+            if (targetJob != null) {
+                new JobProgressionMenu(plugin, player, targetJob).open();
+            } else {
+                new MainJobsMenu(plugin, player).open();
+            }
+            return;
+        }
+
+        // 4. Registry-based GUI (GenericMenu fallback for any registered custom YAML)
+        if (plugin.getMenuRegistry() != null) {
+            String ymlName = clean + ".yml";
+            if (plugin.getMenuRegistry().getMenu(ymlName) != null) {
+                new GenericMenu(plugin, player, ymlName).open();
+                return;
+            }
+            if (plugin.getMenuRegistry().getMenu(rawTarget) != null) {
+                new GenericMenu(plugin, player, rawTarget).open();
+                return;
+            }
+        }
+
+        plugin.getLogger().warning("Could not find menu to open for target: '" + menuTarget + "'");
+    }
+
+    protected id.seria.jobs.model.Job resolveJob(String param) {
+        if (param != null && !param.isBlank()) {
+            id.seria.jobs.model.Job j = plugin.getJobRegistry().getJob(param.trim());
+            if (j != null) return j;
+        }
+        if (this instanceof OrderDepositMenu orderMenu) {
+            return orderMenu.getJob();
+        }
+        if (this instanceof JobProgressionMenu progMenu) {
+            return progMenu.getJob();
+        }
+        if (player != null && plugin.getPlayerDataManager() != null) {
+            id.seria.jobs.model.JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+            if (profile != null && !profile.getActiveJobs().isEmpty()) {
+                String jobId = profile.getActiveJobs().iterator().next();
+                id.seria.jobs.model.Job j = plugin.getJobRegistry().getJob(jobId);
+                if (j != null) return j;
+            }
+        }
+        if (plugin.getJobRegistry() != null && !plugin.getJobRegistry().getJobs().isEmpty()) {
+            return plugin.getJobRegistry().getJobs().iterator().next();
+        }
+        return null;
     }
 
     @Override

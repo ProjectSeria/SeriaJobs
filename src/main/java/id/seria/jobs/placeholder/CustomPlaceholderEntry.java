@@ -78,6 +78,12 @@ public class CustomPlaceholderEntry {
             if (evaluatedInput.equals(prev)) break;
             depth++;
         }
+        if (player != null && evaluatedInput != null) {
+            evaluatedInput = evaluatedInput.replace("%player_name%", player.getName())
+                    .replace("{player_name}", player.getName())
+                    .replace("%player%", player.getName())
+                    .replace("{player}", player.getName());
+        }
         evaluatedInput = evaluatedInput.trim();
 
         if ("function".equalsIgnoreCase(type) || "track".equalsIgnoreCase(type)) {
@@ -186,12 +192,12 @@ public class CustomPlaceholderEntry {
     }
 
     private String evaluateMath(@Nullable Player player, @NotNull String formula) {
-        String expr = formula.trim();
+        String cleanExpr = formula.replace("$e(", "").replace("%e(", "").replace(")", "").replace(",", "").trim();
         try {
             // Check if SeriaCore MenuRequirementEvaluator is available
             if (Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
                 try {
-                    String formatted = expr.startsWith("$e(") ? expr : "$e(" + expr + ")";
+                    String formatted = "$e(" + cleanExpr + ")";
                     String res = MenuRequirementEvaluator.evaluateMathExpressions(formatted);
                     if (res != null && !res.equals(formatted)) {
                         return res;
@@ -200,22 +206,22 @@ public class CustomPlaceholderEntry {
             }
 
             // Fallback simple arithmetic evaluation: +, -, *, /
-            if (expr.contains("+")) {
-                String[] p = expr.split("\\+", 2);
+            if (cleanExpr.contains("+")) {
+                String[] p = cleanExpr.split("\\+", 2);
                 return formatNumber(Double.parseDouble(p[0].trim()) + Double.parseDouble(p[1].trim()));
-            } else if (expr.contains("-") && expr.lastIndexOf('-') > 0) {
-                int idx = expr.lastIndexOf('-');
-                return formatNumber(Double.parseDouble(expr.substring(0, idx).trim()) - Double.parseDouble(expr.substring(idx + 1).trim()));
-            } else if (expr.contains("*")) {
-                String[] p = expr.split("\\*", 2);
+            } else if (cleanExpr.contains("-") && cleanExpr.lastIndexOf('-') > 0) {
+                int idx = cleanExpr.lastIndexOf('-');
+                return formatNumber(Double.parseDouble(cleanExpr.substring(0, idx).trim()) - Double.parseDouble(cleanExpr.substring(idx + 1).trim()));
+            } else if (cleanExpr.contains("*")) {
+                String[] p = cleanExpr.split("\\*", 2);
                 return formatNumber(Double.parseDouble(p[0].trim()) * Double.parseDouble(p[1].trim()));
-            } else if (expr.contains("/")) {
-                String[] p = expr.split("/", 2);
+            } else if (cleanExpr.contains("/")) {
+                String[] p = cleanExpr.split("/", 2);
                 double denom = Double.parseDouble(p[1].trim());
                 if (denom != 0) return formatNumber(Double.parseDouble(p[0].trim()) / denom);
             }
         } catch (Throwable ignored) {}
-        return expr;
+        return cleanExpr;
     }
 
     private String formatNumber(double val) {
@@ -243,6 +249,12 @@ public class CustomPlaceholderEntry {
             }
             if (text == null || text.equals(prev)) break;
             depth++;
+        }
+        if (player != null && text != null) {
+            text = text.replace("%player_name%", player.getName())
+                    .replace("{player_name}", player.getName())
+                    .replace("%player%", player.getName())
+                    .replace("{player}", player.getName());
         }
         return text != null ? text : "";
     }

@@ -29,9 +29,6 @@ orders:
   reroll-max-reached: "<red>Batas maksimal reroll (10x) periode ini sudah habis!</red>"
   reroll-insufficient-gins: "<red>Saldo Gins tidak mencukupi untuk reroll! Dibutuhkan: <gold>{cost} Gins</gold>.</red>"
   reroll-insufficient-serium: "<red>Saldo Serium tidak mencukupi untuk reroll! Dibutuhkan: <aqua>{cost} Serium</aqua>.</red>"
-  reroll-success: "<green>Berhasil meroll pesanan slot #{slot}! Sisa kuota: <yellow>{remaining}/10</yellow>.</green>"
-  reroll-success-gins: "<green>Berhasil meroll pesanan slot #{slot}! Biaya: <gold>{cost} Gins</gold>. Sisa kuota: <yellow>{remaining}/10</yellow>.</green>"
-  reroll-success-serium: "<green>Berhasil meroll pesanan slot #{slot}! Biaya: <aqua>{cost} Serium</aqua>. Sisa kuota: <yellow>{remaining}/10</yellow>.</green>"
 
 admin:
   forceroll-all: "<green>Berhasil memaksa rotasi bursa kontrak baru untuk seluruh pekerjaan!</green>"

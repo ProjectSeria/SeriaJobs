@@ -74,6 +74,21 @@ public class SeriaCoreHook {
                 }
             });
 
+            SeriaCorePlugin.getInstance().getPlaceholderManager().registerProvider(new id.seria.core.placeholder.SeriaPlaceholderProvider() {
+                @Override
+                public String getPrefix() {
+                    return "jobsorder";
+                }
+
+                @Override
+                public String onRequest(org.bukkit.entity.Player player, String params) {
+                    if (jobsPlugin.getHookManager() != null && jobsPlugin.getHookManager().getJobsOrderExpansion() != null) {
+                        return jobsPlugin.getHookManager().getJobsOrderExpansion().onRequest(player, params);
+                    }
+                    return null;
+                }
+            });
+
             // 2. Register SeriaJobs placeholder folder with SeriaCore
             java.io.File folder = new java.io.File(jobsPlugin.getDataFolder(), "placeholder");
             if (folder.exists() && folder.isDirectory()) {

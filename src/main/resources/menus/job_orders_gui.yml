@@ -62,14 +62,24 @@ items:
     material: "BARRIER"
     name: "<red>Back to Main Board</red>"
     actions:
-      - "[OPEN_MENU] main_jobs_menu.yml"
+      - "[open] main_job_menu"
 
-# Dynamic slots for active order cards
-order-slots: [20, 22, 24]
+layout:
+  order-slots:
+    slots: [20, 22, 24, 30, 32]
+    item-provider: "%parameters_job_orders%"
+    selector:
+      requirements:
+        1:
+          taint: "orders-item"
+          comparison: "=="
+          value: true
 
-order-card:
+items:
   incomplete:
     name: "{order_display_name}"
+    taints:
+      orders-item: true
     lore:
       - "{order_lore}"
       - ""
@@ -88,11 +98,6 @@ order-card:
 
     right-click-requirement:
       requirements:
-        can_reroll:
-          type: "placeholder"
-          input: "%jobsorder_can_reroll%"
-          comparison: "=="
-          output: "true"
         has_currency:
           type: "placeholder"
           input: "%custom_reroll_choice%"
@@ -100,7 +105,7 @@ order-card:
           output: "none"
       deny-message: "%custom_reroll_deny-message%"
       deny-actions:
-        - "[console] playsound minecraft:entity.villager.no master %player% ~ ~ ~ 1 1"
+        - "[sound] entity.villager.no 1 1"
 
     right-click-action:
       - "[console] %custom_reroll_command%"

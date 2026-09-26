@@ -81,9 +81,13 @@ public class OrderGenerationService {
      * Base = 3.000 Gins, Kenaikan = +1.500 Gins per roll, Cap = 15.000 Gins.
      */
     public int calculateRerollCost(int currentRollCount) {
+        if (currentRollCount <= 0 && plugin.getConfig().getBoolean("reroll.first-roll-free", true)) {
+            return 0;
+        }
+        int effectiveRoll = Math.max(0, currentRollCount - 1);
         double base = plugin.getConfig().getDouble("reroll.formula.base", 3000.0);
         double cap = plugin.getConfig().getDouble("reroll.formula.cap", 15000.0);
-        double cost = base * (1.0 + (currentRollCount * 0.5));
+        double cost = base * (1.0 + (effectiveRoll * 0.5));
         return (int) Math.round(Math.min(cost, cap));
     }
 }

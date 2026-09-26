@@ -18,6 +18,10 @@ public class JobProgressionMenu extends BaseMenu {
     private final Job job;
     private int page;
 
+    public Job getJob() {
+        return job;
+    }
+
     public JobProgressionMenu(SeriaJobs plugin, Player player, Job job) {
         this(plugin, player, job, 1);
     }
@@ -43,7 +47,7 @@ public class JobProgressionMenu extends BaseMenu {
                 reqXp = job.getRequiredXp(level);
             }
         }
-        return text.replace("{job_name}", job.getDisplayName())
+        text = text.replace("{job_name}", job.getDisplayName())
                 .replace("%job_name%", job.getDisplayName())
                 .replace("{job}", job.getDisplayName())
                 .replace("%job%", job.getDisplayName())
@@ -66,6 +70,7 @@ public class JobProgressionMenu extends BaseMenu {
                 .replace("%req_xp%", String.valueOf(reqXp))
                 .replace("{page}", String.valueOf(page))
                 .replace("%page%", String.valueOf(page));
+        return super.replacePlaceholders(text);
     }
 
     @Override

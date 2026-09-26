@@ -60,7 +60,7 @@ public class MainJobsMenu extends BaseMenu {
         String maxStr = maxSlots == -1 ? "Tak Terbatas" : String.valueOf(maxSlots);
         String ordersCompletedStr = String.valueOf(ordersCompleted);
 
-        return text.replace("{seriajobs_active_jobs_list}%", activeJobsList)
+        text = text.replace("{seriajobs_active_jobs_list}%", activeJobsList)
                 .replace("{seriajobs_active_jobs_list}", activeJobsList)
                 .replace("%seriajobs_active_jobs_list%", activeJobsList)
                 .replace("{seriajobs_active_jobs}%", activeJobsList)
@@ -93,6 +93,7 @@ public class MainJobsMenu extends BaseMenu {
                 .replace("%active_jobs_count%", String.valueOf(activeCount))
                 .replace("{max_slots}", maxStr)
                 .replace("%max_slots%", maxStr);
+        return super.replacePlaceholders(text);
     }
 
     @Override

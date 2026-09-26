@@ -28,6 +28,8 @@ orders-pool:
     lore:
       - "<gray>Status: <yellow>{progress}/{required} Gandum</yellow>"
       - "<gray>Kirim hasil panen gandum segar untuk lumbung desa."
+    min-reputation: 1
+    max-reputation: 5
     required-item:
       source: "VANILLA"
       material: "WHEAT"
@@ -45,12 +47,19 @@ orders-pool:
         skill: "farming"
         amount: 380
         display: "  <lore-color>▪ <green>380 Farming XP"
+    display-rewards:
+      - "  <lore-color>▪ <money-color>30.000 $"
+      - "  <lore-color>▪ <yellow>190 Job XP"
+      - "  <lore-color>▪ <green>380 Farming XP"
+      - "  <lore-color>▪ <aqua>+{reputation} Reputasi Pasar"
 
   carrot_supply:
     display-name: "<gold>Pasokan Wortel Segar</gold>"
     lore:
       - "<gray>Status: <yellow>{progress}/{required} Wortel</yellow>"
       - "<gray>Kirim stok wortel panen ke pasar kota."
+    min-reputation: 1
+    max-reputation: 5
     required-item:
       source: "VANILLA"
       material: "CARROT"
@@ -69,6 +78,7 @@ orders-pool:
       - "  <lore-color>▪ <money-color>45.000 $"
       - "  <lore-color>▪ <yellow>280 Job XP"
       - "  <lore-color>▪ <green>550 Farming XP"
+      - "  <lore-color>▪ <aqua>+{reputation} Reputasi Pasar"
 
 # JOB LEVEL REWARDS #
 reward-levels:

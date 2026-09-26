@@ -135,6 +135,12 @@ public class PAPIExpansion extends PlaceholderExpansion {
             if (subParam.equals("reroll_cost_serium")) {
                 return String.valueOf(plugin.getConfig().getInt("reroll.serium-cost", 1));
             }
+            if (subParam.equals("balance") || subParam.equals("gins_balance")) {
+                double bal = plugin.getJobsManager().getEconomyService() != null
+                        ? plugin.getJobsManager().getEconomyService().getBalance(player)
+                        : 0.0;
+                return String.valueOf((long) bal);
+            }
             if (subParam.equals("max_slots") || subParam.equals("order_max_slots")) {
                 int rep = plugin.getReputationBridgeService() != null
                         ? plugin.getReputationBridgeService().getPlayerReputation(player)

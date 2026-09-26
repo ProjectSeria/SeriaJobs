@@ -80,7 +80,15 @@ public class MenuRegistry {
     public FileConfiguration getMenu(String name) {
         if (name == null) return null;
         String normalized = name.toLowerCase().trim().replace('\\', '/');
-        return menuCache.get(normalized);
+        FileConfiguration config = menuCache.get(normalized);
+        if (config != null) return config;
+        if (!normalized.endsWith(".yml") && !normalized.endsWith(".yaml")) {
+            config = menuCache.get(normalized + ".yml");
+            if (config != null) return config;
+            config = menuCache.get(normalized + ".yaml");
+            if (config != null) return config;
+        }
+        return null;
     }
 
     public Map<String, FileConfiguration> getMenuCache() {

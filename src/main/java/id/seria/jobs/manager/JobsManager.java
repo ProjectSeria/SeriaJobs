@@ -197,9 +197,10 @@ public class JobsManager {
         Job job = plugin.getJobRegistry().getJob(jobId);
         if (job == null) return false;
 
-        // 1. Validasi kuota reroll
+        // 1. Validasi kuota reroll (kuota Gins; Serium dapat digunakan setelahnya)
         int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
-        if (!profile.canReroll(maxReroll)) {
+        boolean allowSeriumAfterMax = plugin.getConfig().getBoolean("reroll.allow-serium-after-max", true);
+        if (!allowSeriumAfterMax && !profile.canReroll(maxReroll)) {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-max-reached",
                     "<red>Batas maksimal reroll (" + maxReroll + "x) periode ini sudah habis!</red>"));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
@@ -212,11 +213,7 @@ public class JobsManager {
         // 3. Increment counter reroll
         profile.incrementReroll();
 
-        // 4. Notifikasi & Sound
-        player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-success",
-                "<green>Berhasil meroll pesanan slot #{slot}! Sisa kuota: <yellow>{remaining}/" + maxReroll + "</yellow>.</green>",
-                "{slot}", String.valueOf(slotIndex),
-                "{remaining}", String.valueOf(Math.max(0, maxReroll - profile.getRerollCount()))));
+        // 4. Sound & Save
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.2f);
 
         dataManager.saveProfileAsync(profile);
@@ -265,11 +262,6 @@ public class JobsManager {
         // 5. Jalankan playerData.incrementReroll()
         profile.incrementReroll();
 
-        player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-success-gins",
-                "<green>Berhasil meroll pesanan slot #{slot}! Biaya: {cost} Gins. Sisa kuota: {remaining}/10.</green>",
-                "{slot}", String.valueOf(slotIndex),
-                "{cost}", String.valueOf(cost),
-                "{remaining}", String.valueOf(10 - profile.getRerollCount())));
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
 
         dataManager.saveProfileAsync(profile);
@@ -314,11 +306,6 @@ public class JobsManager {
         // 4. Jalankan playerData.incrementReroll()
         profile.incrementReroll();
 
-        player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-success-serium",
-                "<green>Berhasil meroll pesanan slot #{slot}! Biaya: {cost} Serium. Sisa kuota: {remaining}/10.</green>",
-                "{slot}", String.valueOf(slotIndex),
-                "{cost}", String.valueOf(seriumCost),
-                "{remaining}", String.valueOf(10 - profile.getRerollCount())));
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.2f);
 
         dataManager.saveProfileAsync(profile);
@@ -347,7 +334,7 @@ public class JobsManager {
         profile.setActiveOrder(slotIndex, newWorkOrder);
     }
 
-    private boolean deductSerium(Player player, int amount) {
+    public boolean deductSerium(Player player, int amount) {
         // 1. Check ExcellentEconomy / CoinsEngine
         if (plugin.getHookManager() != null && plugin.getHookManager().isExcellentEconomyLoaded()) {
             double current = plugin.getHookManager().getExcellentEconomyHook().getBalance(player, "serium");

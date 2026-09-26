@@ -5,6 +5,7 @@ import id.seria.jobs.api.OrderCompleteEvent;
 import id.seria.jobs.model.Job;
 import id.seria.jobs.model.JobOrder;
 import id.seria.jobs.model.JobProfile;
+import id.seria.jobs.model.WorkOrder;
 import id.seria.jobs.model.reward.Reward;
 import id.seria.jobs.utils.ItemMatcher;
 import id.seria.jobs.utils.TextUtil;
@@ -21,6 +22,10 @@ import java.util.List;
 public class OrderDepositMenu extends BaseMenu {
 
     private final Job job;
+
+    public Job getJob() {
+        return job;
+    }
 
     public OrderDepositMenu(SeriaJobs plugin, Player player, Job job) {
         super(plugin, player, "job_orders_gui.yml");
@@ -42,7 +47,7 @@ public class OrderDepositMenu extends BaseMenu {
                 reqXp = job.getRequiredXp(level);
             }
         }
-        return text.replace("{job_name}", job.getDisplayName())
+        text = text.replace("{job_name}", job.getDisplayName())
                 .replace("%job_name%", job.getDisplayName())
                 .replace("{job}", job.getDisplayName())
                 .replace("%job%", job.getDisplayName())
@@ -63,6 +68,43 @@ public class OrderDepositMenu extends BaseMenu {
                 .replace("%required_xp%", String.valueOf(reqXp))
                 .replace("{req_xp}", String.valueOf(reqXp))
                 .replace("%req_xp%", String.valueOf(reqXp));
+        return super.replacePlaceholders(text);
+    }
+
+    public List<Integer> getOrderSlots() {
+        if (menuConfig != null) {
+            if (menuConfig.isList("layout.order-slots.slots")) {
+                return menuConfig.getIntegerList("layout.order-slots.slots");
+            }
+            if (menuConfig.isList("layout.orders.slots")) {
+                return menuConfig.getIntegerList("layout.orders.slots");
+            }
+            if (menuConfig.isList("order-slots")) {
+                return menuConfig.getIntegerList("order-slots");
+            }
+        }
+        return List.of(20, 22, 24, 30, 32);
+    }
+
+    public org.bukkit.configuration.ConfigurationSection getOrderCardSection(boolean isCompleted) {
+        if (menuConfig == null) return null;
+        if (isCompleted) {
+            if (menuConfig.isConfigurationSection("items.completed")) {
+                return menuConfig.getConfigurationSection("items.completed");
+            }
+            if (menuConfig.isConfigurationSection("items.order_completed")) {
+                return menuConfig.getConfigurationSection("items.order_completed");
+            }
+            return menuConfig.getConfigurationSection("order-card.completed");
+        } else {
+            if (menuConfig.isConfigurationSection("items.incomplete")) {
+                return menuConfig.getConfigurationSection("items.incomplete");
+            }
+            if (menuConfig.isConfigurationSection("items.order_incomplete")) {
+                return menuConfig.getConfigurationSection("items.order_incomplete");
+            }
+            return menuConfig.getConfigurationSection("order-card.incomplete");
+        }
     }
 
     @Override
@@ -71,9 +113,7 @@ public class OrderDepositMenu extends BaseMenu {
         applyFillers();
         applyStaticItems();
 
-        List<Integer> slots = menuConfig != null
-                ? menuConfig.getIntegerList("order-slots")
-                : List.of(20, 22, 24);
+        List<Integer> slots = getOrderSlots();
 
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
@@ -85,9 +125,7 @@ public class OrderDepositMenu extends BaseMenu {
 
     @Override
     protected boolean refreshCustomSlot(int slot) {
-        List<Integer> slots = menuConfig != null
-                ? menuConfig.getIntegerList("order-slots")
-                : List.of(20, 22, 24);
+        List<Integer> slots = getOrderSlots();
         int idx = slots.indexOf(slot);
         if (idx != -1) {
             JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
@@ -103,8 +141,9 @@ public class OrderDepositMenu extends BaseMenu {
         List<JobOrder> activeOrders = plugin.getOrderPoolManager().getActiveOrders(job.getId());
 
         JobOrder order = null;
+        id.seria.jobs.model.WorkOrder wo = null;
         if (profile != null && profile.getActiveOrder(slotNumber) != null) {
-            id.seria.jobs.model.WorkOrder wo = profile.getActiveOrder(slotNumber);
+            wo = profile.getActiveOrder(slotNumber);
             order = job.getOrder(wo.getTemplate().getTemplateId());
         }
         if (order == null && (slotNumber - 1) < activeOrders.size()) {
@@ -120,6 +159,15 @@ public class OrderDepositMenu extends BaseMenu {
         int progress = profile != null ? profile.getOrderProgress(shiftId, job.getId(), order.getId()) : 0;
         int required = order.getRequiredAmount(jobLevel);
         int percentage = Math.min(100, (int) Math.round(((double) progress / required) * 100));
+
+        int currentRep = (wo != null && wo.getGeneratedReputationAmount() > 0)
+                ? wo.getGeneratedReputationAmount()
+                : (order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 0);
+        String repStr = String.valueOf(currentRep);
+        String repRange = (order.getMinReputationAmount() > 0 && order.getMaxReputationAmount() > order.getMinReputationAmount())
+                ? (order.getMinReputationAmount() + "-" + order.getMaxReputationAmount())
+                : repStr;
+        String activeRepDisplay = (wo != null && wo.getGeneratedReputationAmount() > 0) ? repStr : repRange;
 
         ItemStack cardItem = null;
         if (!isCompleted) {
@@ -149,9 +197,9 @@ public class OrderDepositMenu extends BaseMenu {
 
         ItemMeta meta = cardItem.getItemMeta();
         if (meta != null) {
-            String statusSection = isCompleted ? "order-card.completed" : "order-card.incomplete";
-            String nameFormat = menuConfig != null
-                    ? menuConfig.getString(statusSection + ".name", order.getDisplayName())
+            org.bukkit.configuration.ConfigurationSection cardSec = getOrderCardSection(isCompleted);
+            String nameFormat = cardSec != null
+                    ? cardSec.getString("name", order.getDisplayName())
                     : order.getDisplayName();
 
             nameFormat = nameFormat.replace("{order_display_name}", order.getDisplayName())
@@ -164,12 +212,17 @@ public class OrderDepositMenu extends BaseMenu {
                     .replace("{progress}", String.valueOf(progress))
                     .replace("{percentage}", String.valueOf(percentage))
                     .replace("{multiplier}", multFormatted)
-                    .replace("{resource_multiplier}", multFormatted);
+                    .replace("{resource_multiplier}", multFormatted)
+                    .replace("{reputation}", activeRepDisplay)
+                    .replace("{order_reputation}", activeRepDisplay)
+                    .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
+                    .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
+                    .replace("{reputation_range}", repRange);
 
             meta.displayName(TextUtil.parseForPlayer(player, nameFormat));
 
-            List<String> rawLore = menuConfig != null
-                    ? menuConfig.getStringList(statusSection + ".lore")
+            List<String> rawLore = cardSec != null
+                    ? cardSec.getStringList("lore")
                     : new ArrayList<>();
 
             List<Component> finalLore = new ArrayList<>();
@@ -186,13 +239,25 @@ public class OrderDepositMenu extends BaseMenu {
                                 .replace("{job_name}", job.getDisplayName())
                                 .replace("{job_id}", job.getId())
                                 .replace("{multiplier}", multFormatted)
-                                .replace("{resource_multiplier}", multFormatted);
+                                .replace("{resource_multiplier}", multFormatted)
+                                .replace("{reputation}", activeRepDisplay)
+                                .replace("{order_reputation}", activeRepDisplay)
+                                .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
+                                .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
+                                .replace("{reputation_range}", repRange);
                         finalLore.add(TextUtil.parseForPlayer(player, parsedOLine));
                     }
                 } else if (line.contains("{rewards_list}")) {
                     if (order.hasCustomRewardsDisplay()) {
                         for (String rLine : order.getCustomRewardsDisplay()) {
-                            finalLore.add(TextUtil.parseForPlayer(player, rLine));
+                            String parsedRLine = rLine.replace("{reputation}", activeRepDisplay)
+                                    .replace("{order_reputation}", activeRepDisplay)
+                                    .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
+                                    .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
+                                    .replace("{reputation_range}", repRange)
+                                    .replace("{multiplier}", multFormatted)
+                                    .replace("{resource_multiplier}", multFormatted);
+                            finalLore.add(TextUtil.parseForPlayer(player, parsedRLine));
                         }
                     } else {
                         for (Reward r : order.getRewards()) {
@@ -201,6 +266,9 @@ public class OrderDepositMenu extends BaseMenu {
                                 disp = "  " + disp;
                             }
                             finalLore.add(TextUtil.parseForPlayer(player, disp));
+                        }
+                        if (currentRep > 0 || order.getMaxReputationAmount() > 0) {
+                            finalLore.add(TextUtil.parseForPlayer(player, "  <lore-color>▪ <aqua>+" + activeRepDisplay + " Reputasi</aqua>"));
                         }
                     }
                 } else if (line.contains("{progress_bar}")) {
@@ -216,7 +284,12 @@ public class OrderDepositMenu extends BaseMenu {
                             .replace("{progress}", String.valueOf(progress))
                             .replace("{percentage}", String.valueOf(percentage))
                             .replace("{multiplier}", multFormatted)
-                            .replace("{resource_multiplier}", multFormatted);
+                            .replace("{resource_multiplier}", multFormatted)
+                            .replace("{reputation}", activeRepDisplay)
+                            .replace("{order_reputation}", activeRepDisplay)
+                            .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
+                            .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
+                            .replace("{reputation_range}", repRange);
                     finalLore.add(TextUtil.parseForPlayer(player, replaced));
                 }
             }
@@ -238,6 +311,9 @@ public class OrderDepositMenu extends BaseMenu {
             } else if (trimmed.equalsIgnoreCase("[OPEN_PROGRESSION]")) {
                 new JobProgressionMenu(plugin, player, job).open();
                 return;
+            } else if (trimmed.equalsIgnoreCase("[BACK]")) {
+                new MainJobsMenu(plugin, player).open();
+                return;
             }
         }
         super.handleActions(actions);
@@ -245,7 +321,7 @@ public class OrderDepositMenu extends BaseMenu {
 
     private void bindOrderCardActions(int slot, JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
         org.bukkit.configuration.ConfigurationSection orderCardSec = menuConfig != null ? menuConfig.getConfigurationSection("order-card") : null;
-        org.bukkit.configuration.ConfigurationSection incompleteSec = orderCardSec != null ? orderCardSec.getConfigurationSection("incomplete") : null;
+        org.bukkit.configuration.ConfigurationSection incompleteSec = getOrderCardSection(false);
         org.bukkit.configuration.ConfigurationSection globalSec = plugin.getConfig().getConfigurationSection("order-clicks");
 
         List<String> leftActions = getActionList(incompleteSec, orderCardSec, globalSec, "left-click");
@@ -376,9 +452,23 @@ public class OrderDepositMenu extends BaseMenu {
         for (String act : actions) {
             String trimmed = act.trim();
             if (trimmed.equalsIgnoreCase("[TURN_IN]") || trimmed.equalsIgnoreCase("[DEPOSIT]")) {
-                handleDepositOrder(order, profile, shiftId);
+                handleDepositOrder(order, profile, shiftId, slotNumber);
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll]") || trimmed.equalsIgnoreCase("[reroll]")) {
                 if (plugin.getJobsManager().executeReroll(player, job.getId(), slotNumber)) {
+                    if (!hasRefresh) {
+                        refreshSlot(slot);
+                    }
+                }
+            } else if (trimmed.equalsIgnoreCase("[jobs_reroll_auto]") || trimmed.equalsIgnoreCase("[reroll_auto]")) {
+                handleAutoReroll(profile, slotNumber, slot, hasRefresh);
+            } else if (trimmed.equalsIgnoreCase("[jobs_reroll_gins]") || trimmed.equalsIgnoreCase("[reroll_gins]")) {
+                if (plugin.getJobsManager().executeRerollGins(player, job.getId(), slotNumber)) {
+                    if (!hasRefresh) {
+                        refreshSlot(slot);
+                    }
+                }
+            } else if (trimmed.equalsIgnoreCase("[jobs_reroll_serium]") || trimmed.equalsIgnoreCase("[reroll_serium]")) {
+                if (plugin.getJobsManager().executeRerollSerium(player, job.getId(), slotNumber)) {
                     if (!hasRefresh) {
                         refreshSlot(slot);
                     }
@@ -393,7 +483,23 @@ public class OrderDepositMenu extends BaseMenu {
         }
     }
 
-    private void handleDepositOrder(JobOrder order, JobProfile profile, String shiftId) {
+    private void handleAutoReroll(JobProfile profile, int slotNumber, int slot, boolean hasRefresh) {
+        int rerollCount = profile.getRerollCount();
+        int maxGinsRolls = plugin.getConfig().getInt("reroll.max-count", 10);
+        boolean success;
+        if (rerollCount <= 0 && plugin.getConfig().getBoolean("reroll.first-roll-free", true)) {
+            success = plugin.getJobsManager().executeReroll(player, job.getId(), slotNumber);
+        } else if (rerollCount < maxGinsRolls) {
+            success = plugin.getJobsManager().executeRerollGins(player, job.getId(), slotNumber);
+        } else {
+            success = plugin.getJobsManager().executeRerollSerium(player, job.getId(), slotNumber);
+        }
+        if (success && !hasRefresh) {
+            refreshSlot(slot);
+        }
+    }
+
+    private void handleDepositOrder(JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
         if (profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed"));
             return;
@@ -433,9 +539,23 @@ public class OrderDepositMenu extends BaseMenu {
             }
 
             // Execute reward actions if present
-            if (plugin.getActionRunnerService() != null && !order.getRewardActions().isEmpty()) {
-                int rep = order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 10;
-                plugin.getActionRunnerService().executeAllActions(player, order.getRewardActions(), rep);
+            if (plugin.getActionRunnerService() != null) {
+                WorkOrder wo = (profile != null && slotNumber > 0) ? profile.getActiveOrder(slotNumber) : null;
+                int rep = (wo != null && wo.getGeneratedReputationAmount() > 0)
+                        ? wo.getGeneratedReputationAmount()
+                        : (order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 10);
+
+                if (!order.getRewardActions().isEmpty()) {
+                    plugin.getActionRunnerService().executeAllActions(player, order.getRewardActions(), rep);
+                } else if (rep > 0) {
+                    String defAction = plugin.getConfig().getString(
+                            "reputation.default-action",
+                            "[console] excelenteconomy give %player% reputasi %amount%"
+                    );
+                    if (defAction != null && !defAction.isBlank()) {
+                        plugin.getActionRunnerService().executeAction(player, defAction, rep);
+                    }
+                }
             }
 
             // Check and trigger weight-based rare drop
@@ -490,9 +610,29 @@ public class OrderDepositMenu extends BaseMenu {
                         reward.apply(player, job);
                     }
 
-                    if (plugin.getActionRunnerService() != null && !order.getRewardActions().isEmpty()) {
-                        int rep = order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 10;
-                        plugin.getActionRunnerService().executeAllActions(player, order.getRewardActions(), rep);
+                    if (plugin.getActionRunnerService() != null) {
+                        WorkOrder wo = null;
+                        for (WorkOrder w : profile.getActiveOrders().values()) {
+                            if (w != null && w.getTemplate() != null && w.getTemplate().getTemplateId().equalsIgnoreCase(order.getId())) {
+                                wo = w;
+                                break;
+                            }
+                        }
+                        int rep = (wo != null && wo.getGeneratedReputationAmount() > 0)
+                                ? wo.getGeneratedReputationAmount()
+                                : (order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 10);
+
+                        if (!order.getRewardActions().isEmpty()) {
+                            plugin.getActionRunnerService().executeAllActions(player, order.getRewardActions(), rep);
+                        } else if (rep > 0) {
+                            String defAction = plugin.getConfig().getString(
+                                    "reputation.default-action",
+                                    "[console] excelenteconomy give %player% reputasi %amount%"
+                            );
+                            if (defAction != null && !defAction.isBlank()) {
+                                plugin.getActionRunnerService().executeAction(player, defAction, rep);
+                            }
+                        }
                     }
 
                     if (plugin.getJobsManager() != null) {

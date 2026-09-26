@@ -320,6 +320,36 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                 }
                 break;
 
+            case "resetreroll":
+                if (args.length < 3) {
+                    sender.sendMessage("§eUsage: /seriajobs admin resetreroll <player>");
+                    return;
+                }
+                Player targetPlayer = Bukkit.getPlayer(args[2]);
+                if (targetPlayer == null) {
+                    sender.sendMessage("§cPlayer not found or offline!");
+                    return;
+                }
+                JobProfile targetProf = plugin.getPlayerDataManager().getProfile(targetPlayer.getUniqueId());
+                if (targetProf != null) {
+                    targetProf.resetRerolls();
+                    plugin.getPlayerDataManager().saveProfileAsync(targetProf);
+                    sender.sendMessage("§a[SeriaJobs] Berhasil mereset counter reroll untuk player " + targetPlayer.getName() + " (sekarang 0/10 - Roll Pertama Gratis)!");
+                }
+                break;
+
+            case "debug":
+                Player dbgPlayer = sender instanceof Player p ? p : null;
+                if (args.length >= 3) {
+                    dbgPlayer = Bukkit.getPlayer(args[2]);
+                }
+                if (dbgPlayer == null) {
+                    sender.sendMessage("§cPlayer not found or offline! Usage: /seriajobs admin debug [player]");
+                    return;
+                }
+                handleDebug(sender, dbgPlayer);
+                break;
+
             case "leaderboard":
             case "top":
                 if (args.length < 3) {
@@ -428,6 +458,63 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(plugin.getLanguageManager().getMessage(sender instanceof Player p ? p : null, "general.reload-success", "{ms}", String.valueOf(elapsed)));
     }
 
+    private void handleDebug(CommandSender sender, Player target) {
+        sender.sendMessage("§6§l================ [SeriaJobs Debug Reroll] ================");
+        sender.sendMessage("§ePlayer: §f" + target.getName() + " §7(UUID: " + target.getUniqueId() + ")");
+
+        // 1. Vault Economy Direct
+        var eco = plugin.getJobsManager().getEconomyService();
+        if (eco != null && eco.getVaultEconomy() != null) {
+            double bal = eco.getBalance(target);
+            sender.sendMessage("§aVault Economy Provider: §f" + eco.getVaultEconomy().getName());
+            sender.sendMessage("§aVault Direct Balance: §f" + String.format(java.util.Locale.US, "%,.2f", bal) + " §7(Raw: " + (long) bal + ")");
+        } else {
+            sender.sendMessage("§cVault Economy Service: NOT LOADED / NULL!");
+        }
+
+        // 2. Profile Reroll Counter & Quota
+        var prof = plugin.getPlayerDataManager().getProfile(target.getUniqueId());
+        if (prof != null) {
+            int currentRoll = prof.getRerollCount();
+            int maxRoll = plugin.getConfig().getInt("reroll.max-count", 10);
+            int nextCost = plugin.getOrderGenerationService().calculateRerollCost(currentRoll);
+            sender.sendMessage("§bProfile Reroll Count: §f" + currentRoll + " / " + maxRoll);
+            sender.sendMessage("§bNext Reroll Cost Gins: §f" + nextCost);
+        } else {
+            sender.sendMessage("§cJobProfile: NULL!");
+        }
+
+        // 3. PAPI & Custom Placeholders Resolution
+        sender.sendMessage("§d--- Placeholder Resolution Test ---");
+        String[] placeholders = {
+                "%vault_eco_balance%",
+                "%vault_eco_balance_raw%",
+                "%jobsorder_gins_balance%",
+                "%jobsorder_balance%",
+                "%jobsorder_reroll_current%",
+                "%jobsorder_reroll_cost_gins%",
+                "%custom_reroll_math-gins-difference%",
+                "%custom_reroll_choice%",
+                "%custom_reroll_status%",
+                "%custom_reroll_deny-message%"
+        };
+
+        for (String ph : placeholders) {
+            String resolved = ph;
+            if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+                try {
+                    resolved = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(target, ph);
+                } catch (Throwable t) {
+                    resolved = "ERROR: " + t.getMessage();
+                }
+            } else {
+                resolved = "PAPI NOT ENABLED";
+            }
+            sender.sendMessage("§7" + ph + " §8-> §f" + resolved);
+        }
+        sender.sendMessage("§6§l========================================================");
+    }
+
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         List<String> completions = new ArrayList<>();
@@ -468,6 +555,8 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             }
             if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("seriajobs.admin")) {
                 completions.add("reload");
+                completions.add("debug");
+                completions.add("resetreroll");
                 completions.add("forceroll");
                 completions.add("setlevel");
                 completions.add("leaderboard");

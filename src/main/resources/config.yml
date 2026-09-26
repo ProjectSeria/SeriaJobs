@@ -175,7 +175,11 @@ slots:
 # Sistem Reroll Pesanan Pasar
 # ==============================================================
 reroll:
-  # Batas maksimal roll per siklus rotasi pasar (4-6 jam)
+  # Reroll pertama gratis setiap siklus pasar
+  first-roll-free: true
+  # Izinkan reroll menggunakan Serium setelah kuota Gins habis
+  allow-serium-after-max: true
+  # Batas maksimal roll menggunakan Gins per siklus rotasi pasar (4-6 jam)
   max-count: 10
   # Formula linier bertahap: Biaya = min(Base * (1 + currentRoll * 0.5), Cap)
   formula:

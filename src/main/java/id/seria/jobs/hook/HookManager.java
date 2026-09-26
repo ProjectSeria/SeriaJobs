@@ -265,4 +265,12 @@ public class HookManager {
     public boolean isPapiLoaded() {
         return papiLoaded;
     }
+
+    public JobsPlaceholderExpansion getJobsOrderExpansion() {
+        return jobsOrderExpansion;
+    }
+
+    public PAPIExpansion getPapiExpansion() {
+        return papiExpansion;
+    }
 }
