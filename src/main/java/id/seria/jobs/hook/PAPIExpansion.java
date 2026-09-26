@@ -6,6 +6,7 @@ import id.seria.jobs.model.JobOrder;
 import id.seria.jobs.model.JobProfile;
 import id.seria.jobs.model.LeaderboardEntry;
 import id.seria.jobs.model.LeaderboardPeriod;
+import id.seria.jobs.model.WorkOrder;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -93,6 +94,51 @@ public class PAPIExpansion extends PlaceholderExpansion {
         if (player == null) return "";
 
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+
+        // Blueprint: jobsorder and reroll placeholders
+        if (lower.startsWith("jobsorder_") || lower.startsWith("order_reputation_") || lower.startsWith("reroll_") || lower.equals("can_reroll") || lower.equals("order_max_slots")) {
+            String subParam = lower.startsWith("jobsorder_") ? lower.substring("jobsorder_".length()) : lower;
+            if (subParam.startsWith("order_reputation_")) {
+                String slotStr = subParam.substring("order_reputation_".length());
+                try {
+                    int slot = Integer.parseInt(slotStr);
+                    WorkOrder wo = profile.getActiveOrder(slot);
+                    if (wo != null) {
+                        return String.valueOf(wo.getGeneratedReputationAmount());
+                    }
+                } catch (NumberFormatException ignored) {}
+                return "0";
+            }
+            if (subParam.equals("reroll_current")) {
+                return String.valueOf(profile.getRerollCount());
+            }
+            if (subParam.equals("reroll_max")) {
+                return "10";
+            }
+            if (subParam.equals("reroll_remaining")) {
+                return String.valueOf(Math.max(0, 10 - profile.getRerollCount()));
+            }
+            if (subParam.equals("can_reroll")) {
+                return String.valueOf(profile.canReroll());
+            }
+            if (subParam.equals("reroll_cost_gins")) {
+                int cost = plugin.getOrderGenerationService() != null
+                        ? plugin.getOrderGenerationService().calculateRerollCost(profile.getRerollCount())
+                        : 3000;
+                return String.valueOf(cost);
+            }
+            if (subParam.equals("max_slots") || subParam.equals("order_max_slots")) {
+                int rep = plugin.getReputationBridgeService() != null
+                        ? plugin.getReputationBridgeService().getPlayerReputation(player)
+                        : 0;
+                int threshold = plugin.getConfig().getInt("reputation.slot4-threshold", 500);
+                boolean hasPaidRank = player.hasPermission("seriajobs.rank.paid")
+                        || player.hasPermission("seriajobs.donor")
+                        || player.hasPermission("seriajobs.vip")
+                        || player.isOp();
+                return String.valueOf(profile.getMaxAllowedSlots(rep, threshold, hasPaidRank));
+            }
+        }
 
         // 5. LuckPerms Placeholders
         if (lower.startsWith("luckperms_") || lower.startsWith("lp_")) {

@@ -5,7 +5,9 @@ import com.zaxxer.hikari.HikariDataSource;
 import id.seria.jobs.SeriaJobs;
 import id.seria.jobs.api.JobLevelUpEvent;
 import id.seria.jobs.model.Job;
+import id.seria.jobs.model.JobOrder;
 import id.seria.jobs.model.JobProfile;
+import id.seria.jobs.model.WorkOrder;
 import id.seria.jobs.utils.TextUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -162,6 +164,22 @@ public class PlayerDataManager {
                 stmt.execute("CREATE TABLE IF NOT EXISTS seriajobs_leaderboard_meta (" +
                         "meta_key VARCHAR(64) PRIMARY KEY, " +
                         "meta_value VARCHAR(128));");
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS seriajobs_player_shifts (" +
+                        "uuid VARCHAR(36), " +
+                        "shift_id VARCHAR(64), " +
+                        "reroll_count INT DEFAULT 0, " +
+                        "PRIMARY KEY (uuid, shift_id));");
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS seriajobs_slot_orders (" +
+                        "uuid VARCHAR(36), " +
+                        "shift_id VARCHAR(64), " +
+                        "job_id VARCHAR(64), " +
+                        "slot_index INT, " +
+                        "order_id VARCHAR(64), " +
+                        "generated_reputation INT DEFAULT 0, " +
+                        "is_completed INT DEFAULT 0, " +
+                        "PRIMARY KEY (uuid, shift_id, job_id, slot_index));");
             } catch (SQLException e) {
                 plugin.getLogger().severe("Failed to create tables: " + e.getMessage());
             }
@@ -238,6 +256,47 @@ public class PlayerDataManager {
                             profile.setOrderProgress(currentShift, jobId, orderId, progress);
                             if (isCompleted == 1) {
                                 profile.markOrderCompleted(currentShift, jobId, orderId);
+                            }
+                        }
+                    }
+                }
+
+                // Load shift reroll count
+                try (PreparedStatement ps = conn.prepareStatement(
+                        "SELECT reroll_count FROM seriajobs_player_shifts WHERE uuid = ? AND shift_id = ?")) {
+                    ps.setString(1, uuid.toString());
+                    ps.setString(2, currentShift);
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (rs.next()) {
+                            profile.setRerollCount(rs.getInt("reroll_count"));
+                        } else {
+                            profile.setRerollCount(0);
+                        }
+                    }
+                }
+
+                // Load slot orders
+                try (PreparedStatement ps = conn.prepareStatement(
+                        "SELECT * FROM seriajobs_slot_orders WHERE uuid = ? AND shift_id = ?")) {
+                    ps.setString(1, uuid.toString());
+                    ps.setString(2, currentShift);
+                    try (ResultSet rs = ps.executeQuery()) {
+                        while (rs.next()) {
+                            int slot = rs.getInt("slot_index");
+                            String jobId = rs.getString("job_id");
+                            String orderId = rs.getString("order_id");
+                            int rep = rs.getInt("generated_reputation");
+                            int completed = rs.getInt("is_completed");
+
+                            Job job = plugin.getJobRegistry().getJob(jobId);
+                            if (job != null) {
+                                JobOrder jo = job.getOrder(orderId);
+                                if (jo != null) {
+                                    int level = profile.getJobLevel(jobId);
+                                    WorkOrder wo = plugin.getOrderGenerationService().generateOrder(jo, level);
+                                    wo.setCompleted(completed == 1);
+                                    profile.setActiveOrder(slot, wo);
+                                }
                             }
                         }
                     }
@@ -351,6 +410,76 @@ public class PlayerDataManager {
 
                         psMySql.setInt(7, progress);
                         psMySql.setInt(8, isCompleted);
+                        psMySql.executeUpdate();
+                    } catch (SQLException ignored) {}
+                }
+            }
+
+            // Save shift reroll count
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "INSERT INTO seriajobs_player_shifts (uuid, shift_id, reroll_count) VALUES (?, ?, ?) " +
+                            "ON CONFLICT(uuid, shift_id) DO UPDATE SET reroll_count = ?;")) {
+                ps.setString(1, uuidStr);
+                ps.setString(2, shiftId);
+                ps.setInt(3, profile.getRerollCount());
+                ps.setInt(4, profile.getRerollCount());
+                ps.executeUpdate();
+            } catch (SQLException fallbackSqlite) {
+                try (PreparedStatement psMySql = conn.prepareStatement(
+                        "INSERT INTO seriajobs_player_shifts (uuid, shift_id, reroll_count) VALUES (?, ?, ?) " +
+                                "ON DUPLICATE KEY UPDATE reroll_count = ?;")) {
+                    psMySql.setString(1, uuidStr);
+                    psMySql.setString(2, shiftId);
+                    psMySql.setInt(3, profile.getRerollCount());
+                    psMySql.setInt(4, profile.getRerollCount());
+                    psMySql.executeUpdate();
+                } catch (SQLException ignored) {}
+            }
+
+            // Save slot orders
+            for (Map.Entry<Integer, WorkOrder> entry : profile.getActiveOrders().entrySet()) {
+                int slot = entry.getKey();
+                WorkOrder wo = entry.getValue();
+                if (wo == null) continue;
+                String jobId = wo.getTemplate().getOriginalJobOrder() != null
+                        ? wo.getTemplate().getOriginalJobOrder().getJobId()
+                        : (wo.getTemplate().getJobType() != null ? wo.getTemplate().getJobType().getId() : "default");
+                String orderId = wo.getTemplate().getTemplateId();
+                int rep = wo.getGeneratedReputationAmount();
+                int completed = wo.isCompleted() ? 1 : 0;
+
+                try (PreparedStatement ps = conn.prepareStatement(
+                        "INSERT INTO seriajobs_slot_orders (uuid, shift_id, job_id, slot_index, order_id, generated_reputation, is_completed) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+                                "ON CONFLICT(uuid, shift_id, job_id, slot_index) DO UPDATE SET order_id = ?, generated_reputation = ?, is_completed = ?;")) {
+                    ps.setString(1, uuidStr);
+                    ps.setString(2, shiftId);
+                    ps.setString(3, jobId);
+                    ps.setInt(4, slot);
+                    ps.setString(5, orderId);
+                    ps.setInt(6, rep);
+                    ps.setInt(7, completed);
+
+                    ps.setString(8, orderId);
+                    ps.setInt(9, rep);
+                    ps.setInt(10, completed);
+                    ps.executeUpdate();
+                } catch (SQLException fallbackSqlite) {
+                    try (PreparedStatement psMySql = conn.prepareStatement(
+                            "INSERT INTO seriajobs_slot_orders (uuid, shift_id, job_id, slot_index, order_id, generated_reputation, is_completed) " +
+                                    "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+                                    "ON DUPLICATE KEY UPDATE order_id = ?, generated_reputation = ?, is_completed = ?;")) {
+                        psMySql.setString(1, uuidStr);
+                        psMySql.setString(2, shiftId);
+                        psMySql.setString(3, jobId);
+                        psMySql.setInt(4, slot);
+                        psMySql.setString(5, orderId);
+                        psMySql.setInt(6, rep);
+                        psMySql.setInt(7, completed);
+
+                        psMySql.setString(8, orderId);
+                        psMySql.setInt(9, rep);
+                        psMySql.setInt(10, completed);
                         psMySql.executeUpdate();
                     } catch (SQLException ignored) {}
                 }

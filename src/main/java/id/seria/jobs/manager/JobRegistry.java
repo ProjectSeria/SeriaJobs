@@ -29,6 +29,7 @@ public class JobRegistry {
      */
     public void load() {
         jobs.clear();
+        id.seria.jobs.model.JobType.clear();
         File jobsFolder = new File(plugin.getDataFolder(), "jobs");
         if (!jobsFolder.exists()) {
             jobsFolder.mkdirs();
@@ -147,8 +148,20 @@ public class JobRegistry {
                     customRewardsDisplay = sec.getStringList("rewards-display");
                 }
 
+                int minRep = sec.getInt("min-reputation-amount", sec.getInt("min-reputation", 0));
+                int maxRep = sec.getInt("max-reputation-amount", sec.getInt("max-reputation", 0));
+                double rewardGins = sec.getDouble("reward-gins", sec.getDouble("gins", 0.0));
+                int rewardJobXp = sec.getInt("reward-job-xp", sec.getInt("job-xp", 0));
+                double rewardAuraXp = sec.getDouble("reward-aura-xp", sec.getDouble("aura-xp", 0.0));
+                double rareDropChance = sec.getDouble("rare-drop-chance", sec.getDouble("rare-chance", 0.0));
+                List<String> rewardActions = sec.getStringList("reward-actions");
+                if (rewardActions.isEmpty()) {
+                    rewardActions = sec.getStringList("actions");
+                }
+
                 JobOrder order = new JobOrder(orderKey, id, orderDisplayName, orderLore, source, mat,
-                        customModelData, strictNbt, mmoType, mmoId, customItemId, amount, rewards, customRewardsDisplay);
+                        customModelData, strictNbt, mmoType, mmoId, customItemId, amount, rewards, customRewardsDisplay,
+                        minRep, maxRep, rewardGins, rewardJobXp, rewardAuraXp, rareDropChance, rewardActions);
                 ordersMap.put(orderKey.toLowerCase(), order);
             }
         }
@@ -201,9 +214,11 @@ public class JobRegistry {
             }
         }
 
+        String auraSkill = config.getString("aura-skill", config.getString("auraskill", config.getString("aura_skill", config.getString("skill-binding"))));
+
         return new Job(id, displayName, icon, description, maxLevel, baseXp, multiplier,
                 levelingEquation, incomeEquation, pointsEquation, expEquation,
-                activeOrdersCount, ordersMap, levelRewards, levelDisplayRewards, levelIcons);
+                activeOrdersCount, ordersMap, levelRewards, levelDisplayRewards, levelIcons, auraSkill);
     }
 
     public List<Reward> parseRewardsList(List<Map<?, ?>> rewardList) {

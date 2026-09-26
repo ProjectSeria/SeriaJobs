@@ -37,16 +37,21 @@ public class CustomPlaceholderManager {
             folder.mkdirs();
         }
 
-        // Check if folder is empty, copy default playerlevel.yml
-        File defaultFile = new File(folder, "playerlevel.yml");
-        if (!defaultFile.exists()) {
-            try (InputStream in = plugin.getResource("placeholder/playerlevel.yml")) {
+        // Check and copy default templates
+        saveTemplateFile(folder, "playerlevel.yml");
+        saveTemplateFile(folder, "reroll.yml");
+    }
+
+    private void saveTemplateFile(File folder, String fileName) {
+        File file = new File(folder, fileName);
+        if (!file.exists()) {
+            try (InputStream in = plugin.getResource("placeholder/" + fileName)) {
                 if (in != null) {
-                    Files.copy(in, defaultFile.toPath());
-                    plugin.getLogger().info("Created default placeholder template: placeholder/playerlevel.yml");
+                    Files.copy(in, file.toPath());
+                    plugin.getLogger().info("Created default placeholder template: placeholder/" + fileName);
                 }
             } catch (Exception e) {
-                plugin.getLogger().log(Level.WARNING, "Could not save default playerlevel.yml", e);
+                plugin.getLogger().log(Level.WARNING, "Could not save default " + fileName, e);
             }
         }
     }

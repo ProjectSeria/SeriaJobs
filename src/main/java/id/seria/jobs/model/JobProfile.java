@@ -19,6 +19,12 @@ public class JobProfile {
     // Cooldown on leave: jobId -> expireTimestamp (millis)
     private final Map<String, Long> leaveCooldowns = new ConcurrentHashMap<>();
 
+    // Blueprint: Reroll counter per rotation cycle (max 10)
+    private volatile int rerollCount = 0;
+
+    // Blueprint: Active work orders per slot index (1–5)
+    private final Map<Integer, WorkOrder> activeOrders = new ConcurrentHashMap<>();
+
     public JobProfile(@NotNull UUID uuid) {
         this.uuid = uuid;
     }
@@ -127,5 +133,70 @@ public class JobProfile {
 
     public Map<String, Long> getLeaveCooldowns() {
         return leaveCooldowns;
+    }
+
+    /**
+     * Menghitung kapasitas slot aktif berdasarkan reputasi dan status donatur:
+     * - hasPaidRank == true -> 5 slot aktif
+     * - externalReputation >= thresholdSlot4 -> 4 slot aktif
+     * - default non-rank -> 3 slot aktif
+     */
+    public int getMaxAllowedSlots(int externalReputation, int thresholdSlot4, boolean hasPaidRank) {
+        if (hasPaidRank) {
+            return 5;
+        }
+        if (externalReputation >= thresholdSlot4) {
+            return 4;
+        }
+        return 3;
+    }
+
+    /**
+     * Evaluasi langsung rerollCount < 10.
+     */
+    public boolean canReroll() {
+        return rerollCount < 10;
+    }
+
+    /**
+     * Menambah counter reroll pemain.
+     */
+    public void incrementReroll() {
+        this.rerollCount++;
+    }
+
+    /**
+     * Mengembalikan rerollCount = 0 saat rotasi 4–6 jam dipicu.
+     */
+    public void resetRerolls() {
+        this.rerollCount = 0;
+    }
+
+    public int getRerollCount() {
+        return rerollCount;
+    }
+
+    public void setRerollCount(int rerollCount) {
+        this.rerollCount = Math.max(0, rerollCount);
+    }
+
+    public Map<Integer, WorkOrder> getActiveOrders() {
+        return activeOrders;
+    }
+
+    public WorkOrder getActiveOrder(int slotIndex) {
+        return activeOrders.get(slotIndex);
+    }
+
+    public void setActiveOrder(int slotIndex, WorkOrder order) {
+        if (order != null) {
+            activeOrders.put(slotIndex, order);
+        } else {
+            activeOrders.remove(slotIndex);
+        }
+    }
+
+    public void clearActiveOrders() {
+        activeOrders.clear();
     }
 }

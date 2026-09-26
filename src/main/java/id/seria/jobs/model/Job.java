@@ -29,6 +29,8 @@ public class Job {
     private final Map<Integer, List<Reward>> levelRewards;
     private final Map<Integer, List<String>> levelDisplayRewards;
     private final Map<Integer, org.bukkit.configuration.ConfigurationSection> levelIcons;
+    private final String auraSkillName;
+    private final JobType jobType;
 
     public Job(@NotNull String id,
                @NotNull String displayName,
@@ -48,7 +50,7 @@ public class Job {
         this(id, displayName, icon, description, maxLevel, baseXp, multiplier,
                 levelingProgressionEquation, incomeProgressionEquation, pointsProgressionEquation,
                 experienceProgressionEquation, activeOrdersCount, ordersPool, levelRewards,
-                levelDisplayRewards, Collections.emptyMap());
+                levelDisplayRewards, Collections.emptyMap(), null);
     }
 
     public Job(@NotNull String id,
@@ -67,6 +69,29 @@ public class Job {
                @NotNull Map<Integer, List<Reward>> levelRewards,
                @NotNull Map<Integer, List<String>> levelDisplayRewards,
                @NotNull Map<Integer, org.bukkit.configuration.ConfigurationSection> levelIcons) {
+        this(id, displayName, icon, description, maxLevel, baseXp, multiplier,
+                levelingProgressionEquation, incomeProgressionEquation, pointsProgressionEquation,
+                experienceProgressionEquation, activeOrdersCount, ordersPool, levelRewards,
+                levelDisplayRewards, levelIcons, null);
+    }
+
+    public Job(@NotNull String id,
+               @NotNull String displayName,
+               @NotNull Material icon,
+               @NotNull List<String> description,
+               int maxLevel,
+               int baseXp,
+               double multiplier,
+               @Nullable String levelingProgressionEquation,
+               @Nullable String incomeProgressionEquation,
+               @Nullable String pointsProgressionEquation,
+               @Nullable String experienceProgressionEquation,
+               int activeOrdersCount,
+               @NotNull Map<String, JobOrder> ordersPool,
+               @NotNull Map<Integer, List<Reward>> levelRewards,
+               @NotNull Map<Integer, List<String>> levelDisplayRewards,
+               @NotNull Map<Integer, org.bukkit.configuration.ConfigurationSection> levelIcons,
+               @Nullable String auraSkillName) {
         this.id = id;
         this.displayName = displayName;
         this.icon = icon;
@@ -83,6 +108,8 @@ public class Job {
         this.levelRewards = levelRewards;
         this.levelDisplayRewards = levelDisplayRewards;
         this.levelIcons = levelIcons != null ? levelIcons : Collections.emptyMap();
+        this.auraSkillName = (auraSkillName != null && !auraSkillName.isBlank()) ? auraSkillName : id.toLowerCase();
+        this.jobType = JobType.getOrCreate(this.id, this.displayName, this.auraSkillName);
     }
 
     @NotNull
@@ -93,6 +120,16 @@ public class Job {
     @NotNull
     public String getDisplayName() {
         return displayName;
+    }
+
+    @NotNull
+    public String getAuraSkillName() {
+        return auraSkillName;
+    }
+
+    @NotNull
+    public JobType getJobType() {
+        return jobType;
     }
 
     @NotNull

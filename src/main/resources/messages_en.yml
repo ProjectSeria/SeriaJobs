@@ -26,6 +26,11 @@ orders:
   order-completed: "<gradient:#10b981:#34d399><bold>CONTRACT FULFILLED!</bold></gradient> <gray>Contract <gold>{order}</gold> completed! Rewards have been added to your account.</gray>"
   stash-delivered: "<aqua>[Stash]</aqua> <yellow>Your inventory is full! Reward items were delivered to your SeriaCore /stash mailbox.</yellow>"
   already-completed: "<yellow>This work order has already been completed during the current shift!</yellow>"
+  reroll-max-reached: "<red>Maximum reroll quota (10x) for this period has been reached!</red>"
+  reroll-insufficient-gins: "<red>Insufficient Gins balance for reroll! Required: <gold>{cost} Gins</gold>.</red>"
+  reroll-insufficient-serium: "<red>Insufficient Serium balance for reroll! Required: <aqua>{cost} Serium</aqua>.</red>"
+  reroll-success-gins: "<green>Successfully rerolled order slot #{slot}! Cost: <gold>{cost} Gins</gold>. Remaining quota: <yellow>{remaining}/10</yellow>.</green>"
+  reroll-success-serium: "<green>Successfully rerolled order slot #{slot}! Cost: <aqua>{cost} Serium</aqua>. Remaining quota: <yellow>{remaining}/10</yellow>.</green>"
 
 admin:
   forceroll-all: "<green>Successfully forced a new market contract shift for all jobs!</green>"

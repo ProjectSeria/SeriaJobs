@@ -156,3 +156,123 @@ leaderboards:
         - type: "VAULT"
           amount: 10000
 
+# ==============================================================
+# Integrasi Reputasi & Slot Pesanan Pasar (Blueprint)
+# ==============================================================
+reputation:
+  # Placeholder PAPI untuk membaca saldo reputasi pemain
+  placeholder: "%excelenteconomy_balance_reputasi%"
+  # Batas reputasi yang dibutuhkan untuk membuka Slot ke-4
+  slot4-threshold: 500
+  # Perintah default jika order tidak menentukan reward-actions spesifik
+  default-action: "[console] excelenteconomy give %player% reputasi %amount%"
+
+slots:
+  # Permission status donatur / rank berbayar untuk membuka Slot ke-5
+  paid-rank-permission: "seriajobs.rank.paid"
+
+# ==============================================================
+# Sistem Reroll Pesanan Pasar
+# ==============================================================
+reroll:
+  # Batas maksimal roll per siklus rotasi pasar (4-6 jam)
+  max-count: 10
+  # Formula linier bertahap: Biaya = min(Base * (1 + currentRoll * 0.5), Cap)
+  formula:
+    base: 3000.0
+    increase: 1500.0
+    cap: 15000.0
+  # Biaya alternatif menggunakan Serium (mata uang premium)
+  serium-cost: 1
+  # Perintah penarikan saldo Serium (jika plugin coinsengine/excelenteconomy menggunakan command)
+  serium-command: "excelenteconomy withdraw %player% serium %amount%"
+
+# ==============================================================
+# Pengaturan Aksi Klik Kartu Pesanan Pasar (Order Click Actions)
+# Aksi yang didukung:
+#  - [TURN_IN] / [DEPOSIT] : Setorkan barang pesanan dari inventaris
+#  - [REROLL_GINS] / [REROLL] : Reroll pesanan di slot ini dengan Gins
+#  - [REROLL_SERIUM] : Reroll pesanan di slot ini dengan Serium
+#  - [DEPOSIT_ALL] : Setor semua pesanan sekaligus
+#  - [REFRESH] : Refresh tampilan menu
+#  - [CLOSE] : Tutup menu
+#  - [OPEN_PROGRESSION] : Buka menu roadmap level
+#  - [CONSOLE] <command> : Jalankan perintah console (%player%, %slot%, %job%)
+#  - [PLAYER] <command> : Jalankan perintah sebagai player
+#  - [MESSAGE] <text> : Kirim pesan MiniMessage ke player
+#  - [SOUND] <sound> : Putar efek suara
+# ==============================================================
+order-clicks:
+  # Aksi klik kiri pada kartu pesanan
+  left-click:
+    - "[TURN_IN]"
+  # Aksi klik kanan pada kartu pesanan
+  right-click:
+    - "[REROLL_GINS]"
+  # Aksi shift + klik kanan pada kartu pesanan
+  shift-right-click:
+    - "[REROLL_SERIUM]"
+  # Aksi shift + klik kiri pada kartu pesanan
+  shift-left-click:
+    - "[DEPOSIT_ALL]"
+  # Aksi klik tengah (mouse wheel click)
+  middle-click:
+    - "[TURN_IN]"
+
+# ==============================================================
+# Pengaturan Aksi Klik Tombol Reroll Khusus (Reroll Button Clicks)
+# ==============================================================
+reroll-button-clicks:
+  # Aksi klik kiri pada tombol reroll
+  left-click:
+    - "[REROLL_GINS]"
+  # Aksi klik kanan pada tombol reroll
+  right-click:
+    - "[REROLL_SERIUM]"
+
+# ==============================================================
+# Hadiah Bonus Drop Langka (Rare Drop & Weight Table)
+# ==============================================================
+rare-drop:
+  # Peluang umum terjadinya rare drop saat pesanan selesai (misal 5% = 5.0 atau 0.05).
+  # Jika pesanan di jobs/*.yml memiliki rare-drop-chance tersendiri, nilai pesanan yang diprioritaskan.
+  default-chance: 5.0
+
+  # Pesan dan suara bawaan
+  message: "<gold><bold>[BONUS LANGKA!]</bold> <yellow>Kamu mendapatkan hadiah langka dari penyelesaian pesanan pasar ini!</yellow>"
+  sound: "UI_TOAST_CHALLENGE_COMPLETE"
+
+  # Tabel item drop langka berdasarkan bobot (weight-based drop table).
+  # Persentase peluang setiap item dihitung otomatis dari: (weight item / total seluruh weight) * 100%
+  # Contoh dengan total weight 100:
+  # - extra_gins: weight 60 -> (60 / 100) = 60% peluang
+  # - serium_bonus: weight 30 -> (30 / 100) = 30% peluang
+  # - high_reputation: weight 10 -> (10 / 100) = 10% peluang
+  #
+  # TIPS:
+  # Jika ingin mengatur peluang "zonk / tidak dapat apa-apa" langsung di tabel weight ini (tanpa perlu default-chance):
+  # Set `default-chance: 100.0`, lalu tambahkan entry `none:` dengan weight tertentu (misal: weight: 90 untuk 90% zonk, dan item lain total weight 10 untuk 10% dapat).
+  rewards:
+    extra_gins:
+      weight: 60
+      display-name: "<yellow>Bonus Gins Melimpah</yellow>"
+      message: "<yellow>Kamu mendapatkan drop langka: <gold>+15.000 Gins</gold>!</yellow>"
+      sound: "ENTITY_PLAYER_LEVELUP"
+      actions:
+        - "[console] eco give %player% 15000"
+    serium_bonus:
+      weight: 30
+      display-name: "<aqua>Pecahan Kristal Serium</aqua>"
+      message: "<yellow>Kamu mendapatkan drop langka: <aqua>+1 Serium</aqua>!</yellow>"
+      sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      actions:
+        - "[console] excelenteconomy give %player% serium 1"
+    high_reputation:
+      weight: 10
+      display-name: "<light_purple>Reputasi Pasar Agung</light_purple>"
+      message: "<yellow>Kamu mendapatkan drop langka: <light_purple>+50 Reputasi Ekstra</light_purple>!</yellow>"
+      sound: "UI_TOAST_CHALLENGE_COMPLETE"
+      actions:
+        - "[console] excelenteconomy give %player% reputasi 50"
+
+

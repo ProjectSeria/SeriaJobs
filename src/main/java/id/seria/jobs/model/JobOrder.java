@@ -1,12 +1,16 @@
 package id.seria.jobs.model;
 
 import id.seria.jobs.SeriaJobs;
+import id.seria.jobs.model.reward.AuraSkillsXPReward;
+import id.seria.jobs.model.reward.JobXPReward;
 import id.seria.jobs.model.reward.Reward;
+import id.seria.jobs.model.reward.VaultReward;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +34,15 @@ public class JobOrder {
     // Rewards
     private final List<Reward> rewards;
     private final List<String> customRewardsDisplay;
+
+    // Blueprint Extended Properties
+    private final int minReputationAmount;
+    private final int maxReputationAmount;
+    private final double rewardGins;
+    private final int rewardJobXp;
+    private final double rewardAuraXp;
+    private final double rareDropChance;
+    private final List<String> rewardActions;
 
     public JobOrder(@NotNull String id,
                     @NotNull String jobId,
@@ -62,6 +75,32 @@ public class JobOrder {
                     int amount,
                     @NotNull List<Reward> rewards,
                     @Nullable List<String> customRewardsDisplay) {
+        this(id, jobId, displayName, lore, source, material, customModelData, strictNbt,
+                mmoItemType, mmoItemId, customItemId, amount, rewards, customRewardsDisplay,
+                0, 0, 0.0, 0, 0.0, 0.0, Collections.emptyList());
+    }
+
+    public JobOrder(@NotNull String id,
+                    @NotNull String jobId,
+                    @NotNull String displayName,
+                    @NotNull List<String> lore,
+                    @NotNull String source,
+                    @Nullable Material material,
+                    @Nullable Integer customModelData,
+                    boolean strictNbt,
+                    @Nullable String mmoItemType,
+                    @Nullable String mmoItemId,
+                    @Nullable String customItemId,
+                    int amount,
+                    @NotNull List<Reward> rewards,
+                    @Nullable List<String> customRewardsDisplay,
+                    int minReputationAmount,
+                    int maxReputationAmount,
+                    double rewardGins,
+                    int rewardJobXp,
+                    double rewardAuraXp,
+                    double rareDropChance,
+                    @Nullable List<String> rewardActions) {
         this.id = id;
         this.jobId = jobId;
         this.displayName = displayName;
@@ -74,8 +113,44 @@ public class JobOrder {
         this.mmoItemId = mmoItemId;
         this.customItemId = customItemId;
         this.amount = amount;
-        this.rewards = rewards;
+        this.rewards = rewards != null ? rewards : Collections.emptyList();
         this.customRewardsDisplay = customRewardsDisplay != null ? customRewardsDisplay : Collections.emptyList();
+
+        this.minReputationAmount = minReputationAmount;
+        this.maxReputationAmount = maxReputationAmount;
+        this.rareDropChance = rareDropChance;
+        this.rewardActions = rewardActions != null ? new ArrayList<>(rewardActions) : Collections.emptyList();
+
+        // If explicit rewards are provided (>0), use them; otherwise extract from Reward list
+        double computedGins = rewardGins;
+        int computedJobXp = rewardJobXp;
+        double computedAuraXp = rewardAuraXp;
+
+        if (computedGins <= 0.0) {
+            for (Reward r : this.rewards) {
+                if (r instanceof VaultReward vr) {
+                    computedGins += vr.getAmount();
+                }
+            }
+        }
+        if (computedJobXp <= 0) {
+            for (Reward r : this.rewards) {
+                if (r instanceof JobXPReward jxr) {
+                    computedJobXp += jxr.getXp();
+                }
+            }
+        }
+        if (computedAuraXp <= 0.0) {
+            for (Reward r : this.rewards) {
+                if (r instanceof AuraSkillsXPReward axr) {
+                    computedAuraXp += axr.getXp();
+                }
+            }
+        }
+
+        this.rewardGins = computedGins;
+        this.rewardJobXp = computedJobXp;
+        this.rewardAuraXp = computedAuraXp;
     }
 
     @NotNull
@@ -165,5 +240,64 @@ public class JobOrder {
 
     public boolean hasCustomRewardsDisplay() {
         return customRewardsDisplay != null && !customRewardsDisplay.isEmpty();
+    }
+
+    public int getMinReputationAmount() {
+        return minReputationAmount;
+    }
+
+    public int getMaxReputationAmount() {
+        return maxReputationAmount;
+    }
+
+    public double getRewardGins() {
+        return rewardGins;
+    }
+
+    public int getRewardJobXp() {
+        return rewardJobXp;
+    }
+
+    public double getRewardAuraXp() {
+        return rewardAuraXp;
+    }
+
+    public double getRareDropChance() {
+        return rareDropChance;
+    }
+
+    @NotNull
+    public List<String> getRewardActions() {
+        return Collections.unmodifiableList(rewardActions);
+    }
+
+    /**
+     * Converts this JobOrder into an OrderTemplate instance from blueprint.
+     */
+    @NotNull
+    public OrderTemplate toTemplate() {
+        return toTemplate(this.amount);
+    }
+
+    /**
+     * Converts this JobOrder into an OrderTemplate with scaled target amount.
+     */
+    @NotNull
+    public OrderTemplate toTemplate(int targetAmount) {
+        JobType jobType = JobType.fromId(this.jobId);
+        return new OrderTemplate(
+                this.id,
+                jobType,
+                this.material,
+                targetAmount,
+                this.minReputationAmount,
+                this.maxReputationAmount,
+                this.rewardGins,
+                this.rewardJobXp,
+                this.rewardAuraXp,
+                this.rareDropChance,
+                this.rewardActions,
+                this
+        );
     }
 }

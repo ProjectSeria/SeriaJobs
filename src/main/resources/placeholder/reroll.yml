@@ -1,0 +1,76 @@
+# ==============================================================================
+# SeriaJobs - Custom Reroll Placeholders Engine (SeriaCore Nested Architecture)
+# File: placeholder/reroll.yml
+# Usage:
+#   %custom_reroll_status%                -> Tampilan status / instruksi reroll dinamis
+#   %custom_reroll_choice%                -> 'gins', 'serium', atau 'none'
+#   %custom_reroll_choice-message%        -> Teks pilihan sesuai kondisi saldo
+#   %seriajobs_custom_reroll_status%
+# ==============================================================================
+
+# 1. Pengecekan Batas Maksimal Kuota Reroll (10/10)
+# Jika can_reroll = false, langsung tampilkan batas maksimal tercapai
+status:
+  type: "function"
+  function: "short-track"
+  input: "%jobsorder_can_reroll%"
+  tracks:
+    "==false": "<red>✖ Batas maksimal reroll periode ini tercapai (10/10)</red>"
+    "==true": "%custom_reroll_payment-check%"
+    default: "%custom_reroll_payment-check%"
+
+# 2. Perhitungan Selisih Saldo Gins terhadap Biaya Reroll
+# Formula: Saldo Gins Pemain - Biaya Reroll Berikutnya
+math-gins-difference:
+  type: "math"
+  input: "%vault_eco_balance% - %jobsorder_reroll_cost_gins%"
+
+# 3. Pengecekan Saldo Gins (Jika selisih >= 0, maka saldo Gins mencukupi)
+payment-check:
+  type: "function"
+  function: "short-track"
+  input: "%custom_reroll_math-gins-difference%"
+  tracks:
+    # Jika saldo Gins mencukupi, utamakan opsi Reroll Gins
+    ">=0": "<yellow>▶ Klik Kanan:</yellow> <white>Reroll Kontrak (<gold>%jobsorder_reroll_cost_gins% Gins</gold>)</white>"
+    # Jika saldo Gins kurang, teruskan ke pengecekan Serium
+    "<0": "%custom_reroll_serium-check%"
+    default: "%custom_reroll_serium-check%"
+
+# 4. Pengecekan Saldo Serium jika saldo Gins tidak mencukupi
+serium-check:
+  type: "function"
+  function: "short-track"
+  input: "%jobsorder_serium_balance%"
+  tracks:
+    # Jika memiliki minimal 1 Serium, tampilkan opsi Reroll Serium
+    ">=1": "<aqua>▶ Shift + Klik Kanan:</aqua> <white>Reroll Kontrak (<aqua>1 Serium</aqua>)</white>"
+    # Jika saldo Gins maupun Serium dua-duanya tidak mencukupi
+    default: "<red>✖ Saldo tidak cukup untuk Reroll (<yellow>%jobsorder_reroll_cost_gins% Gins</yellow> / <aqua>1 Serium</aqua>)</red>"
+
+# 5. Identifier Pilihan Ringkas (Mengembalikan kata kunci 'gins', 'serium', atau 'none')
+choice:
+  type: "function"
+  function: "short-track"
+  input: "%jobsorder_can_reroll%"
+  tracks:
+    "==false": "none"
+    "==true": "%custom_reroll_choice-payment%"
+    default: "%custom_reroll_choice-payment%"
+
+choice-payment:
+  type: "function"
+  function: "short-track"
+  input: "%custom_reroll_math-gins-difference%"
+  tracks:
+    ">=0": "gins"
+    "<0": "%custom_reroll_choice-serium%"
+    default: "%custom_reroll_choice-serium%"
+
+choice-serium:
+  type: "function"
+  function: "short-track"
+  input: "%jobsorder_serium_balance%"
+  tracks:
+    ">=1": "serium"
+    default: "none"

@@ -3,6 +3,7 @@ package id.seria.jobs.manager;
 import id.seria.jobs.SeriaJobs;
 import id.seria.jobs.model.Job;
 import id.seria.jobs.model.JobOrder;
+import id.seria.jobs.model.JobProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitTask;
@@ -143,7 +144,7 @@ public class OrderPoolManager {
         timerTask = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             if (System.currentTimeMillis() >= nextRotationTimestamp) {
                 Bukkit.getScheduler().runTask(plugin, () -> {
-                    rollAllOrders();
+                    new OrderRotationTask(plugin).run();
                     calculateNextRotation();
                     saveState();
                     plugin.getLogger().info("Market shift rotated! New shift: " + currentShiftId);
@@ -159,6 +160,16 @@ public class OrderPoolManager {
         for (Job job : plugin.getJobRegistry().getJobs()) {
             rollJobOrders(job);
         }
+
+        // Reset rerolls and active orders for online players
+        for (org.bukkit.entity.Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            JobProfile profile = plugin.getPlayerDataManager().getProfile(onlinePlayer.getUniqueId());
+            if (profile != null) {
+                profile.resetRerolls();
+                profile.clearActiveOrders();
+            }
+        }
+
         calculateNextRotation();
         saveState();
     }

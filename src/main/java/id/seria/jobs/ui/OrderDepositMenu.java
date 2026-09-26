@@ -199,10 +199,8 @@ public class OrderDepositMenu extends BaseMenu {
 
             inventory.setItem(slot, cardItem);
 
-            clickActions.put(slot, e -> {
-                e.setCancelled(true);
-                handleDepositOrder(order, profile, shiftId);
-            });
+            int slotNumber = slotIdx;
+            bindOrderCardActions(slot, order, profile, shiftId, slotNumber);
         }
     }
 
@@ -219,6 +217,84 @@ public class OrderDepositMenu extends BaseMenu {
             }
         }
         super.handleActions(actions);
+    }
+
+    private void bindOrderCardActions(int slot, JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
+        org.bukkit.configuration.ConfigurationSection orderCardSec = menuConfig != null ? menuConfig.getConfigurationSection("order-card") : null;
+        org.bukkit.configuration.ConfigurationSection incompleteSec = orderCardSec != null ? orderCardSec.getConfigurationSection("incomplete") : null;
+        org.bukkit.configuration.ConfigurationSection globalSec = plugin.getConfig().getConfigurationSection("order-clicks");
+
+        List<String> leftActions = getActionList(incompleteSec, orderCardSec, globalSec, "left-click", "left-click-actions");
+        List<String> rightActions = getActionList(incompleteSec, orderCardSec, globalSec, "right-click", "right-click-actions");
+        List<String> shiftRightActions = getActionList(incompleteSec, orderCardSec, globalSec, "shift-right-click", "shift-right-click-actions");
+        List<String> shiftLeftActions = getActionList(incompleteSec, orderCardSec, globalSec, "shift-left-click", "shift-left-click-actions");
+        List<String> middleActions = getActionList(incompleteSec, orderCardSec, globalSec, "middle-click", "middle-click-actions");
+        List<String> generalActions = getActionList(incompleteSec, orderCardSec, globalSec, "click-actions", "actions");
+
+        final List<String> fLeftActions = (leftActions.isEmpty() && generalActions.isEmpty()) ? List.of("[TURN_IN]") : leftActions;
+        final List<String> fShiftRightActions = shiftRightActions.isEmpty() ? List.of("[REROLL_GINS]") : shiftRightActions;
+        final List<String> fRightActions = rightActions;
+        final List<String> fShiftLeftActions = shiftLeftActions;
+        final List<String> fMiddleActions = middleActions;
+        final List<String> fGeneralActions = generalActions;
+
+        if (!fGeneralActions.isEmpty()) {
+            clickActions.put(slot, e -> executeOrderActions(fGeneralActions, order, profile, shiftId, slotNumber));
+        }
+        if (!fLeftActions.isEmpty()) {
+            leftClickActions.put(slot, e -> executeOrderActions(fLeftActions, order, profile, shiftId, slotNumber));
+        }
+        if (!fRightActions.isEmpty()) {
+            rightClickActions.put(slot, e -> executeOrderActions(fRightActions, order, profile, shiftId, slotNumber));
+        }
+        if (!fShiftLeftActions.isEmpty()) {
+            shiftLeftClickActions.put(slot, e -> executeOrderActions(fShiftLeftActions, order, profile, shiftId, slotNumber));
+        }
+        if (!fShiftRightActions.isEmpty()) {
+            shiftRightClickActions.put(slot, e -> executeOrderActions(fShiftRightActions, order, profile, shiftId, slotNumber));
+        }
+        if (!fMiddleActions.isEmpty()) {
+            middleClickActions.put(slot, e -> executeOrderActions(fMiddleActions, order, profile, shiftId, slotNumber));
+        }
+    }
+
+    private List<String> getActionList(org.bukkit.configuration.ConfigurationSection s1,
+                                       org.bukkit.configuration.ConfigurationSection s2,
+                                       org.bukkit.configuration.ConfigurationSection s3,
+                                       String k1, String k2) {
+        if (s1 != null && s1.contains(k1)) return s1.getStringList(k1);
+        if (s1 != null && s1.contains(k2)) return s1.getStringList(k2);
+        if (s2 != null && s2.contains(k1)) return s2.getStringList(k1);
+        if (s2 != null && s2.contains(k2)) return s2.getStringList(k2);
+        if (s3 != null && s3.contains(k1)) return s3.getStringList(k1);
+        if (s3 != null && s3.contains(k2)) return s3.getStringList(k2);
+        return List.of();
+    }
+
+    private void executeOrderActions(List<String> actions, JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
+        if (actions == null || actions.isEmpty()) return;
+        for (String act : actions) {
+            String trimmed = act.trim();
+            if (trimmed.equalsIgnoreCase("[TURN_IN]") || trimmed.equalsIgnoreCase("[DEPOSIT]")) {
+                handleDepositOrder(order, profile, shiftId);
+            } else if (trimmed.equalsIgnoreCase("[REROLL]") || trimmed.equalsIgnoreCase("[REROLL_GINS]")) {
+                if (plugin.getJobsManager().executeRerollGins(player, job.getId(), slotNumber)) {
+                    refresh();
+                }
+            } else if (trimmed.equalsIgnoreCase("[REROLL_SERIUM]")) {
+                if (plugin.getJobsManager().executeRerollSerium(player, job.getId(), slotNumber)) {
+                    refresh();
+                }
+            } else if (trimmed.equalsIgnoreCase("[DEPOSIT_ALL]")) {
+                handleDepositAll();
+            } else if (trimmed.equalsIgnoreCase("[REFRESH]")) {
+                refresh();
+            } else if (trimmed.equalsIgnoreCase("[CLOSE]")) {
+                player.closeInventory();
+            } else {
+                handleActions(List.of(trimmed));
+            }
+        }
     }
 
     private void handleDepositOrder(JobOrder order, JobProfile profile, String shiftId) {
@@ -258,6 +334,17 @@ public class OrderDepositMenu extends BaseMenu {
             // Execute all rewards
             for (Reward reward : order.getRewards()) {
                 reward.apply(player, job);
+            }
+
+            // Execute reward actions if present
+            if (plugin.getActionRunnerService() != null && !order.getRewardActions().isEmpty()) {
+                int rep = order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 10;
+                plugin.getActionRunnerService().executeAllActions(player, order.getRewardActions(), rep);
+            }
+
+            // Check and trigger weight-based rare drop
+            if (plugin.getJobsManager() != null) {
+                plugin.getJobsManager().checkAndTriggerRareReward(player, job, order);
             }
 
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.order-completed",
@@ -305,6 +392,15 @@ public class OrderDepositMenu extends BaseMenu {
 
                     for (Reward reward : order.getRewards()) {
                         reward.apply(player, job);
+                    }
+
+                    if (plugin.getActionRunnerService() != null && !order.getRewardActions().isEmpty()) {
+                        int rep = order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 10;
+                        plugin.getActionRunnerService().executeAllActions(player, order.getRewardActions(), rep);
+                    }
+
+                    if (plugin.getJobsManager() != null) {
+                        plugin.getJobsManager().checkAndTriggerRareReward(player, job, order);
                     }
 
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.order-completed",

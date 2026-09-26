@@ -79,8 +79,19 @@ order-card:
       - ""
       - "<yellow><bold>Contract Rewards:</bold></yellow>"
       - "{rewards_list}"
-      - ""
-      - "<green>▶ Click to deposit items from your inventory</green>"
+      - "<green>▶ Left-Click to deposit items from your inventory</green>"
+      - "%custom_reroll_status%"
+
+    # Konfigurasi aksi klik spesifik per kartu pesanan di menu ini:
+    left-click:
+      - "[TURN_IN]"
+    right-click:
+      - "[REROLL_GINS]"
+    shift-right-click:
+      - "[REROLL_SERIUM]"
+    shift-left-click:
+      - "[DEPOSIT_ALL]"
+
   completed:
     name: "{order_display_name} <green>[COMPLETED]</green>"
     lore:

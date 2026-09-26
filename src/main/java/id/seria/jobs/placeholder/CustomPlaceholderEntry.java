@@ -1,6 +1,7 @@
 package id.seria.jobs.placeholder;
 
 import id.seria.core.gui.menu.MenuRequirementEvaluator;
+import id.seria.jobs.SeriaJobs;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -60,10 +61,22 @@ public class CustomPlaceholderEntry {
     @NotNull
     public String evaluate(@Nullable Player player) {
         String evaluatedInput = input != null ? input : "";
-        if (player != null && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            try {
-                evaluatedInput = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, evaluatedInput);
-            } catch (Throwable ignored) {}
+        int depth = 0;
+        while (evaluatedInput.contains("%") && depth < 6) {
+            String prev = evaluatedInput;
+            if (player != null && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+                try {
+                    evaluatedInput = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, evaluatedInput);
+                } catch (Throwable ignored) {}
+            }
+            if (evaluatedInput.equals(prev)) {
+                var mgr = SeriaJobs.getInstance().getCustomPlaceholderManager();
+                if (mgr != null && (evaluatedInput.contains("%custom_") || evaluatedInput.contains("%seriajobs_custom_"))) {
+                    evaluatedInput = resolveCustomPlaceholdersDirectly(player, evaluatedInput, mgr);
+                }
+            }
+            if (evaluatedInput.equals(prev)) break;
+            depth++;
         }
         evaluatedInput = evaluatedInput.trim();
 
@@ -214,10 +227,51 @@ public class CustomPlaceholderEntry {
 
     private String resolveOutput(@Nullable Player player, @Nullable String text) {
         if (text == null) return "";
-        if (player != null && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            try {
-                text = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, text);
-            } catch (Throwable ignored) {}
+        int depth = 0;
+        while (text != null && text.contains("%") && depth < 6) {
+            String prev = text;
+            if (player != null && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+                try {
+                    text = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, text);
+                } catch (Throwable ignored) {}
+            }
+            if (text != null && text.equals(prev)) {
+                var mgr = SeriaJobs.getInstance().getCustomPlaceholderManager();
+                if (mgr != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
+                    text = resolveCustomPlaceholdersDirectly(player, text, mgr);
+                }
+            }
+            if (text == null || text.equals(prev)) break;
+            depth++;
+        }
+        return text != null ? text : "";
+    }
+
+    private String resolveCustomPlaceholdersDirectly(Player player, String text, CustomPlaceholderManager mgr) {
+        int start;
+        while ((start = text.indexOf("%custom_")) != -1) {
+            int end = text.indexOf('%', start + 8);
+            if (end == -1) break;
+            String token = text.substring(start, end + 1);
+            String param = text.substring(start + 8, end);
+            String resolved = mgr.evaluate(player, param);
+            if (resolved != null) {
+                text = text.replace(token, resolved);
+            } else {
+                break;
+            }
+        }
+        while ((start = text.indexOf("%seriajobs_custom_")) != -1) {
+            int end = text.indexOf('%', start + 18);
+            if (end == -1) break;
+            String token = text.substring(start, end + 1);
+            String param = text.substring(start + 18, end);
+            String resolved = mgr.evaluate(player, param);
+            if (resolved != null) {
+                text = text.replace(token, resolved);
+            } else {
+                break;
+            }
         }
         return text;
     }

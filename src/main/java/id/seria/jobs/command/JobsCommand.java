@@ -95,6 +95,69 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
+            case "order":
+            case "orders":
+            case "market":
+            case "bursa": {
+                if (!(sender instanceof Player player)) {
+                    sender.sendMessage(plugin.getLanguageManager().getMessage(null, "general.player-only"));
+                    return true;
+                }
+                String jobId = args.length >= 2 ? args[1] : "";
+                if (jobId.isEmpty()) {
+                    JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+                    if (!profile.getActiveJobs().isEmpty()) {
+                        jobId = profile.getActiveJobs().iterator().next();
+                    }
+                }
+                if (plugin.getJobsMenuService() != null) {
+                    plugin.getJobsMenuService().openJobMenu(player, jobId);
+                }
+                return true;
+            }
+
+            case "reroll": {
+                if (!(sender instanceof Player player)) {
+                    sender.sendMessage(plugin.getLanguageManager().getMessage(null, "general.player-only"));
+                    return true;
+                }
+                if (args.length < 2) {
+                    player.sendMessage("§eGunakan: §f/jobs reroll <slot 1-5> [gins|serium] [jobId]");
+                    return true;
+                }
+                int slotIndex;
+                try {
+                    slotIndex = Integer.parseInt(args[1]);
+                } catch (NumberFormatException e) {
+                    player.sendMessage("§cNomor slot harus berupa angka antara 1 sampai 5.");
+                    return true;
+                }
+                if (slotIndex < 1 || slotIndex > 5) {
+                    player.sendMessage("§cNomor slot harus antara 1 sampai 5.");
+                    return true;
+                }
+
+                String currency = args.length >= 3 ? args[2].toLowerCase() : "gins";
+                String jobId = args.length >= 4 ? args[3] : "";
+                if (jobId.isEmpty()) {
+                    JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+                    if (!profile.getActiveJobs().isEmpty()) {
+                        jobId = profile.getActiveJobs().iterator().next();
+                    }
+                }
+                if (jobId.isEmpty()) {
+                    player.sendMessage("§cKamu belum bergabung ke pekerjaan apa pun!");
+                    return true;
+                }
+
+                if (currency.equals("serium")) {
+                    plugin.getJobsManager().executeRerollSerium(player, jobId, slotIndex);
+                } else {
+                    plugin.getJobsManager().executeRerollGins(player, jobId, slotIndex);
+                }
+                return true;
+            }
+
             case "admin": {
                 if (!sender.hasPermission("seriajobs.admin")) {
                     sender.sendMessage(plugin.getLanguageManager().getMessage(sender instanceof Player p ? p : null, "general.no-permission"));
@@ -372,10 +435,13 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             completions.add("join");
             completions.add("leave");
+            completions.add("orders");
+            completions.add("market");
             completions.add("rewards");
             completions.add("progression");
             completions.add("leaderboard");
             completions.add("top");
+            completions.add("reroll");
             if (sender.hasPermission("seriajobs.admin")) {
                 completions.add("admin");
                 completions.add("reload");
@@ -384,8 +450,14 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("reroll")) {
+                completions.addAll(List.of("1", "2", "3", "4", "5"));
+                return filterCompletions(completions, args[1]);
+            }
             if (args[0].equalsIgnoreCase("join") || args[0].equalsIgnoreCase("leave")
-                    || args[0].equalsIgnoreCase("rewards") || args[0].equalsIgnoreCase("progression")) {
+                    || args[0].equalsIgnoreCase("rewards") || args[0].equalsIgnoreCase("progression")
+                    || args[0].equalsIgnoreCase("orders") || args[0].equalsIgnoreCase("order")
+                    || args[0].equalsIgnoreCase("market")) {
                 completions.addAll(plugin.getJobRegistry().getJobs().stream().map(Job::getId).toList());
                 return filterCompletions(completions, args[1]);
             }
@@ -404,6 +476,11 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 3) {
+            if (args[0].equalsIgnoreCase("reroll")) {
+                completions.add("gins");
+                completions.add("serium");
+                return filterCompletions(completions, args[2]);
+            }
             if (args[0].equalsIgnoreCase("leaderboard") || args[0].equalsIgnoreCase("top")) {
                 completions.add("weekly");
                 completions.add("monthly");
@@ -427,15 +504,21 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             }
         }
 
-        if (args.length == 4 && args[0].equalsIgnoreCase("admin") && sender.hasPermission("seriajobs.admin")) {
-            if (args[1].equalsIgnoreCase("leaderboard") || args[1].equalsIgnoreCase("top")) {
-                completions.add("weekly");
-                completions.add("monthly");
-                return filterCompletions(completions, args[3]);
-            }
-            if (args[1].equalsIgnoreCase("setlevel")) {
+        if (args.length == 4) {
+            if (args[0].equalsIgnoreCase("reroll")) {
                 completions.addAll(plugin.getJobRegistry().getJobs().stream().map(Job::getId).toList());
                 return filterCompletions(completions, args[3]);
+            }
+            if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("seriajobs.admin")) {
+                if (args[1].equalsIgnoreCase("leaderboard") || args[1].equalsIgnoreCase("top")) {
+                    completions.add("weekly");
+                    completions.add("monthly");
+                    return filterCompletions(completions, args[3]);
+                }
+                if (args[1].equalsIgnoreCase("setlevel")) {
+                    completions.addAll(plugin.getJobRegistry().getJobs().stream().map(Job::getId).toList());
+                    return filterCompletions(completions, args[3]);
+                }
             }
         }
 

@@ -35,6 +35,9 @@ public abstract class BaseMenu implements InventoryHolder {
     protected final Map<Integer, Consumer<InventoryClickEvent>> clickActions = new HashMap<>();
     protected final Map<Integer, Consumer<InventoryClickEvent>> leftClickActions = new HashMap<>();
     protected final Map<Integer, Consumer<InventoryClickEvent>> rightClickActions = new HashMap<>();
+    protected final Map<Integer, Consumer<InventoryClickEvent>> shiftLeftClickActions = new HashMap<>();
+    protected final Map<Integer, Consumer<InventoryClickEvent>> shiftRightClickActions = new HashMap<>();
+    protected final Map<Integer, Consumer<InventoryClickEvent>> middleClickActions = new HashMap<>();
 
     public BaseMenu(SeriaJobs plugin, Player player, String menuConfigName) {
         this.plugin = plugin;
@@ -57,6 +60,9 @@ public abstract class BaseMenu implements InventoryHolder {
         clickActions.clear();
         leftClickActions.clear();
         rightClickActions.clear();
+        shiftLeftClickActions.clear();
+        shiftRightClickActions.clear();
+        middleClickActions.clear();
         build();
         player.updateInventory();
     }
@@ -339,11 +345,24 @@ public abstract class BaseMenu implements InventoryHolder {
         return slots;
     }
 
-    private void bindActions(int slot, ConfigurationSection sec) {
+    protected void bindActions(int slot, ConfigurationSection sec) {
         List<String> rawGeneral = sec.getStringList("click-actions");
         final List<String> generalActions = rawGeneral.isEmpty() ? sec.getStringList("actions") : rawGeneral;
-        final List<String> leftActions = sec.getStringList("left-click-actions");
-        final List<String> rightActions = sec.getStringList("right-click-actions");
+
+        List<String> rawLeft = sec.getStringList("left-click-actions");
+        final List<String> leftActions = rawLeft.isEmpty() ? sec.getStringList("left-click") : rawLeft;
+
+        List<String> rawRight = sec.getStringList("right-click-actions");
+        final List<String> rightActions = rawRight.isEmpty() ? sec.getStringList("right-click") : rawRight;
+
+        List<String> rawShiftLeft = sec.getStringList("shift-left-click-actions");
+        final List<String> shiftLeftActions = rawShiftLeft.isEmpty() ? sec.getStringList("shift-left-click") : rawShiftLeft;
+
+        List<String> rawShiftRight = sec.getStringList("shift-right-click-actions");
+        final List<String> shiftRightActions = rawShiftRight.isEmpty() ? sec.getStringList("shift-right-click") : rawShiftRight;
+
+        List<String> rawMiddle = sec.getStringList("middle-click-actions");
+        final List<String> middleActions = rawMiddle.isEmpty() ? sec.getStringList("middle-click") : rawMiddle;
 
         if (!generalActions.isEmpty()) {
             clickActions.put(slot, e -> {
@@ -361,6 +380,24 @@ public abstract class BaseMenu implements InventoryHolder {
             rightClickActions.put(slot, e -> {
                 e.setCancelled(true);
                 handleActions(rightActions);
+            });
+        }
+        if (!shiftLeftActions.isEmpty()) {
+            shiftLeftClickActions.put(slot, e -> {
+                e.setCancelled(true);
+                handleActions(shiftLeftActions);
+            });
+        }
+        if (!shiftRightActions.isEmpty()) {
+            shiftRightClickActions.put(slot, e -> {
+                e.setCancelled(true);
+                handleActions(shiftRightActions);
+            });
+        }
+        if (!middleActions.isEmpty()) {
+            middleClickActions.put(slot, e -> {
+                e.setCancelled(true);
+                handleActions(middleActions);
             });
         }
     }
@@ -433,6 +470,18 @@ public abstract class BaseMenu implements InventoryHolder {
         if (rawSlot < inventory.getSize()) {
             event.setCancelled(true);
 
+            if (event.isShiftClick() && event.isRightClick() && shiftRightClickActions.containsKey(rawSlot)) {
+                shiftRightClickActions.get(rawSlot).accept(event);
+                return;
+            }
+            if (event.isShiftClick() && event.isLeftClick() && shiftLeftClickActions.containsKey(rawSlot)) {
+                shiftLeftClickActions.get(rawSlot).accept(event);
+                return;
+            }
+            if (event.getClick() == org.bukkit.event.inventory.ClickType.MIDDLE && middleClickActions.containsKey(rawSlot)) {
+                middleClickActions.get(rawSlot).accept(event);
+                return;
+            }
             if (event.isLeftClick() && leftClickActions.containsKey(rawSlot)) {
                 leftClickActions.get(rawSlot).accept(event);
                 return;

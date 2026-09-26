@@ -19,6 +19,7 @@ public class HookManager {
     private SeriaCoreHook seriaCoreHook;
     private SeriaTranslatorHook seriaTranslatorHook;
     private PAPIExpansion papiExpansion;
+    private JobsPlaceholderExpansion jobsOrderExpansion;
 
     private boolean vaultLoaded = false;
     private boolean excellentEconomyLoaded = false;
@@ -139,10 +140,14 @@ public class HookManager {
 
         // PlaceholderAPI Hook & SeriaCore Internal Provider
         papiExpansion = new PAPIExpansion(plugin);
+        jobsOrderExpansion = new JobsPlaceholderExpansion(plugin);
         if (plugin.getConfigManager().isHookEnabled("placeholderapi") && Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             if (papiExpansion.register()) {
                 papiLoaded = true;
                 plugin.getLogger().info("Registered %seriajobs% placeholders to PlaceholderAPI.");
+            }
+            if (jobsOrderExpansion.register()) {
+                plugin.getLogger().info("Registered %jobsorder% placeholders to PlaceholderAPI.");
             }
         }
 
@@ -155,6 +160,9 @@ public class HookManager {
     public void unregister() {
         if (papiExpansion != null && papiLoaded) {
             papiExpansion.unregister();
+        }
+        if (jobsOrderExpansion != null) {
+            jobsOrderExpansion.unregister();
         }
     }
 

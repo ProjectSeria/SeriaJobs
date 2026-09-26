@@ -33,6 +33,14 @@ public class SeriaJobs extends JavaPlugin {
     private LeaderboardManager leaderboardManager;
     private id.seria.jobs.placeholder.CustomPlaceholderManager customPlaceholderManager;
 
+    // Blueprint Services & Managers
+    private id.seria.jobs.service.EconomyService economyService;
+    private id.seria.jobs.service.ActionRunnerService actionRunnerService;
+    private id.seria.jobs.service.ReputationBridgeService reputationBridgeService;
+    private id.seria.jobs.service.OrderGenerationService orderGenerationService;
+    private id.seria.jobs.manager.JobsManager jobsManager;
+    private id.seria.jobs.ui.JobsMenuService jobsMenuService;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -57,7 +65,13 @@ public class SeriaJobs extends JavaPlugin {
         this.hookManager = new HookManager(this);
         this.hookManager.init();
 
-        // 4. Managers
+        // 4. Core Blueprint Services
+        this.economyService = new id.seria.jobs.service.EconomyService(this);
+        this.actionRunnerService = new id.seria.jobs.service.ActionRunnerService();
+        this.reputationBridgeService = new id.seria.jobs.service.ReputationBridgeService(this);
+        this.orderGenerationService = new id.seria.jobs.service.OrderGenerationService(this);
+
+        // 5. Managers
         this.playerDataManager = new PlayerDataManager(this);
         this.playerDataManager.init();
 
@@ -75,11 +89,24 @@ public class SeriaJobs extends JavaPlugin {
         this.customPlaceholderManager = new id.seria.jobs.placeholder.CustomPlaceholderManager(this);
         this.customPlaceholderManager.init();
 
-        // 5. Register Listeners
+        this.jobsManager = new id.seria.jobs.manager.JobsManager(
+                this,
+                this.economyService,
+                this.hookManager.getAuraSkillsHook(),
+                this.actionRunnerService,
+                this.reputationBridgeService,
+                this.playerDataManager,
+                this.orderGenerationService
+        );
+
+        this.jobsMenuService = new id.seria.jobs.ui.JobsMenuService(this);
+
+        // 6. Register Listeners
         Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new id.seria.jobs.ui.JobsMenuListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
 
-        // 6. Register Commands
+        // 7. Register Commands
         JobsCommand jobsCommand = new JobsCommand(this);
         PluginCommand cmd = getCommand("seriajobs");
         if (cmd != null) {
@@ -87,7 +114,7 @@ public class SeriaJobs extends JavaPlugin {
             cmd.setTabCompleter(jobsCommand);
         }
 
-        // 7. Load profiles for online players if reloaded
+        // 8. Load profiles for online players if reloaded
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             playerDataManager.loadProfileAsync(onlinePlayer.getUniqueId(), onlinePlayer.getName(), null);
         }
@@ -130,6 +157,9 @@ public class SeriaJobs extends JavaPlugin {
         jobRegistry.load();
         if (customPlaceholderManager != null) {
             customPlaceholderManager.load();
+        }
+        if (reputationBridgeService != null) {
+            reputationBridgeService.reload();
         }
         TranslationExporter.setupTranslationFolders(this);
         getLogger().info("SeriaJobs configurations and job registries reloaded.");
@@ -177,5 +207,29 @@ public class SeriaJobs extends JavaPlugin {
 
     public id.seria.jobs.placeholder.CustomPlaceholderManager getCustomPlaceholderManager() {
         return customPlaceholderManager;
+    }
+
+    public id.seria.jobs.service.EconomyService getEconomyService() {
+        return economyService;
+    }
+
+    public id.seria.jobs.service.ActionRunnerService getActionRunnerService() {
+        return actionRunnerService;
+    }
+
+    public id.seria.jobs.service.ReputationBridgeService getReputationBridgeService() {
+        return reputationBridgeService;
+    }
+
+    public id.seria.jobs.service.OrderGenerationService getOrderGenerationService() {
+        return orderGenerationService;
+    }
+
+    public id.seria.jobs.manager.JobsManager getJobsManager() {
+        return jobsManager;
+    }
+
+    public id.seria.jobs.ui.JobsMenuService getJobsMenuService() {
+        return jobsMenuService;
     }
 }
