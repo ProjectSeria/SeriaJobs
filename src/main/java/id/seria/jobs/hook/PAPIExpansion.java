@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PAPIExpansion extends PlaceholderExpansion {
@@ -244,6 +245,50 @@ public class PAPIExpansion extends PlaceholderExpansion {
 
         if (params.equalsIgnoreCase("active_jobs_count")) {
             return String.valueOf(profile.getActiveJobs().size());
+        }
+
+        // %seriajobs_active_jobs_list% / %seriajobs_active_jobs% / %seriajobs_jobs%
+        if (params.equalsIgnoreCase("active_jobs_list") || params.equalsIgnoreCase("active_jobs")
+                || params.equalsIgnoreCase("jobs_list") || params.equalsIgnoreCase("jobs")) {
+            if (profile.getActiveJobs().isEmpty()) {
+                return "-";
+            }
+            List<String> names = new ArrayList<>();
+            for (String jId : profile.getActiveJobs()) {
+                Job j = plugin.getJobRegistry().getJob(jId);
+                names.add(j != null ? j.getDisplayName() : jId);
+            }
+            return String.join("<gray>, </gray>", names);
+        }
+
+        // %seriajobs_order_completed% / %seriajobs_orders_completed% / %seriajobs_total_orders_completed%
+        if (params.equalsIgnoreCase("order_completed") || params.equalsIgnoreCase("orders_completed")
+                || params.equalsIgnoreCase("completed_orders") || params.equalsIgnoreCase("total_orders_completed")) {
+            if (plugin.getLeaderboardManager() != null) {
+                LeaderboardEntry entry = plugin.getLeaderboardManager().getPlayerGlobalEntry(player.getUniqueId(), LeaderboardPeriod.ALL_TIME);
+                return entry != null ? String.valueOf(entry.getOrdersCompleted()) : "0";
+            }
+            return "0";
+        }
+
+        // %seriajobs_order_completed_<period|jobId>% / %seriajobs_orders_completed_<period|jobId>%
+        if (lower.startsWith("order_completed_") || lower.startsWith("orders_completed_")) {
+            String sub = lower.startsWith("order_completed_")
+                    ? lower.substring("order_completed_".length())
+                    : lower.substring("orders_completed_".length());
+            if (sub.equals("weekly") || sub.equals("monthly") || sub.equals("alltime")) {
+                LeaderboardPeriod period = sub.equals("weekly") ? LeaderboardPeriod.WEEKLY : (sub.equals("monthly") ? LeaderboardPeriod.MONTHLY : LeaderboardPeriod.ALL_TIME);
+                if (plugin.getLeaderboardManager() != null) {
+                    LeaderboardEntry entry = plugin.getLeaderboardManager().getPlayerGlobalEntry(player.getUniqueId(), period);
+                    return entry != null ? String.valueOf(entry.getOrdersCompleted()) : "0";
+                }
+            } else {
+                if (plugin.getLeaderboardManager() != null) {
+                    LeaderboardEntry entry = plugin.getLeaderboardManager().getPlayerJobEntry(player.getUniqueId(), sub, LeaderboardPeriod.ALL_TIME);
+                    return entry != null ? String.valueOf(entry.getOrdersCompleted()) : "0";
+                }
+            }
+            return "0";
         }
 
         // seriajobs_has_job_<job_id>

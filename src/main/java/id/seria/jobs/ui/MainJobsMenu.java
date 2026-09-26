@@ -27,20 +27,53 @@ public class MainJobsMenu extends BaseMenu {
         if (text == null) return null;
         int activeCount = 0;
         int maxSlots = -1;
+        String activeJobsList = "-";
+        int ordersCompleted = 0;
+
         if (player != null && plugin.getPlayerDataManager() != null) {
             JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
             if (profile != null) {
                 activeCount = profile.getActiveJobs().size();
+                if (!profile.getActiveJobs().isEmpty()) {
+                    List<String> names = new ArrayList<>();
+                    for (String jId : profile.getActiveJobs()) {
+                        Job j = plugin.getJobRegistry().getJob(jId);
+                        names.add(j != null ? j.getDisplayName() : jId);
+                    }
+                    activeJobsList = String.join("<gray>, </gray>", names);
+                }
             }
             if (plugin.getSlotPermissionManager() != null) {
                 maxSlots = plugin.getSlotPermissionManager().getMaxSlots(player);
             }
+            if (plugin.getLeaderboardManager() != null) {
+                var entry = plugin.getLeaderboardManager().getPlayerGlobalEntry(player.getUniqueId(), id.seria.jobs.model.LeaderboardPeriod.ALL_TIME);
+                if (entry != null) {
+                    ordersCompleted = entry.getOrdersCompleted();
+                }
+            }
         }
         String maxStr = maxSlots == -1 ? "Tak Terbatas" : String.valueOf(maxSlots);
-        return text.replace("{active_jobs}", String.valueOf(activeCount))
-                .replace("%active_jobs%", String.valueOf(activeCount))
+        String ordersCompletedStr = String.valueOf(ordersCompleted);
+
+        return text.replace("{seriajobs_active_jobs_list}%", activeJobsList)
+                .replace("{seriajobs_active_jobs_list}", activeJobsList)
+                .replace("%seriajobs_active_jobs_list%", activeJobsList)
+                .replace("{active_jobs_list}", activeJobsList)
+                .replace("%active_jobs_list%", activeJobsList)
+                .replace("{seriajobs_order_completed}%", ordersCompletedStr)
+                .replace("{seriajobs_order_completed}", ordersCompletedStr)
+                .replace("%seriajobs_order_completed%", ordersCompletedStr)
+                .replace("{seriajobs_orders_completed}", ordersCompletedStr)
+                .replace("%seriajobs_orders_completed%", ordersCompletedStr)
+                .replace("{order_completed}", ordersCompletedStr)
+                .replace("%order_completed%", ordersCompletedStr)
+                .replace("{orders_completed}", ordersCompletedStr)
+                .replace("%orders_completed%", ordersCompletedStr)
                 .replace("{active_jobs_count}", String.valueOf(activeCount))
                 .replace("%active_jobs_count%", String.valueOf(activeCount))
+                .replace("{active_jobs}", String.valueOf(activeCount))
+                .replace("%active_jobs%", String.valueOf(activeCount))
                 .replace("{max_slots}", maxStr)
                 .replace("%max_slots%", maxStr);
     }
