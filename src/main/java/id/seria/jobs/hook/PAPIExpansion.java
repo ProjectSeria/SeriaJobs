@@ -322,17 +322,27 @@ public class PAPIExpansion extends PlaceholderExpansion {
             return "-";
         }
 
-        // seriajobs_primary_job_level / seriajobs_level
-        if (params.equalsIgnoreCase("level") || params.equalsIgnoreCase("primary_job_level")) {
-            if (!profile.getActiveJobs().isEmpty()) {
+        // seriajobs_level / seriajobs_job_level / seriajobs_primary_job_level / seriajobs_active_job_level / seriajobs_active_jobs_level
+        if (params.equalsIgnoreCase("level") || params.equalsIgnoreCase("job_level")
+                || params.equalsIgnoreCase("primary_job_level") || params.equalsIgnoreCase("active_job_level")
+                || params.equalsIgnoreCase("active_jobs_level") || params.equalsIgnoreCase("active_jobs_levels")) {
+            if (profile.getActiveJobs().isEmpty()) {
+                return "-";
+            }
+            if (profile.getActiveJobs().size() == 1) {
                 String firstJobId = profile.getActiveJobs().iterator().next();
                 return String.valueOf(profile.getJobLevel(firstJobId));
             }
-            return "1";
+            List<String> levels = new ArrayList<>();
+            for (String jId : profile.getActiveJobs()) {
+                levels.add(String.valueOf(profile.getJobLevel(jId)));
+            }
+            return String.join("<gray>, </gray>", levels);
         }
 
-        // seriajobs_primary_job_xp / seriajobs_xp
-        if (params.equalsIgnoreCase("xp") || params.equalsIgnoreCase("primary_job_xp")) {
+        // seriajobs_primary_job_xp / seriajobs_xp / seriajobs_job_xp / seriajobs_active_job_xp
+        if (params.equalsIgnoreCase("xp") || params.equalsIgnoreCase("job_xp")
+                || params.equalsIgnoreCase("primary_job_xp") || params.equalsIgnoreCase("active_job_xp")) {
             if (!profile.getActiveJobs().isEmpty()) {
                 String firstJobId = profile.getActiveJobs().iterator().next();
                 return String.valueOf(profile.getJobXp(firstJobId));
@@ -340,8 +350,9 @@ public class PAPIExpansion extends PlaceholderExpansion {
             return "0";
         }
 
-        // seriajobs_primary_job_required_xp / seriajobs_required_xp
-        if (params.equalsIgnoreCase("required_xp") || params.equalsIgnoreCase("primary_job_required_xp")) {
+        // seriajobs_primary_job_required_xp / seriajobs_required_xp / seriajobs_job_required_xp / seriajobs_active_job_required_xp
+        if (params.equalsIgnoreCase("required_xp") || params.equalsIgnoreCase("job_required_xp")
+                || params.equalsIgnoreCase("primary_job_required_xp") || params.equalsIgnoreCase("active_job_required_xp")) {
             if (!profile.getActiveJobs().isEmpty()) {
                 String firstJobId = profile.getActiveJobs().iterator().next();
                 Job job = plugin.getJobRegistry().getJob(firstJobId);
@@ -352,21 +363,27 @@ public class PAPIExpansion extends PlaceholderExpansion {
             return "100";
         }
 
-        // seriajobs_job_level_<job_id>
-        if (params.toLowerCase().startsWith("job_level_")) {
-            String jobId = params.substring("job_level_".length());
+        // seriajobs_job_level_<job_id> / seriajobs_level_<job_id>
+        if (lower.startsWith("job_level_") || lower.startsWith("level_")) {
+            String jobId = lower.startsWith("job_level_")
+                    ? lower.substring("job_level_".length())
+                    : lower.substring("level_".length());
             return String.valueOf(profile.getJobLevel(jobId));
         }
 
-        // seriajobs_job_xp_<job_id>
-        if (params.toLowerCase().startsWith("job_xp_")) {
-            String jobId = params.substring("job_xp_".length());
+        // seriajobs_job_xp_<job_id> / seriajobs_xp_<job_id>
+        if (lower.startsWith("job_xp_") || lower.startsWith("xp_")) {
+            String jobId = lower.startsWith("job_xp_")
+                    ? lower.substring("job_xp_".length())
+                    : lower.substring("xp_".length());
             return String.valueOf(profile.getJobXp(jobId));
         }
 
-        // seriajobs_job_required_xp_<job_id>
-        if (params.toLowerCase().startsWith("job_required_xp_")) {
-            String jobId = params.substring("job_required_xp_".length());
+        // seriajobs_job_required_xp_<job_id> / seriajobs_required_xp_<job_id>
+        if (lower.startsWith("job_required_xp_") || lower.startsWith("required_xp_")) {
+            String jobId = lower.startsWith("job_required_xp_")
+                    ? lower.substring("job_required_xp_".length())
+                    : lower.substring("required_xp_".length());
             Job job = plugin.getJobRegistry().getJob(jobId);
             if (job == null) return "0";
             int level = profile.getJobLevel(jobId);

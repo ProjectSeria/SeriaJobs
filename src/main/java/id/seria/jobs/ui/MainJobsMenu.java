@@ -28,6 +28,7 @@ public class MainJobsMenu extends BaseMenu {
         int activeCount = 0;
         int maxSlots = -1;
         String activeJobsList = "-";
+        String activeJobLevel = "-";
         int ordersCompleted = 0;
 
         if (player != null && plugin.getPlayerDataManager() != null) {
@@ -36,11 +37,14 @@ public class MainJobsMenu extends BaseMenu {
                 activeCount = profile.getActiveJobs().size();
                 if (!profile.getActiveJobs().isEmpty()) {
                     List<String> names = new ArrayList<>();
+                    List<String> levels = new ArrayList<>();
                     for (String jId : profile.getActiveJobs()) {
                         Job j = plugin.getJobRegistry().getJob(jId);
                         names.add(j != null ? j.getDisplayName() : jId);
+                        levels.add(String.valueOf(profile.getJobLevel(jId)));
                     }
                     activeJobsList = String.join("<gray>, </gray>", names);
+                    activeJobLevel = String.join("<gray>, </gray>", levels);
                 }
             }
             if (plugin.getSlotPermissionManager() != null) {
@@ -59,8 +63,23 @@ public class MainJobsMenu extends BaseMenu {
         return text.replace("{seriajobs_active_jobs_list}%", activeJobsList)
                 .replace("{seriajobs_active_jobs_list}", activeJobsList)
                 .replace("%seriajobs_active_jobs_list%", activeJobsList)
+                .replace("{seriajobs_active_jobs}%", activeJobsList)
+                .replace("{seriajobs_active_jobs}", activeJobsList)
+                .replace("%seriajobs_active_jobs%", activeJobsList)
                 .replace("{active_jobs_list}", activeJobsList)
                 .replace("%active_jobs_list%", activeJobsList)
+                .replace("{seriajobs_level}%", activeJobLevel)
+                .replace("{seriajobs_level}", activeJobLevel)
+                .replace("%seriajobs_level%", activeJobLevel)
+                .replace("{seriajobs_job_level}%", activeJobLevel)
+                .replace("{seriajobs_job_level}", activeJobLevel)
+                .replace("%seriajobs_job_level%", activeJobLevel)
+                .replace("{seriajobs_active_job_level}%", activeJobLevel)
+                .replace("{seriajobs_active_job_level}", activeJobLevel)
+                .replace("%seriajobs_active_job_level%", activeJobLevel)
+                .replace("{seriajobs_active_jobs_level}%", activeJobLevel)
+                .replace("{seriajobs_active_jobs_level}", activeJobLevel)
+                .replace("%seriajobs_active_jobs_level%", activeJobLevel)
                 .replace("{seriajobs_order_completed}%", ordersCompletedStr)
                 .replace("{seriajobs_order_completed}", ordersCompletedStr)
                 .replace("%seriajobs_order_completed%", ordersCompletedStr)
@@ -72,8 +91,6 @@ public class MainJobsMenu extends BaseMenu {
                 .replace("%orders_completed%", ordersCompletedStr)
                 .replace("{active_jobs_count}", String.valueOf(activeCount))
                 .replace("%active_jobs_count%", String.valueOf(activeCount))
-                .replace("{active_jobs}", String.valueOf(activeCount))
-                .replace("%active_jobs%", String.valueOf(activeCount))
                 .replace("{max_slots}", maxStr)
                 .replace("%max_slots%", maxStr);
     }
