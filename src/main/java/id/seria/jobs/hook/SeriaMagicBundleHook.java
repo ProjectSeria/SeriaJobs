@@ -231,8 +231,13 @@ public class SeriaMagicBundleHook {
             return cleanKey.equals(expected);
         }
         if (source.equals("CUSTOMFISHING") || source.equals("FISHING")) {
-            String expected = ("customfishing:" + order.getCustomItemId()).toLowerCase();
-            return cleanKey.equals(expected) || cleanKey.endsWith(":" + order.getCustomItemId().toLowerCase());
+            for (String cid : order.getCustomItemIds()) {
+                String expected = ("customfishing:" + cid).toLowerCase();
+                if (cleanKey.equals(expected) || cleanKey.endsWith(":" + cid.toLowerCase())) {
+                    return true;
+                }
+            }
+            return false;
         }
         if (source.equals("VANILLA")) {
             if (order.getMaterial() != null) {
@@ -242,9 +247,11 @@ public class SeriaMagicBundleHook {
                         || cleanKey.endsWith(":" + matName);
             }
         }
-        if (order.getCustomItemId() != null) {
-            String cid = order.getCustomItemId().toLowerCase();
-            return cleanKey.contains(":" + cid) || cleanKey.equals(cid);
+        for (String cid : order.getCustomItemIds()) {
+            String lower = cid.toLowerCase();
+            if (cleanKey.contains(":" + lower) || cleanKey.equals(lower)) {
+                return true;
+            }
         }
         return false;
     }

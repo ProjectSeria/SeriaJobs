@@ -70,9 +70,23 @@ public class JobProgressionMenu extends BaseMenu {
                 .replace("{required_xp}", String.valueOf(reqXp))
                 .replace("%required_xp%", String.valueOf(reqXp))
                 .replace("{req_xp}", String.valueOf(reqXp))
-                .replace("%req_xp%", String.valueOf(reqXp))
-                .replace("{page}", String.valueOf(page))
+                .replace("%req_xp%", String.valueOf(reqXp));
+
+        int maxPage = calculateMaxPage();
+        int nextPage = Math.min(maxPage, page + 1);
+        int prevPage = Math.max(1, page - 1);
+        text = text.replace("{page}", String.valueOf(page))
                 .replace("%page%", String.valueOf(page))
+                .replace("{current_page}", String.valueOf(page))
+                .replace("%current_page%", String.valueOf(page))
+                .replace("{max_page}", String.valueOf(maxPage))
+                .replace("%max_page%", String.valueOf(maxPage))
+                .replace("{total_pages}", String.valueOf(maxPage))
+                .replace("%total_pages%", String.valueOf(maxPage))
+                .replace("{next_page}", String.valueOf(nextPage))
+                .replace("%next_page%", String.valueOf(nextPage))
+                .replace("{prev_page}", String.valueOf(prevPage))
+                .replace("%prev_page%", String.valueOf(prevPage))
                 .replace("{seriajobs_order_completed}%", ordersCompletedStr)
                 .replace("{seriajobs_order_completed}", ordersCompletedStr)
                 .replace("%seriajobs_order_completed%", ordersCompletedStr)
@@ -85,9 +99,37 @@ public class JobProgressionMenu extends BaseMenu {
         return super.replacePlaceholders(text);
     }
 
+    private int calculateMaxPage() {
+        if (job == null) return 1;
+        List<Integer> slots = null;
+        if (menuConfig != null) {
+            if (menuConfig.isList("layout.level-slots.slots")) {
+                slots = menuConfig.getIntegerList("layout.level-slots.slots");
+            } else if (menuConfig.isList("layout.levels.slots")) {
+                slots = menuConfig.getIntegerList("layout.levels.slots");
+            } else if (menuConfig.isList("level-slots")) {
+                slots = menuConfig.getIntegerList("level-slots");
+            }
+        }
+        int perPage = (slots != null && !slots.isEmpty()) ? slots.size() : 21;
+        return Math.max(1, (int) Math.ceil((double) job.getMaxLevel() / perPage));
+    }
+
     @Override
     public void build() {
         createInventory(54, "<gradient:#f59e0b:#d97706>Roadmap Hadiah: " + job.getDisplayName() + "</gradient>");
+
+        // Dynamically update container title on Paper if player already has menu open
+        if (player != null && player.getOpenInventory() != null) {
+            try {
+                String rawTitle = menuConfig != null ? menuConfig.getString("title", "<gradient:#f59e0b:#d97706>Roadmap Hadiah: " + job.getDisplayName() + "</gradient>") : "";
+                rawTitle = replacePlaceholders(rawTitle);
+                Component titleComp = TextUtil.parseForPlayer(player, rawTitle);
+                String serialized = net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().serialize(titleComp);
+                player.getOpenInventory().setTitle(serialized);
+            } catch (Throwable ignored) {}
+        }
+
         applyFillers();
         applyCustomStaticItems();
 
@@ -183,13 +225,28 @@ public class JobProgressionMenu extends BaseMenu {
             }
         }
 
+        int percentage;
+        if (isReached) {
+            percentage = 100;
+        } else if (isNext) {
+            percentage = requiredXp <= 0 ? 100 : Math.min(100, Math.max(0, (int) Math.round(((double) currentXp / requiredXp) * 100)));
+        } else {
+            percentage = 0;
+        }
+
+        int progressForBar = isReached ? requiredXp : (isNext ? currentXp : 0);
+        String progressBar = createProgressBar(progressForBar, requiredXp);
+
         Map<String, String> placeholders = new HashMap<>();
         placeholders.put("{level}", String.valueOf(level));
         placeholders.put("{job_name}", job.getDisplayName());
         placeholders.put("{job_id}", job.getId());
         placeholders.put("{required_xp}", String.valueOf(level == 1 ? 0 : requiredXp));
         placeholders.put("{current_xp}", String.valueOf(currentXp));
+        placeholders.put("{xp}", String.valueOf(currentXp));
         placeholders.put("{needed_xp}", String.valueOf(needed));
+        placeholders.put("{percentage}", String.valueOf(percentage));
+        placeholders.put("{progress_bar}", progressBar);
         placeholders.put("{status}", isReached ? "TERCAPAI" : (isNext ? "LEVEL BERIKUTNYA" : "TERKUNCI"));
         placeholders.put("{status_color}", isReached ? "<green>" : (isNext ? "<yellow>" : "<gray>"));
         placeholders.put("{is_reached}", String.valueOf(isReached));
@@ -441,5 +498,23 @@ public class JobProgressionMenu extends BaseMenu {
             if (comparison.equals("!=") && input.equalsIgnoreCase(output)) return false;
         }
         return true;
+    }
+
+    private String createProgressBar(int progress, int total) {
+        int barLength = 20;
+        double percentage = (double) progress / Math.max(1, total);
+        int filled = (int) Math.round(percentage * barLength);
+        filled = Math.min(barLength, Math.max(0, filled));
+
+        StringBuilder sb = new StringBuilder("<dark_gray>[</dark_gray><green>");
+        for (int i = 0; i < filled; i++) {
+            sb.append("■");
+        }
+        sb.append("</green><gray>");
+        for (int i = filled; i < barLength; i++) {
+            sb.append("■");
+        }
+        sb.append("</gray><dark_gray>]</dark_gray>");
+        return sb.toString();
     }
 }

@@ -37,32 +37,48 @@ public class ItemMatcher {
                 if (!SeriaJobs.getInstance().getHookManager().isMythicMobsLoaded()) {
                     return false;
                 }
-                return SeriaJobs.getInstance().getHookManager().getMythicMobsHook()
-                        .matches(item, order.getCustomItemId());
+                for (String mId : order.getCustomItemIds()) {
+                    if (SeriaJobs.getInstance().getHookManager().getMythicMobsHook().matches(item, mId)) {
+                        return true;
+                    }
+                }
+                return false;
 
             case "CUSTOMFISHING":
             case "FISHING":
                 if (!SeriaJobs.getInstance().getHookManager().isCustomFishingLoaded()) {
                     return false;
                 }
-                return SeriaJobs.getInstance().getHookManager().getCustomFishingHook()
-                        .matches(item, order.getCustomItemId());
+                for (String fId : order.getCustomItemIds()) {
+                    if (SeriaJobs.getInstance().getHookManager().getCustomFishingHook().matches(item, fId)) {
+                        return true;
+                    }
+                }
+                return false;
 
             case "SERIAMAGICBUNDLE":
             case "MAGICBUNDLE":
                 if (!SeriaJobs.getInstance().getHookManager().isSeriaMagicBundleLoaded()) {
                     return false;
                 }
-                return SeriaJobs.getInstance().getHookManager().getSeriaMagicBundleHook()
-                        .matches(item, order.getCustomItemId());
+                for (String bId : order.getCustomItemIds()) {
+                    if (SeriaJobs.getInstance().getHookManager().getSeriaMagicBundleHook().matches(item, bId)) {
+                        return true;
+                    }
+                }
+                return false;
 
             case "SERIACRAFTING":
             case "CRAFTING":
                 if (!SeriaJobs.getInstance().getHookManager().isSeriaCraftingLoaded()) {
                     return false;
                 }
-                return SeriaJobs.getInstance().getHookManager().getSeriaCraftingHook()
-                        .matches(item, order.getCustomItemId());
+                for (String cId : order.getCustomItemIds()) {
+                    if (SeriaJobs.getInstance().getHookManager().getSeriaCraftingHook().matches(item, cId)) {
+                        return true;
+                    }
+                }
+                return false;
 
             case "VANILLA":
             default:
@@ -378,15 +394,27 @@ public class ItemMatcher {
                 return "MMOItem (" + order.getMmoItemId() + ")";
             case "MYTHICMOBS":
             case "MYTHIC":
+                if (order.getCustomItemIds().size() > 1) {
+                    return "MythicItem (" + order.getCustomItemIds().size() + " items)";
+                }
                 return "MythicItem (" + order.getCustomItemId() + ")";
             case "CUSTOMFISHING":
             case "FISHING":
+                if (order.getCustomItemIds().size() > 1) {
+                    return "CustomFishing (" + order.getCustomItemIds().size() + " items)";
+                }
                 return "CustomFishing (" + order.getCustomItemId() + ")";
             case "SERIAMAGICBUNDLE":
             case "MAGICBUNDLE":
+                if (order.getCustomItemIds().size() > 1) {
+                    return "MagicBundle (" + order.getCustomItemIds().size() + " items)";
+                }
                 return "MagicBundle (" + order.getCustomItemId() + ")";
             case "SERIACRAFTING":
             case "CRAFTING":
+                if (order.getCustomItemIds().size() > 1) {
+                    return "CraftedItem (" + order.getCustomItemIds().size() + " items)";
+                }
                 return "CraftedItem (" + order.getCustomItemId() + ")";
             case "VANILLA":
             default:

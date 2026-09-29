@@ -453,8 +453,8 @@ public abstract class BaseMenu implements InventoryHolder {
             text = resolveJobsOrderPlaceholdersDirectly(text);
         }
 
-        text = MenuRequirementEvaluator.evaluateMathExpressions(text);
         text = replacePlaceholders(text);
+        text = MenuRequirementEvaluator.evaluateMathExpressions(text);
 
         // 3. Fallback pass for nested custom placeholders after PAPI / Math
         if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {

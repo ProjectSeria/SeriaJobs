@@ -142,6 +142,29 @@ public class JobRegistry {
                 if (customItemId == null) customItemId = sec.getString("required-item.crafting-id");
                 if (customItemId == null) customItemId = sec.getString("required-item.item-id");
 
+                List<String> customItemIds = new ArrayList<>();
+                if (sec.contains("required-item.custom-item-ids")) {
+                    customItemIds.addAll(sec.getStringList("required-item.custom-item-ids"));
+                } else if (sec.contains("required-item.fishing-ids")) {
+                    customItemIds.addAll(sec.getStringList("required-item.fishing-ids"));
+                } else if (sec.contains("required-item.item-ids")) {
+                    customItemIds.addAll(sec.getStringList("required-item.item-ids"));
+                } else if (sec.contains("required-item.ids")) {
+                    customItemIds.addAll(sec.getStringList("required-item.ids"));
+                } else if (sec.contains("required-item.mythic-ids")) {
+                    customItemIds.addAll(sec.getStringList("required-item.mythic-ids"));
+                } else if (sec.contains("required-item.bundle-ids")) {
+                    customItemIds.addAll(sec.getStringList("required-item.bundle-ids"));
+                } else if (sec.contains("required-item.crafting-ids")) {
+                    customItemIds.addAll(sec.getStringList("required-item.crafting-ids"));
+                }
+
+                if (customItemIds.isEmpty() && customItemId != null && !customItemId.isEmpty()) {
+                    customItemIds.add(customItemId);
+                } else if (!customItemIds.isEmpty() && customItemId == null) {
+                    customItemId = customItemIds.get(0);
+                }
+
                 List<Reward> rewards = parseRewardsList(sec.getMapList("rewards"));
                 List<String> customRewardsDisplay = sec.getStringList("display-rewards");
                 if (customRewardsDisplay.isEmpty()) {
@@ -160,7 +183,7 @@ public class JobRegistry {
                 }
 
                 JobOrder order = new JobOrder(orderKey, id, orderDisplayName, orderLore, source, mat,
-                        customModelData, strictNbt, mmoType, mmoId, customItemId, amount, rewards, customRewardsDisplay,
+                        customModelData, strictNbt, mmoType, mmoId, customItemId, customItemIds, amount, rewards, customRewardsDisplay,
                         minRep, maxRep, rewardGins, rewardJobXp, rewardAuraXp, rareDropChance, rewardActions);
                 ordersMap.put(orderKey.toLowerCase(), order);
             }

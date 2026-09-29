@@ -29,6 +29,7 @@ public class JobOrder {
     private final String mmoItemType;
     private final String mmoItemId;
     private final String customItemId; // Generic ID for MythicMobs, CustomFishing, SeriaMagicBundle, SeriaCrafting
+    private final List<String> customItemIds; // Multi-ID list for collective orders (e.g. fishing-ids, custom-item-ids)
     private final int amount;
 
     // Rewards
@@ -101,6 +102,33 @@ public class JobOrder {
                     double rewardAuraXp,
                     double rareDropChance,
                     @Nullable List<String> rewardActions) {
+        this(id, jobId, displayName, lore, source, material, customModelData, strictNbt,
+                mmoItemType, mmoItemId, customItemId, null, amount, rewards, customRewardsDisplay,
+                minReputationAmount, maxReputationAmount, rewardGins, rewardJobXp, rewardAuraXp, rareDropChance, rewardActions);
+    }
+
+    public JobOrder(@NotNull String id,
+                    @NotNull String jobId,
+                    @NotNull String displayName,
+                    @NotNull List<String> lore,
+                    @NotNull String source,
+                    @Nullable Material material,
+                    @Nullable Integer customModelData,
+                    boolean strictNbt,
+                    @Nullable String mmoItemType,
+                    @Nullable String mmoItemId,
+                    @Nullable String customItemId,
+                    @Nullable List<String> customItemIds,
+                    int amount,
+                    @NotNull List<Reward> rewards,
+                    @Nullable List<String> customRewardsDisplay,
+                    int minReputationAmount,
+                    int maxReputationAmount,
+                    double rewardGins,
+                    int rewardJobXp,
+                    double rewardAuraXp,
+                    double rareDropChance,
+                    @Nullable List<String> rewardActions) {
         this.id = id;
         this.jobId = jobId;
         this.displayName = displayName;
@@ -111,7 +139,18 @@ public class JobOrder {
         this.strictNbt = strictNbt;
         this.mmoItemType = mmoItemType;
         this.mmoItemId = mmoItemId;
-        this.customItemId = customItemId;
+
+        List<String> ids = new ArrayList<>();
+        if (customItemIds != null && !customItemIds.isEmpty()) {
+            ids.addAll(customItemIds);
+        } else if (customItemId != null && !customItemId.isEmpty()) {
+            ids.add(customItemId);
+        }
+        this.customItemIds = Collections.unmodifiableList(ids);
+        this.customItemId = (customItemId != null && !customItemId.isEmpty())
+                ? customItemId
+                : (!this.customItemIds.isEmpty() ? this.customItemIds.get(0) : null);
+
         this.amount = amount;
         this.rewards = rewards != null ? rewards : Collections.emptyList();
         this.customRewardsDisplay = customRewardsDisplay != null ? customRewardsDisplay : Collections.emptyList();
@@ -205,6 +244,11 @@ public class JobOrder {
     @Nullable
     public String getCustomItemId() {
         return customItemId;
+    }
+
+    @NotNull
+    public List<String> getCustomItemIds() {
+        return customItemIds != null ? customItemIds : Collections.emptyList();
     }
 
     public int getAmount() {
