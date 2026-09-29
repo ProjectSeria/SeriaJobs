@@ -108,7 +108,7 @@ public abstract class BaseMenu implements InventoryHolder {
             if (!candidates.isEmpty()) {
                 candidates.sort((a, b) -> Integer.compare(b.getInt("priority", 0), a.getInt("priority", 0)));
                 for (ConfigurationSection candidate : candidates) {
-                    if (MenuRequirementEvaluator.checkViewRequirement(candidate, player)) {
+                    if (checkCandidateViewRequirement(candidate)) {
                         ItemStack item = buildItem(candidate);
                         inventory.setItem(slot, item);
                         clickActions.remove(slot);
@@ -134,7 +134,7 @@ public abstract class BaseMenu implements InventoryHolder {
                     continue;
                 List<Integer> slots = getSlots(sec);
                 if (slots.contains(slot)) {
-                    if (MenuRequirementEvaluator.checkViewRequirement(sec, player)) {
+                    if (checkCandidateViewRequirement(sec)) {
                         ItemStack item = buildItem(sec);
                         inventory.setItem(slot, item.clone());
                         clickActions.put(slot, e -> e.setCancelled(true));
@@ -276,7 +276,7 @@ public abstract class BaseMenu implements InventoryHolder {
                 continue;
 
             // Check view-requirement
-            if (!MenuRequirementEvaluator.checkViewRequirement(sec, player)) {
+            if (!checkCandidateViewRequirement(sec)) {
                 continue;
             }
 
@@ -326,7 +326,7 @@ public abstract class BaseMenu implements InventoryHolder {
             candidates.sort((a, b) -> Integer.compare(b.getInt("priority", 0), a.getInt("priority", 0)));
 
             for (ConfigurationSection candidate : candidates) {
-                if (MenuRequirementEvaluator.checkViewRequirement(candidate, player)) {
+                if (checkCandidateViewRequirement(candidate)) {
                     ItemStack item = buildItem(candidate);
                     inventory.setItem(slot, item);
                     bindActions(slot, candidate);
@@ -334,6 +334,65 @@ public abstract class BaseMenu implements InventoryHolder {
                 }
             }
         }
+    }
+
+    public boolean checkCandidateViewRequirement(ConfigurationSection itemSec) {
+        if (itemSec == null) return true;
+        ConfigurationSection reqSec = itemSec.getConfigurationSection("view-requirement");
+        if (reqSec == null) reqSec = itemSec.getConfigurationSection("view_requirement");
+        if (reqSec == null) return true;
+
+        ConfigurationSection requirementsSub = reqSec.getConfigurationSection("requirements");
+        if (requirementsSub != null) {
+            for (String key : requirementsSub.getKeys(false)) {
+                ConfigurationSection singleReq = requirementsSub.getConfigurationSection(key);
+                if (singleReq != null && !evaluateSingleCandidateRequirement(singleReq)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        for (String key : reqSec.getKeys(false)) {
+            if (key.equalsIgnoreCase("deny-actions") || key.equalsIgnoreCase("deny-action")
+                    || key.equalsIgnoreCase("deny-message") || key.equalsIgnoreCase("deny_actions")
+                    || key.equalsIgnoreCase("deny_action") || key.equalsIgnoreCase("deny_message")) {
+                continue;
+            }
+            if (reqSec.isConfigurationSection(key)) {
+                ConfigurationSection singleReq = reqSec.getConfigurationSection(key);
+                if (singleReq != null && !evaluateSingleCandidateRequirement(singleReq)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    protected boolean evaluateSingleCandidateRequirement(ConfigurationSection sec) {
+        String type = sec.getString("type", "").toLowerCase().trim();
+        if (sec.contains("taint")) {
+            return true;
+        }
+        if (type.equals("has permission") || type.equals("permission")) {
+            String perm = sec.getString("permission", sec.getString("input", ""));
+            perm = resolvePlaceholdersAndFunctions(perm);
+            return player.hasPermission(perm);
+        }
+        if (type.equals("!has permission") || type.equals("!permission")) {
+            String perm = sec.getString("permission", sec.getString("input", ""));
+            perm = resolvePlaceholdersAndFunctions(perm);
+            return !player.hasPermission(perm);
+        }
+
+        String rawInput = sec.getString("input", "");
+        String rawOutput = sec.getString("output", sec.getString("value", ""));
+        String comparison = sec.getString("comparison", "==");
+
+        String evaluatedInput = resolvePlaceholdersAndFunctions(rawInput);
+        String evaluatedOutput = resolvePlaceholdersAndFunctions(rawOutput);
+
+        return MenuRequirementEvaluator.compareValues(evaluatedInput, comparison, evaluatedOutput);
     }
 
     public ItemStack buildItem(ConfigurationSection sec) {
