@@ -177,30 +177,33 @@ public class JobProgressionMenu extends BaseMenu {
             clickActions.put(slot, e -> e.setCancelled(true));
         }
 
-        // Apply page info to pagination buttons if configured
+        // Apply page info to legacy pagination buttons if configured
         int finalMaxPage = maxPage;
         if (menuConfig != null) {
-            int prevSlot = menuConfig.getInt("items.previous_page.slot", 48);
-            int nextSlot = menuConfig.getInt("items.next_page.slot", 50);
-
-            if (page > 1) {
-                clickActions.put(prevSlot, e -> {
-                    e.setCancelled(true);
-                    page--;
-                    refresh();
-                });
-            } else {
-                clickActions.put(prevSlot, e -> e.setCancelled(true));
+            if (menuConfig.contains("items.previous_page.slot")) {
+                int prevSlot = menuConfig.getInt("items.previous_page.slot");
+                if (page > 1) {
+                    clickActions.put(prevSlot, e -> {
+                        e.setCancelled(true);
+                        page--;
+                        refresh();
+                    });
+                } else {
+                    clickActions.put(prevSlot, e -> e.setCancelled(true));
+                }
             }
 
-            if (page < finalMaxPage) {
-                clickActions.put(nextSlot, e -> {
-                    e.setCancelled(true);
-                    page++;
-                    refresh();
-                });
-            } else {
-                clickActions.put(nextSlot, e -> e.setCancelled(true));
+            if (menuConfig.contains("items.next_page.slot")) {
+                int nextSlot = menuConfig.getInt("items.next_page.slot");
+                if (page < finalMaxPage) {
+                    clickActions.put(nextSlot, e -> {
+                        e.setCancelled(true);
+                        page++;
+                        refresh();
+                    });
+                } else {
+                    clickActions.put(nextSlot, e -> e.setCancelled(true));
+                }
             }
         }
     }

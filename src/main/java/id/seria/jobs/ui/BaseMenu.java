@@ -350,8 +350,19 @@ public abstract class BaseMenu implements InventoryHolder {
             }
 
             // Potion Color (Tipped Arrow / Potion)
-            if (sec.contains("potion") && meta instanceof PotionMeta potionMeta) {
-                String hex = sec.getString("potion", "#518EFF");
+            if ((sec.contains("potion") || sec.contains("color")) && meta instanceof PotionMeta potionMeta) {
+                String hex = sec.getString("potion", sec.getString("color", "#518EFF"));
+                hex = resolvePlaceholdersAndFunctions(hex);
+                if (hex != null && hex.contains("<") && hex.contains(">")) {
+                    hex = hex.replace("<", "").replace(">", "").replace("/", "").trim();
+                    if (hex.toLowerCase().startsWith("sc:") || hex.toLowerCase().startsWith("sc_") || hex.toLowerCase().startsWith("sc-")) {
+                        String tag = hex.contains(":") ? hex.substring(hex.indexOf(':') + 1) : (hex.contains("_") ? hex.substring(hex.indexOf('_') + 1) : hex.substring(3));
+                        try {
+                            String sem = id.seria.core.placeholder.CustomPlaceholderManager.resolveSemanticTag(tag);
+                            if (sem != null) hex = sem.replace("<", "").replace(">", "").trim();
+                        } catch (Throwable ignored) {}
+                    }
+                }
                 Color color = parseHexColor(hex);
                 if (color != null) {
                     potionMeta.setColor(color);
