@@ -95,10 +95,16 @@ leaderboards:
   enabled: true
   # Interval pembaruan cache peringkat dalam menit
   update-interval-minutes: 5
+  # Metrik utama penentuan peringkat leaderboard:
+  # - "XP" (Bawaan): Peringkat dihitung berdasarkan akumulasi perolehan Job XP
+  # - "ORDERS": Peringkat dihitung berdasarkan jumlah pesanan/kontrak pasar yang diselesaikan
+  sort-metric: "XP"
 
   # Pengaturan Hadiah & Reset Mingguan (Weekly)
   weekly:
     enabled: true
+    # Metrik khusus mingguan (opsional, jika tidak diset akan mengikuti leaderboards.sort-metric)
+    # sort-metric: "XP"
     # Hari pembagian hadiah (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY)
     day-of-week: "SUNDAY"
     time: "23:59"

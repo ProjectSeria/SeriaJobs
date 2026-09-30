@@ -611,9 +611,11 @@ public class PAPIExpansion extends PlaceholderExpansion {
         }
         return switch (field.toLowerCase()) {
             case "name", "player", "player_name" -> entry.getPlayerName();
+            case "score" -> String.valueOf(entry.getScore());
+            case "score_formatted", "formatted_score" -> String.format(java.util.Locale.US, "%,d", entry.getScore());
             case "xp" -> String.valueOf(entry.getXp());
             case "xp_formatted", "formatted_xp" -> String.format(java.util.Locale.US, "%,d", entry.getXp());
-            case "orders" -> String.valueOf(entry.getOrdersCompleted());
+            case "orders", "order" -> String.valueOf(entry.getOrdersCompleted());
             case "orders_formatted", "formatted_orders" -> String.format(java.util.Locale.US, "%,d", entry.getOrdersCompleted());
             case "level" -> String.valueOf(entry.getLevel());
             case "rank" -> String.valueOf(entry.getRank());

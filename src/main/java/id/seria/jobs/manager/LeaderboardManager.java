@@ -85,33 +85,43 @@ public class LeaderboardManager {
         });
     }
 
+    public String getSortMetric(LeaderboardPeriod period) {
+        String periodKey = period == LeaderboardPeriod.WEEKLY ? "weekly" : (period == LeaderboardPeriod.MONTHLY ? "monthly" : "alltime");
+        String defaultMetric = plugin.getConfig().getString("leaderboards.sort-metric", "XP");
+        return plugin.getConfig().getString("leaderboards." + periodKey + ".sort-metric", defaultMetric).toUpperCase();
+    }
+
     private List<LeaderboardEntry> fetchGlobalLeaderboard(Connection conn, LeaderboardPeriod period) {
         List<LeaderboardEntry> list = new ArrayList<>();
+        boolean isOrders = "ORDERS".equalsIgnoreCase(getSortMetric(period)) || "ORDER".equalsIgnoreCase(getSortMetric(period));
         String query;
         if (period == LeaderboardPeriod.WEEKLY) {
+            String orderClause = isOrders ? "ORDER BY total_orders DESC, total_xp DESC " : "ORDER BY total_xp DESC, total_orders DESC ";
             query = "SELECT s.uuid, p.last_name, SUM(s.weekly_xp) AS total_xp, SUM(s.weekly_orders) AS total_orders " +
                     "FROM seriajobs_leaderboard_stats s " +
                     "LEFT JOIN seriajobs_players p ON s.uuid = p.uuid " +
                     "GROUP BY s.uuid, p.last_name " +
                     "HAVING total_xp > 0 OR total_orders > 0 " +
-                    "ORDER BY total_xp DESC, total_orders DESC " +
+                    orderClause +
                     "LIMIT 50;";
         } else if (period == LeaderboardPeriod.MONTHLY) {
+            String orderClause = isOrders ? "ORDER BY total_orders DESC, total_xp DESC " : "ORDER BY total_xp DESC, total_orders DESC ";
             query = "SELECT s.uuid, p.last_name, SUM(s.monthly_xp) AS total_xp, SUM(s.monthly_orders) AS total_orders " +
                     "FROM seriajobs_leaderboard_stats s " +
                     "LEFT JOIN seriajobs_players p ON s.uuid = p.uuid " +
                     "GROUP BY s.uuid, p.last_name " +
                     "HAVING total_xp > 0 OR total_orders > 0 " +
-                    "ORDER BY total_xp DESC, total_orders DESC " +
+                    orderClause +
                     "LIMIT 50;";
         } else {
+            String orderClause = isOrders ? "ORDER BY total_orders DESC, total_level DESC, total_xp DESC " : "ORDER BY total_level DESC, total_xp DESC, total_orders DESC ";
             query = "SELECT j.uuid, p.last_name, SUM(j.level) AS total_level, SUM(j.xp) AS total_xp, " +
                     "COALESCE(SUM(s.alltime_orders), 0) AS total_orders " +
                     "FROM seriajobs_player_jobs j " +
                     "LEFT JOIN seriajobs_players p ON j.uuid = p.uuid " +
                     "LEFT JOIN seriajobs_leaderboard_stats s ON j.uuid = s.uuid AND j.job_id = s.job_id " +
                     "GROUP BY j.uuid, p.last_name " +
-                    "ORDER BY total_level DESC, total_xp DESC, total_orders DESC " +
+                    orderClause +
                     "LIMIT 50;";
         }
 
@@ -128,11 +138,13 @@ public class LeaderboardManager {
                     int lvl = rs.getInt("total_level");
                     int xp = rs.getInt("total_xp");
                     int orders = rs.getInt("total_orders");
-                    list.add(new LeaderboardEntry(uuid, name, rank++, lvl, lvl, xp, orders));
+                    int score = isOrders ? orders : lvl;
+                    list.add(new LeaderboardEntry(uuid, name, rank++, score, lvl, xp, orders));
                 } else {
                     int xp = rs.getInt("total_xp");
                     int orders = rs.getInt("total_orders");
-                    list.add(new LeaderboardEntry(uuid, name, rank++, xp, 0, xp, orders));
+                    int score = isOrders ? orders : xp;
+                    list.add(new LeaderboardEntry(uuid, name, rank++, score, 0, xp, orders));
                 }
             }
         } catch (Exception e) {
@@ -143,30 +155,34 @@ public class LeaderboardManager {
 
     private List<LeaderboardEntry> fetchJobLeaderboard(Connection conn, String jobId, LeaderboardPeriod period) {
         List<LeaderboardEntry> list = new ArrayList<>();
+        boolean isOrders = "ORDERS".equalsIgnoreCase(getSortMetric(period)) || "ORDER".equalsIgnoreCase(getSortMetric(period));
         String query;
         if (period == LeaderboardPeriod.WEEKLY) {
+            String orderClause = isOrders ? "ORDER BY s.weekly_orders DESC, s.weekly_xp DESC " : "ORDER BY s.weekly_xp DESC, s.weekly_orders DESC ";
             query = "SELECT s.uuid, p.last_name, s.weekly_xp AS xp, s.weekly_orders AS orders, COALESCE(j.level, 1) AS level " +
                     "FROM seriajobs_leaderboard_stats s " +
                     "LEFT JOIN seriajobs_players p ON s.uuid = p.uuid " +
                     "LEFT JOIN seriajobs_player_jobs j ON s.uuid = j.uuid AND s.job_id = j.job_id " +
                     "WHERE s.job_id = ? AND (s.weekly_xp > 0 OR s.weekly_orders > 0) " +
-                    "ORDER BY s.weekly_xp DESC, s.weekly_orders DESC " +
+                    orderClause +
                     "LIMIT 50;";
         } else if (period == LeaderboardPeriod.MONTHLY) {
+            String orderClause = isOrders ? "ORDER BY s.monthly_orders DESC, s.monthly_xp DESC " : "ORDER BY s.monthly_xp DESC, s.monthly_orders DESC ";
             query = "SELECT s.uuid, p.last_name, s.monthly_xp AS xp, s.monthly_orders AS orders, COALESCE(j.level, 1) AS level " +
                     "FROM seriajobs_leaderboard_stats s " +
                     "LEFT JOIN seriajobs_players p ON s.uuid = p.uuid " +
                     "LEFT JOIN seriajobs_player_jobs j ON s.uuid = j.uuid AND s.job_id = j.job_id " +
                     "WHERE s.job_id = ? AND (s.monthly_xp > 0 OR s.monthly_orders > 0) " +
-                    "ORDER BY s.monthly_xp DESC, s.monthly_orders DESC " +
+                    orderClause +
                     "LIMIT 50;";
         } else {
+            String orderClause = isOrders ? "ORDER BY orders DESC, j.level DESC, j.xp DESC " : "ORDER BY j.level DESC, j.xp DESC, orders DESC ";
             query = "SELECT j.uuid, p.last_name, j.level, j.xp, COALESCE(s.alltime_orders, 0) AS orders " +
                     "FROM seriajobs_player_jobs j " +
                     "LEFT JOIN seriajobs_players p ON j.uuid = p.uuid " +
                     "LEFT JOIN seriajobs_leaderboard_stats s ON j.uuid = s.uuid AND j.job_id = s.job_id " +
                     "WHERE j.job_id = ? " +
-                    "ORDER BY j.level DESC, j.xp DESC, orders DESC " +
+                    orderClause +
                     "LIMIT 50;";
         }
 
@@ -183,7 +199,7 @@ public class LeaderboardManager {
                     int lvl = rs.getInt("level");
                     int xp = rs.getInt("xp");
                     int orders = rs.getInt("orders");
-                    int score = period == LeaderboardPeriod.ALL_TIME ? lvl : xp;
+                    int score = isOrders ? orders : (period == LeaderboardPeriod.ALL_TIME ? lvl : xp);
 
                     list.add(new LeaderboardEntry(uuid, name, rank++, score, lvl, xp, orders));
                 }
