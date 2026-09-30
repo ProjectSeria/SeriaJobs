@@ -450,6 +450,38 @@ public class PAPIExpansion extends PlaceholderExpansion {
             return "1.00";
         }
 
+        // seriajobs_reputation / seriajobs_reputasi
+        if (params.equalsIgnoreCase("reputation") || params.equalsIgnoreCase("reputasi")) {
+            int rep = plugin.getReputationBridgeService() != null
+                    ? plugin.getReputationBridgeService().getPlayerReputation(player)
+                    : 0;
+            return String.valueOf(rep);
+        }
+
+        // seriajobs_reputation_tier / seriajobs_tier_name
+        if (params.equalsIgnoreCase("reputation_tier") || params.equalsIgnoreCase("tier_name")) {
+            if (plugin.getReputationBridgeService() != null) {
+                return plugin.getReputationBridgeService().getPlayerTier(player).getDisplayName();
+            }
+            return "Default";
+        }
+
+        // seriajobs_reward_multiplier
+        if (params.equalsIgnoreCase("reward_multiplier")) {
+            double mult = plugin.getReputationBridgeService() != null
+                    ? plugin.getReputationBridgeService().getRewardMultiplier(player)
+                    : 1.0;
+            return String.format(java.util.Locale.US, "%.2f", mult);
+        }
+
+        // seriajobs_order_multiplier
+        if (params.equalsIgnoreCase("order_multiplier")) {
+            double mult = plugin.getReputationBridgeService() != null
+                    ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                    : 1.0;
+            return String.format(java.util.Locale.US, "%.2f", mult);
+        }
+
         // seriajobs_resource_multiplier_<job_id>
         if (params.toLowerCase().startsWith("resource_multiplier_")) {
             String jobId = params.substring("resource_multiplier_".length());

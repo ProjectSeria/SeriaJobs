@@ -157,15 +157,47 @@ leaderboards:
           amount: 10000
 
 # ==============================================================
-# Integrasi Reputasi & Slot Pesanan Pasar (Blueprint)
+# Integrasi Reputasi & Multiplier Bertingkat (Reputation Tiers)
 # ==============================================================
 reputation:
-  # Placeholder PAPI untuk membaca saldo reputasi pemain
+  # Placeholder PAPI untuk membaca saldo reputasi pemain (ExcellentEconomy)
   placeholder: "%excelenteconomy_balance_reputasi%"
-  # Batas reputasi yang dibutuhkan untuk membuka Slot ke-4
+  # Batas reputasi bawaan untuk membuka Slot ke-4 (fallback jika tiers tidak menentukan slots)
   slot4-threshold: 500
   # Perintah default jika order tidak menentukan reward-actions spesifik
   default-action: "[console] excelenteconomy give %player% reputasi %amount%"
+
+  # Multiplier bertingkat berdasarkan jumlah saldo reputasi (Sistem List).
+  # Sistem akan mengevaluasi tier tertinggi yang reputasi pemain telah mencukupi (reputasi >= required).
+  # Jika pemain belum mencapai tier manapun, multiplier default adalah 1.0x (normal).
+  #
+  # Pengaturan per tier:
+  # - required: Jumlah reputasi minimum yang dibutuhkan
+  # - reward-multiplier: Pengali hadiah (uang Vault, ExcellentEconomy, Job XP, AuraSkills XP, Items)
+  # - order-multiplier: Pengali jumlah kebutuhan barang setoran pesanan pasar
+  # - slots: Kapasitas slot pesanan pasar yang terbuka (opsional, contoh: 4)
+  # - display-name: Nama tingkatan reputasi untuk placeholder & menu (opsional)
+  tiers:
+    - required: 100
+      reward-multiplier: 1.10
+      order-multiplier: 1.00
+      slots: 3
+      display-name: "Pedagang Pemula"
+    - required: 500
+      reward-multiplier: 1.25
+      order-multiplier: 1.10
+      slots: 4
+      display-name: "Pedagang Terpercaya"
+    - required: 1000
+      reward-multiplier: 1.50
+      order-multiplier: 1.20
+      slots: 4
+      display-name: "Pedagang Terkemuka"
+    - required: 2500
+      reward-multiplier: 2.00
+      order-multiplier: 1.35
+      slots: 5
+      display-name: "Saudagar Agung"
 
 slots:
   # Permission status donatur / rank berbayar untuk membuka Slot ke-5

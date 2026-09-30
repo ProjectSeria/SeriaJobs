@@ -70,7 +70,15 @@ public class OrderGenerationService {
      */
     @NotNull
     public WorkOrder generateOrder(@NotNull JobOrder order, int jobLevel) {
-        int scaledAmount = order.getRequiredAmount(jobLevel);
+        return generateOrder(order, jobLevel, 1.0);
+    }
+
+    /**
+     * Helper to generate a WorkOrder directly from a JobOrder, job level, and reputation order multiplier.
+     */
+    @NotNull
+    public WorkOrder generateOrder(@NotNull JobOrder order, int jobLevel, double orderMultiplier) {
+        int scaledAmount = order.getRequiredAmount(jobLevel, orderMultiplier);
         OrderTemplate template = order.toTemplate(scaledAmount);
         return generateOrder(template);
     }

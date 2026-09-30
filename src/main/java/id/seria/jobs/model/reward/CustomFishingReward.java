@@ -40,11 +40,17 @@ public class CustomFishingReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
         if (!SeriaJobs.getInstance().getHookManager().isCustomFishingLoaded()) {
             return;
         }
 
-        ItemStack item = SeriaJobs.getInstance().getHookManager().getCustomFishingHook().generateItem(itemId, amount);
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
+        ItemStack item = SeriaJobs.getInstance().getHookManager().getCustomFishingHook().generateItem(itemId, effective);
         if (item != null) {
             HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(item);
             if (!leftovers.isEmpty()) {
@@ -62,18 +68,25 @@ public class CustomFishingReward implements Reward {
             }
         } else {
             // Command fallback for CustomFishing
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "customfishing give " + player.getName() + " " + itemId + " " + amount);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "customfishing give " + player.getName() + " " + itemId + " " + effective);
         }
     }
 
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
             return customDisplay
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", String.valueOf(effective))
                     .replace("{id}", itemId != null ? itemId : "");
         }
-        return "<aqua>+ " + amount + "x CustomFishing (" + itemId + ")</aqua>";
+        return "<aqua>+ " + effective + "x CustomFishing (" + itemId + ")</aqua>";
     }
 }

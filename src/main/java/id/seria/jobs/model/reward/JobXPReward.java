@@ -30,17 +30,30 @@ public class JobXPReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
-        SeriaJobs.getInstance().getPlayerDataManager().addJobXp(player, job.getId(), xp);
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(xp * multiplier)) : xp;
+        SeriaJobs.getInstance().getPlayerDataManager().addJobXp(player, job.getId(), effective);
     }
 
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(xp * multiplier)) : xp;
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
             return customDisplay
-                    .replace("{amount}", String.valueOf(xp))
-                    .replace("{xp}", String.valueOf(xp));
+                    .replace("{amount}", String.valueOf(effective))
+                    .replace("{xp}", String.valueOf(effective));
         }
-        return "<yellow>+ " + xp + " Job XP</yellow>";
+        return "<yellow>+ " + effective + " Job XP</yellow>";
     }
 }

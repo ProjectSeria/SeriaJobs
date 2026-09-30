@@ -170,6 +170,38 @@ public class JobsPlaceholderExpansion extends PlaceholderExpansion {
             return String.valueOf(slots);
         }
 
+        // %jobsorder_reputation%
+        if (lower.equals("reputation")) {
+            int rep = plugin.getReputationBridgeService() != null
+                    ? plugin.getReputationBridgeService().getPlayerReputation(player)
+                    : 0;
+            return String.valueOf(rep);
+        }
+
+        // %jobsorder_reputation_tier%
+        if (lower.equals("reputation_tier") || lower.equals("tier_name")) {
+            if (plugin.getReputationBridgeService() != null) {
+                return plugin.getReputationBridgeService().getPlayerTier(player).getDisplayName();
+            }
+            return "Default";
+        }
+
+        // %jobsorder_reward_multiplier%
+        if (lower.equals("reward_multiplier")) {
+            double mult = plugin.getReputationBridgeService() != null
+                    ? plugin.getReputationBridgeService().getRewardMultiplier(player)
+                    : 1.0;
+            return String.format(java.util.Locale.US, "%.2f", mult);
+        }
+
+        // %jobsorder_order_multiplier%
+        if (lower.equals("order_multiplier")) {
+            double mult = plugin.getReputationBridgeService() != null
+                    ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                    : 1.0;
+            return String.format(java.util.Locale.US, "%.2f", mult);
+        }
+
         return null;
     }
 }

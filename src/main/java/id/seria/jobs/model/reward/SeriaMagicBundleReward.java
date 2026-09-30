@@ -40,11 +40,17 @@ public class SeriaMagicBundleReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
         if (!SeriaJobs.getInstance().getHookManager().isSeriaMagicBundleLoaded()) {
             return;
         }
 
-        ItemStack item = SeriaJobs.getInstance().getHookManager().getSeriaMagicBundleHook().generateItem(bundleId, amount);
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
+        ItemStack item = SeriaJobs.getInstance().getHookManager().getSeriaMagicBundleHook().generateItem(bundleId, effective);
         if (item != null) {
             HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(item);
             if (!leftovers.isEmpty()) {
@@ -62,18 +68,25 @@ public class SeriaMagicBundleReward implements Reward {
             }
         } else {
             // Command fallback for SeriaMagicBundle
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "magicbundle give " + player.getName() + " " + bundleId + " " + amount);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "magicbundle give " + player.getName() + " " + bundleId + " " + effective);
         }
     }
 
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
             return customDisplay
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", String.valueOf(effective))
                     .replace("{id}", bundleId != null ? bundleId : "");
         }
-        return "<light_purple>+ " + amount + "x MagicBundle (" + bundleId + ")</light_purple>";
+        return "<light_purple>+ " + effective + "x MagicBundle (" + bundleId + ")</light_purple>";
     }
 }

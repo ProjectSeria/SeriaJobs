@@ -40,11 +40,17 @@ public class SeriaCraftingReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
         if (!SeriaJobs.getInstance().getHookManager().isSeriaCraftingLoaded()) {
             return;
         }
 
-        ItemStack item = SeriaJobs.getInstance().getHookManager().getSeriaCraftingHook().generateItem(craftingId, amount);
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
+        ItemStack item = SeriaJobs.getInstance().getHookManager().getSeriaCraftingHook().generateItem(craftingId, effective);
         if (item != null) {
             HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(item);
             if (!leftovers.isEmpty()) {
@@ -62,18 +68,25 @@ public class SeriaCraftingReward implements Reward {
             }
         } else {
             // Command fallback for SeriaCrafting
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "seriacrafting give " + player.getName() + " " + craftingId + " " + amount);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "seriacrafting give " + player.getName() + " " + craftingId + " " + effective);
         }
     }
 
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
             return customDisplay
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", String.valueOf(effective))
                     .replace("{id}", craftingId != null ? craftingId : "");
         }
-        return "<gold>+ " + amount + "x CraftedItem (" + craftingId + ")</gold>";
+        return "<gold>+ " + effective + "x CraftedItem (" + craftingId + ")</gold>";
     }
 }

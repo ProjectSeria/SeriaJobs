@@ -30,21 +30,34 @@ public class VaultReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
+        double effective = multiplier > 0.0 ? amount * multiplier : amount;
         if (SeriaJobs.getInstance().getHookManager().isVaultLoaded()) {
-            SeriaJobs.getInstance().getHookManager().getVaultHook().deposit(player, amount);
+            SeriaJobs.getInstance().getHookManager().getVaultHook().deposit(player, effective);
         } else if (SeriaJobs.getInstance().getHookManager().isExcellentEconomyLoaded()) {
-            SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook().deposit(player, null, amount);
+            SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook().deposit(player, null, effective);
         }
     }
 
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        double effective = multiplier > 0.0 ? amount * multiplier : amount;
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
             return customDisplay
-                    .replace("{amount}", String.format(java.util.Locale.US, "%,.0f", amount))
-                    .replace("{amount_raw}", String.valueOf(amount));
+                    .replace("{amount}", String.format(java.util.Locale.US, "%,.0f", effective))
+                    .replace("{amount_raw}", String.valueOf(effective));
         }
-        return "<green>+ " + String.format(java.util.Locale.US, "%.2f", amount) + " Saldo Uang</green>";
+        return "<green>+ " + String.format(java.util.Locale.US, "%.2f", effective) + " Saldo Uang</green>";
     }
 }

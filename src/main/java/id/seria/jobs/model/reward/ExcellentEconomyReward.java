@@ -38,29 +38,42 @@ public class ExcellentEconomyReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
+        double effective = multiplier > 0.0 ? amount * multiplier : amount;
         ExcellentEconomyHook hook = SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook();
         if (hook != null && hook.isLoaded()) {
-            hook.deposit(player, currencyId, amount);
+            hook.deposit(player, currencyId, effective);
         } else if (SeriaJobs.getInstance().getHookManager().isVaultLoaded()) {
-            SeriaJobs.getInstance().getHookManager().getVaultHook().deposit(player, amount);
+            SeriaJobs.getInstance().getHookManager().getVaultHook().deposit(player, effective);
         }
     }
 
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        double effective = multiplier > 0.0 ? amount * multiplier : amount;
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
             return customDisplay
-                    .replace("{amount}", String.format(java.util.Locale.US, "%,.0f", amount))
-                    .replace("{amount_raw}", String.valueOf(amount))
+                    .replace("{amount}", String.format(java.util.Locale.US, "%,.0f", effective))
+                    .replace("{amount_raw}", String.valueOf(effective))
                     .replace("{currency}", currencyId != null ? currencyId : "");
         }
         ExcellentEconomyHook hook = SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook();
         if (hook != null && hook.isLoaded()) {
-            String formatted = hook.format(currencyId, amount);
+            String formatted = hook.format(currencyId, effective);
             return "<green>+ " + formatted + "</green>";
         }
         String name = currencyId != null ? currencyId : "Currency";
-        return "<green>+ " + String.format(java.util.Locale.US, "%.2f", amount) + " " + name + "</green>";
+        return "<green>+ " + String.format(java.util.Locale.US, "%.2f", effective) + " " + name + "</green>";
     }
 }

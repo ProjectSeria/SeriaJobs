@@ -148,6 +148,12 @@ public class JobProfile {
         if (hasPaidRank) {
             return 5;
         }
+        if (id.seria.jobs.SeriaJobs.getInstance() != null && id.seria.jobs.SeriaJobs.getInstance().getReputationBridgeService() != null) {
+            id.seria.jobs.model.ReputationTier tier = id.seria.jobs.SeriaJobs.getInstance().getReputationBridgeService().getTierForReputation(externalReputation);
+            if (tier != null && tier.getSlots() > 0) {
+                return tier.getSlots();
+            }
+        }
         if (externalReputation >= thresholdSlot4) {
             return 4;
         }

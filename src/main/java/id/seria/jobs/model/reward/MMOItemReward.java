@@ -33,11 +33,17 @@ public class MMOItemReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
         if (!SeriaJobs.getInstance().getHookManager().isMmoItemsLoaded()) {
             return;
         }
 
-        ItemStack item = SeriaJobs.getInstance().getHookManager().getMmoItemsHook().generateItem(mmoType, mmoId, amount);
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
+        ItemStack item = SeriaJobs.getInstance().getHookManager().getMmoItemsHook().generateItem(mmoType, mmoId, effective);
         if (item == null) {
             SeriaJobs.getInstance().getLogger().warning("Failed to generate MMOItem reward: " + mmoType + ":" + mmoId);
             return;
@@ -62,12 +68,19 @@ public class MMOItemReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
             return customDisplay
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", String.valueOf(effective))
                     .replace("{id}", mmoId != null ? mmoId : "")
                     .replace("{type}", mmoType != null ? mmoType : "");
         }
-        return "<light_purple>+ " + amount + "x MMOItem (" + mmoId + ")</light_purple>";
+        return "<light_purple>+ " + effective + "x MMOItem (" + mmoId + ")</light_purple>";
     }
 }

@@ -167,9 +167,24 @@ public class OrderDepositMenu extends BaseMenu {
         double resourceMultiplier = plugin.getConfigManager().getResourceMultiplier(jobLevel);
         String multFormatted = String.format(java.util.Locale.US, "%.2fx", resourceMultiplier);
 
+        double rewardMult = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getRewardMultiplier(player)
+                : 1.0;
+        double orderMult = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                : 1.0;
+        id.seria.jobs.model.ReputationTier repTier = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getPlayerTier(player)
+                : null;
+        String repTierName = repTier != null ? repTier.getDisplayName() : "Default";
+        String rewardMultFormatted = String.format(java.util.Locale.US, "%.2fx", rewardMult);
+        String orderMultFormatted = String.format(java.util.Locale.US, "%.2fx", orderMult);
+
         boolean isCompleted = profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId());
         int progress = profile != null ? profile.getOrderProgress(shiftId, job.getId(), order.getId()) : 0;
-        int required = order.getRequiredAmount(jobLevel);
+        int required = (wo != null && wo.getTemplate() != null)
+                ? wo.getTemplate().getTargetAmount()
+                : order.getRequiredAmount(jobLevel, orderMult);
         int percentage = Math.min(100, (int) Math.round(((double) progress / required) * 100));
 
         int currentRep = (wo != null && wo.getGeneratedReputationAmount() > 0)
@@ -225,6 +240,10 @@ public class OrderDepositMenu extends BaseMenu {
                     .replace("{percentage}", String.valueOf(percentage))
                     .replace("{multiplier}", multFormatted)
                     .replace("{resource_multiplier}", multFormatted)
+                    .replace("{reward_multiplier}", rewardMultFormatted)
+                    .replace("{order_multiplier}", orderMultFormatted)
+                    .replace("{reputation_tier}", repTierName)
+                    .replace("{tier_name}", repTierName)
                     .replace("{reputation}", activeRepDisplay)
                     .replace("{order_reputation}", activeRepDisplay)
                     .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
@@ -252,6 +271,10 @@ public class OrderDepositMenu extends BaseMenu {
                                 .replace("{job_id}", job.getId())
                                 .replace("{multiplier}", multFormatted)
                                 .replace("{resource_multiplier}", multFormatted)
+                                .replace("{reward_multiplier}", rewardMultFormatted)
+                                .replace("{order_multiplier}", orderMultFormatted)
+                                .replace("{reputation_tier}", repTierName)
+                                .replace("{tier_name}", repTierName)
                                 .replace("{reputation}", activeRepDisplay)
                                 .replace("{order_reputation}", activeRepDisplay)
                                 .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
@@ -268,12 +291,16 @@ public class OrderDepositMenu extends BaseMenu {
                                     .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
                                     .replace("{reputation_range}", repRange)
                                     .replace("{multiplier}", multFormatted)
-                                    .replace("{resource_multiplier}", multFormatted);
+                                    .replace("{resource_multiplier}", multFormatted)
+                                    .replace("{reward_multiplier}", rewardMultFormatted)
+                                    .replace("{order_multiplier}", orderMultFormatted)
+                                    .replace("{reputation_tier}", repTierName)
+                                    .replace("{tier_name}", repTierName);
                             finalLore.add(TextUtil.parseForPlayer(player, parsedRLine));
                         }
                     } else {
                         for (Reward r : order.getRewards()) {
-                            String disp = r.getFormattedDisplay();
+                            String disp = r.getFormattedDisplay(rewardMult);
                             if (!disp.startsWith(" ") && !disp.startsWith("<lore-color>▪") && !disp.startsWith("▪")) {
                                 disp = "  " + disp;
                             }
@@ -297,6 +324,10 @@ public class OrderDepositMenu extends BaseMenu {
                             .replace("{percentage}", String.valueOf(percentage))
                             .replace("{multiplier}", multFormatted)
                             .replace("{resource_multiplier}", multFormatted)
+                            .replace("{reward_multiplier}", rewardMultFormatted)
+                            .replace("{order_multiplier}", orderMultFormatted)
+                            .replace("{reputation_tier}", repTierName)
+                            .replace("{tier_name}", repTierName)
                             .replace("{reputation}", activeRepDisplay)
                             .replace("{order_reputation}", activeRepDisplay)
                             .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
@@ -547,8 +578,11 @@ public class OrderDepositMenu extends BaseMenu {
             Bukkit.getPluginManager().callEvent(new OrderCompleteEvent(player, job, order));
 
             // Execute all rewards
+            double rewardMult = plugin.getReputationBridgeService() != null
+                    ? plugin.getReputationBridgeService().getRewardMultiplier(player)
+                    : 1.0;
             for (Reward reward : order.getRewards()) {
-                reward.apply(player, job);
+                reward.apply(player, job, rewardMult);
             }
 
             // Execute reward actions if present
@@ -620,8 +654,11 @@ public class OrderDepositMenu extends BaseMenu {
                     profile.incrementOrdersCompleted();
                     Bukkit.getPluginManager().callEvent(new OrderCompleteEvent(player, job, order));
 
+                    double rewardMult = plugin.getReputationBridgeService() != null
+                            ? plugin.getReputationBridgeService().getRewardMultiplier(player)
+                            : 1.0;
                     for (Reward reward : order.getRewards()) {
-                        reward.apply(player, job);
+                        reward.apply(player, job, rewardMult);
                     }
 
                     if (plugin.getActionRunnerService() != null) {

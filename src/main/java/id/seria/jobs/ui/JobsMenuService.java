@@ -140,7 +140,10 @@ public class JobsMenuService {
             WorkOrder workOrder = profile.getActiveOrder(slotNumber);
             if (workOrder == null && i < activeTemplates.size()) {
                 JobOrder jo = activeTemplates.get(i);
-                workOrder = plugin.getOrderGenerationService().generateOrder(jo, jobLevel);
+                double orderMult = plugin.getReputationBridgeService() != null
+                        ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                        : 1.0;
+                workOrder = plugin.getOrderGenerationService().generateOrder(jo, jobLevel, orderMult);
                 profile.setActiveOrder(slotNumber, workOrder);
             }
 
@@ -183,11 +186,15 @@ public class JobsMenuService {
         lore.add("");
         lore.add("<yellow><bold>Hadiah Kontrak:</bold></yellow>");
 
+        double rewardMult = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getRewardMultiplier(player)
+                : 1.0;
+
         if (workOrder.getTemplate().getOriginalJobOrder() != null && workOrder.getTemplate().getOriginalJobOrder().hasCustomRewardsDisplay()) {
             lore.addAll(workOrder.getTemplate().getOriginalJobOrder().getCustomRewardsDisplay());
         } else if (workOrder.getTemplate().getOriginalJobOrder() != null && !workOrder.getTemplate().getOriginalJobOrder().getRewards().isEmpty()) {
             for (id.seria.jobs.model.reward.Reward r : workOrder.getTemplate().getOriginalJobOrder().getRewards()) {
-                String disp = r.getFormattedDisplay();
+                String disp = r.getFormattedDisplay(rewardMult);
                 if (!disp.startsWith(" ") && !disp.startsWith("▪")) {
                     disp = "  ▪ " + disp;
                 }
@@ -195,13 +202,13 @@ public class JobsMenuService {
             }
         } else {
             if (workOrder.getRewardGins() > 0) {
-                lore.add("  ▪ <gold>" + String.format(java.util.Locale.US, "%,.0f", workOrder.getRewardGins()) + " Gins</gold>");
+                lore.add("  ▪ <gold>" + String.format(java.util.Locale.US, "%,.0f", workOrder.getRewardGins() * rewardMult) + " Gins</gold>");
             }
             if (workOrder.getRewardJobXp() > 0) {
-                lore.add("  ▪ <green>+" + workOrder.getRewardJobXp() + " Job XP</green>");
+                lore.add("  ▪ <green>+" + (int) Math.round(workOrder.getRewardJobXp() * rewardMult) + " Job XP</green>");
             }
             if (workOrder.getRewardAuraXp() > 0) {
-                lore.add("  ▪ <light_purple>+" + (int) workOrder.getRewardAuraXp() + " AuraSkills XP</light_purple>");
+                lore.add("  ▪ <light_purple>+" + (int) Math.round(workOrder.getRewardAuraXp() * rewardMult) + " AuraSkills XP</light_purple>");
             }
         }
 

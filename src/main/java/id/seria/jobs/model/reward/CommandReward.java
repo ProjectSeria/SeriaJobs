@@ -36,10 +36,18 @@ public class CommandReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
         if (command == null || command.isEmpty()) return;
 
+        String multStr = String.format(java.util.Locale.US, "%.2f", multiplier > 0.0 ? multiplier : 1.0);
         String cmd = command.replace("%player%", player.getName())
-                .replace("%job%", job.getId());
+                .replace("%job%", job.getId())
+                .replace("%multiplier%", multStr)
+                .replace("{multiplier}", multStr);
 
         if ("PLAYER".equalsIgnoreCase(executor)) {
             player.performCommand(cmd);
@@ -51,8 +59,15 @@ public class CommandReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        String multStr = String.format(java.util.Locale.US, "%.2f", multiplier > 0.0 ? multiplier : 1.0);
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
-            return customDisplay;
+            return customDisplay.replace("%multiplier%", multStr).replace("{multiplier}", multStr);
         }
         return "<gray>+ Bonus Spesial Server</gray>";
     }

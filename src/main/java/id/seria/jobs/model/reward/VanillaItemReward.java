@@ -38,9 +38,14 @@ public class VanillaItemReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job) {
+        apply(player, job, 1.0);
+    }
+
+    @Override
+    public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
         if (material == null || material == Material.AIR || amount <= 0) return;
 
-        int finalAmount = amount;
+        int finalAmount = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
         var hookMgr = SeriaJobs.getInstance().getHookManager();
         if (hookMgr != null) {
             var lp = hookMgr.getLuckPermsHook();
@@ -80,16 +85,23 @@ public class VanillaItemReward implements Reward {
     @NotNull
     @Override
     public String getFormattedDisplay() {
+        return getFormattedDisplay(1.0);
+    }
+
+    @NotNull
+    @Override
+    public String getFormattedDisplay(double multiplier) {
+        int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
         if (customDisplay != null && !customDisplay.trim().isEmpty()) {
             String name = material != null ? material.name().replace('_', ' ').toLowerCase() : "Item";
             name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
             return customDisplay
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", String.valueOf(effective))
                     .replace("{item}", name)
                     .replace("{material}", material != null ? material.name() : "");
         }
         String name = material != null ? material.name().replace('_', ' ').toLowerCase() : "Item";
         name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-        return "<white>+ " + amount + "x " + name + "</white>";
+        return "<white>+ " + effective + "x " + name + "</white>";
     }
 }

@@ -76,7 +76,10 @@ public class JobsManager {
             if (slotIndex >= 1 && slotIndex <= activeOrders.size()) {
                 JobOrder jo = activeOrders.get(slotIndex - 1);
                 int jobLevel = profile.getJobLevel(jobId);
-                order = orderGenerationService.generateOrder(jo, jobLevel);
+                double orderMult = plugin.getReputationBridgeService() != null
+                        ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                        : 1.0;
+                order = orderGenerationService.generateOrder(jo, jobLevel, orderMult);
                 profile.setActiveOrder(slotIndex, order);
             }
         }
@@ -331,7 +334,10 @@ public class JobsManager {
 
         JobOrder chosen = available.get(ThreadLocalRandom.current().nextInt(available.size()));
         int jobLevel = profile.getJobLevel(job.getId());
-        WorkOrder newWorkOrder = orderGenerationService.generateOrder(chosen, jobLevel);
+        double orderMult = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                : 1.0;
+        WorkOrder newWorkOrder = orderGenerationService.generateOrder(chosen, jobLevel, orderMult);
         profile.setActiveOrder(slotIndex, newWorkOrder);
     }
 

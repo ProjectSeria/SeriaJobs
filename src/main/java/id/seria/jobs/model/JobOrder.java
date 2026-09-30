@@ -256,17 +256,28 @@ public class JobOrder {
     }
 
     public int getRequiredAmount(int jobLevel) {
+        return getRequiredAmount(jobLevel, 1.0);
+    }
+
+    public int getRequiredAmount(int jobLevel, double orderMultiplier) {
+        int baseScaled = this.amount;
         if (SeriaJobs.getInstance() != null && SeriaJobs.getInstance().getConfigManager() != null) {
-            return SeriaJobs.getInstance().getConfigManager().calculateScaledAmount(this.amount, jobLevel);
+            baseScaled = SeriaJobs.getInstance().getConfigManager().calculateScaledAmount(this.amount, jobLevel);
         }
-        return this.amount;
+        if (orderMultiplier > 0.0 && orderMultiplier != 1.0) {
+            return Math.max(1, (int) Math.round(baseScaled * orderMultiplier));
+        }
+        return baseScaled;
     }
 
     public int getRequiredAmount(@Nullable Player player, @NotNull Job job) {
         if (player != null && SeriaJobs.getInstance() != null && SeriaJobs.getInstance().getPlayerDataManager() != null) {
             JobProfile profile = SeriaJobs.getInstance().getPlayerDataManager().getProfile(player.getUniqueId());
             if (profile != null) {
-                return getRequiredAmount(profile.getJobLevel(job.getId()));
+                double orderMult = SeriaJobs.getInstance().getReputationBridgeService() != null
+                        ? SeriaJobs.getInstance().getReputationBridgeService().getOrderMultiplier(player)
+                        : 1.0;
+                return getRequiredAmount(profile.getJobLevel(job.getId()), orderMult);
             }
         }
         return this.amount;
