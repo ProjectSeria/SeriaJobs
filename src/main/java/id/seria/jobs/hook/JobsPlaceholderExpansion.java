@@ -158,16 +158,7 @@ public class JobsPlaceholderExpansion extends PlaceholderExpansion {
 
         // %jobsorder_max_slots%
         if (lower.equals("max_slots")) {
-            int rep = plugin.getReputationBridgeService() != null
-                    ? plugin.getReputationBridgeService().getPlayerReputation(player)
-                    : 0;
-            int threshold = plugin.getConfig().getInt("reputation.slot4-threshold", 500);
-            boolean hasPaidRank = player.hasPermission("seriajobs.rank.paid")
-                    || player.hasPermission("seriajobs.donor")
-                    || player.hasPermission("seriajobs.vip")
-                    || player.isOp();
-            int slots = profile.getMaxAllowedSlots(rep, threshold, hasPaidRank);
-            return String.valueOf(slots);
+            return String.valueOf(profile.getMaxAllowedSlots(player));
         }
 
         // %jobsorder_reputation%

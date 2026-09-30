@@ -65,13 +65,7 @@ public class JobsMenuService {
                 : 0;
 
         int thresholdSlot4 = plugin.getConfig().getInt("reputation.slot4-threshold", 500);
-        String donorPerm = plugin.getConfig().getString("slots.paid-rank-permission", "seriajobs.rank.paid");
-        boolean hasPaidRank = player.hasPermission(donorPerm)
-                || player.hasPermission("seriajobs.donor")
-                || player.hasPermission("seriajobs.vip")
-                || player.isOp();
-
-        int maxAllowedSlots = profile.getMaxAllowedSlots(rep, thresholdSlot4, hasPaidRank);
+        int maxAllowedSlots = profile.getMaxAllowedSlots(player);
 
         // Buat inventory 54 slot dengan holder JobsMenuHolder
         JobsMenuHolder holder = new JobsMenuHolder(player.getUniqueId(), job.getId());
@@ -115,12 +109,13 @@ public class JobsMenuService {
                 if (slotNumber == 4) {
                     List<String> lockLore = List.of(
                             "<red>Slot ke-4 terkunci!</red>",
-                            "<gray>Dibutuhkan minimal <aqua>" + thresholdSlot4 + " Reputasi</aqua>.",
+                            "<gray>Dibutuhkan minimal <aqua>" + thresholdSlot4 + " Reputasi</aqua>",
+                            "<gray>atau status <gold>Paid Player / Donatur</gold>.",
                             "<gray>Reputasi saat ini: <yellow>" + rep + "</yellow>",
                             "",
-                            "<dark_gray>Selesaikan pesanan pasar untuk menambah reputasi.</dark_gray>"
+                            "<dark_gray>Tingkatkan reputasi atau miliki rank untuk membukanya.</dark_gray>"
                     );
-                    inv.setItem(orderInvSlot, createItem(Material.IRON_BARS, "<red><bold>Slot 4: Terkunci (Reputasi)</bold></red>", lockLore));
+                    inv.setItem(orderInvSlot, createItem(Material.IRON_BARS, "<red><bold>Slot 4: Terkunci (Reputasi / Paid)</bold></red>", lockLore));
                 } else {
                     List<String> lockLore = List.of(
                             "<red>Slot ke-5 terkunci!</red>",

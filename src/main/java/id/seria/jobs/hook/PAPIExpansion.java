@@ -142,15 +142,7 @@ public class PAPIExpansion extends PlaceholderExpansion {
                 return String.valueOf((long) bal);
             }
             if (subParam.equals("max_slots") || subParam.equals("order_max_slots")) {
-                int rep = plugin.getReputationBridgeService() != null
-                        ? plugin.getReputationBridgeService().getPlayerReputation(player)
-                        : 0;
-                int threshold = plugin.getConfig().getInt("reputation.slot4-threshold", 500);
-                boolean hasPaidRank = player.hasPermission("seriajobs.rank.paid")
-                        || player.hasPermission("seriajobs.donor")
-                        || player.hasPermission("seriajobs.vip")
-                        || player.isOp();
-                return String.valueOf(profile.getMaxAllowedSlots(rep, threshold, hasPaidRank));
+                return String.valueOf(profile.getMaxAllowedSlots(player));
             }
         }
 

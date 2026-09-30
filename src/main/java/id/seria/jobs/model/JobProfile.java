@@ -1,6 +1,7 @@
 package id.seria.jobs.model;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -144,19 +145,56 @@ public class JobProfile {
      * - externalReputation >= thresholdSlot4 -> 4 slot aktif
      * - default non-rank -> 3 slot aktif
      */
+    public int getMaxAllowedSlots(@Nullable org.bukkit.entity.Player player) {
+        if (player == null) return 3;
+        int rep = id.seria.jobs.SeriaJobs.getInstance().getReputationBridgeService() != null
+                ? id.seria.jobs.SeriaJobs.getInstance().getReputationBridgeService().getPlayerReputation(player)
+                : 0;
+        int thresholdSlot4 = id.seria.jobs.SeriaJobs.getInstance().getConfig().getInt("reputation.slot4-threshold", 500);
+
+        String permPaid = id.seria.jobs.SeriaJobs.getInstance().getConfig().getString("slots.paid-rank-permission", "seriajobs.rank.paid");
+        String permSlot5 = id.seria.jobs.SeriaJobs.getInstance().getConfig().getString("slots.slot5-permission", "seriajobs.slot.5");
+        String permSlot4 = id.seria.jobs.SeriaJobs.getInstance().getConfig().getString("slots.slot4-permission", "seriajobs.slot.4");
+
+        boolean hasSlot5 = player.hasPermission(permSlot5)
+                || player.hasPermission(permPaid)
+                || player.hasPermission("seriajobs.donor")
+                || player.hasPermission("seriajobs.mvp")
+                || player.isOp();
+
+        boolean hasSlot4 = hasSlot5
+                || player.hasPermission(permSlot4)
+                || player.hasPermission("seriajobs.vip");
+
+        return getMaxAllowedSlots(rep, thresholdSlot4, hasSlot4, hasSlot5);
+    }
+
     public int getMaxAllowedSlots(int externalReputation, int thresholdSlot4, boolean hasPaidRank) {
-        if (hasPaidRank) {
+        return getMaxAllowedSlots(externalReputation, thresholdSlot4, hasPaidRank, hasPaidRank);
+    }
+
+    public int getMaxAllowedSlots(int externalReputation, int thresholdSlot4, boolean hasSlot4, boolean hasSlot5) {
+        if (hasSlot5) {
             return 5;
         }
+
+        int tierSlots = 0;
         if (id.seria.jobs.SeriaJobs.getInstance() != null && id.seria.jobs.SeriaJobs.getInstance().getReputationBridgeService() != null) {
             id.seria.jobs.model.ReputationTier tier = id.seria.jobs.SeriaJobs.getInstance().getReputationBridgeService().getTierForReputation(externalReputation);
             if (tier != null && tier.getSlots() > 0) {
-                return tier.getSlots();
+                tierSlots = tier.getSlots();
             }
         }
-        if (externalReputation >= thresholdSlot4) {
+
+        if (tierSlots >= 5) {
+            return 5;
+        }
+
+        // Slot 4: Terbuka jika pemain memiliki status paid (hasSlot4) ATAU reputasinya mencukupi
+        if (hasSlot4 || tierSlots >= 4 || externalReputation >= thresholdSlot4) {
             return 4;
         }
+
         return 3;
     }
 

@@ -200,7 +200,11 @@ reputation:
       display-name: "Saudagar Agung"
 
 slots:
-  # Permission status donatur / rank berbayar untuk membuka Slot ke-5
+  # Permission khusus untuk membuka Slot ke-4 tanpa perlu syarat reputasi (opsional, misal untuk rank VIP/Donatur awal)
+  slot4-permission: "seriajobs.slot.4"
+  # Permission khusus untuk membuka Slot ke-5 (misal untuk rank MVP/Sponsor)
+  slot5-permission: "seriajobs.slot.5"
+  # Permission global rank berbayar (membuka hingga 5 slot penuh)
   paid-rank-permission: "seriajobs.rank.paid"
 
 # ==============================================================

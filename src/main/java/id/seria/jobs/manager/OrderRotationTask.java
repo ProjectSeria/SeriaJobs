@@ -47,15 +47,8 @@ public class OrderRotationTask extends BukkitRunnable {
                 // Reset counter reroll
                 profile.resetRerolls();
 
-                // Hitung kapasitas slot via reputation bridge
-                int rep = plugin.getReputationBridgeService() != null
-                        ? plugin.getReputationBridgeService().getPlayerReputation(onlinePlayer)
-                        : 0;
-                boolean hasPaidRank = onlinePlayer.hasPermission(donorPerm)
-                        || onlinePlayer.hasPermission("seriajobs.donor")
-                        || onlinePlayer.hasPermission("seriajobs.vip");
-
-                int allowedSlots = profile.getMaxAllowedSlots(rep, thresholdSlot4, hasPaidRank);
+                // Hitung kapasitas slot
+                int allowedSlots = profile.getMaxAllowedSlots(onlinePlayer);
 
                 // Re-populate active WorkOrders for online player's active jobs
                 for (String jobId : profile.getActiveJobs()) {
