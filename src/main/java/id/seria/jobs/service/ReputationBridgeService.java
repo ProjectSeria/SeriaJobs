@@ -19,12 +19,12 @@ public class ReputationBridgeService {
 
     public ReputationBridgeService(@NotNull SeriaJobs plugin) {
         this.plugin = plugin;
-        this.reputationPlaceholder = plugin.getConfig().getString("reputation.placeholder", "%excelenteconomy_balance_reputasi%");
+        this.reputationPlaceholder = plugin.getConfig().getString("reputation.placeholder", "%excellenteconomy_balance_reputasi%");
         loadTiers();
     }
 
     public void reload() {
-        this.reputationPlaceholder = plugin.getConfig().getString("reputation.placeholder", "%excelenteconomy_balance_reputasi%");
+        this.reputationPlaceholder = plugin.getConfig().getString("reputation.placeholder", "%excellenteconomy_balance_reputasi%");
         loadTiers();
     }
 

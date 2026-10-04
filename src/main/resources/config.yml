@@ -167,11 +167,11 @@ leaderboards:
 # ==============================================================
 reputation:
   # Placeholder PAPI untuk membaca saldo reputasi pemain (ExcellentEconomy)
-  placeholder: "%excelenteconomy_balance_reputasi%"
+  placeholder: "%excellenteconomy_balance_reputasi%"
   # Batas reputasi bawaan untuk membuka Slot ke-4 (fallback jika tiers tidak menentukan slots)
   slot4-threshold: 500
   # Perintah default jika order tidak menentukan reward-actions spesifik
-  default-action: "[console] excelenteconomy give %player% reputasi %amount%"
+  default-action: "[console] reputasi give %player% %amount%"
 
   # Multiplier bertingkat berdasarkan jumlah saldo reputasi (Sistem List).
   # Sistem akan mengevaluasi tier tertinggi yang reputasi pemain telah mencukupi (reputasi >= required).
@@ -230,7 +230,7 @@ reroll:
     cap: 15000.0
   # Biaya alternatif menggunakan Serium (mata uang premium)
   serium-cost: 1
-  # Perintah penarikan saldo Serium (jika plugin coinsengine/excelenteconomy menggunakan command)
+  # Perintah penarikan saldo Serium (jika plugin CoinsEngine/ExcellentEconomy menggunakan command)
   serium-command: "serium take %player% %amount%"
 
 # ==============================================================
@@ -308,13 +308,13 @@ rare-drop:
       message: "<yellow>Kamu mendapatkan drop langka: <aqua>+1 Serium</aqua>!</yellow>"
       sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
       actions:
-        - "[console] excelenteconomy give %player% serium 1"
+        - "[console] serium give %player% 1"
     high_reputation:
       weight: 10
       display-name: "<light_purple>Reputasi Pasar Agung</light_purple>"
       message: "<yellow>Kamu mendapatkan drop langka: <light_purple>+50 Reputasi Ekstra</light_purple>!</yellow>"
       sound: "UI_TOAST_CHALLENGE_COMPLETE"
       actions:
-        - "[console] excelenteconomy give %player% reputasi 50"
+        - "[console] reputasi give %player% 50"
 
 

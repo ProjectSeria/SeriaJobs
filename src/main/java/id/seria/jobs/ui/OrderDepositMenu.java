@@ -674,7 +674,7 @@ public class OrderDepositMenu extends BaseMenu {
                 } else if (rep > 0) {
                     String defAction = plugin.getConfig().getString(
                             "reputation.default-action",
-                            "[console] excelenteconomy give %player% reputasi %amount%"
+                            "[console] reputasi give %player% %amount%"
                     );
                     if (defAction != null && !defAction.isBlank()) {
                         plugin.getActionRunnerService().executeAction(player, defAction, rep);
@@ -755,7 +755,7 @@ public class OrderDepositMenu extends BaseMenu {
                         } else if (rep > 0) {
                             String defAction = plugin.getConfig().getString(
                                     "reputation.default-action",
-                                    "[console] excelenteconomy give %player% reputasi %amount%"
+                                    "[console] reputasi give %player% %amount%"
                             );
                             if (defAction != null && !defAction.isBlank()) {
                                 plugin.getActionRunnerService().executeAction(player, defAction, rep);

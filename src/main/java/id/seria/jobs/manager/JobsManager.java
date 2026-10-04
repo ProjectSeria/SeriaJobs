@@ -113,7 +113,7 @@ public class JobsManager {
             // Fallback default action from config if none configured in template
             String defAction = plugin.getConfig().getString(
                     "reputation.default-action",
-                    "[console] excelenteconomy give %player% reputasi %amount%"
+                    "[console] reputasi give %player% %amount%"
             );
             if (defAction != null && !defAction.isBlank() && repAmount > 0) {
                 actionRunnerService.executeAction(player, defAction, repAmount);
