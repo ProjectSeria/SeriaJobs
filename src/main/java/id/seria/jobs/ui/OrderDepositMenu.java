@@ -211,20 +211,33 @@ public class OrderDepositMenu extends BaseMenu {
                 cardItem = plugin.getHookManager().getSeriaCraftingHook().generateItem(order.getCustomItemId(), 1);
             }
         }
+        org.bukkit.configuration.ConfigurationSection cardSec = getOrderCardSection(isCompleted);
+
         if (cardItem == null) {
-            Material cardMat = order.getMaterial() != null ? order.getMaterial() : Material.CHEST;
-            if (isCompleted) cardMat = Material.EMERALD_BLOCK;
+            Material cardMat = null;
+            if (cardSec != null && cardSec.contains("material")) {
+                cardMat = Material.matchMaterial(cardSec.getString("material", ""));
+            }
+            if (cardMat == null) {
+                if (isCompleted) {
+                    cardMat = Material.EMERALD_BLOCK;
+                } else {
+                    cardMat = order.getMaterial() != null ? order.getMaterial() : Material.CHEST;
+                }
+            }
             cardItem = new ItemStack(cardMat);
         } else {
             cardItem = cardItem.clone();
-        }
-        if (isCompleted) {
-            cardItem = new ItemStack(Material.EMERALD_BLOCK);
+            if (isCompleted && cardSec != null && cardSec.contains("material")) {
+                Material secMat = Material.matchMaterial(cardSec.getString("material", ""));
+                if (secMat != null) {
+                    cardItem = new ItemStack(secMat);
+                }
+            }
         }
 
         ItemMeta meta = cardItem.getItemMeta();
         if (meta != null) {
-            org.bukkit.configuration.ConfigurationSection cardSec = getOrderCardSection(isCompleted);
             String nameFormat = cardSec != null
                     ? cardSec.getString("name", order.getDisplayName())
                     : order.getDisplayName();

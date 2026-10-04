@@ -1,14 +1,15 @@
-title: "<gradient:#2c3e50:#3498db>Job Orders: {job_name}</gradient>"
+title: "<sc:menu-prefix>Jobs ⏵ {job_name} (Lv. {job_level})"
 size: 54
 
 fillers:
   glass:
     material: "YELLOW_STAINED_GLASS_PANE"
     name: " "
-    slots: [0, 1, 7, 8, 9, 36, 44, 45, 46, 52]
+    slots: [0, 1, 7, 8, 9, 36, 44, 45, 46, 52, 53]
     item-flags:
       - "HIDE_ADDITIONAL_TOOLTIP"
 
+# Slot penempatan dinamis kartu order aktif
 layout:
   order-slots:
     slots: [20, 22, 24, 30, 32]
@@ -18,27 +19,29 @@ layout:
         1:
           taint: "orders-item"
           comparison: "=="
-          value: true
-
+          value: true  
 items:
-  # Dynamic Contract Cards
   incomplete:
-    name: "{order_display_name}"
+    name: "<sc:error-color>{order_display_name}"
     taints:
       orders-item: true
     lore:
-      - "{order_lore}"
+#      - "{order_lore}"
       - ""
-      - "<gray>Requirement: <white>{required_amount}x {item_name}</white>"
-      - "<gray>Progress: <yellow>{progress} / {required_amount}</yellow> <dark_gray>({percentage}%)</dark_gray>"
+#      - "<sc:lore-color>Kebutuhan: <sc:highlight-color>{item_name} <gray>(x{required_amount})"
+      - "<sc:sub-title-color>Progres"
+      - "       <sc:lore-color>Item: <sc:highlight-color>{progress}<sc:lore-color>/<sc:highlight-color>{required_amount} <dark_gray>({percentage}%)"
       - "{progress_bar}"
       - ""
-      - "<yellow><bold>Contract Rewards:</bold></yellow>"
+      - "<sc:sub-title-color>Hadiah"
       - "{rewards_list}"
-      - "<green>▶ Left-Click to deposit items from your inventory</green>"
+      - ""
+      - "<sc:action-icon> <sc:action-color>Setor"
       - "%custom_reroll_status%"
-    left-click:
-      - "[TURN_IN]"
+    left-click-action:
+      - "[DEPOSIT]"
+    # Requirement Klik Kanan:
+    # Mengecek apakah kuota reroll masih ada DAN apakah saldo Gins atau Serium mencukupi
     right-click-requirement:
       requirements:
         has_currency:
@@ -48,92 +51,97 @@ items:
           output: "none"
       deny-message: "%custom_reroll_deny-message%"
       deny-actions:
-        - "[sound] entity.villager.no 1 1"
+         - "[sound] entity.villager.no 1 1" 
     right-click-action:
       - "[console] %custom_reroll_command%"
       - "[jobs_reroll]"
-      - "[refresh] 20"
-    shift-left-click:
-      - "[DEPOSIT_ALL]"
+      - "[refresh] order-card"
+      - "[refresh] 4"
 
   completed:
-    name: "{order_display_name} <green>[COMPLETED]</green>"
+    name: "<sc:success-color>{order_display_name}"
     taints:
       orders-item: true
     lore:
-      - "{order_lore}"
+#      - "{order_lore}"
       - ""
-      - "<green>✔ You have fulfilled this contract!</green>"
-      - "<gray>Await the next market shift for new work orders.</gray>"
+      - "<sc:success-icon> Kontrak selesai!"
+      - ""
+      - "<sc:info-icon> Tunggu order berikutnya."
 
-  # Static Navigation & Utility Items
+
   player_status:
-    name: "<green>%player_name% - Worker Profile</green>"
-    material: "PLAYER_HEAD"
-    skull-owner: "%player_name%"
     slot: 4
+    material: "BOOK" # PLAYER_HEAD
+#    skull-owner: "%player_name%"
+    name: "<sc:title-color>Informasi"
     lore:
-      - "<gray>Profession: <white>{job_name}</white>"
-      - "<gray>Level: <gold>{level}</gold>"
-      - "<gray>XP: <yellow>{xp} / {required_xp}</yellow>"
-      - "<gray>Job Slots: <yellow>%seriajobs_active_jobs_count% / %seriajobs_max_slots%</yellow>"
-      - "<gray>Next Shift: <gold>%seriajobs_rotation_countdown%</gold>"
       - ""
-      - "<yellow>▶ Click to refresh status</yellow>"
-    actions:
-      - "[REFRESH]"
-
-  refresh_button:
-    name: "<aqua><bold>Refresh Display</bold></aqua>"
-    material: "CLOCK"
-    slot: 47
-    lore:
-      - "<gray>Click to update contract progress,"
-      - "<gray>shift countdown, and inventory states."
+      - "<sc:lore-color>Selesaikan semua order"
+      - "<sc:lore-color>untuk mendapatkan hadiah."
+      - ""
+      - "<sc:sub-title-color>Status"
+      - " <sc:sub-title-color><sc:tab-prefix> <sc:lore-color>Job: <sc:success-color>%seriajobs_active_jobs% <sc:lore-color>(<sc:highlight-color>Lv.%seriajobs_level%<sc:lore-color>)"
+      - " <sc:sub-title-color><sc:tab-prefix> <sc:lore-color>Total EXP: <sc:success-color>{xp}<sc:lore-color>/{required_xp}"
+      - " <sc:sub-title-color><sc:tab-prefix> <sc:lore-color>Order Selesai: <sc:success-color>%seriajobs_order_completed%"
+      - " <sc:sub-title-color><sc:tab-prefix> <sc:lore-color>Reputasi: <sc:success-color>%excellenteconomy_balance_raw_reputasi%"
+      - ""
+      - "<sc:sub-title-color>Rotasi Order"
+      - "<sc:highlight-color>%seriajobs_rotation_countdown%"
+      - ""
+      - "<sc:action-icon> <sc:action-color>Refresh"
     actions:
       - "[REFRESH]"
 
   rewards_roadmap_button:
-    name: "<gold><bold>Level Rewards Roadmap</bold></gold>"
-    material: "EXPERIENCE_BOTTLE"
-    slot: 48
+    slot: 3
+    material: "CHEST"
+    name: "<sc:title-color>Hadiah"
     lore:
-      - "<gray>Click to view milestones and rewards"
-      - "<gray>unlocked across each profession level."
       - ""
-      - "<yellow>▶ Click to open roadmap</yellow>"
+      - "<sc:lore-color>Milestone dan hadiah"
+      - "<sc:lore-color>pada setiap level."
+      - ""
+      - "<sc:action-icon> <sc:action-color>Akses"
     actions:
-      - "[OPEN_PROGRESSION]"
-
-  back_button:
-    name: "<red>Back to Main Board</red>"
-    material: "BARRIER"
-    slot: 49
-    actions:
-      - "[open] main_job_menu"
+      - "[open] job_progression_gui"
 
   quick_deposit_all:
-    name: "<gold><bold>Deposit All Commodities</bold></gold>"
+    slot: 5
     material: "HOPPER"
-    slot: 50
+    name: "<sc:title-color>Setor Semua"
     lore:
-      - "<gray>Click to automatically scan and deposit"
-      - "<gray>all active contract items from your inventory."
+      - ""
+      - "<sc:lore-color>Otomatis menyetor semua item"
+      - "<sc:lore-color>kontrak aktif dari <sc:highlight-color>Inventory"
+      - ""
+      - "<sc:action-icon> <sc:action-color>Akses"
     actions:
       - "[DEPOSIT_ALL]"
       - "[REFRESH]"
 
+  back_button:
+    slot: 49
+    material: "RED_DYE"
+    name: "<sc:error-color>Tutup"
+    actions:
+      - "[open] main_job_menu"
+
   resign_button:
-    name: "<red><bold>Resign from Profession</bold></red>"
+    name: "<sc:error-color>Resign"
     material: "IRON_DOOR"
     slot: 53 # Slot 54 (0-indexed position 53)
     lore:
-      - "<gray>Profession: <white>{job_name}</white>"
       - ""
-      - "<red>Click to resign and withdraw from this job.</red>"
-      - "<gray>Your active contracts will be forfeited,</gray>"
-      - "<gray>and a resignation cooldown will be applied.</gray>"
+      - "<sc:lore-color>Profession: <sc:highlight-color>{job_name}"
       - ""
-      - "<red>▶ Click to resign from this job</red>"
+      - "<sc:sub-title-color>Informasi"
+      - "<sc:lore-color>Kontrak kerja aktif akan hilang," 
+      - "<sc:lore-color>dan cooldown 24jam akan diterapkan"
+      - "<sc:lore-color>untuk membuat kontrak kerja baru" 
+      - ""
+      - "<sc:action-icon> <sc:action-color>Resign"
     actions:
       - "[RESIGN]"
+
+

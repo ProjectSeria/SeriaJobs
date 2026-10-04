@@ -162,8 +162,37 @@ public class MainJobsMenu extends BaseMenu {
 
             inventory.setItem(slot, item);
 
+            String templateSection = isJoined ? "job-item-joined" : "job-item-available";
+            org.bukkit.configuration.ConfigurationSection tplSec = menuConfig != null
+                    ? menuConfig.getConfigurationSection(templateSection)
+                    : null;
+
+            List<String> customLeft = tplSec != null ? tplSec.getStringList("left-click") : List.of();
+            if (customLeft.isEmpty() && tplSec != null) customLeft = tplSec.getStringList("left-click-actions");
+            List<String> customRight = tplSec != null ? tplSec.getStringList("right-click") : List.of();
+            if (customRight.isEmpty() && tplSec != null) customRight = tplSec.getStringList("right-click-actions");
+            List<String> customGeneral = tplSec != null ? tplSec.getStringList("actions") : List.of();
+            if (customGeneral.isEmpty() && tplSec != null) customGeneral = tplSec.getStringList("click-actions");
+
+            final List<String> fLeft = customLeft;
+            final List<String> fRight = customRight;
+            final List<String> fGeneral = customGeneral;
+
             clickActions.put(slot, e -> {
                 e.setCancelled(true);
+                if (e.isRightClick() && !fRight.isEmpty()) {
+                    handleActions(fRight);
+                    return;
+                }
+                if (!e.isRightClick() && !fLeft.isEmpty()) {
+                    handleActions(fLeft);
+                    return;
+                }
+                if (!fGeneral.isEmpty()) {
+                    handleActions(fGeneral);
+                    return;
+                }
+
                 if (isJoined) {
                     if (e.isRightClick()) {
                         handleLeaveJob(job, profile);

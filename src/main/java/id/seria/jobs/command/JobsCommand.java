@@ -110,8 +110,14 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                         jobId = profile.getActiveJobs().iterator().next();
                     }
                 }
-                if (plugin.getJobsMenuService() != null) {
-                    plugin.getJobsMenuService().openJobMenu(player, jobId);
+                Job targetJob = plugin.getJobRegistry().getJob(jobId);
+                if (targetJob == null && !plugin.getJobRegistry().getJobs().isEmpty()) {
+                    targetJob = plugin.getJobRegistry().getJobs().iterator().next();
+                }
+                if (targetJob != null) {
+                    new id.seria.jobs.ui.OrderDepositMenu(plugin, player, targetJob).open();
+                } else {
+                    new id.seria.jobs.ui.MainJobsMenu(plugin, player).open();
                 }
                 return true;
             }
