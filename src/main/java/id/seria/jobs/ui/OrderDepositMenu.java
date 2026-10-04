@@ -196,6 +196,10 @@ public class OrderDepositMenu extends BaseMenu {
                 : repStr;
         String activeRepDisplay = (wo != null && wo.getGeneratedReputationAmount() > 0) ? repStr : repRange;
 
+        boolean isEventOrder = order.isEventOrder() || (wo != null && wo.isEventOrder());
+        boolean isRerollable = order.isRerollable() && (wo == null || wo.isRerollable());
+        String eventName = order.getEvent() != null ? order.getEvent() : (wo != null ? wo.getEvent() : "");
+
         ItemStack cardItem = null;
         if (!isCompleted) {
             String src = order.getSource().toUpperCase();
@@ -261,7 +265,11 @@ public class OrderDepositMenu extends BaseMenu {
                     .replace("{order_reputation}", activeRepDisplay)
                     .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
                     .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
-                    .replace("{reputation_range}", repRange);
+                    .replace("{reputation_range}", repRange)
+                    .replace("{is_event}", String.valueOf(isEventOrder))
+                    .replace("{is_rerollable}", String.valueOf(isRerollable))
+                    .replace("{event_name}", eventName)
+                    .replace("{event}", eventName);
 
             meta.displayName(TextUtil.parseForPlayer(player, nameFormat));
 
@@ -292,7 +300,11 @@ public class OrderDepositMenu extends BaseMenu {
                                 .replace("{order_reputation}", activeRepDisplay)
                                 .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
                                 .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
-                                .replace("{reputation_range}", repRange);
+                                .replace("{reputation_range}", repRange)
+                                .replace("{is_event}", String.valueOf(isEventOrder))
+                                .replace("{is_rerollable}", String.valueOf(isRerollable))
+                                .replace("{event_name}", eventName)
+                                .replace("{event}", eventName);
                         finalLore.add(TextUtil.parseForPlayer(player, parsedOLine));
                     }
                 } else if (line.contains("{rewards_list}")) {
@@ -308,7 +320,11 @@ public class OrderDepositMenu extends BaseMenu {
                                     .replace("{reward_multiplier}", rewardMultFormatted)
                                     .replace("{order_multiplier}", orderMultFormatted)
                                     .replace("{reputation_tier}", repTierName)
-                                    .replace("{tier_name}", repTierName);
+                                    .replace("{tier_name}", repTierName)
+                                    .replace("{is_event}", String.valueOf(isEventOrder))
+                                    .replace("{is_rerollable}", String.valueOf(isRerollable))
+                                    .replace("{event_name}", eventName)
+                                    .replace("{event}", eventName);
                             finalLore.add(TextUtil.parseForPlayer(player, parsedRLine));
                         }
                     } else {
@@ -326,7 +342,13 @@ public class OrderDepositMenu extends BaseMenu {
                 } else if (line.contains("{progress_bar}")) {
                     finalLore.add(TextUtil.parseForPlayer(player, createProgressBar(progress, required)));
                 } else {
-                    String replaced = line.replace("{order_display_name}", order.getDisplayName())
+                    String replaced = line;
+                    if (!isRerollable && replaced.contains("%custom_reroll_status%")) {
+                        replaced = replaced.replace("%custom_reroll_status%", isEventOrder
+                                ? "<sc:info-icon> <gray>Pesanan Khusus Event <dark_gray>(Non-Rerollable)"
+                                : "<sc:info-icon> <gray>Pesanan Khusus <dark_gray>(Non-Rerollable)");
+                    }
+                    replaced = replaced.replace("{order_display_name}", order.getDisplayName())
                             .replace("{order_id}", order.getId())
                             .replace("{job_name}", job.getDisplayName())
                             .replace("{job_id}", job.getId())
@@ -345,7 +367,11 @@ public class OrderDepositMenu extends BaseMenu {
                             .replace("{order_reputation}", activeRepDisplay)
                             .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
                             .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
-                            .replace("{reputation_range}", repRange);
+                            .replace("{reputation_range}", repRange)
+                            .replace("{is_event}", String.valueOf(isEventOrder))
+                            .replace("{is_rerollable}", String.valueOf(isRerollable))
+                            .replace("{event_name}", eventName)
+                            .replace("{event}", eventName);
                     finalLore.add(TextUtil.parseForPlayer(player, replaced));
                 }
             }
@@ -550,6 +576,11 @@ public class OrderDepositMenu extends BaseMenu {
             if (trimmed.equalsIgnoreCase("[TURN_IN]") || trimmed.equalsIgnoreCase("[DEPOSIT]")) {
                 handleDepositOrder(order, profile, shiftId, slotNumber);
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll]") || trimmed.equalsIgnoreCase("[reroll]")) {
+                if (plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || !order.isRerollable()) {
+                    player.sendMessage(plugin.getConfigManager().getEventDenyRerollMessage());
+                    player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                             "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
@@ -562,6 +593,11 @@ public class OrderDepositMenu extends BaseMenu {
                     }
                 }
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_auto]") || trimmed.equalsIgnoreCase("[reroll_auto]")) {
+                if (plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || !order.isRerollable()) {
+                    player.sendMessage(plugin.getConfigManager().getEventDenyRerollMessage());
+                    player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                             "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
@@ -570,6 +606,11 @@ public class OrderDepositMenu extends BaseMenu {
                 }
                 handleAutoReroll(profile, slotNumber, slot, hasRefresh);
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_gins]") || trimmed.equalsIgnoreCase("[reroll_gins]")) {
+                if (plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || !order.isRerollable()) {
+                    player.sendMessage(plugin.getConfigManager().getEventDenyRerollMessage());
+                    player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                             "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
@@ -582,6 +623,11 @@ public class OrderDepositMenu extends BaseMenu {
                     }
                 }
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_serium]") || trimmed.equalsIgnoreCase("[reroll_serium]")) {
+                if (plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || !order.isRerollable()) {
+                    player.sendMessage(plugin.getConfigManager().getEventDenyRerollMessage());
+                    player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                             "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));

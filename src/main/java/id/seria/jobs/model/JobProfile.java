@@ -199,6 +199,23 @@ public class JobProfile {
     }
 
     /**
+     * Memeriksa apakah slot pesanan tertentu terbuka untuk pemain:
+     * - Slot 1 s/d 3 selalu terbuka secara default.
+     * - Slot Event (misal slot 5) selalu terbuka jika event sedang aktif.
+     * - Slot lainnya (slot 4 & slot 5 normal) mengikuti kapasitas maxAllowedSlots.
+     */
+    public boolean isSlotUnlocked(@Nullable org.bukkit.entity.Player player, int slotIndex) {
+        if (slotIndex <= 3) return true;
+        if (id.seria.jobs.SeriaJobs.getInstance() != null && id.seria.jobs.SeriaJobs.getInstance().getConfigManager() != null) {
+            if (id.seria.jobs.SeriaJobs.getInstance().getConfigManager().isEventActive()
+                    && slotIndex == id.seria.jobs.SeriaJobs.getInstance().getConfigManager().getEventSlot()) {
+                return true;
+            }
+        }
+        return slotIndex <= getMaxAllowedSlots(player);
+    }
+
+    /**
      * Evaluasi langsung rerollCount < max (default 10).
      */
     public boolean canReroll() {

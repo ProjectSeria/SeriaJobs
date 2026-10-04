@@ -317,4 +317,17 @@ rare-drop:
       actions:
         - "[console] reputasi give %player% 50"
 
-
+# ==============================================================
+# Pengaturan Pesanan Khusus Event (Special Event Orders)
+# ==============================================================
+# Saat event aktif (current-event bukan 'none'), slot event (default slot 5)
+# akan dialokasikan khusus untuk pesanan bertema event tersebut.
+# Pesanan event terbuka untuk semua pemain (tanpa batas reputasi/rank)
+# dan TIDAK BISA DI-REROLL (hanya me-refresh mengikuti timer rotasi pasar global).
+events:
+  # Nama event yang sedang berlangsung (misal: 'halloween', 'harvest', 'winter', atau 'none')
+  current-event: "none"
+  # Slot khusus yang dialokasikan untuk pesanan event (1-5)
+  event-slot: 5
+  # Pesan penolakan saat pemain mencoba me-reroll pesanan event
+  deny-reroll-message: "<red>Pesanan khusus event tidak dapat di-reroll! Tunggu rotasi pasar berikutnya.</red>"

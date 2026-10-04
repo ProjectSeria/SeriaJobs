@@ -209,6 +209,14 @@ public class JobsManager {
             return false;
         }
 
+        // 0.1 Cek apakah pesanan pada slot ini non-rerollable / pesanan khusus event
+        if (isSlotNonRerollable(player, job, profile, slotIndex)) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-event-denied",
+                    plugin.getConfigManager().getEventDenyRerollMessage()));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            return false;
+        }
+
         // 1. Validasi kuota reroll (kuota Gins; Serium dapat digunakan setelahnya)
         int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
         boolean allowSeriumAfterMax = plugin.getConfig().getBoolean("reroll.allow-serium-after-max", true);
@@ -251,6 +259,14 @@ public class JobsManager {
         if (isSlotOrderCompleted(player, job, profile, slotIndex)) {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                     "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            return false;
+        }
+
+        // 0.1 Cek apakah pesanan pada slot ini non-rerollable / pesanan khusus event
+        if (isSlotNonRerollable(player, job, profile, slotIndex)) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-event-denied",
+                    plugin.getConfigManager().getEventDenyRerollMessage()));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             return false;
         }
@@ -311,6 +327,14 @@ public class JobsManager {
             return false;
         }
 
+        // 0.1 Cek apakah pesanan pada slot ini non-rerollable / pesanan khusus event
+        if (isSlotNonRerollable(player, job, profile, slotIndex)) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-event-denied",
+                    plugin.getConfigManager().getEventDenyRerollMessage()));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            return false;
+        }
+
         // 1. Validasi kuota reroll
         int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
         boolean allowSeriumAfterMax = plugin.getConfig().getBoolean("reroll.allow-serium-after-max", true);
@@ -357,8 +381,30 @@ public class JobsManager {
         return orderId != null && profile.isOrderCompleted(shiftId, job.getId(), orderId);
     }
 
+    public boolean isSlotNonRerollable(@NotNull Player player, @NotNull Job job, @NotNull JobProfile profile, int slotIndex) {
+        WorkOrder wo = profile.getActiveOrder(slotIndex);
+        if (wo != null) {
+            return !wo.isRerollable() || wo.isEventOrder();
+        }
+        if (plugin.getOrderPoolManager() != null) {
+            List<JobOrder> active = plugin.getOrderPoolManager().getActiveOrders(job.getId());
+            if (slotIndex > 0 && slotIndex <= active.size()) {
+                JobOrder jo = active.get(slotIndex - 1);
+                if (jo != null) {
+                    return !jo.isRerollable() || jo.isEventOrder();
+                }
+            }
+        }
+        return false;
+    }
+
     private void rollNewOrderForSlot(Player player, Job job, JobProfile profile, int slotIndex) {
-        List<JobOrder> pool = new ArrayList<>(job.getOrdersPool().values());
+        List<JobOrder> pool = new ArrayList<>();
+        for (JobOrder jo : job.getOrdersPool().values()) {
+            if (!jo.isEventOrder()) {
+                pool.add(jo);
+            }
+        }
         if (pool.isEmpty()) return;
 
         // Filter out currently active orders on other slots to ensure variety

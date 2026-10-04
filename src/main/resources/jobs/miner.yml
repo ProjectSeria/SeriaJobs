@@ -1039,6 +1039,37 @@ display-action-mapping:
 # Angka di sini adalah DRAFT balancing: silakan disesuaikan.
 # ==============================================================================
 orders-pool:
+  halloween_blackstone_excavation:
+    display-name: "<gold>🎃 Tambang Blackstone Misterius</gold>"
+    event: "halloween"
+    rerollable: false
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Blackstone</accentuation-color>"
+      - "<lore-color>Gali batu hitam purba untuk ritual malam Halloween."
+    min-reputation: 5
+    max-reputation: 15
+    required-item:
+      source: "VANILLA"
+      material: "BLACKSTONE"
+      amount: 128
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 45000.0
+        display: "  <lore-color>▪ <money-color>45.000 $"
+      - type: "JOB_XP"
+        amount: 320
+        display: "  <lore-color>▪ <yellow>320 Job XP"
+      - type: "AURASKILLS_XP"
+        skill: "mining"
+        amount: 650
+        display: "  <lore-color>▪ <green>650 Mining XP"
+    display-rewards:
+      - "  <lore-color>▪ <money-color>45.000 $"
+      - "  <lore-color>▪ <yellow>320 Job XP"
+      - "  <lore-color>▪ <green>650 Mining XP"
+      - "  <lore-color>▪ <aqua>+{reputation} Reputasi Pasar"
+
   cobblestone_supply:
     display-name: "<title-color>Cobblestone"
     lore:

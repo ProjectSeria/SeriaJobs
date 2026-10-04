@@ -56,17 +56,20 @@ public class OrderRotationTask extends BukkitRunnable {
                     if (job == null) continue;
 
                     List<JobOrder> activeTemplates = plugin.getOrderPoolManager().getActiveOrders(jobId);
-                    int limit = Math.min(allowedSlots, activeTemplates.size());
-
                     double orderMult = plugin.getReputationBridgeService() != null
                             ? plugin.getReputationBridgeService().getOrderMultiplier(onlinePlayer)
                             : 1.0;
 
-                    for (int slot = 1; slot <= limit; slot++) {
+                    for (int slot = 1; slot <= activeTemplates.size(); slot++) {
+                        if (!profile.isSlotUnlocked(onlinePlayer, slot)) {
+                            continue;
+                        }
                         JobOrder template = activeTemplates.get(slot - 1);
-                        int jobLevel = profile.getJobLevel(jobId);
-                        WorkOrder workOrder = plugin.getOrderGenerationService().generateOrder(template, jobLevel, orderMult);
-                        profile.setActiveOrder(slot, workOrder);
+                        if (template != null) {
+                            int jobLevel = profile.getJobLevel(jobId);
+                            WorkOrder workOrder = plugin.getOrderGenerationService().generateOrder(template, jobLevel, orderMult);
+                            profile.setActiveOrder(slot, workOrder);
+                        }
                     }
                 }
 

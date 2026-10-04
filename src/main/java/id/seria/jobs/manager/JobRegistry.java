@@ -182,9 +182,14 @@ public class JobRegistry {
                     rewardActions = sec.getStringList("actions");
                 }
 
+                String eventName = sec.getString("event", null);
+                boolean defaultRerollable = (eventName == null || eventName.isBlank() || eventName.equalsIgnoreCase("none"));
+                boolean rerollable = sec.getBoolean("rerollable", defaultRerollable);
+
                 JobOrder order = new JobOrder(orderKey, id, orderDisplayName, orderLore, source, mat,
                         customModelData, strictNbt, mmoType, mmoId, customItemId, customItemIds, amount, rewards, customRewardsDisplay,
-                        minRep, maxRep, rewardGins, rewardJobXp, rewardAuraXp, rareDropChance, rewardActions);
+                        minRep, maxRep, rewardGins, rewardJobXp, rewardAuraXp, rareDropChance, rewardActions,
+                        eventName, rerollable);
                 ordersMap.put(orderKey.toLowerCase(), order);
             }
         }

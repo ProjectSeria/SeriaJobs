@@ -394,6 +394,48 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                 }
                 break;
 
+            case "event":
+                if (args.length < 3) {
+                    sender.sendMessage("§eUsage: /seriajobs admin event <status|set|clear> [eventName]");
+                    return;
+                }
+                String eventSub = args[2].toLowerCase();
+                if (eventSub.equals("status")) {
+                    String cur = plugin.getConfigManager().getCurrentEvent();
+                    boolean active = plugin.getConfigManager().isEventActive();
+                    int slot = plugin.getConfigManager().getEventSlot();
+                    sender.sendMessage("§6§l[SeriaJobs Event System]");
+                    sender.sendMessage("§7• Status: " + (active ? "§aAktif" : "§cNonaktif"));
+                    sender.sendMessage("§7• Current Event: §e" + cur);
+                    sender.sendMessage("§7• Dedicated Slot: §bSlot " + slot);
+                } else if (eventSub.equals("set")) {
+                    if (args.length < 4) {
+                        sender.sendMessage("§eUsage: /seriajobs admin event set <eventName|none>");
+                        return;
+                    }
+                    String newEvent = args[3].toLowerCase();
+                    plugin.getConfigManager().setCurrentEvent(newEvent);
+                    plugin.getConfig().set("events.current-event", newEvent);
+                    plugin.saveConfig();
+
+                    plugin.getOrderPoolManager().rollAllOrders();
+
+                    if (newEvent.equalsIgnoreCase("none")) {
+                        sender.sendMessage("§a[SeriaJobs] Event dinonaktifkan (current-event: none). Pesanan bursa telah di-refresh!");
+                    } else {
+                        sender.sendMessage("§a[SeriaJobs] Event aktif diatur ke: §e" + newEvent + "§a. Pesanan bursa telah di-refresh untuk slot event!");
+                    }
+                } else if (eventSub.equals("clear")) {
+                    plugin.getConfigManager().setCurrentEvent("none");
+                    plugin.getConfig().set("events.current-event", "none");
+                    plugin.saveConfig();
+                    plugin.getOrderPoolManager().rollAllOrders();
+                    sender.sendMessage("§a[SeriaJobs] Event dinonaktifkan. Pesanan bursa telah di-refresh!");
+                } else {
+                    sender.sendMessage("§eUsage: /seriajobs admin event <status|set|clear> [eventName]");
+                }
+                break;
+
             default:
                 sender.sendMessage(plugin.getLanguageManager().getMessage(sender instanceof Player p ? p : null, "general.unknown-subcommand"));
                 break;
@@ -562,6 +604,7 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("seriajobs.admin")) {
                 completions.add("reload");
                 completions.add("debug");
+                completions.add("event");
                 completions.add("resetreroll");
                 completions.add("forceroll");
                 completions.add("setlevel");
@@ -583,6 +626,12 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                 return filterCompletions(completions, args[2]);
             }
             if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("seriajobs.admin")) {
+                if (args[1].equalsIgnoreCase("event")) {
+                    completions.add("status");
+                    completions.add("set");
+                    completions.add("clear");
+                    return filterCompletions(completions, args[2]);
+                }
                 if (args[1].equalsIgnoreCase("forceroll")) {
                     completions.addAll(plugin.getJobRegistry().getJobs().stream().map(Job::getId).toList());
                     return filterCompletions(completions, args[2]);
@@ -605,6 +654,14 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                 return filterCompletions(completions, args[3]);
             }
             if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("seriajobs.admin")) {
+                if (args[1].equalsIgnoreCase("event") && args[2].equalsIgnoreCase("set")) {
+                    completions.add("none");
+                    completions.add("halloween");
+                    completions.add("harvest");
+                    completions.add("winter");
+                    completions.add("summer");
+                    return filterCompletions(completions, args[3]);
+                }
                 if (args[1].equalsIgnoreCase("leaderboard") || args[1].equalsIgnoreCase("top")) {
                     completions.add("weekly");
                     completions.add("monthly");

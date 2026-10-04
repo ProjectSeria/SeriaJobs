@@ -1016,6 +1016,37 @@ display-action-mapping:
 # Angka di sini adalah DRAFT balancing: silakan disesuaikan.
 # ==============================================================================
 orders-pool:
+  halloween_night_phantom_fish:
+    display-name: "<gold>🎃 Tangkapan Ikan Malam Halloween</gold>"
+    event: "halloween"
+    rerollable: false
+    lore:
+      - "<lore-color>Status: <accentuation-color>{progress}/{required} Glow Ink Sac</accentuation-color>"
+      - "<lore-color>Pancing makhluk malam dari perairan gelap di malam Halloween."
+    min-reputation: 5
+    max-reputation: 15
+    required-item:
+      source: "VANILLA"
+      material: "GLOW_INK_SAC"
+      amount: 16
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 48000.0
+        display: "  <lore-color>▪ <money-color>48.000 $"
+      - type: "JOB_XP"
+        amount: 340
+        display: "  <lore-color>▪ <yellow>340 Job XP"
+      - type: "AURASKILLS_XP"
+        skill: "fishing"
+        amount: 680
+        display: "  <lore-color>▪ <green>680 Fishing XP"
+    display-rewards:
+      - "  <lore-color>▪ <money-color>48.000 $"
+      - "  <lore-color>▪ <yellow>340 Job XP"
+      - "  <lore-color>▪ <green>680 Fishing XP"
+      - "  <lore-color>▪ <aqua>+{reputation} Reputasi Pasar"
+
   cod_supply:
     display-name: "<title-color>Cod"
     lore:

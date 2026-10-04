@@ -23,6 +23,37 @@ active-orders-count: 3
 
 # MARKET ORDERS POOL (Pesanan Pasar)
 orders-pool:
+  halloween_pumpkin_harvest:
+    display-name: "<gold>🎃 Panen Labu Halloween</gold>"
+    event: "halloween"
+    rerollable: false
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Labu</yellow>"
+      - "<gray>Kumpulkan labu halloween untuk festival musim gugur!"
+    min-reputation: 5
+    max-reputation: 15
+    required-item:
+      source: "VANILLA"
+      material: "PUMPKIN"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 50000.0
+        display: "  <lore-color>▪ <money-color>50.000 $"
+      - type: "JOB_XP"
+        amount: 350
+        display: "  <lore-color>▪ <yellow>350 Job XP"
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 700
+        display: "  <lore-color>▪ <green>700 Farming XP"
+    display-rewards:
+      - "  <lore-color>▪ <money-color>50.000 $"
+      - "  <lore-color>▪ <yellow>350 Job XP"
+      - "  <lore-color>▪ <green>700 Farming XP"
+      - "  <lore-color>▪ <aqua>+{reputation} Reputasi Pasar"
+
   wheat_delivery:
     display-name: "<yellow>Panen Gandum Berkualitas</yellow>"
     lore:

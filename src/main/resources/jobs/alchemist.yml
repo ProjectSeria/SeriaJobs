@@ -49,6 +49,37 @@ level-rewards:
         amount: 35000
 
 orders-pool:
+  halloween_spider_eye_concoction:
+    display-name: "<gold>🎃 Ramuan Mata Laba-laba Halloween</gold>"
+    event: "halloween"
+    rerollable: false
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Fermented Spider Eye</yellow>"
+      - "<gray>Ramuan magis khusus untuk malam festival Halloween."
+    min-reputation: 5
+    max-reputation: 15
+    required-item:
+      source: "VANILLA"
+      material: "FERMENTED_SPIDER_EYE"
+      amount: 16
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 42000.0
+        display: "  <lore-color>▪ <money-color>42.000 $"
+      - type: "JOB_XP"
+        amount: 300
+        display: "  <lore-color>▪ <yellow>300 Job XP"
+      - type: "AURASKILLS_XP"
+        skill: "alchemy"
+        amount: 600
+        display: "  <lore-color>▪ <green>600 Alchemy XP"
+    display-rewards:
+      - "  <lore-color>▪ <money-color>42.000 $"
+      - "  <lore-color>▪ <yellow>300 Job XP"
+      - "  <lore-color>▪ <green>600 Alchemy XP"
+      - "  <lore-color>▪ <aqua>+{reputation} Reputasi Pasar"
+
   potion_supply:
     display-name: "<light_purple>Crystal Glass Bottles</light_purple>"
     lore:

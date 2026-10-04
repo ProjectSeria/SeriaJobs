@@ -151,4 +151,17 @@ public class WorkOrder {
             }
         }
     }
+
+    @Nullable
+    public String getEvent() {
+        return template != null ? template.getEvent() : null;
+    }
+
+    public boolean isEventOrder() {
+        return template != null && template.isEventOrder();
+    }
+
+    public boolean isRerollable() {
+        return template == null || template.isRerollable();
+    }
 }

@@ -197,4 +197,30 @@ public class ConfigManager {
     public FileConfiguration getConfig() {
         return config;
     }
+
+    public String getCurrentEvent() {
+        return config != null ? config.getString("events.current-event", "none").trim().toLowerCase() : "none";
+    }
+
+    public boolean isEventActive() {
+        String ev = getCurrentEvent();
+        return !ev.isEmpty() && !ev.equalsIgnoreCase("none");
+    }
+
+    public int getEventSlot() {
+        return config != null ? config.getInt("events.event-slot", 5) : 5;
+    }
+
+    public String getEventDenyRerollMessage() {
+        return config != null ? config.getString("events.deny-reroll-message",
+                "<red>Pesanan khusus event tidak dapat di-reroll! Tunggu rotasi pasar berikutnya.</red>")
+                : "<red>Pesanan khusus event tidak dapat di-reroll! Tunggu rotasi pasar berikutnya.</red>";
+    }
+
+    public void setCurrentEvent(String eventName) {
+        if (config != null) {
+            config.set("events.current-event", eventName != null ? eventName.trim().toLowerCase() : "none");
+            plugin.saveConfig();
+        }
+    }
 }

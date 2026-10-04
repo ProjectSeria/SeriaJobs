@@ -193,6 +193,47 @@ public class JobsPlaceholderExpansion extends PlaceholderExpansion {
             return String.format(java.util.Locale.US, "%.2f", mult);
         }
 
+        // %jobsorder_is_event_active%
+        if (lower.equals("is_event_active")) {
+            return String.valueOf(plugin.getConfigManager().isEventActive());
+        }
+
+        // %jobsorder_current_event%
+        if (lower.equals("current_event")) {
+            return plugin.getConfigManager().getCurrentEvent();
+        }
+
+        // %jobsorder_event_slot%
+        if (lower.equals("event_slot")) {
+            return String.valueOf(plugin.getConfigManager().getEventSlot());
+        }
+
+        // %jobsorder_is_slot_rerollable_<slot>%
+        if (lower.startsWith("is_slot_rerollable_")) {
+            String slotStr = lower.substring("is_slot_rerollable_".length());
+            try {
+                int slot = Integer.parseInt(slotStr);
+                WorkOrder wo = profile.getActiveOrder(slot);
+                if (wo != null) {
+                    return String.valueOf(wo.isRerollable() && !(plugin.getConfigManager().isEventActive() && slot == plugin.getConfigManager().getEventSlot()));
+                }
+            } catch (NumberFormatException ignored) {}
+            return "true";
+        }
+
+        // %jobsorder_is_slot_event_<slot>%
+        if (lower.startsWith("is_slot_event_")) {
+            String slotStr = lower.substring("is_slot_event_".length());
+            try {
+                int slot = Integer.parseInt(slotStr);
+                WorkOrder wo = profile.getActiveOrder(slot);
+                if (wo != null) {
+                    return String.valueOf(wo.isEventOrder() || (plugin.getConfigManager().isEventActive() && slot == plugin.getConfigManager().getEventSlot()));
+                }
+            } catch (NumberFormatException ignored) {}
+            return "false";
+        }
+
         return null;
     }
 }

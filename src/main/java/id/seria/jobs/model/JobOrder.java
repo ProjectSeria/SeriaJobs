@@ -45,6 +45,10 @@ public class JobOrder {
     private final double rareDropChance;
     private final List<String> rewardActions;
 
+    // Special Event & Reroll Properties
+    private final String event;
+    private final boolean rerollable;
+
     public JobOrder(@NotNull String id,
                     @NotNull String jobId,
                     @NotNull String displayName,
@@ -104,7 +108,8 @@ public class JobOrder {
                     @Nullable List<String> rewardActions) {
         this(id, jobId, displayName, lore, source, material, customModelData, strictNbt,
                 mmoItemType, mmoItemId, customItemId, null, amount, rewards, customRewardsDisplay,
-                minReputationAmount, maxReputationAmount, rewardGins, rewardJobXp, rewardAuraXp, rareDropChance, rewardActions);
+                minReputationAmount, maxReputationAmount, rewardGins, rewardJobXp, rewardAuraXp, rareDropChance, rewardActions,
+                null, true);
     }
 
     public JobOrder(@NotNull String id,
@@ -129,6 +134,36 @@ public class JobOrder {
                     double rewardAuraXp,
                     double rareDropChance,
                     @Nullable List<String> rewardActions) {
+        this(id, jobId, displayName, lore, source, material, customModelData, strictNbt,
+                mmoItemType, mmoItemId, customItemId, customItemIds, amount, rewards, customRewardsDisplay,
+                minReputationAmount, maxReputationAmount, rewardGins, rewardJobXp, rewardAuraXp, rareDropChance, rewardActions,
+                null, true);
+    }
+
+    public JobOrder(@NotNull String id,
+                    @NotNull String jobId,
+                    @NotNull String displayName,
+                    @NotNull List<String> lore,
+                    @NotNull String source,
+                    @Nullable Material material,
+                    @Nullable Integer customModelData,
+                    boolean strictNbt,
+                    @Nullable String mmoItemType,
+                    @Nullable String mmoItemId,
+                    @Nullable String customItemId,
+                    @Nullable List<String> customItemIds,
+                    int amount,
+                    @NotNull List<Reward> rewards,
+                    @Nullable List<String> customRewardsDisplay,
+                    int minReputationAmount,
+                    int maxReputationAmount,
+                    double rewardGins,
+                    int rewardJobXp,
+                    double rewardAuraXp,
+                    double rareDropChance,
+                    @Nullable List<String> rewardActions,
+                    @Nullable String event,
+                    boolean rerollable) {
         this.id = id;
         this.jobId = jobId;
         this.displayName = displayName;
@@ -139,6 +174,8 @@ public class JobOrder {
         this.strictNbt = strictNbt;
         this.mmoItemType = mmoItemType;
         this.mmoItemId = mmoItemId;
+        this.event = event;
+        this.rerollable = rerollable;
 
         List<String> ids = new ArrayList<>();
         if (customItemIds != null && !customItemIds.isEmpty()) {
@@ -324,6 +361,19 @@ public class JobOrder {
     @NotNull
     public List<String> getRewardActions() {
         return Collections.unmodifiableList(rewardActions);
+    }
+
+    @Nullable
+    public String getEvent() {
+        return event;
+    }
+
+    public boolean isEventOrder() {
+        return event != null && !event.isBlank() && !event.equalsIgnoreCase("none");
+    }
+
+    public boolean isRerollable() {
+        return rerollable;
     }
 
     /**

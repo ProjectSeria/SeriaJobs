@@ -118,4 +118,17 @@ public class OrderTemplate {
     public JobOrder getOriginalJobOrder() {
         return originalJobOrder;
     }
+
+    @Nullable
+    public String getEvent() {
+        return originalJobOrder != null ? originalJobOrder.getEvent() : null;
+    }
+
+    public boolean isEventOrder() {
+        return originalJobOrder != null && originalJobOrder.isEventOrder();
+    }
+
+    public boolean isRerollable() {
+        return originalJobOrder == null || originalJobOrder.isRerollable();
+    }
 }

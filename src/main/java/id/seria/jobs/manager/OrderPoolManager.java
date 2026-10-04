@@ -175,11 +175,56 @@ public class OrderPoolManager {
     }
 
     public void rollJobOrders(Job job) {
-        List<JobOrder> pool = new ArrayList<>(job.getOrdersPool().values());
-        Collections.shuffle(pool);
+        String currentEvent = plugin.getConfigManager().getCurrentEvent();
+        boolean eventActive = plugin.getConfigManager().isEventActive();
+        int eventSlot = plugin.getConfigManager().getEventSlot();
 
-        int count = Math.min(job.getActiveOrdersCount(), pool.size());
-        List<JobOrder> selected = new ArrayList<>(pool.subList(0, count));
+        List<JobOrder> regularPool = new ArrayList<>();
+        List<JobOrder> eventPool = new ArrayList<>();
+
+        for (JobOrder jo : job.getOrdersPool().values()) {
+            if (jo.isEventOrder()) {
+                if (eventActive && jo.getEvent() != null && jo.getEvent().equalsIgnoreCase(currentEvent)) {
+                    eventPool.add(jo);
+                }
+            } else {
+                regularPool.add(jo);
+            }
+        }
+
+        Collections.shuffle(regularPool);
+        Collections.shuffle(eventPool);
+
+        int totalSlots = Math.max(5, job.getActiveOrdersCount());
+        List<JobOrder> selected = new ArrayList<>(Collections.nCopies(totalSlots, null));
+
+        int regIdx = 0;
+        for (int slot = 1; slot <= totalSlots; slot++) {
+            if (eventActive && slot == eventSlot) {
+                continue; // Reserved for event order
+            }
+            if (regIdx < regularPool.size()) {
+                selected.set(slot - 1, regularPool.get(regIdx++));
+            }
+        }
+
+        // Fill event slot if event is active and event orders exist
+        if (eventActive && !eventPool.isEmpty() && eventSlot >= 1 && eventSlot <= totalSlots) {
+            selected.set(eventSlot - 1, eventPool.get(0));
+        }
+
+        // Fill any null slots with fallback from regular pool if available
+        for (int i = 0; i < selected.size(); i++) {
+            if (selected.get(i) == null && !regularPool.isEmpty()) {
+                selected.set(i, regularPool.get(i % regularPool.size()));
+            }
+        }
+
+        // Remove trailing nulls if any
+        while (!selected.isEmpty() && selected.get(selected.size() - 1) == null) {
+            selected.remove(selected.size() - 1);
+        }
+
         activeOrders.put(job.getId().toLowerCase(), selected);
     }
 
