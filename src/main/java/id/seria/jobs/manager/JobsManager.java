@@ -201,6 +201,14 @@ public class JobsManager {
         Job job = plugin.getJobRegistry().getJob(jobId);
         if (job == null) return false;
 
+        // 0. Cek apakah pesanan pada slot ini sudah selesai disetor di shift saat ini
+        if (isSlotOrderCompleted(player, job, profile, slotIndex)) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
+                    "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            return false;
+        }
+
         // 1. Validasi kuota reroll (kuota Gins; Serium dapat digunakan setelahnya)
         int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
         boolean allowSeriumAfterMax = plugin.getConfig().getBoolean("reroll.allow-serium-after-max", true);
@@ -238,6 +246,14 @@ public class JobsManager {
         JobProfile profile = dataManager.getProfile(player.getUniqueId());
         Job job = plugin.getJobRegistry().getJob(jobId);
         if (job == null) return false;
+
+        // 0. Cek apakah pesanan pada slot ini sudah selesai disetor di shift saat ini
+        if (isSlotOrderCompleted(player, job, profile, slotIndex)) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
+                    "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            return false;
+        }
 
         // 1. Validasi playerData.canReroll()
         if (!profile.canReroll()) {
@@ -287,6 +303,14 @@ public class JobsManager {
         Job job = plugin.getJobRegistry().getJob(jobId);
         if (job == null) return false;
 
+        // 0. Cek apakah pesanan pada slot ini sudah selesai disetor di shift saat ini
+        if (isSlotOrderCompleted(player, job, profile, slotIndex)) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
+                    "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            return false;
+        }
+
         // 1. Validasi playerData.canReroll()
         if (!profile.canReroll()) {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-max-reached",
@@ -310,10 +334,25 @@ public class JobsManager {
         // 4. Jalankan playerData.incrementReroll()
         profile.incrementReroll();
 
+        // 5. Sound & Save
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.2f);
 
         dataManager.saveProfileAsync(profile);
         return true;
+    }
+
+    public boolean isSlotOrderCompleted(@NotNull Player player, @NotNull Job job, @NotNull JobProfile profile, int slotIndex) {
+        if (plugin.getOrderPoolManager() == null) return false;
+        String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
+        WorkOrder wo = profile.getActiveOrder(slotIndex);
+        String orderId = (wo != null && wo.getTemplate() != null) ? wo.getTemplate().getTemplateId() : null;
+        if (orderId == null) {
+            List<JobOrder> activeOrders = plugin.getOrderPoolManager().getActiveOrders(job.getId());
+            if (slotIndex > 0 && slotIndex <= activeOrders.size()) {
+                orderId = activeOrders.get(slotIndex - 1).getId();
+            }
+        }
+        return orderId != null && profile.isOrderCompleted(shiftId, job.getId(), orderId);
     }
 
     private void rollNewOrderForSlot(Player player, Job job, JobProfile profile, int slotIndex) {

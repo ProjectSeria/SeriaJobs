@@ -354,7 +354,7 @@ public class OrderDepositMenu extends BaseMenu {
         }
 
         inventory.setItem(slot, cardItem);
-        bindOrderCardActions(slot, order, profile, shiftId, slotNumber);
+        bindOrderCardActions(slot, order, profile, shiftId, slotNumber, isCompleted);
     }
 
     @Override
@@ -415,32 +415,32 @@ public class OrderDepositMenu extends BaseMenu {
         player.closeInventory();
     }
 
-    private void bindOrderCardActions(int slot, JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
+    private void bindOrderCardActions(int slot, JobOrder order, JobProfile profile, String shiftId, int slotNumber, boolean isCompleted) {
         org.bukkit.configuration.ConfigurationSection orderCardSec = menuConfig != null ? menuConfig.getConfigurationSection("order-card") : null;
-        org.bukkit.configuration.ConfigurationSection incompleteSec = getOrderCardSection(false);
+        org.bukkit.configuration.ConfigurationSection cardSec = getOrderCardSection(isCompleted);
         org.bukkit.configuration.ConfigurationSection globalSec = plugin.getConfig().getConfigurationSection("order-clicks");
 
-        List<String> leftActions = getActionList(incompleteSec, orderCardSec, globalSec, "left-click");
-        List<String> rightActions = getActionList(incompleteSec, orderCardSec, globalSec, "right-click");
-        List<String> shiftRightActions = getActionList(incompleteSec, orderCardSec, globalSec, "shift-right-click");
-        List<String> shiftLeftActions = getActionList(incompleteSec, orderCardSec, globalSec, "shift-left-click");
-        List<String> middleActions = getActionList(incompleteSec, orderCardSec, globalSec, "middle-click");
-        List<String> generalActions = getActionList(incompleteSec, orderCardSec, globalSec, "click-actions");
-        if (generalActions.isEmpty()) generalActions = getActionList(incompleteSec, orderCardSec, globalSec, "actions");
+        List<String> leftActions = getActionList(cardSec, orderCardSec, globalSec, "left-click");
+        List<String> rightActions = getActionList(cardSec, orderCardSec, globalSec, "right-click");
+        List<String> shiftRightActions = getActionList(cardSec, orderCardSec, globalSec, "shift-right-click");
+        List<String> shiftLeftActions = getActionList(cardSec, orderCardSec, globalSec, "shift-left-click");
+        List<String> middleActions = getActionList(cardSec, orderCardSec, globalSec, "middle-click");
+        List<String> generalActions = getActionList(cardSec, orderCardSec, globalSec, "click-actions");
+        if (generalActions.isEmpty()) generalActions = getActionList(cardSec, orderCardSec, globalSec, "actions");
 
-        final List<String> fLeftActions = (leftActions.isEmpty() && generalActions.isEmpty()) ? List.of("[TURN_IN]") : leftActions;
+        final List<String> fLeftActions = (!isCompleted && leftActions.isEmpty() && generalActions.isEmpty()) ? List.of("[TURN_IN]") : leftActions;
         final List<String> fShiftRightActions = shiftRightActions;
         final List<String> fRightActions = rightActions;
         final List<String> fShiftLeftActions = shiftLeftActions;
         final List<String> fMiddleActions = middleActions;
         final List<String> fGeneralActions = generalActions;
 
-        org.bukkit.configuration.ConfigurationSection generalReq = getSection(incompleteSec, orderCardSec, "click-requirement", "click-requirements", "requirement", "requirements");
-        org.bukkit.configuration.ConfigurationSection leftReq = getSection(incompleteSec, orderCardSec, "left-click-requirement", "left-click-requirements");
-        org.bukkit.configuration.ConfigurationSection rightReq = getSection(incompleteSec, orderCardSec, "right-click-requirement", "right-click-requirements");
-        org.bukkit.configuration.ConfigurationSection shiftLeftReq = getSection(incompleteSec, orderCardSec, "shift-left-click-requirement", "shift-left-click-requirements");
-        org.bukkit.configuration.ConfigurationSection shiftRightReq = getSection(incompleteSec, orderCardSec, "shift-right-click-requirement", "shift-right-click-requirements");
-        org.bukkit.configuration.ConfigurationSection middleReq = getSection(incompleteSec, orderCardSec, "middle-click-requirement", "middle-click-requirements");
+        org.bukkit.configuration.ConfigurationSection generalReq = getSection(cardSec, orderCardSec, "click-requirement", "click-requirements", "requirement", "requirements");
+        org.bukkit.configuration.ConfigurationSection leftReq = getSection(cardSec, orderCardSec, "left-click-requirement", "left-click-requirements");
+        org.bukkit.configuration.ConfigurationSection rightReq = getSection(cardSec, orderCardSec, "right-click-requirement", "right-click-requirements");
+        org.bukkit.configuration.ConfigurationSection shiftLeftReq = getSection(cardSec, orderCardSec, "shift-left-click-requirement", "shift-left-click-requirements");
+        org.bukkit.configuration.ConfigurationSection shiftRightReq = getSection(cardSec, orderCardSec, "shift-right-click-requirement", "shift-right-click-requirements");
+        org.bukkit.configuration.ConfigurationSection middleReq = getSection(cardSec, orderCardSec, "middle-click-requirement", "middle-click-requirements");
 
         if (!fGeneralActions.isEmpty()) {
             clickActions.put(slot, e -> {
@@ -550,20 +550,44 @@ public class OrderDepositMenu extends BaseMenu {
             if (trimmed.equalsIgnoreCase("[TURN_IN]") || trimmed.equalsIgnoreCase("[DEPOSIT]")) {
                 handleDepositOrder(order, profile, shiftId, slotNumber);
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll]") || trimmed.equalsIgnoreCase("[reroll]")) {
+                if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
+                    player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
+                            "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
+                    player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 if (plugin.getJobsManager().executeReroll(player, job.getId(), slotNumber)) {
                     if (!hasRefresh) {
                         refreshSlot(slot);
                     }
                 }
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_auto]") || trimmed.equalsIgnoreCase("[reroll_auto]")) {
+                if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
+                    player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
+                            "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
+                    player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 handleAutoReroll(profile, slotNumber, slot, hasRefresh);
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_gins]") || trimmed.equalsIgnoreCase("[reroll_gins]")) {
+                if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
+                    player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
+                            "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
+                    player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 if (plugin.getJobsManager().executeRerollGins(player, job.getId(), slotNumber)) {
                     if (!hasRefresh) {
                         refreshSlot(slot);
                     }
                 }
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_serium]") || trimmed.equalsIgnoreCase("[reroll_serium]")) {
+                if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
+                    player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
+                            "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
+                    player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+                    return;
+                }
                 if (plugin.getJobsManager().executeRerollSerium(player, job.getId(), slotNumber)) {
                     if (!hasRefresh) {
                         refreshSlot(slot);
