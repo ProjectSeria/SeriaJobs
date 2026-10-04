@@ -35,6 +35,24 @@ public class ActionRunnerService {
         if (trimmed.regionMatches(true, 0, "[console]", 0, 9)) {
             String cmd = trimmed.substring(9).trim();
             if (!cmd.isEmpty()) {
+                String lower = cmd.toLowerCase();
+                if ((lower.startsWith("reputasi give ") || lower.startsWith("reputation give "))
+                        && id.seria.jobs.SeriaJobs.getInstance().getHookManager() != null
+                        && id.seria.jobs.SeriaJobs.getInstance().getHookManager().isExcellentEconomyLoaded()) {
+                    String[] parts = cmd.split("\\s+");
+                    double amt = parts.length > 3 ? parseDoubleSafe(parts[3], reputationAmount) : reputationAmount;
+                    if (id.seria.jobs.SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook().deposit(player, "reputasi", amt)) {
+                        return;
+                    }
+                } else if (lower.startsWith("serium give ")
+                        && id.seria.jobs.SeriaJobs.getInstance().getHookManager() != null
+                        && id.seria.jobs.SeriaJobs.getInstance().getHookManager().isExcellentEconomyLoaded()) {
+                    String[] parts = cmd.split("\\s+");
+                    double amt = parts.length > 3 ? parseDoubleSafe(parts[3], 1.0) : 1.0;
+                    if (id.seria.jobs.SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook().deposit(player, "serium", amt)) {
+                        return;
+                    }
+                }
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
             }
         } else if (trimmed.regionMatches(true, 0, "[player]", 0, 8)) {
@@ -80,6 +98,14 @@ public class ActionRunnerService {
             try {
                 player.playSound(player.getLocation(), soundKey.toLowerCase(), 1.0f, 1.0f);
             } catch (Throwable ignored) {}
+        }
+    }
+
+    private double parseDoubleSafe(String s, double fallback) {
+        try {
+            return Double.parseDouble(s);
+        } catch (Throwable t) {
+            return fallback;
         }
     }
 }
