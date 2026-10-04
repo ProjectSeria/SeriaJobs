@@ -231,7 +231,7 @@ reroll:
   # Biaya alternatif menggunakan Serium (mata uang premium)
   serium-cost: 1
   # Perintah penarikan saldo Serium (jika plugin coinsengine/excelenteconomy menggunakan command)
-  serium-command: "excelenteconomy take %player% serium %amount%"
+  serium-command: "serium take %player% %amount%"
 
 # ==============================================================
 # Pengaturan Aksi Klik Kartu Pesanan Pasar (Order Click Actions)

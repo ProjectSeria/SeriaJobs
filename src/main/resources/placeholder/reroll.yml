@@ -85,7 +85,7 @@ command:
   tracks:
     "==free": ""
     "==gins": "eco take %player% %jobsorder_reroll_cost_gins%"
-    "==serium": "excelenteconomy take %player% serium %jobsorder_reroll_cost_serium%"
+    "==serium": "serium take %player% %jobsorder_reroll_cost_serium%"
     default: ""
 
 # Alias alternatif untuk %custom_reroll_command%
@@ -96,7 +96,7 @@ deduct-command:
   tracks:
     "==free": ""
     "==gins": "eco take %player% %jobsorder_reroll_cost_gins%"
-    "==serium": "excelenteconomy take %player% serium %jobsorder_reroll_cost_serium%"
+    "==serium": "serium take %player% %jobsorder_reroll_cost_serium%"
     default: ""
 
 # Format Action Lengkap dengan prefix [console]
@@ -107,7 +107,7 @@ deduct-action:
   tracks:
     "==free": ""
     "==gins": "[console] eco take %player% %jobsorder_reroll_cost_gins%"
-    "==serium": "[console] excelenteconomy take %player% serium %jobsorder_reroll_cost_serium%"
+    "==serium": "[console] serium take %player% %jobsorder_reroll_cost_serium%"
     default: ""
 
 # 5. Pesan Deny Dinamis untuk GUI Requirement
