@@ -311,10 +311,12 @@ public class JobsManager {
             return false;
         }
 
-        // 1. Validasi playerData.canReroll()
-        if (!profile.canReroll()) {
+        // 1. Validasi kuota reroll
+        int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
+        boolean allowSeriumAfterMax = plugin.getConfig().getBoolean("reroll.allow-serium-after-max", true);
+        if (!allowSeriumAfterMax && !profile.canReroll(maxReroll)) {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-max-reached",
-                    "<red>Batas maksimal reroll (10x) periode ini sudah habis!</red>"));
+                    "<red>Batas maksimal reroll (" + maxReroll + "x) periode ini sudah habis!</red>"));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             return false;
         }

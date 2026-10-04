@@ -748,7 +748,7 @@ public abstract class BaseMenu implements InventoryHolder {
                         String[] parts = cmd.split("\\s+");
                         int amount = parts.length > 3 ? (int) Double.parseDouble(parts[3]) : 1;
                         if (!plugin.getJobsManager().deductSerium(player, amount)) {
-                            String altCmd = "excelenteconomy withdraw " + player.getName() + " serium " + amount;
+                            String altCmd = "excelenteconomy take " + player.getName() + " serium " + amount;
                             plugin.getLogger().info("Intercepting serium command for " + player.getName() + ": /" + altCmd);
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), altCmd);
                         } else {
