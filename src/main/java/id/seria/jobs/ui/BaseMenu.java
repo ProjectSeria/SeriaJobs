@@ -82,7 +82,12 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
     public void refreshSlot(int slot) {
-        if (inventory == null || slot < 0 || slot >= inventory.getSize())
+        if (inventory == null)
+            return;
+        if (slot == inventory.getSize() && inventory.getSize() > 0) {
+            slot = inventory.getSize() - 1;
+        }
+        if (slot < 0 || slot >= inventory.getSize())
             return;
 
         // 1. Delegate to custom slot refresh first if handled (e.g. OrderDepositMenu
@@ -311,6 +316,9 @@ public abstract class BaseMenu implements InventoryHolder {
 
             List<Integer> slots = getSlots(sec);
             for (int slot : slots) {
+                if (slot == inventory.getSize() && inventory.getSize() > 0) {
+                    slot = inventory.getSize() - 1;
+                }
                 if (slot >= 0 && slot < inventory.getSize()) {
                     slotCandidates.computeIfAbsent(slot, k -> new ArrayList<>()).add(sec);
                 }

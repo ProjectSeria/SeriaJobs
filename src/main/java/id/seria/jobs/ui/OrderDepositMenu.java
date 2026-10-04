@@ -121,7 +121,7 @@ public class OrderDepositMenu extends BaseMenu {
 
     @Override
     public void build() {
-        createInventory(45, "<gradient:#2c3e50:#3498db>Bursa Kerja: " + job.getDisplayName() + "</gradient>");
+        createInventory(54, "<gradient:#2c3e50:#3498db>Bursa Kerja: " + job.getDisplayName() + "</gradient>");
         applyFillers();
         applyStaticItems();
 
@@ -357,9 +357,49 @@ public class OrderDepositMenu extends BaseMenu {
             } else if (trimmed.equalsIgnoreCase("[BACK]")) {
                 new MainJobsMenu(plugin, player).open();
                 return;
+            } else if (trimmed.equalsIgnoreCase("[RESIGN]") || trimmed.equalsIgnoreCase("[LEAVE_JOB]")) {
+                handleLeaveJob();
+                return;
             }
         }
         super.handleActions(actions);
+    }
+
+    private void handleLeaveJob() {
+        if (!plugin.getConfigManager().isLeaveJobEnabled()) {
+            return;
+        }
+
+        JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+        if (profile == null) return;
+
+        if (profile.isLeaveOnCooldown(job.getId())) {
+            long remainingMillis = profile.getLeaveCooldown(job.getId()) - System.currentTimeMillis();
+            long hours = remainingMillis / (1000 * 60 * 60);
+            long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.leave-cooldown",
+                    "{time}", hours + " jam " + minutes + " menit"));
+            return;
+        }
+
+        id.seria.jobs.api.JobLeaveEvent event = new id.seria.jobs.api.JobLeaveEvent(player, job);
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            return;
+        }
+
+        profile.removeActiveJob(job.getId());
+        long cooldownHours = plugin.getConfigManager().getLeaveCooldownHours();
+        profile.setLeaveCooldown(job.getId(), System.currentTimeMillis() + (cooldownHours * 3600 * 1000L));
+
+        if (plugin.getConfigManager().isResetProgressOnLeave()) {
+            profile.setJobLevel(job.getId(), 1);
+            profile.setJobXp(job.getId(), 0);
+        }
+
+        plugin.getPlayerDataManager().saveProfileAsync(profile);
+        player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.leave-success", "{job}", job.getDisplayName()));
+        player.closeInventory();
     }
 
     private void bindOrderCardActions(int slot, JobOrder order, JobProfile profile, String shiftId, int slotNumber) {

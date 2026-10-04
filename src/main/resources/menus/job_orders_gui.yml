@@ -1,68 +1,13 @@
 title: "<gradient:#2c3e50:#3498db>Job Orders: {job_name}</gradient>"
-size: 45
+size: 54
 
 fillers:
   glass:
-    material: "GRAY_STAINED_GLASS_PANE"
+    material: "YELLOW_STAINED_GLASS_PANE"
     name: " "
-    slots: [0, 1, 2, 3, 5, 6, 7, 8, 36, 40, 42, 43, 44]
-
-items:
-  player_status:
-    slot: 4
-    material: "PLAYER_HEAD"
-    skull-owner: "%player_name%"
-    name: "<green>%player_name% - Worker Profile</green>"
-    lore:
-      - "<gray>Profession: <white>{job_name}</white>"
-      - "<gray>Level: <gold>{level}</gold>"
-      - "<gray>XP: <yellow>{xp} / {required_xp}</yellow>"
-      - "<gray>Job Slots: <yellow>%seriajobs_active_jobs_count% / %seriajobs_max_slots%</yellow>"
-      - "<gray>Next Shift: <gold>%seriajobs_rotation_countdown%</gold>"
-      - ""
-      - "<yellow>▶ Click to refresh status</yellow>"
-    actions:
-      - "[REFRESH]"
-
-  refresh_button:
-    slot: 37
-    material: "CLOCK"
-    name: "<aqua><bold>Refresh Display</bold></aqua>"
-    lore:
-      - "<gray>Click to update contract progress,"
-      - "<gray>shift countdown, and inventory states."
-    actions:
-      - "[REFRESH]"
-
-  rewards_roadmap_button:
-    slot: 38
-    material: "EXPERIENCE_BOTTLE"
-    name: "<gold><bold>Level Rewards Roadmap</bold></gold>"
-    lore:
-      - "<gray>Click to view milestones and rewards"
-      - "<gray>unlocked across each profession level."
-      - ""
-      - "<yellow>▶ Click to open roadmap</yellow>"
-    actions:
-      - "[OPEN_PROGRESSION]"
-
-  quick_deposit_all:
-    slot: 39
-    material: "HOPPER"
-    name: "<gold><bold>Deposit All Commodities</bold></gold>"
-    lore:
-      - "<gray>Click to automatically scan and deposit"
-      - "<gray>all active contract items from your inventory."
-    actions:
-      - "[DEPOSIT_ALL]"
-      - "[REFRESH]"
-
-  back_button:
-    slot: 41
-    material: "BARRIER"
-    name: "<red>Back to Main Board</red>"
-    actions:
-      - "[open] main_job_menu"
+    slots: [0, 1, 7, 8, 9, 36, 44, 45, 46, 52]
+    item-flags:
+      - "HIDE_ADDITIONAL_TOOLTIP"
 
 layout:
   order-slots:
@@ -76,6 +21,7 @@ layout:
           value: true
 
 items:
+  # Dynamic Contract Cards
   incomplete:
     name: "{order_display_name}"
     taints:
@@ -91,11 +37,8 @@ items:
       - "{rewards_list}"
       - "<green>▶ Left-Click to deposit items from your inventory</green>"
       - "%custom_reroll_status%"
-
-    # Konfigurasi aksi klik spesifik per kartu pesanan di menu ini:
     left-click:
       - "[TURN_IN]"
-
     right-click-requirement:
       requirements:
         has_currency:
@@ -106,19 +49,91 @@ items:
       deny-message: "%custom_reroll_deny-message%"
       deny-actions:
         - "[sound] entity.villager.no 1 1"
-
     right-click-action:
       - "[console] %custom_reroll_command%"
       - "[jobs_reroll]"
       - "[refresh] 20"
-
     shift-left-click:
       - "[DEPOSIT_ALL]"
 
   completed:
     name: "{order_display_name} <green>[COMPLETED]</green>"
+    taints:
+      orders-item: true
     lore:
       - "{order_lore}"
       - ""
       - "<green>✔ You have fulfilled this contract!</green>"
       - "<gray>Await the next market shift for new work orders.</gray>"
+
+  # Static Navigation & Utility Items
+  player_status:
+    name: "<green>%player_name% - Worker Profile</green>"
+    material: "PLAYER_HEAD"
+    skull-owner: "%player_name%"
+    slot: 4
+    lore:
+      - "<gray>Profession: <white>{job_name}</white>"
+      - "<gray>Level: <gold>{level}</gold>"
+      - "<gray>XP: <yellow>{xp} / {required_xp}</yellow>"
+      - "<gray>Job Slots: <yellow>%seriajobs_active_jobs_count% / %seriajobs_max_slots%</yellow>"
+      - "<gray>Next Shift: <gold>%seriajobs_rotation_countdown%</gold>"
+      - ""
+      - "<yellow>▶ Click to refresh status</yellow>"
+    actions:
+      - "[REFRESH]"
+
+  refresh_button:
+    name: "<aqua><bold>Refresh Display</bold></aqua>"
+    material: "CLOCK"
+    slot: 47
+    lore:
+      - "<gray>Click to update contract progress,"
+      - "<gray>shift countdown, and inventory states."
+    actions:
+      - "[REFRESH]"
+
+  rewards_roadmap_button:
+    name: "<gold><bold>Level Rewards Roadmap</bold></gold>"
+    material: "EXPERIENCE_BOTTLE"
+    slot: 48
+    lore:
+      - "<gray>Click to view milestones and rewards"
+      - "<gray>unlocked across each profession level."
+      - ""
+      - "<yellow>▶ Click to open roadmap</yellow>"
+    actions:
+      - "[OPEN_PROGRESSION]"
+
+  back_button:
+    name: "<red>Back to Main Board</red>"
+    material: "BARRIER"
+    slot: 49
+    actions:
+      - "[open] main_job_menu"
+
+  quick_deposit_all:
+    name: "<gold><bold>Deposit All Commodities</bold></gold>"
+    material: "HOPPER"
+    slot: 50
+    lore:
+      - "<gray>Click to automatically scan and deposit"
+      - "<gray>all active contract items from your inventory."
+    actions:
+      - "[DEPOSIT_ALL]"
+      - "[REFRESH]"
+
+  resign_button:
+    name: "<red><bold>Resign from Profession</bold></red>"
+    material: "IRON_DOOR"
+    slot: 53 # Slot 54 (0-indexed position 53)
+    lore:
+      - "<gray>Profession: <white>{job_name}</white>"
+      - ""
+      - "<red>Click to resign and withdraw from this job.</red>"
+      - "<gray>Your active contracts will be forfeited,</gray>"
+      - "<gray>and a resignation cooldown will be applied.</gray>"
+      - ""
+      - "<red>▶ Click to resign from this job</red>"
+    actions:
+      - "[RESIGN]"
