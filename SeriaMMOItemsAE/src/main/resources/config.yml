@@ -1,0 +1,37 @@
+# ==============================================================================
+#                      SeriaMMOItemsAE Configuration
+#        Bridge Plugin: MMOItems YAML Templates & AdvancedEnchantments
+# ==============================================================================
+
+# Aktifkan mode debug untuk melihat log detail di console server
+debug: false
+
+# Pengaturan otomatis penerapan enchant AE pada alur / pipeline item
+auto-apply:
+  # Terapkan saat pemain mengambil item dari tanah
+  on-pickup: true
+  # Terapkan saat pemain mengambil hasil crafting
+  on-craft: true
+  # Terapkan saat pemain mengklik item di inventory
+  on-inventory-click: true
+  # Terapkan saat pemain mengganti item yang dipegang ke tangan utama (hotbar switch)
+  on-item-held: true
+  # Terapkan saat pemain login ke server (memeriksa armor dan inventory)
+  on-join: true
+  # Terapkan saat MMOItems melakukan auto-update revision / reforge
+  on-reforge: true
+
+# Pertahankan enchant AE tambahan yang dipasang manual oleh pemain saat item di-reforge/update oleh MMOItems
+preserve-player-enchants-on-reforge: true
+
+# Pesan sistem (Mendukung MiniMessage format & legacy color codes)
+messages:
+  prefix: "<gold><bold>MMO-AE</bold></gold> <dark_gray>»</dark_gray> "
+  reload: "<green>Konfigurasi SeriaMMOItemsAE berhasil dimuat ulang!</green>"
+  no-permission: "<red>Kamu tidak memiliki izin untuk menggunakan perintah ini.</red>"
+  no-item: "<red>Kamu harus memegang item di tangan utama!</red>"
+  not-mmoitem: "<red>Item yang kamu pegang bukan merupakan item MMOItems!</red>"
+  no-enchants: "<yellow>Item MMOItems ini tidak memiliki konfigurasi 'ae-enchants'.</yellow>"
+  applied-success: "<green>Berhasil menerapkan enchant AE pada item di tanganmu!</green>"
+  already-applied: "<yellow>Semua enchant AE pada item ini sudah terpasang lengkap.</yellow>"
+  ae-not-loaded: "<red>Plugin AdvancedEnchantments (AE) tidak terdeteksi atau belum siap.</red>"
