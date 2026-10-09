@@ -111,19 +111,21 @@ public class AEHook {
     public static boolean hasEnchant(ItemStack item, String enchantName) {
         if (item == null || !available || enchantName == null) return false;
 
+        String cleanName = enchantName.replace(":", "").trim().toLowerCase();
+
         try {
             if (hasEnchantMethod1 != null) {
-                Object res = hasEnchantMethod1.invoke(null, enchantName.trim(), item);
-                if (res instanceof Boolean) return (Boolean) res;
+                Object res = hasEnchantMethod1.invoke(null, cleanName, item);
+                if (res instanceof Boolean && (Boolean) res) return true;
             } else if (hasEnchantMethod2 != null) {
-                Object res = hasEnchantMethod2.invoke(null, item, enchantName.trim());
-                if (res instanceof Boolean) return (Boolean) res;
+                Object res = hasEnchantMethod2.invoke(null, item, cleanName);
+                if (res instanceof Boolean && (Boolean) res) return true;
             }
         } catch (Throwable ignored) {}
 
         // Fallback: check map
         Map<String, Integer> currentEnchants = getEnchantments(item);
-        return currentEnchants.containsKey(enchantName.trim().toLowerCase());
+        return currentEnchants.containsKey(cleanName);
     }
 
     /**
@@ -140,13 +142,13 @@ public class AEHook {
                 Map<?, ?> rawMap = (Map<?, ?>) result;
                 for (Map.Entry<?, ?> entry : rawMap.entrySet()) {
                     if (entry.getKey() != null && entry.getValue() != null) {
-                        String name = entry.getKey().toString().toLowerCase();
+                        String name = entry.getKey().toString().toLowerCase().trim();
                         int lvl = 1;
                         if (entry.getValue() instanceof Number) {
                             lvl = ((Number) entry.getValue()).intValue();
                         } else {
                             try {
-                                lvl = Integer.parseInt(entry.getValue().toString());
+                                lvl = Integer.parseInt(entry.getValue().toString().trim());
                             } catch (NumberFormatException ignored) {}
                         }
                         map.put(name, lvl);
@@ -159,7 +161,7 @@ public class AEHook {
     }
 
     /**
-     * Parses and applies a list of AE enchant specifications (e.g., ["decapitation 3", "critical 3"]).
+     * Parses and applies a list of AE enchant specifications.
      */
     public static ItemStack applyEnchantList(ItemStack item, List<String> enchantSpecs) {
         if (item == null || !available || enchantSpecs == null || enchantSpecs.isEmpty()) {
@@ -172,15 +174,15 @@ public class AEHook {
         for (String spec : enchantSpecs) {
             if (spec == null || spec.trim().isEmpty()) continue;
 
-            String cleaned = spec.trim();
-            String[] tokens = cleaned.split("\\s+");
+            String cleaned = spec.replace(":", " ").trim().replaceAll("\\s+", " ");
+            String[] tokens = cleaned.split(" ");
             if (tokens.length == 0) continue;
 
-            String enchantName = tokens[0];
+            String enchantName = tokens[0].trim();
             int level = 1;
             if (tokens.length >= 2) {
                 try {
-                    level = Integer.parseInt(tokens[1]);
+                    level = Integer.parseInt(tokens[1].trim());
                 } catch (NumberFormatException ignored) {
                     level = 1;
                 }

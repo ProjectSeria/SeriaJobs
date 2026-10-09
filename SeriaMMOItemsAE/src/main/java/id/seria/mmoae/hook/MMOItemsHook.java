@@ -3,9 +3,7 @@ package id.seria.mmoae.hook;
 import id.seria.mmoae.stat.AEEnchantsStat;
 import io.lumine.mythic.lib.api.item.NBTItem;
 import net.Indyuce.mmoitems.MMOItems;
-import net.Indyuce.mmoitems.api.ItemTier;
 import net.Indyuce.mmoitems.api.Type;
-import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
 import net.Indyuce.mmoitems.api.item.template.MMOItemTemplate;
 import net.Indyuce.mmoitems.stat.data.StringListData;
 import org.bukkit.Bukkit;
@@ -29,8 +27,10 @@ public class MMOItemsHook {
         Plugin mmoPlugin = Bukkit.getPluginManager().getPlugin("MMOItems");
         if (mmoPlugin != null && mmoPlugin.isEnabled()) {
             try {
-                statInstance = new AEEnchantsStat();
-                MMOItems.plugin.getStats().register(statInstance);
+                if (statInstance == null) {
+                    statInstance = new AEEnchantsStat();
+                    MMOItems.plugin.getStats().register(statInstance);
+                }
                 available = true;
                 LOGGER.info("[SeriaMMOItemsAE] Successfully registered 'AE_ENCHANTS' (ae-enchants) custom stat into MMOItems!");
             } catch (Throwable t) {
@@ -110,7 +110,7 @@ public class MMOItemsHook {
                 }
             }
 
-            // 2. Fallback: Retrieve directly from the MMOItem template config
+            // 2. Retrieve directly from the MMOItem template config
             String typeId = nbtItem.getType();
             String itemId = nbtItem.getString("MMOITEMS_ITEM_ID");
             if (typeId != null && itemId != null) {
@@ -138,29 +138,32 @@ public class MMOItemsHook {
             if (type == null) return list;
 
             MMOItemTemplate template = MMOItems.plugin.getTemplates().getTemplate(type, itemId);
-            if (template == null) return list;
-
-            // Check if template base has stat data
-            if (template.getBaseItemData().containsKey(statInstance)) {
-                Object data = template.getBaseItemData().get(statInstance);
-                if (data instanceof StringListData) {
-                    list.addAll(((StringListData) data).getList());
-                    return list;
+            if (template != null && statInstance != null) {
+                // Check if template base has stat data
+                if (template.getBaseItemData().containsKey(statInstance)) {
+                    Object data = template.getBaseItemData().get(statInstance);
+                    if (data instanceof StringListData) {
+                        list.addAll(((StringListData) data).getList());
+                        if (!list.isEmpty()) return list;
+                    }
                 }
             }
 
-            // Check raw config file of type
+            // Check raw config file of type (handles both Section and List)
             ConfigurationSection config = type.getConfigFile().getConfig();
             if (config != null) {
                 String basePath = itemId + ".base.ae-enchants";
-                if (config.isList(basePath)) {
-                    list.addAll(config.getStringList(basePath));
-                    return list;
+                if (config.contains(basePath)) {
+                    Object raw = config.get(basePath);
+                    list.addAll(AEEnchantsStat.parseRawObject(raw));
+                    if (!list.isEmpty()) return list;
                 }
+
                 String altPath = itemId + ".ae-enchants";
-                if (config.isList(altPath)) {
-                    list.addAll(config.getStringList(altPath));
-                    return list;
+                if (config.contains(altPath)) {
+                    Object raw = config.get(altPath);
+                    list.addAll(AEEnchantsStat.parseRawObject(raw));
+                    if (!list.isEmpty()) return list;
                 }
             }
         } catch (Throwable ignored) {}

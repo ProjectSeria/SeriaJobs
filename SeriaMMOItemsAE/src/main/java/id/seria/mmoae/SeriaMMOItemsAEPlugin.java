@@ -8,13 +8,17 @@ import id.seria.mmoae.listener.MMOItemReforgeListener;
 import id.seria.mmoae.service.AEBridgeService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 public class SeriaMMOItemsAEPlugin extends JavaPlugin {
 
     private static SeriaMMOItemsAEPlugin instance;
     private AEBridgeService bridgeService;
+    private ItemPipelineListener pipelineListener;
+    private BukkitTask scanTask;
 
     @Override
     public void onLoad() {
@@ -53,6 +57,10 @@ public class SeriaMMOItemsAEPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (scanTask != null) {
+            scanTask.cancel();
+            scanTask = null;
+        }
         HandlerList.unregisterAll(this);
         getLogger().info("SeriaMMOItemsAE disabled.");
     }
@@ -64,6 +72,10 @@ public class SeriaMMOItemsAEPlugin extends JavaPlugin {
     }
 
     private void reloadServicesAndListeners() {
+        if (scanTask != null) {
+            scanTask.cancel();
+            scanTask = null;
+        }
         HandlerList.unregisterAll(this);
 
         boolean debug = getConfig().getBoolean("debug", false);
@@ -74,19 +86,41 @@ public class SeriaMMOItemsAEPlugin extends JavaPlugin {
         boolean onInventoryClick = getConfig().getBoolean("auto-apply.on-inventory-click", true);
         boolean onItemHeld = getConfig().getBoolean("auto-apply.on-item-held", true);
         boolean onJoin = getConfig().getBoolean("auto-apply.on-join", true);
+        boolean onInteract = getConfig().getBoolean("auto-apply.on-interact", true);
+        boolean onAttack = getConfig().getBoolean("auto-apply.on-attack", true);
         boolean onReforge = getConfig().getBoolean("auto-apply.on-reforge", true);
+        boolean periodicScan = getConfig().getBoolean("auto-apply.periodic-inventory-scan", true);
         boolean preservePlayerEnchants = getConfig().getBoolean("preserve-player-enchants-on-reforge", true);
 
         // Register Listeners
-        Bukkit.getPluginManager().registerEvents(
-                new ItemPipelineListener(bridgeService, onPickup, onCraft, onInventoryClick, onItemHeld, onJoin),
-                this
+        this.pipelineListener = new ItemPipelineListener(
+                bridgeService,
+                onPickup,
+                onCraft,
+                onInventoryClick,
+                onItemHeld,
+                onJoin,
+                onInteract,
+                onAttack
         );
+        Bukkit.getPluginManager().registerEvents(pipelineListener, this);
 
         Bukkit.getPluginManager().registerEvents(
                 new MMOItemReforgeListener(bridgeService, onReforge, preservePlayerEnchants),
                 this
         );
+
+        // Periodic scanner for online players to guarantee live item enchantment updates
+        if (periodicScan) {
+            scanTask = Bukkit.getScheduler().runTaskTimer(this, () -> {
+                if (!AEHook.isAvailable()) return;
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (pipelineListener != null) {
+                        pipelineListener.checkAndFixPlayerEquipment(player);
+                    }
+                }
+            }, 20L, 20L); // every 1 second
+        }
     }
 
     public static SeriaMMOItemsAEPlugin getInstance() {
