@@ -124,7 +124,7 @@ public class AEBridgeService {
             org.bukkit.inventory.meta.ItemMeta m = modified.getItemMeta();
             m.getPersistentDataContainer().set(KEY_PROCESSED,
                     org.bukkit.persistence.PersistentDataType.STRING,
-                    computeSpecHash(aeEnchants));
+                    computeSpecHash(modified, aeEnchants));
             modified.setItemMeta(m);
         }
 
@@ -132,12 +132,45 @@ public class AEBridgeService {
     }
 
     /**
+     * Gathers all AE enchantment identifiers relevant to this item:
+     * both baseline template specifications and any manual player-applied enchantments.
+     */
+    private java.util.Set<String> getAllRelevantAENames(ItemStack item, List<String> aeSpecs) {
+        java.util.Set<String> cleanNames = new java.util.HashSet<>();
+        if (aeSpecs != null) {
+            for (String spec : aeSpecs) {
+                if (spec == null || spec.trim().isEmpty()) continue;
+                String name = spec.trim().split("\\s+")[0].toLowerCase();
+                cleanNames.add(name.replace("_", "").replace("-", ""));
+                for (String cand : AEHook.getCandidateNames(name)) {
+                    cleanNames.add(cand.replace("_", "").replace("-", ""));
+                }
+            }
+        }
+
+        // Include any custom AE enchants currently present on the item (e.g. manual player enchants)
+        if (AEHook.isAvailable() && item != null) {
+            Map<String, Integer> currentEnchants = AEHook.getEnchantments(item);
+            for (String name : currentEnchants.keySet()) {
+                cleanNames.add(name.replace("_", "").replace("-", ""));
+                for (String cand : AEHook.getCandidateNames(name)) {
+                    cleanNames.add(cand.replace("_", "").replace("-", ""));
+                }
+            }
+        }
+
+        return cleanNames;
+    }
+
+    /**
      * Adjusts spacing around the AE enchantment block in lore:
      * - Removes any blank/empty lines immediately before the first AE enchant.
-     * - Adds exactly one blank/empty line immediately after the last AE enchant before subsequent sections.
+     * - Removes any accidental blank/empty lines between AE enchants.
+     * - Adds exactly one blank/empty line immediately after the last AE enchant.
+     * - Collapses any duplicate consecutive empty lines throughout the entire lore.
      */
     public ItemStack adjustAELoreSpacing(ItemStack item, List<String> aeSpecs) {
-        if (item == null || !item.hasItemMeta() || aeSpecs == null || aeSpecs.isEmpty()) {
+        if (item == null || !item.hasItemMeta()) {
             return item;
         }
 
@@ -151,15 +184,9 @@ public class AEBridgeService {
             return item;
         }
 
-        // Build normalized set of AE enchant identifiers
-        java.util.Set<String> cleanNames = new java.util.HashSet<>();
-        for (String spec : aeSpecs) {
-            if (spec == null || spec.trim().isEmpty()) continue;
-            String name = spec.trim().split("\\s+")[0].toLowerCase();
-            cleanNames.add(name.replace("_", "").replace("-", ""));
-            for (String cand : AEHook.getCandidateNames(name)) {
-                cleanNames.add(cand.replace("_", "").replace("-", ""));
-            }
+        java.util.Set<String> cleanNames = getAllRelevantAENames(item, aeSpecs);
+        if (cleanNames.isEmpty()) {
+            return item;
         }
 
         int firstAEIndex = -1;
@@ -186,13 +213,13 @@ public class AEBridgeService {
             return item;
         }
 
-        List<String> updatedLore = new java.util.ArrayList<>(lore);
+        List<String> list = new java.util.ArrayList<>(lore);
 
         // 1. Remove space before the AE enchant (any empty line immediately preceding firstAEIndex)
         while (firstAEIndex > 0) {
-            String prev = updatedLore.get(firstAEIndex - 1);
+            String prev = list.get(firstAEIndex - 1);
             if (prev == null || org.bukkit.ChatColor.stripColor(prev).trim().isEmpty()) {
-                updatedLore.remove(firstAEIndex - 1);
+                list.remove(firstAEIndex - 1);
                 firstAEIndex--;
                 lastAEIndex--;
             } else {
@@ -200,30 +227,58 @@ public class AEBridgeService {
             }
         }
 
-        // 2. Add space after AE enchant (ensure exactly one empty line immediately after lastAEIndex)
-        if (lastAEIndex + 1 < updatedLore.size()) {
-            String next = updatedLore.get(lastAEIndex + 1);
+        // 2. Remove any accidental empty lines between AE enchantments
+        int scan = firstAEIndex;
+        while (scan < lastAEIndex) {
+            String current = list.get(scan);
+            if (current == null || org.bukkit.ChatColor.stripColor(current).trim().isEmpty()) {
+                list.remove(scan);
+                lastAEIndex--;
+            } else {
+                scan++;
+            }
+        }
+
+        // 3. Ensure exactly one empty line immediately after the entire AE enchant block
+        if (lastAEIndex + 1 < list.size()) {
+            String next = list.get(lastAEIndex + 1);
             if (next == null || org.bukkit.ChatColor.stripColor(next).trim().isEmpty()) {
-                // If there are multiple empty lines, collapse to exactly one
-                while (lastAEIndex + 2 < updatedLore.size()) {
-                    String following = updatedLore.get(lastAEIndex + 2);
+                // Collapse multiple empty lines after AE enchants to exactly one
+                while (lastAEIndex + 2 < list.size()) {
+                    String following = list.get(lastAEIndex + 2);
                     if (following == null || org.bukkit.ChatColor.stripColor(following).trim().isEmpty()) {
-                        updatedLore.remove(lastAEIndex + 2);
+                        list.remove(lastAEIndex + 2);
                     } else {
                         break;
                     }
                 }
             } else {
                 // Insert one blank line right after AE enchant block
-                updatedLore.add(lastAEIndex + 1, "");
+                list.add(lastAEIndex + 1, "");
             }
         }
 
-        meta.setLore(updatedLore);
+        // 4. Global Lore Sanitizer: collapse any other consecutive blank lines throughout the lore
+        List<String> sanitized = new java.util.ArrayList<>(list.size());
+        boolean prevWasEmpty = false;
+        for (String l : list) {
+            boolean isEmpty = (l == null || org.bukkit.ChatColor.stripColor(l).trim().isEmpty());
+            if (isEmpty) {
+                if (!prevWasEmpty && !sanitized.isEmpty()) {
+                    sanitized.add("");
+                    prevWasEmpty = true;
+                }
+            } else {
+                sanitized.add(l);
+                prevWasEmpty = false;
+            }
+        }
+
+        meta.setLore(sanitized);
         try {
             // Also synchronize adventure lore components if available
-            List<net.kyori.adventure.text.Component> compLore = new java.util.ArrayList<>();
-            for (String line : updatedLore) {
+            List<net.kyori.adventure.text.Component> compLore = new java.util.ArrayList<>(sanitized.size());
+            for (String line : sanitized) {
                 if (line == null || line.isEmpty()) {
                     compLore.add(net.kyori.adventure.text.Component.empty());
                 } else {
@@ -241,7 +296,7 @@ public class AEBridgeService {
      * Checks if the spacing before and after AE enchants is already correct.
      */
     public boolean isLoreSpacingCorrect(ItemStack item, List<String> aeSpecs) {
-        if (item == null || !item.hasItemMeta() || aeSpecs == null || aeSpecs.isEmpty()) {
+        if (item == null || !item.hasItemMeta()) {
             return true;
         }
         if (!item.getItemMeta().hasLore()) {
@@ -253,14 +308,23 @@ public class AEBridgeService {
             return true;
         }
 
-        java.util.Set<String> cleanNames = new java.util.HashSet<>();
-        for (String spec : aeSpecs) {
-            if (spec == null || spec.trim().isEmpty()) continue;
-            String name = spec.trim().split("\\s+")[0].toLowerCase();
-            cleanNames.add(name.replace("_", "").replace("-", ""));
-            for (String cand : AEHook.getCandidateNames(name)) {
-                cleanNames.add(cand.replace("_", "").replace("-", ""));
+        // Check if there are duplicate consecutive empty lines anywhere in lore (lore gap bug)
+        boolean prevEmpty = false;
+        for (String line : lore) {
+            boolean isEmpty = (line == null || org.bukkit.ChatColor.stripColor(line).trim().isEmpty());
+            if (isEmpty) {
+                if (prevEmpty) {
+                    return false; // Found consecutive empty lines
+                }
+                prevEmpty = true;
+            } else {
+                prevEmpty = false;
             }
+        }
+
+        java.util.Set<String> cleanNames = getAllRelevantAENames(item, aeSpecs);
+        if (cleanNames.isEmpty()) {
+            return true;
         }
 
         int firstAEIndex = -1;
@@ -292,6 +356,14 @@ public class AEBridgeService {
             String prev = lore.get(firstAEIndex - 1);
             if (prev == null || org.bukkit.ChatColor.stripColor(prev).trim().isEmpty()) {
                 return false; // Still has space before AE enchant
+            }
+        }
+
+        // Check inside AE enchants block
+        for (int i = firstAEIndex; i <= lastAEIndex; i++) {
+            String line = lore.get(i);
+            if (line == null || org.bukkit.ChatColor.stripColor(line).trim().isEmpty()) {
+                return false; // Empty line between AE enchants
             }
         }
 
@@ -391,7 +463,7 @@ public class AEBridgeService {
         if (meta.getPersistentDataContainer().has(KEY_PROCESSED, org.bukkit.persistence.PersistentDataType.STRING)) {
             String storedHash = meta.getPersistentDataContainer().get(KEY_PROCESSED, org.bukkit.persistence.PersistentDataType.STRING);
             List<String> aeEnchants = MMOItemsHook.getAEEnchants(item);
-            String currentHash = computeSpecHash(aeEnchants);
+            String currentHash = computeSpecHash(item, aeEnchants);
             if (storedHash != null && storedHash.equals(currentHash)) {
                 return true; // Already processed and 100% up to date! 0ms CPU.
             }
@@ -448,8 +520,18 @@ public class AEBridgeService {
         return true;
     }
 
-    public static String computeSpecHash(List<String> aeEnchants) {
-        if (aeEnchants == null || aeEnchants.isEmpty()) return "none";
-        return String.join(";", aeEnchants);
+    public static String computeSpecHash(ItemStack item, List<String> aeEnchants) {
+        StringBuilder sb = new StringBuilder();
+        if (aeEnchants != null) {
+            sb.append(String.join(";", aeEnchants));
+        }
+        if (AEHook.isAvailable() && item != null) {
+            Map<String, Integer> current = AEHook.getEnchantments(item);
+            sb.append("|current:");
+            for (Map.Entry<String, Integer> e : current.entrySet()) {
+                sb.append(e.getKey()).append("=").append(e.getValue()).append(",");
+            }
+        }
+        return sb.toString();
     }
 }
