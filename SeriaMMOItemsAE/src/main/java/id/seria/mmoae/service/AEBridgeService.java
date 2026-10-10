@@ -67,7 +67,12 @@ public class AEBridgeService {
                 } catch (NumberFormatException ignored) {}
             }
 
-            Integer currentLvl = currentAE.get(name);
+            Integer currentLvl = null;
+            for (String candidate : AEHook.getCandidateNames(name)) {
+                currentLvl = currentAE.get(candidate);
+                if (currentLvl != null) break;
+            }
+
             if (currentLvl == null || currentLvl < targetLevel) {
                 needsUpdate = true;
                 break;
@@ -86,12 +91,10 @@ public class AEBridgeService {
         // Apply enchants through official AdvancedEnchantments API
         ItemStack modified = AEHook.applyEnchantList(item, aeEnchants);
 
-        // Ensure NBT tag is also preserved on the newly created ItemStack
+        // Ensure NBT tag is always updated to match current template specifications
         try {
             NBTItem nbt = NBTItem.get(modified);
-            if (!nbt.hasTag(AEEnchantsStat.NBT_TAG)) {
-                modified = nbt.addTag(new ItemTag(AEEnchantsStat.NBT_TAG, String.join(";;", aeEnchants))).toItem();
-            }
+            modified = nbt.addTag(new ItemTag(AEEnchantsStat.NBT_TAG, String.join(";;", aeEnchants))).toItem();
         } catch (Throwable ignored) {}
 
         // Ensure display name is also cleaned up on modified item
@@ -141,7 +144,12 @@ public class AEBridgeService {
                 } catch (NumberFormatException ignored) {}
             }
 
-            Integer currentLvl = currentAE.get(name);
+            Integer currentLvl = null;
+            for (String candidate : AEHook.getCandidateNames(name)) {
+                currentLvl = currentAE.get(candidate);
+                if (currentLvl != null) break;
+            }
+
             if (currentLvl == null || currentLvl < targetLevel) {
                 return false;
             }

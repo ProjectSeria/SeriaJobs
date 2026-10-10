@@ -100,23 +100,23 @@ public class MMOItemsHook {
             NBTItem nbtItem = NBTItem.get(item);
             if (!nbtItem.hasType()) return result;
 
-            // 1. Check if the item already has the serialized AE_ENCHANTS tag
+            // 1. ALWAYS PRIORITIZE the MMOItem template config (ground truth from YAML)
+            String typeId = nbtItem.getType();
+            String itemId = nbtItem.getString("MMOITEMS_ITEM_ID");
+            if (typeId != null && itemId != null) {
+                List<String> fromTemplate = getAEEnchantsFromTemplate(typeId, itemId);
+                if (!fromTemplate.isEmpty()) {
+                    return fromTemplate;
+                }
+            }
+
+            // 2. Fallback to serialized AE_ENCHANTS tag on item if template has none
             if (nbtItem.hasTag(AEEnchantsStat.NBT_TAG)) {
                 String raw = nbtItem.getString(AEEnchantsStat.NBT_TAG);
                 if (raw != null && !raw.trim().isEmpty()) {
                     String[] split = raw.split(";;");
                     result.addAll(Arrays.asList(split));
                     return result;
-                }
-            }
-
-            // 2. Retrieve directly from the MMOItem template config
-            String typeId = nbtItem.getType();
-            String itemId = nbtItem.getString("MMOITEMS_ITEM_ID");
-            if (typeId != null && itemId != null) {
-                List<String> fromTemplate = getAEEnchantsFromTemplate(typeId, itemId);
-                if (!fromTemplate.isEmpty()) {
-                    result.addAll(fromTemplate);
                 }
             }
         } catch (Throwable t) {

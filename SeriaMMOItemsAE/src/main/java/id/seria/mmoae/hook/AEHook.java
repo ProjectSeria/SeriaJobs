@@ -20,6 +20,7 @@ public class AEHook {
     private static Method getEnchantsMethod = null;   // getEnchantments(ItemStack) or getEnchantsOnItem(ItemStack)
 
     private static final Logger LOGGER = Logger.getLogger("SeriaMMOItemsAE");
+    private static final Set<String> WARNED_ENCHANTS = Collections.newSetFromMap(new java.util.concurrent.ConcurrentHashMap<>());
 
     public static void initialize() {
         Plugin aePlugin = Bukkit.getPluginManager().getPlugin("AdvancedEnchantments");
@@ -74,7 +75,33 @@ public class AEHook {
     }
 
     /**
-     * Applies a single AE enchantment onto an ItemStack.
+     * Resolves variations of an enchantment name (e.g., ender_slayer -> enderslayer).
+     */
+    public static List<String> getCandidateNames(String rawName) {
+        List<String> list = new ArrayList<>();
+        if (rawName == null || rawName.trim().isEmpty()) return list;
+
+        String clean = rawName.trim().toLowerCase();
+        list.add(clean);
+
+        String stripped = clean.replace("_", "").replace("-", "");
+        if (!list.contains(stripped)) {
+            list.add(stripped);
+        }
+
+        // Support common spelling fixes
+        if (clean.contains("primodial")) {
+            String typoFixed = clean.replace("primodial", "primordial");
+            if (!list.contains(typoFixed)) list.add(typoFixed);
+            String typoFixedStripped = stripped.replace("primodial", "primordial");
+            if (!list.contains(typoFixedStripped)) list.add(typoFixedStripped);
+        }
+
+        return list;
+    }
+
+    /**
+     * Applies a single AE enchantment onto an ItemStack, attempting format variations if needed.
      *
      * @param item The source item stack.
      * @param enchantName The name/key of the enchantment (e.g., "decapitation").
@@ -86,20 +113,31 @@ public class AEHook {
             return item;
         }
 
-        try {
-            if (applyEnchantMethod1 != null) {
-                Object result = applyEnchantMethod1.invoke(null, enchantName.trim(), level, item);
-                if (result instanceof ItemStack) {
-                    return (ItemStack) result;
+        List<String> candidates = getCandidateNames(enchantName);
+        Throwable lastError = null;
+
+        for (String candidate : candidates) {
+            try {
+                if (applyEnchantMethod1 != null) {
+                    Object result = applyEnchantMethod1.invoke(null, candidate, level, item);
+                    if (result instanceof ItemStack) {
+                        return (ItemStack) result;
+                    }
+                } else if (applyEnchantMethod2 != null) {
+                    Object result = applyEnchantMethod2.invoke(null, item, candidate, level);
+                    if (result instanceof ItemStack) {
+                        return (ItemStack) result;
+                    }
                 }
-            } else if (applyEnchantMethod2 != null) {
-                Object result = applyEnchantMethod2.invoke(null, item, enchantName.trim(), level);
-                if (result instanceof ItemStack) {
-                    return (ItemStack) result;
-                }
+            } catch (Throwable t) {
+                lastError = (t.getCause() != null) ? t.getCause() : t;
             }
-        } catch (Throwable t) {
-            LOGGER.log(Level.WARNING, "[SeriaMMOItemsAE] Error applying AE enchant '" + enchantName + " " + level + "': " + t.getMessage());
+        }
+
+        if (lastError != null && WARNED_ENCHANTS.add(enchantName.toLowerCase())) {
+            String causeMsg = lastError.getMessage() != null ? lastError.getMessage() : lastError.getClass().getSimpleName();
+            LOGGER.log(Level.WARNING, "[SeriaMMOItemsAE] Error applying AE enchant '" + enchantName + " " + level +
+                    "' (tried: " + candidates + "): " + causeMsg + ". Please verify enchantment key in AdvancedEnchantments/enchantments.yml.");
         }
 
         return item;
@@ -111,21 +149,29 @@ public class AEHook {
     public static boolean hasEnchant(ItemStack item, String enchantName) {
         if (item == null || !available || enchantName == null) return false;
 
-        String cleanName = enchantName.replace(":", "").trim().toLowerCase();
+        List<String> candidates = getCandidateNames(enchantName);
 
-        try {
-            if (hasEnchantMethod1 != null) {
-                Object res = hasEnchantMethod1.invoke(null, cleanName, item);
-                if (res instanceof Boolean && (Boolean) res) return true;
-            } else if (hasEnchantMethod2 != null) {
-                Object res = hasEnchantMethod2.invoke(null, item, cleanName);
-                if (res instanceof Boolean && (Boolean) res) return true;
-            }
-        } catch (Throwable ignored) {}
+        for (String candidate : candidates) {
+            try {
+                if (hasEnchantMethod1 != null) {
+                    Object res = hasEnchantMethod1.invoke(null, candidate, item);
+                    if (res instanceof Boolean && (Boolean) res) return true;
+                } else if (hasEnchantMethod2 != null) {
+                    Object res = hasEnchantMethod2.invoke(null, item, candidate);
+                    if (res instanceof Boolean && (Boolean) res) return true;
+                }
+            } catch (Throwable ignored) {}
+        }
 
         // Fallback: check map
         Map<String, Integer> currentEnchants = getEnchantments(item);
-        return currentEnchants.containsKey(cleanName);
+        for (String candidate : candidates) {
+            if (currentEnchants.containsKey(candidate)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -152,6 +198,11 @@ public class AEHook {
                             } catch (NumberFormatException ignored) {}
                         }
                         map.put(name, lvl);
+                        // Also store stripped version for easy matching
+                        String stripped = name.replace("_", "").replace("-", "");
+                        if (!map.containsKey(stripped)) {
+                            map.put(stripped, lvl);
+                        }
                     }
                 }
             }
@@ -189,15 +240,24 @@ public class AEHook {
             }
 
             // Check if already present at same or higher level
-            Integer currentLvl = existingEnchants.get(enchantName.toLowerCase());
-            if (currentLvl != null && currentLvl >= level) {
+            boolean alreadyPresent = false;
+            for (String candidate : getCandidateNames(enchantName)) {
+                Integer currentLvl = existingEnchants.get(candidate);
+                if (currentLvl != null && currentLvl >= level) {
+                    alreadyPresent = true;
+                    break;
+                }
+            }
+            if (alreadyPresent) {
                 continue;
             }
 
             ItemStack modified = applyEnchant(currentItem, enchantName, level);
             if (modified != null) {
                 currentItem = modified;
-                existingEnchants.put(enchantName.toLowerCase(), level);
+            }
+            for (String candidate : getCandidateNames(enchantName)) {
+                existingEnchants.put(candidate, level);
             }
         }
 
