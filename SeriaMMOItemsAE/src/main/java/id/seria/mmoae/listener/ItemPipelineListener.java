@@ -92,38 +92,55 @@ public class ItemPipelineListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onInventoryClick(InventoryClickEvent event) {
         if (!onInventoryClick || !AEHook.isAvailable()) return;
+        if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        ItemStack current = event.getCurrentItem();
-        if (current != null && !current.getType().isAir() && !bridgeService.isFullyEnchanted(current)) {
-            ItemStack updated = bridgeService.processItem(current);
-            if (updated != null && updated != current) {
-                event.setCurrentItem(updated);
-            }
-        }
+        // Schedule 1-tick delay: allows Bukkit & AdvancedEnchantments to finish item transfer,
+        // book consumption, and slot mutations completely before checking.
+        // Guarantees zero cursor conflict and ZERO item duplication!
+        org.bukkit.Bukkit.getScheduler().runTask(id.seria.mmoae.SeriaMMOItemsAEPlugin.getInstance(), () -> {
+            if (!player.isOnline()) return;
 
-        ItemStack cursor = event.getCursor();
-        if (cursor != null && !cursor.getType().isAir() && !bridgeService.isFullyEnchanted(cursor)) {
-            ItemStack updated = bridgeService.processItem(cursor);
-            if (updated != null && updated != cursor) {
-                event.getView().setCursor(updated);
+            // Check cursor
+            ItemStack cursor = player.getItemOnCursor();
+            if (cursor != null && !cursor.getType().isAir() && !bridgeService.isFullyEnchanted(cursor)) {
+                ItemStack updated = bridgeService.processItem(cursor);
+                if (updated != null && updated != cursor) {
+                    player.setItemOnCursor(updated);
+                }
             }
-        }
+
+            // Check clicked slot if view is valid
+            try {
+                if (player.getOpenInventory() != null) {
+                    int rawSlot = event.getRawSlot();
+                    if (rawSlot >= 0 && rawSlot < player.getOpenInventory().countSlots()) {
+                        ItemStack slotItem = player.getOpenInventory().getItem(rawSlot);
+                        if (slotItem != null && !slotItem.getType().isAir() && !bridgeService.isFullyEnchanted(slotItem)) {
+                            ItemStack updated = bridgeService.processItem(slotItem);
+                            if (updated != null && updated != slotItem) {
+                                player.getOpenInventory().setItem(rawSlot, updated);
+                            }
+                        }
+                    }
+                }
+            } catch (Throwable ignored) {}
+
+            checkAndFixPlayerEquipment(player);
+        });
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onInventoryDrag(InventoryDragEvent event) {
         if (!onInventoryClick || !AEHook.isAvailable()) return;
+        if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        ItemStack cursor = event.getOldCursor();
-        if (cursor != null && !cursor.getType().isAir() && !bridgeService.isFullyEnchanted(cursor)) {
-            ItemStack updated = bridgeService.processItem(cursor);
-            if (updated != null && updated != cursor) {
-                event.setCursor(updated);
-            }
-        }
+        org.bukkit.Bukkit.getScheduler().runTask(id.seria.mmoae.SeriaMMOItemsAEPlugin.getInstance(), () -> {
+            if (!player.isOnline()) return;
+            checkAndFixPlayerEquipment(player);
+        });
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

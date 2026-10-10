@@ -5,6 +5,9 @@ import id.seria.mmoae.hook.MMOItemsHook;
 import id.seria.mmoae.stat.AEEnchantsStat;
 import io.lumine.mythic.lib.api.item.ItemTag;
 import io.lumine.mythic.lib.api.item.NBTItem;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -58,65 +61,69 @@ public class AEBridgeService {
         }
 
         List<String> aeEnchants = MMOItemsHook.getAEEnchants(item);
-        if (aeEnchants == null || aeEnchants.isEmpty()) {
-            return item;
-        }
-
-        // Check current AE enchants on item
         Map<String, Integer> currentAE = AEHook.getEnchantments(item);
-        boolean needsUpdate = false;
 
-        for (String spec : aeEnchants) {
-            if (spec == null || spec.trim().isEmpty()) continue;
-            String[] tokens = spec.trim().split("\\s+");
-            String name = tokens[0].toLowerCase();
-            int targetLevel = 1;
-            if (tokens.length >= 2) {
-                try {
-                    targetLevel = Integer.parseInt(tokens[1]);
-                } catch (NumberFormatException ignored) {}
-            }
+        boolean hasAeSpecs = (aeEnchants != null && !aeEnchants.isEmpty());
+        boolean hasCurrentAE = (currentAE != null && !currentAE.isEmpty());
 
-            Integer currentLvl = null;
-            for (String candidate : AEHook.getCandidateNames(name)) {
-                currentLvl = currentAE.get(candidate);
-                if (currentLvl != null) break;
-            }
-
-            if (currentLvl == null || currentLvl < targetLevel) {
-                needsUpdate = true;
-                break;
-            }
-        }
-
-        if (!needsUpdate) {
+        if (!hasAeSpecs && !hasCurrentAE) {
             return item;
         }
 
-        if (debug) {
-            logger.info("[SeriaMMOItemsAE] Applying " + aeEnchants.size() + " AE enchant(s) to " +
-                    MMOItemsHook.getType(item) + ":" + MMOItemsHook.getId(item));
+        boolean needsEnchantApply = false;
+        if (hasAeSpecs) {
+            for (String spec : aeEnchants) {
+                if (spec == null || spec.trim().isEmpty()) continue;
+                String[] tokens = spec.trim().split("\\s+");
+                String name = tokens[0].toLowerCase();
+                int targetLevel = 1;
+                if (tokens.length >= 2) {
+                    try {
+                        targetLevel = Integer.parseInt(tokens[1]);
+                    } catch (NumberFormatException ignored) {}
+                }
+
+                Integer currentLvl = null;
+                for (String candidate : AEHook.getCandidateNames(name)) {
+                    currentLvl = currentAE.get(candidate);
+                    if (currentLvl != null) break;
+                }
+
+                if (currentLvl == null || currentLvl < targetLevel) {
+                    needsEnchantApply = true;
+                    break;
+                }
+            }
         }
 
-        // Capture complete original lore to ensure zero loss of MMOItems stats / lore lines
-        List<net.kyori.adventure.text.Component> origComp = (item.hasItemMeta() && item.getItemMeta().hasLore())
-                ? item.getItemMeta().lore() : null;
-        List<String> origLegacy = (item.hasItemMeta() && item.getItemMeta().hasLore())
-                ? item.getItemMeta().getLore() : null;
+        ItemStack modified = item;
 
-        // Apply enchants through official AdvancedEnchantments API
-        ItemStack modified = AEHook.applyEnchantList(item, aeEnchants);
+        if (needsEnchantApply) {
+            if (debug) {
+                logger.info("[SeriaMMOItemsAE] Applying " + aeEnchants.size() + " AE enchant(s) to " +
+                        MMOItemsHook.getType(item) + ":" + MMOItemsHook.getId(item));
+            }
 
-        // Ensure NBT tag is always updated to match current template specifications
-        try {
-            NBTItem nbt = NBTItem.get(modified);
-            modified = nbt.addTag(new ItemTag(AEEnchantsStat.NBT_TAG, String.join(";;", aeEnchants))).toItem();
-        } catch (Throwable ignored) {}
+            // Capture complete original lore to ensure zero loss of MMOItems stats / lore lines
+            List<net.kyori.adventure.text.Component> origComp = (item.hasItemMeta() && item.getItemMeta().hasLore())
+                    ? item.getItemMeta().lore() : null;
+            List<String> origLegacy = (item.hasItemMeta() && item.getItemMeta().hasLore())
+                    ? item.getItemMeta().getLore() : null;
 
-        // Guarantee that MMOItems native lore (Status, stats, and description) is never truncated by AE
-        modified = preserveAndMergeLore(origComp, origLegacy, modified);
+            // Apply enchants through official AdvancedEnchantments API
+            modified = AEHook.applyEnchantList(item, aeEnchants);
 
-        // Adjust spacing: remove space before AE enchant, add space after AE enchant
+            // Ensure NBT tag is always updated to match current template specifications
+            try {
+                NBTItem nbt = NBTItem.get(modified);
+                modified = nbt.addTag(new ItemTag(AEEnchantsStat.NBT_TAG, String.join(";;", aeEnchants))).toItem();
+            } catch (Throwable ignored) {}
+
+            // Guarantee that MMOItems native lore (Status, stats, and description) is never truncated by AE
+            modified = preserveAndMergeLore(origComp, origLegacy, modified);
+        }
+
+        // Adjust spacing: remove space before AE enchant, add space after AE enchant, and enforce non-italic lore
         modified = adjustAELoreSpacing(modified, aeEnchants);
 
         // High-speed PDC marker: prevents repeated reflection or parsing on subsequent ticks
@@ -210,7 +217,7 @@ public class AEBridgeService {
         }
 
         if (firstAEIndex == -1) {
-            return item;
+            return enforceNonItalicLore(item);
         }
 
         List<String> list = new java.util.ArrayList<>(lore);
@@ -276,19 +283,70 @@ public class AEBridgeService {
 
         meta.setLore(sanitized);
         try {
-            // Also synchronize adventure lore components if available
+            // Also synchronize adventure lore components, forcing 100% non-italic decoration
             List<net.kyori.adventure.text.Component> compLore = new java.util.ArrayList<>(sanitized.size());
             for (String line : sanitized) {
                 if (line == null || line.isEmpty()) {
-                    compLore.add(net.kyori.adventure.text.Component.empty());
+                    compLore.add(net.kyori.adventure.text.Component.empty()
+                            .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
                 } else {
-                    compLore.add(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().deserialize(line));
+                    compLore.add(makeNonItalic(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection()
+                            .deserialize(line)));
                 }
             }
             meta.lore(compLore);
         } catch (Throwable ignored) {}
 
         item.setItemMeta(meta);
+        return item;
+    }
+
+    /**
+     * Recursively clears italic decoration on a component and all its children.
+     * Prevents Paper Adventure / Minecraft client from rendering lore in italics.
+     */
+    public static net.kyori.adventure.text.Component makeNonItalic(net.kyori.adventure.text.Component component) {
+        if (component == null) {
+            return net.kyori.adventure.text.Component.empty()
+                    .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false);
+        }
+        java.util.List<net.kyori.adventure.text.Component> newChildren = new java.util.ArrayList<>();
+        for (net.kyori.adventure.text.Component child : component.children()) {
+            newChildren.add(makeNonItalic(child));
+        }
+        return component.children(newChildren)
+                .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false);
+    }
+
+    /**
+     * Enforces non-italic decoration across all lore lines for an item.
+     */
+    public static ItemStack enforceNonItalicLore(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return item;
+        }
+        org.bukkit.inventory.meta.ItemMeta meta = item.getItemMeta();
+        if (!meta.hasLore()) {
+            return item;
+        }
+        List<String> lore = meta.getLore();
+        if (lore == null || lore.isEmpty()) {
+            return item;
+        }
+        try {
+            List<net.kyori.adventure.text.Component> compLore = new java.util.ArrayList<>(lore.size());
+            for (String line : lore) {
+                if (line == null || line.isEmpty()) {
+                    compLore.add(net.kyori.adventure.text.Component.empty()
+                            .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
+                } else {
+                    compLore.add(makeNonItalic(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection()
+                            .deserialize(line)));
+                }
+            }
+            meta.lore(compLore);
+            item.setItemMeta(meta);
+        } catch (Throwable ignored) {}
         return item;
     }
 
@@ -465,7 +523,9 @@ public class AEBridgeService {
             List<String> aeEnchants = MMOItemsHook.getAEEnchants(item);
             String currentHash = computeSpecHash(item, aeEnchants);
             if (storedHash != null && storedHash.equals(currentHash)) {
-                return true; // Already processed and 100% up to date! 0ms CPU.
+                if (isLoreNonItalic(meta)) {
+                    return true; // Already processed and 100% up to date & non-italic! 0ms CPU.
+                }
             }
         }
 
@@ -486,30 +546,36 @@ public class AEBridgeService {
         }
 
         List<String> aeEnchants = MMOItemsHook.getAEEnchants(item);
-        if (aeEnchants == null || aeEnchants.isEmpty()) {
+        Map<String, Integer> currentAE = AEHook.getEnchantments(item);
+
+        boolean hasAeSpecs = (aeEnchants != null && !aeEnchants.isEmpty());
+        boolean hasCurrentAE = (currentAE != null && !currentAE.isEmpty());
+
+        if (!hasAeSpecs && !hasCurrentAE) {
             return true;
         }
 
-        Map<String, Integer> currentAE = AEHook.getEnchantments(item);
-        for (String spec : aeEnchants) {
-            if (spec == null || spec.trim().isEmpty()) continue;
-            String[] tokens = spec.trim().split("\\s+");
-            String name = tokens[0].toLowerCase();
-            int targetLevel = 1;
-            if (tokens.length >= 2) {
-                try {
-                    targetLevel = Integer.parseInt(tokens[1]);
-                } catch (NumberFormatException ignored) {}
-            }
+        if (hasAeSpecs) {
+            for (String spec : aeEnchants) {
+                if (spec == null || spec.trim().isEmpty()) continue;
+                String[] tokens = spec.trim().split("\\s+");
+                String name = tokens[0].toLowerCase();
+                int targetLevel = 1;
+                if (tokens.length >= 2) {
+                    try {
+                        targetLevel = Integer.parseInt(tokens[1]);
+                    } catch (NumberFormatException ignored) {}
+                }
 
-            Integer currentLvl = null;
-            for (String candidate : AEHook.getCandidateNames(name)) {
-                currentLvl = currentAE.get(candidate);
-                if (currentLvl != null) break;
-            }
+                Integer currentLvl = null;
+                for (String candidate : AEHook.getCandidateNames(name)) {
+                    currentLvl = currentAE.get(candidate);
+                    if (currentLvl != null) break;
+                }
 
-            if (currentLvl == null || currentLvl < targetLevel) {
-                return false;
+                if (currentLvl == null || currentLvl < targetLevel) {
+                    return false;
+                }
             }
         }
 
@@ -517,7 +583,28 @@ public class AEBridgeService {
             return false;
         }
 
+        if (!isLoreNonItalic(meta)) {
+            return false;
+        }
+
         return true;
+    }
+
+    public boolean isLoreNonItalic(org.bukkit.inventory.meta.ItemMeta meta) {
+        if (meta == null || !meta.hasLore()) return true;
+        try {
+            List<net.kyori.adventure.text.Component> compLore = meta.lore();
+            if (compLore == null || compLore.isEmpty()) return false;
+            for (net.kyori.adventure.text.Component c : compLore) {
+                if (c == null) continue;
+                if (c.decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC) != net.kyori.adventure.text.format.TextDecoration.State.FALSE) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (Throwable ignored) {
+            return true;
+        }
     }
 
     public static String computeSpecHash(ItemStack item, List<String> aeEnchants) {
