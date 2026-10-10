@@ -46,7 +46,6 @@ public class AEEnchantsStat extends StringListStat {
 
     @Override
     public void whenApplied(@NotNull ItemStackBuilder item, @NotNull StringListData data) {
-        super.whenApplied(item, data);
         if (data.getList() != null && !data.getList().isEmpty()) {
             item.addItemTag(new ItemTag(NBT_TAG, String.join(";;", data.getList())));
         }

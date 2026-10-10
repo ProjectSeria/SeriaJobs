@@ -119,8 +119,9 @@ public class PlaceholderHelper {
     }
 
     /**
-     * Inspects an ItemStack's display name and lore. If unparsed tags are detected,
+     * Inspects an ItemStack's display name. If unparsed tags are detected (<sc:...>, %...%),
      * updates the ItemMeta with fully parsed Adventure Components and legacy strings.
+     * Note: Lore is intentionally not touched to preserve MMOItems stats formatting and AE enchant lore.
      *
      * @param item   The item to inspect and fix.
      * @param player Optional Player context.
@@ -134,7 +135,7 @@ public class PlaceholderHelper {
 
         boolean modified = false;
 
-        // 1. Process Display Name
+        // Process Display Name ONLY
         if (meta.hasDisplayName()) {
             String rawName = getRawDisplayName(meta);
             if (hasPlaceholders(rawName)) {
@@ -145,35 +146,6 @@ public class PlaceholderHelper {
                 } catch (Throwable ignored) {}
                 meta.setDisplayName(legacy);
                 modified = true;
-            }
-        }
-
-        // 2. Process Lore
-        if (meta.hasLore()) {
-            List<String> rawLore = getRawLore(meta);
-            if (rawLore != null && !rawLore.isEmpty()) {
-                boolean loreChanged = false;
-                List<Component> compLore = new ArrayList<>(rawLore.size());
-                List<String> legacyLore = new ArrayList<>(rawLore.size());
-
-                for (String line : rawLore) {
-                    if (hasPlaceholders(line)) {
-                        compLore.add(parseToComponent(player, line));
-                        legacyLore.add(parseToLegacy(player, line));
-                        loreChanged = true;
-                    } else {
-                        compLore.add(LEGACY_SERIALIZER.deserialize(line).decoration(TextDecoration.ITALIC, false));
-                        legacyLore.add(line);
-                    }
-                }
-
-                if (loreChanged) {
-                    try {
-                        meta.lore(compLore);
-                    } catch (Throwable ignored) {}
-                    meta.setLore(legacyLore);
-                    modified = true;
-                }
             }
         }
 

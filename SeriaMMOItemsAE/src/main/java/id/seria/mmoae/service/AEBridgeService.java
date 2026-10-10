@@ -36,11 +36,18 @@ public class AEBridgeService {
             return item;
         }
 
-        // 1. Resolve any unparsed placeholders / SeriaCore tags in item display name or lore
-        boolean metaModified = id.seria.mmoae.util.PlaceholderHelper.processItemMeta(item, null);
-        if (metaModified && debug) {
-            logger.info("[SeriaMMOItemsAE] Resolved placeholders on item: " +
-                    MMOItemsHook.getType(item) + ":" + MMOItemsHook.getId(item));
+        // 1. Resolve unparsed placeholders in item display name ONLY (Lore is never touched)
+        if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+            String rawName = item.getItemMeta().getDisplayName();
+            if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(rawName)) {
+                org.bukkit.inventory.meta.ItemMeta meta = item.getItemMeta();
+                String parsed = id.seria.mmoae.util.PlaceholderHelper.parseToLegacy(null, rawName);
+                meta.setDisplayName(parsed);
+                try {
+                    meta.displayName(id.seria.mmoae.util.PlaceholderHelper.parseToComponent(null, rawName));
+                } catch (Throwable ignored) {}
+                item.setItemMeta(meta);
+            }
         }
 
         if (!AEHook.isAvailable()) {
@@ -96,9 +103,6 @@ public class AEBridgeService {
             NBTItem nbt = NBTItem.get(modified);
             modified = nbt.addTag(new ItemTag(AEEnchantsStat.NBT_TAG, String.join(";;", aeEnchants))).toItem();
         } catch (Throwable ignored) {}
-
-        // Ensure display name is also cleaned up on modified item
-        id.seria.mmoae.util.PlaceholderHelper.processItemMeta(modified, null);
 
         return modified;
     }

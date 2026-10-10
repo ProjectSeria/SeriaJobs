@@ -48,6 +48,20 @@ public class ItemPipelineListener implements Listener {
         this.onAttack = onAttack;
     }
 
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onItemBuild(net.Indyuce.mmoitems.api.event.ItemBuildEvent event) {
+        if (!AEHook.isAvailable()) return;
+        ItemStack current = event.getItemStack();
+        if (current == null || current.getType().isAir()) return;
+
+        if (!bridgeService.isFullyEnchanted(current)) {
+            ItemStack updated = bridgeService.processItem(current);
+            if (updated != null && updated != current) {
+                event.setItemStack(updated);
+            }
+        }
+    }
+
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPickup(EntityPickupItemEvent event) {
         if (!onPickup || !AEHook.isAvailable()) return;

@@ -216,32 +216,6 @@ public class MMOItemsHook {
                     }
                 }
             }
-
-            // 2. Process Item Lore
-            if (template.getBaseItemData().containsKey(net.Indyuce.mmoitems.ItemStats.LORE)) {
-                net.Indyuce.mmoitems.stat.data.random.RandomStatData data =
-                        template.getBaseItemData().get(net.Indyuce.mmoitems.ItemStats.LORE);
-                if (data instanceof StringListData listData) {
-                    List<String> list = listData.getList();
-                    boolean loreModified = false;
-                    List<String> updated = new ArrayList<>(list.size());
-                    for (String line : list) {
-                        if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(line)) {
-                            updated.add(id.seria.mmoae.util.PlaceholderHelper.parseToLegacy(null, line));
-                            loreModified = true;
-                        } else {
-                            updated.add(line);
-                        }
-                    }
-                    if (loreModified) {
-                        list.clear();
-                        list.addAll(updated);
-                        template.getBaseItemData().put(net.Indyuce.mmoitems.ItemStats.LORE,
-                                net.Indyuce.mmoitems.ItemStats.LORE.whenInitialized(updated));
-                        modified = true;
-                    }
-                }
-            }
         } catch (Throwable t) {
             LOGGER.log(Level.FINE, "[SeriaMMOItemsAE] Failed to preprocess template " + template.getId() + ": " + t.getMessage());
         }
