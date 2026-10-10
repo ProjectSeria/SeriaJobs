@@ -40,6 +40,13 @@ public class SeriaMMOItemsAEPlugin extends JavaPlugin {
 
         reloadServicesAndListeners();
 
+        // Pre-process MMOItems templates to resolve placeholders in names & lore
+        if (MMOItemsHook.isAvailable()) {
+            MMOItemsHook.preProcessAllTemplates();
+            // Also run a short delayed task to catch any templates loaded asynchronously
+            Bukkit.getScheduler().runTaskLater(this, MMOItemsHook::preProcessAllTemplates, 20L);
+        }
+
         // Register commands
         PluginCommand cmd = getCommand("mmoae");
         if (cmd != null) {
@@ -69,6 +76,9 @@ public class SeriaMMOItemsAEPlugin extends JavaPlugin {
         reloadConfig();
         AEHook.initialize();
         reloadServicesAndListeners();
+        if (MMOItemsHook.isAvailable()) {
+            MMOItemsHook.preProcessAllTemplates();
+        }
     }
 
     private void reloadServicesAndListeners() {
@@ -107,6 +117,12 @@ public class SeriaMMOItemsAEPlugin extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(
                 new MMOItemReforgeListener(bridgeService, onReforge, preservePlayerEnchants),
+                this
+        );
+
+        // Register MMOItems reload detector
+        Bukkit.getPluginManager().registerEvents(
+                new id.seria.mmoae.listener.MMOItemsReloadListener(this),
                 this
         );
 

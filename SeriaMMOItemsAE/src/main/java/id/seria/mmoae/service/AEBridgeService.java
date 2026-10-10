@@ -28,11 +28,22 @@ public class AEBridgeService {
      * @return The updated ItemStack with AE abilities, compound NBT, and lore applied.
      */
     public ItemStack processItem(ItemStack item) {
-        if (item == null || item.getType().isAir() || !AEHook.isAvailable() || !MMOItemsHook.isAvailable()) {
+        if (item == null || item.getType().isAir()) {
             return item;
         }
 
-        if (!MMOItemsHook.isMMOItem(item)) {
+        if (!MMOItemsHook.isAvailable() || !MMOItemsHook.isMMOItem(item)) {
+            return item;
+        }
+
+        // 1. Resolve any unparsed placeholders / SeriaCore tags in item display name or lore
+        boolean metaModified = id.seria.mmoae.util.PlaceholderHelper.processItemMeta(item, null);
+        if (metaModified && debug) {
+            logger.info("[SeriaMMOItemsAE] Resolved placeholders on item: " +
+                    MMOItemsHook.getType(item) + ":" + MMOItemsHook.getId(item));
+        }
+
+        if (!AEHook.isAvailable()) {
             return item;
         }
 
@@ -83,18 +94,33 @@ public class AEBridgeService {
             }
         } catch (Throwable ignored) {}
 
+        // Ensure display name is also cleaned up on modified item
+        id.seria.mmoae.util.PlaceholderHelper.processItemMeta(modified, null);
+
         return modified;
     }
 
     /**
-     * Checks if all configured AE enchants are already applied on the item.
+     * Checks if all configured AE enchants are already applied on the item and placeholders resolved.
      */
     public boolean isFullyEnchanted(ItemStack item) {
-        if (item == null || item.getType().isAir() || !AEHook.isAvailable() || !MMOItemsHook.isAvailable()) {
+        if (item == null || item.getType().isAir()) {
             return true;
         }
 
-        if (!MMOItemsHook.isMMOItem(item)) {
+        if (!MMOItemsHook.isAvailable() || !MMOItemsHook.isMMOItem(item)) {
+            return true;
+        }
+
+        // Check if item still has unparsed placeholder tags in display name
+        if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+            String name = item.getItemMeta().getDisplayName();
+            if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(name)) {
+                return false;
+            }
+        }
+
+        if (!AEHook.isAvailable()) {
             return true;
         }
 

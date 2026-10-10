@@ -170,4 +170,106 @@ public class MMOItemsHook {
 
         return list;
     }
+
+    /**
+     * Pre-processes an MMOItem template, resolving any SeriaCore semantic tags (<sc:...>, <p:...>)
+     * or PlaceholderAPI placeholders in its name and lore before items are generated or given.
+     *
+     * @param template The MMOItemTemplate to pre-process.
+     * @return true if the template's name or lore was updated.
+     */
+    public static boolean preProcessTemplate(MMOItemTemplate template) {
+        if (template == null) return false;
+        boolean modified = false;
+
+        try {
+            // 1. Process Item Name
+            if (template.getBaseItemData().containsKey(net.Indyuce.mmoitems.ItemStats.NAME)) {
+                net.Indyuce.mmoitems.stat.data.random.RandomStatData data =
+                        template.getBaseItemData().get(net.Indyuce.mmoitems.ItemStats.NAME);
+                if (data instanceof net.Indyuce.mmoitems.stat.data.StringData strData) {
+                    String raw = strData.getString();
+                    if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(raw)) {
+                        String parsed = id.seria.mmoae.util.PlaceholderHelper.parseToLegacy(null, raw);
+                        strData.setString(parsed);
+                        template.getBaseItemData().put(net.Indyuce.mmoitems.ItemStats.NAME,
+                                net.Indyuce.mmoitems.ItemStats.NAME.whenInitialized(parsed));
+                        modified = true;
+                    }
+                }
+            } else {
+                // Check if defined in raw config
+                Type type = template.getType();
+                if (type != null && type.getConfigFile() != null) {
+                    ConfigurationSection config = type.getConfigFile().getConfig();
+                    if (config != null) {
+                        String namePath = template.getId() + ".base.name";
+                        if (config.isString(namePath)) {
+                            String raw = config.getString(namePath);
+                            if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(raw)) {
+                                String parsed = id.seria.mmoae.util.PlaceholderHelper.parseToLegacy(null, raw);
+                                template.getBaseItemData().put(net.Indyuce.mmoitems.ItemStats.NAME,
+                                        net.Indyuce.mmoitems.ItemStats.NAME.whenInitialized(parsed));
+                                modified = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 2. Process Item Lore
+            if (template.getBaseItemData().containsKey(net.Indyuce.mmoitems.ItemStats.LORE)) {
+                net.Indyuce.mmoitems.stat.data.random.RandomStatData data =
+                        template.getBaseItemData().get(net.Indyuce.mmoitems.ItemStats.LORE);
+                if (data instanceof StringListData listData) {
+                    List<String> list = listData.getList();
+                    boolean loreModified = false;
+                    List<String> updated = new ArrayList<>(list.size());
+                    for (String line : list) {
+                        if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(line)) {
+                            updated.add(id.seria.mmoae.util.PlaceholderHelper.parseToLegacy(null, line));
+                            loreModified = true;
+                        } else {
+                            updated.add(line);
+                        }
+                    }
+                    if (loreModified) {
+                        list.clear();
+                        list.addAll(updated);
+                        template.getBaseItemData().put(net.Indyuce.mmoitems.ItemStats.LORE,
+                                net.Indyuce.mmoitems.ItemStats.LORE.whenInitialized(updated));
+                        modified = true;
+                    }
+                }
+            }
+        } catch (Throwable t) {
+            LOGGER.log(Level.FINE, "[SeriaMMOItemsAE] Failed to preprocess template " + template.getId() + ": " + t.getMessage());
+        }
+
+        return modified;
+    }
+
+    /**
+     * Scans and pre-processes all registered MMOItems templates across all types,
+     * ensuring placeholders in item names and lores are resolved immediately.
+     *
+     * @return Number of templates successfully updated.
+     */
+    public static int preProcessAllTemplates() {
+        if (!available) return 0;
+        int count = 0;
+        try {
+            for (MMOItemTemplate template : MMOItems.plugin.getTemplates().collectTemplates()) {
+                if (preProcessTemplate(template)) {
+                    count++;
+                }
+            }
+            if (count > 0) {
+                LOGGER.info("[SeriaMMOItemsAE] Pre-processed and resolved placeholders in " + count + " MMOItems template(s)!");
+            }
+        } catch (Throwable t) {
+            LOGGER.log(Level.WARNING, "[SeriaMMOItemsAE] Error while pre-processing MMOItems templates: " + t.getMessage(), t);
+        }
+        return count;
+    }
 }
