@@ -95,6 +95,12 @@ public class AEBridgeService {
                     MMOItemsHook.getType(item) + ":" + MMOItemsHook.getId(item));
         }
 
+        // Capture complete original lore to ensure zero loss of MMOItems stats / lore lines
+        List<net.kyori.adventure.text.Component> origComp = (item.hasItemMeta() && item.getItemMeta().hasLore())
+                ? item.getItemMeta().lore() : null;
+        List<String> origLegacy = (item.hasItemMeta() && item.getItemMeta().hasLore())
+                ? item.getItemMeta().getLore() : null;
+
         // Apply enchants through official AdvancedEnchantments API
         ItemStack modified = AEHook.applyEnchantList(item, aeEnchants);
 
@@ -103,6 +109,79 @@ public class AEBridgeService {
             NBTItem nbt = NBTItem.get(modified);
             modified = nbt.addTag(new ItemTag(AEEnchantsStat.NBT_TAG, String.join(";;", aeEnchants))).toItem();
         } catch (Throwable ignored) {}
+
+        // Guarantee that MMOItems native lore (Status, stats, and description) is never truncated by AE
+        modified = preserveAndMergeLore(origComp, origLegacy, modified);
+
+        return modified;
+    }
+
+    /**
+     * Ensures that all original MMOItems lore lines (Status, Attack Damage, Attack Speed, etc.)
+     * are preserved alongside any newly added AE enchantment lines.
+     */
+    private ItemStack preserveAndMergeLore(List<net.kyori.adventure.text.Component> origComp,
+                                          List<String> origLegacy,
+                                          ItemStack modified) {
+        if (modified == null || !modified.hasItemMeta()) {
+            return modified;
+        }
+
+        if (origComp == null && origLegacy == null) {
+            return modified;
+        }
+
+        List<String> afterLegacy = modified.getItemMeta().getLore();
+        if (afterLegacy == null || afterLegacy.isEmpty()) {
+            org.bukkit.inventory.meta.ItemMeta meta = modified.getItemMeta();
+            if (origComp != null) {
+                meta.lore(origComp);
+            } else {
+                meta.setLore(origLegacy);
+            }
+            modified.setItemMeta(meta);
+            return modified;
+        }
+
+        // Check if all original non-empty lines are still present in after's lore
+        boolean missingOriginal = false;
+        if (origLegacy != null) {
+            for (String origLine : origLegacy) {
+                if (origLine != null && !origLine.trim().isEmpty() && !afterLegacy.contains(origLine)) {
+                    missingOriginal = true;
+                    break;
+                }
+            }
+        }
+
+        if (missingOriginal && origLegacy != null) {
+            // Find newly added AE enchant lines
+            java.util.List<String> aeLines = new java.util.ArrayList<>();
+            for (String line : afterLegacy) {
+                if (!origLegacy.contains(line)) {
+                    aeLines.add(line);
+                }
+            }
+
+            // Find best insertion point (right before "Status" or right after native Bukkit enchants)
+            int insertIndex = 0;
+            for (int i = 0; i < origLegacy.size(); i++) {
+                String line = origLegacy.get(i);
+                if (line != null && (line.toLowerCase().contains("status") || line.contains("---"))) {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            java.util.List<String> merged = new java.util.ArrayList<>(origLegacy.size() + aeLines.size());
+            merged.addAll(origLegacy.subList(0, insertIndex));
+            merged.addAll(aeLines);
+            merged.addAll(origLegacy.subList(insertIndex, origLegacy.size()));
+
+            org.bukkit.inventory.meta.ItemMeta meta = modified.getItemMeta();
+            meta.setLore(merged);
+            modified.setItemMeta(meta);
+        }
 
         return modified;
     }
