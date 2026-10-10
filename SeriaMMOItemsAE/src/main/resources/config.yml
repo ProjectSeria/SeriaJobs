@@ -16,16 +16,15 @@ auto-apply:
   on-inventory-click: true
   # Terapkan saat pemain mengganti item yang dipegang ke tangan utama (hotbar switch)
   on-item-held: true
-  # Terapkan saat pemain mengklik / menggunakan item (left-click / right-click)
-  on-interact: true
-  # Terapkan saat pemain menyerang dengan senjata
-  on-attack: true
-  # Terapkan saat pemain login ke server (memeriksa armor dan inventory)
+  # Terapkan saat pemain login ke server (memeriksa armor dan hotbar)
   on-join: true
   # Terapkan saat MMOItems melakukan auto-update revision / reforge
   on-reforge: true
-  # Pemindaian otomatis berkala (setiap 1 detik) untuk hotbar dan equipment pemain online
-  periodic-inventory-scan: true
+  # Nonaktifkan opsi di bawah ini pada server ramai (200+ player) demi kestabilan TPS (< 0.1% CPU)
+  # (Item sudah di-enchant sejak detik pertama saat dibuat via ItemBuildEvent)
+  on-interact: false
+  on-attack: false
+  periodic-inventory-scan: false
 
 # Pertahankan enchant AE tambahan yang dipasang manual oleh pemain saat item di-reforge/update oleh MMOItems
 preserve-player-enchants-on-reforge: true

@@ -74,6 +74,7 @@ public class SeriaMMOItemsAEPlugin extends JavaPlugin {
 
     public void reloadPluginConfig() {
         reloadConfig();
+        MMOItemsHook.clearCache();
         AEHook.initialize();
         reloadServicesAndListeners();
         if (MMOItemsHook.isAvailable()) {
@@ -96,10 +97,10 @@ public class SeriaMMOItemsAEPlugin extends JavaPlugin {
         boolean onInventoryClick = getConfig().getBoolean("auto-apply.on-inventory-click", true);
         boolean onItemHeld = getConfig().getBoolean("auto-apply.on-item-held", true);
         boolean onJoin = getConfig().getBoolean("auto-apply.on-join", true);
-        boolean onInteract = getConfig().getBoolean("auto-apply.on-interact", true);
-        boolean onAttack = getConfig().getBoolean("auto-apply.on-attack", true);
+        boolean onInteract = getConfig().getBoolean("auto-apply.on-interact", false);
+        boolean onAttack = getConfig().getBoolean("auto-apply.on-attack", false);
         boolean onReforge = getConfig().getBoolean("auto-apply.on-reforge", true);
-        boolean periodicScan = getConfig().getBoolean("auto-apply.periodic-inventory-scan", true);
+        boolean periodicScan = getConfig().getBoolean("auto-apply.periodic-inventory-scan", false);
         boolean preservePlayerEnchants = getConfig().getBoolean("preserve-player-enchants-on-reforge", true);
 
         // Register Listeners
