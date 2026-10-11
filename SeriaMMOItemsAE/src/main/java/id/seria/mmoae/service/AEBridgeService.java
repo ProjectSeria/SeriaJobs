@@ -18,6 +18,8 @@ public class AEBridgeService {
 
     public static final org.bukkit.NamespacedKey KEY_PROCESSED =
             new org.bukkit.NamespacedKey("seriammoitemsae", "processed_hash");
+    public static final org.bukkit.NamespacedKey KEY_INITIALIZED =
+            new org.bukkit.NamespacedKey("seriammoitemsae", "baseline_initialized");
 
     private final boolean debug;
     private final Logger logger = Logger.getLogger("SeriaMMOItemsAE");
@@ -27,8 +29,46 @@ public class AEBridgeService {
     }
 
     /**
+     * Checks if the item has already undergone initial baseline enchantment setup.
+     * Once initialized, player actions like Black Scrolls (disenchanting) or manual book applications
+     * are strictly preserved and template baseline enchants will NEVER be forcefully re-applied.
+     */
+    public boolean isBaselineInitialized(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return false;
+        org.bukkit.inventory.meta.ItemMeta meta = item.getItemMeta();
+
+        // 1. Direct PDC marker
+        if (meta.getPersistentDataContainer().has(KEY_INITIALIZED, org.bukkit.persistence.PersistentDataType.BYTE)) {
+            return true;
+        }
+
+        // 2. Previously processed marker (backward compatibility with items already in circulation)
+        if (meta.getPersistentDataContainer().has(KEY_PROCESSED, org.bukkit.persistence.PersistentDataType.STRING)) {
+            return true;
+        }
+
+        // 3. MythicLib NBT tag check
+        try {
+            NBTItem nbt = NBTItem.get(item);
+            if (nbt.hasTag("MMOAE_INITIALIZED") || nbt.hasTag(AEEnchantsStat.NBT_TAG)) {
+                return true;
+            }
+        } catch (Throwable ignored) {}
+
+        // 4. If the item currently has any AE enchantments, it has already been initialized
+        if (AEHook.isAvailable()) {
+            Map<String, Integer> currentAE = AEHook.getEnchantments(item);
+            if (!currentAE.isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Inspects an ItemStack, checks if it is an MMOItem with configured 'ae-enchants',
-     * and applies any missing or upgraded AE enchantments.
+     * applies baseline enchantments ONLY if uninitialized, and normalizes lore spacing and styling.
      *
      * @param item The item to process.
      * @return The updated ItemStack with AE abilities, compound NBT, and lore applied.
@@ -70,37 +110,21 @@ public class AEBridgeService {
             return item;
         }
 
+        boolean isInitialized = isBaselineInitialized(item);
         boolean needsEnchantApply = false;
-        if (hasAeSpecs) {
-            for (String spec : aeEnchants) {
-                if (spec == null || spec.trim().isEmpty()) continue;
-                String[] tokens = spec.trim().split("\\s+");
-                String name = tokens[0].toLowerCase();
-                int targetLevel = 1;
-                if (tokens.length >= 2) {
-                    try {
-                        targetLevel = Integer.parseInt(tokens[1]);
-                    } catch (NumberFormatException ignored) {}
-                }
 
-                Integer currentLvl = null;
-                for (String candidate : AEHook.getCandidateNames(name)) {
-                    currentLvl = currentAE.get(candidate);
-                    if (currentLvl != null) break;
-                }
-
-                if (currentLvl == null || currentLvl < targetLevel) {
-                    needsEnchantApply = true;
-                    break;
-                }
-            }
+        // ONLY apply baseline template enchants if the item has NEVER been initialized before!
+        // Once initialized, player modifications (Black Scrolls, custom enchant books, disenchanting)
+        // must be strictly respected and NEVER overridden by template configs!
+        if (!isInitialized && hasAeSpecs) {
+            needsEnchantApply = true;
         }
 
         ItemStack modified = item;
 
         if (needsEnchantApply) {
             if (debug) {
-                logger.info("[SeriaMMOItemsAE] Applying " + aeEnchants.size() + " AE enchant(s) to " +
+                logger.info("[SeriaMMOItemsAE] Applying baseline " + aeEnchants.size() + " AE enchant(s) to " +
                         MMOItemsHook.getType(item) + ":" + MMOItemsHook.getId(item));
             }
 
@@ -116,7 +140,9 @@ public class AEBridgeService {
             // Ensure NBT tag is always updated to match current template specifications
             try {
                 NBTItem nbt = NBTItem.get(modified);
-                modified = nbt.addTag(new ItemTag(AEEnchantsStat.NBT_TAG, String.join(";;", aeEnchants))).toItem();
+                modified = nbt.addTag(new ItemTag(AEEnchantsStat.NBT_TAG, String.join(";;", aeEnchants)))
+                              .addTag(new ItemTag("MMOAE_INITIALIZED", true))
+                              .toItem();
             } catch (Throwable ignored) {}
 
             // Guarantee that MMOItems native lore (Status, stats, and description) is never truncated by AE
@@ -129,6 +155,8 @@ public class AEBridgeService {
         // High-speed PDC marker: prevents repeated reflection or parsing on subsequent ticks
         if (modified.hasItemMeta()) {
             org.bukkit.inventory.meta.ItemMeta m = modified.getItemMeta();
+            m.getPersistentDataContainer().set(KEY_INITIALIZED,
+                    org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
             m.getPersistentDataContainer().set(KEY_PROCESSED,
                     org.bukkit.persistence.PersistentDataType.STRING,
                     computeSpecHash(modified, aeEnchants));
@@ -617,28 +645,24 @@ public class AEBridgeService {
             return true;
         }
 
-        if (hasAeSpecs) {
-            for (String spec : aeEnchants) {
-                if (spec == null || spec.trim().isEmpty()) continue;
-                String[] tokens = spec.trim().split("\\s+");
-                String name = tokens[0].toLowerCase();
-                int targetLevel = 1;
-                if (tokens.length >= 2) {
-                    try {
-                        targetLevel = Integer.parseInt(tokens[1]);
-                    } catch (NumberFormatException ignored) {}
-                }
-
-                Integer currentLvl = null;
-                for (String candidate : AEHook.getCandidateNames(name)) {
-                    currentLvl = currentAE.get(candidate);
-                    if (currentLvl != null) break;
-                }
-
-                if (currentLvl == null || currentLvl < targetLevel) {
-                    return false;
-                }
+        // If not initialized yet and has baseline specs, it needs to be processed to apply baseline
+        if (!isBaselineInitialized(item)) {
+            if (hasAeSpecs) {
+                return false;
             }
+        }
+
+        // If hash changed (e.g. Black Scroll removed an enchant or book added one),
+        // we need processItem to sanitize lore and sync the new hash!
+        if (meta.getPersistentDataContainer().has(KEY_PROCESSED, org.bukkit.persistence.PersistentDataType.STRING)) {
+            String storedHash = meta.getPersistentDataContainer().get(KEY_PROCESSED, org.bukkit.persistence.PersistentDataType.STRING);
+            List<String> aeSpecs = MMOItemsHook.getAEEnchants(item);
+            String currentHash = computeSpecHash(item, aeSpecs);
+            if (storedHash == null || !storedHash.equals(currentHash)) {
+                return false;
+            }
+        } else {
+            return false;
         }
 
         if (!isLoreSpacingCorrect(item, aeEnchants)) {
