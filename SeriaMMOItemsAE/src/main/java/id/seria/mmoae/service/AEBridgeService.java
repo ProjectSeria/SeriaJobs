@@ -42,13 +42,32 @@ public class AEBridgeService {
             return true;
         }
 
-        // 2. Custom NBT tag set when baseline enchants are applied
+        // 2. Previously processed marker (indicates item has already passed through our engine)
+        if (meta.getPersistentDataContainer().has(KEY_PROCESSED, org.bukkit.persistence.PersistentDataType.STRING)) {
+            return true;
+        }
+
+        // 3. Disenchanted marker (player explicitly stripped enchants)
+        if (meta.getPersistentDataContainer().has(KEY_DISENCHANTED, org.bukkit.persistence.PersistentDataType.BYTE)) {
+            return true;
+        }
+
+        // 4. Custom NBT tags set when baseline enchants or disenchanting occurred
         try {
             NBTItem nbt = NBTItem.get(item);
-            if (nbt.hasTag("MMOAE_INITIALIZED")) {
+            if (nbt.hasTag("MMOAE_INITIALIZED") || nbt.hasTag("MMOAE_DISENCHANTED") || nbt.hasTag("MMOAE_PROCESSED")) {
                 return true;
             }
         } catch (Throwable ignored) {}
+
+        // 5. If the item currently has ANY AdvancedEnchantments enchants active,
+        // it has DEFINITELY already been initialized!
+        if (AEHook.isAvailable()) {
+            Map<String, Integer> currentAE = AEHook.getEnchantments(item);
+            if (currentAE != null && !currentAE.isEmpty()) {
+                return true;
+            }
+        }
 
         return false;
     }
@@ -150,10 +169,12 @@ public class AEBridgeService {
         boolean isDisenchanted = isDisenchanted(item);
         boolean needsEnchantApply = false;
 
-        // Apply baseline template enchants IF:
-        // 1. Item has not been initialized yet, OR
-        // 2. Item currently has ZERO AE enchantments and has not been explicitly disenchanted by Black Scroll
-        if (hasAeSpecs && (!isInitialized || (currentAE.isEmpty() && !isDisenchanted))) {
+        // Apply baseline template enchants ONLY IF:
+        // 1. Template has configured ae-enchants, AND
+        // 2. Item has NEVER been initialized before, AND
+        // 3. Item is NOT marked as disenchanted, AND
+        // 4. Item currently has ZERO AE enchantments on it.
+        if (hasAeSpecs && !isInitialized && !isDisenchanted && !hasCurrentAE) {
             needsEnchantApply = true;
         }
 
@@ -192,15 +213,20 @@ public class AEBridgeService {
         // High-speed PDC marker: prevents repeated reflection or parsing on subsequent ticks
         if (modified.hasItemMeta()) {
             org.bukkit.inventory.meta.ItemMeta m = modified.getItemMeta();
-            if (needsEnchantApply || !currentAE.isEmpty()) {
-                m.getPersistentDataContainer().set(KEY_INITIALIZED,
-                        org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
-            }
+            m.getPersistentDataContainer().set(KEY_INITIALIZED,
+                    org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
             m.getPersistentDataContainer().set(KEY_PROCESSED,
                     org.bukkit.persistence.PersistentDataType.STRING,
                     computeSpecHash(modified, aeEnchants));
             modified.setItemMeta(m);
         }
+
+        try {
+            NBTItem nbt = NBTItem.get(modified);
+            modified = nbt.addTag(new ItemTag("MMOAE_INITIALIZED", true))
+                          .addTag(new ItemTag("MMOAE_PROCESSED", computeSpecHash(modified, aeEnchants)))
+                          .toItem();
+        } catch (Throwable ignored) {}
 
         return modified;
     }
@@ -706,7 +732,7 @@ public class AEBridgeService {
         }
 
         // If baseline enchants need to be applied, it's not fully enchanted
-        if (hasAeSpecs && (!isBaselineInitialized(item) || (currentAE.isEmpty() && !isDisenchanted(item)))) {
+        if (hasAeSpecs && !isBaselineInitialized(item) && !isDisenchanted(item) && !hasCurrentAE) {
             return false;
         }
 

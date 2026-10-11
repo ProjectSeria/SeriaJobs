@@ -281,10 +281,28 @@ public class AEHook {
                 if (res instanceof Boolean && (Boolean) res) return true;
             } catch (Throwable ignored) {}
         }
-        if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
-            String name = org.bukkit.ChatColor.stripColor(item.getItemMeta().getDisplayName()).toLowerCase();
-            return name.contains("black scroll");
+        if (item.hasItemMeta()) {
+            org.bukkit.inventory.meta.ItemMeta meta = item.getItemMeta();
+            if (meta.hasDisplayName()) {
+                String name = org.bukkit.ChatColor.stripColor(meta.getDisplayName()).toLowerCase();
+                if (name.contains("black scroll")) return true;
+            }
+            if (meta.hasLore() && meta.getLore() != null) {
+                for (String line : meta.getLore()) {
+                    String clean = org.bukkit.ChatColor.stripColor(line).toLowerCase();
+                    if (clean.contains("black scroll")
+                            || (clean.contains("remove") && clean.contains("enchant"))
+                            || (clean.contains("take away") && clean.contains("enchant"))) {
+                        return true;
+                    }
+                }
+            }
         }
+        try {
+            io.lumine.mythic.lib.api.item.NBTItem nbt = io.lumine.mythic.lib.api.item.NBTItem.get(item);
+            if (nbt.hasTag("ae_item") && nbt.getString("ae_item").toLowerCase().contains("black")) return true;
+            if (nbt.hasTag("ae_scroll") && nbt.getString("ae_scroll").toLowerCase().contains("black")) return true;
+        } catch (Throwable ignored) {}
         return false;
     }
 }

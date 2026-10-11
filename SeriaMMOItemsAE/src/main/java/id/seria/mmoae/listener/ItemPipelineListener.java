@@ -92,6 +92,32 @@ public class ItemPipelineListener implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.LOW)
+    public void onPreInventoryClick(InventoryClickEvent event) {
+        if (!onInventoryClick || !AEHook.isAvailable()) return;
+        ItemStack scrollItem = event.getCursor();
+        ItemStack targetItem = event.getCurrentItem();
+        if (scrollItem != null && !scrollItem.getType().isAir() && targetItem != null && !targetItem.getType().isAir()) {
+            if (AEHook.isBlackScroll(scrollItem) && id.seria.mmoae.hook.MMOItemsHook.isMMOItem(targetItem)) {
+                if (targetItem.hasItemMeta()) {
+                    org.bukkit.inventory.meta.ItemMeta m = targetItem.getItemMeta();
+                    m.getPersistentDataContainer().set(AEBridgeService.KEY_DISENCHANTED,
+                            org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
+                    m.getPersistentDataContainer().set(AEBridgeService.KEY_INITIALIZED,
+                            org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
+                    targetItem.setItemMeta(m);
+                    try {
+                        io.lumine.mythic.lib.api.item.NBTItem nbt = io.lumine.mythic.lib.api.item.NBTItem.get(targetItem);
+                        targetItem = nbt.addTag(new io.lumine.mythic.lib.api.item.ItemTag("MMOAE_DISENCHANTED", true))
+                                        .addTag(new io.lumine.mythic.lib.api.item.ItemTag("MMOAE_INITIALIZED", true))
+                                        .toItem();
+                    } catch (Throwable ignored) {}
+                    event.setCurrentItem(targetItem);
+                }
+            }
+        }
+    }
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onInventoryClick(InventoryClickEvent event) {
         if (!onInventoryClick || !AEHook.isAvailable()) return;
@@ -106,7 +132,16 @@ public class ItemPipelineListener implements Listener {
                     org.bukkit.inventory.meta.ItemMeta m = targetItem.getItemMeta();
                     m.getPersistentDataContainer().set(AEBridgeService.KEY_DISENCHANTED,
                             org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
+                    m.getPersistentDataContainer().set(AEBridgeService.KEY_INITIALIZED,
+                            org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
                     targetItem.setItemMeta(m);
+                    try {
+                        io.lumine.mythic.lib.api.item.NBTItem nbt = io.lumine.mythic.lib.api.item.NBTItem.get(targetItem);
+                        targetItem = nbt.addTag(new io.lumine.mythic.lib.api.item.ItemTag("MMOAE_DISENCHANTED", true))
+                                        .addTag(new io.lumine.mythic.lib.api.item.ItemTag("MMOAE_INITIALIZED", true))
+                                        .toItem();
+                    } catch (Throwable ignored) {}
+                    event.setCurrentItem(targetItem);
                 }
             }
         }
