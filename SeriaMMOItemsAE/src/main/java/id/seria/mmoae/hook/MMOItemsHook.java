@@ -248,6 +248,61 @@ public class MMOItemsHook {
                     }
                 }
             }
+
+            // 2. Process Item Lore
+            if (template.getBaseItemData().containsKey(net.Indyuce.mmoitems.ItemStats.LORE)) {
+                net.Indyuce.mmoitems.stat.data.random.RandomStatData data =
+                        template.getBaseItemData().get(net.Indyuce.mmoitems.ItemStats.LORE);
+                if (data instanceof net.Indyuce.mmoitems.stat.data.StringListData listData) {
+                    List<String> list = listData.getList();
+                    if (list != null && !list.isEmpty()) {
+                        List<String> updated = new ArrayList<>(list.size());
+                        boolean changed = false;
+                        for (String line : list) {
+                            if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(line)) {
+                                updated.add(id.seria.mmoae.util.PlaceholderHelper.parseToLegacy(null, line));
+                                changed = true;
+                            } else {
+                                updated.add(line);
+                            }
+                        }
+                        if (changed) {
+                            template.getBaseItemData().put(net.Indyuce.mmoitems.ItemStats.LORE,
+                                    new net.Indyuce.mmoitems.stat.data.StringListData(updated));
+                            modified = true;
+                        }
+                    }
+                }
+            } else {
+                // Check if defined in raw config
+                Type type = template.getType();
+                if (type != null && type.getConfigFile() != null) {
+                    ConfigurationSection config = type.getConfigFile().getConfig();
+                    if (config != null) {
+                        String lorePath = template.getId() + ".base.lore";
+                        if (config.isList(lorePath)) {
+                            List<String> rawList = config.getStringList(lorePath);
+                            if (rawList != null && !rawList.isEmpty()) {
+                                List<String> updated = new ArrayList<>(rawList.size());
+                                boolean changed = false;
+                                for (String line : rawList) {
+                                    if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(line)) {
+                                        updated.add(id.seria.mmoae.util.PlaceholderHelper.parseToLegacy(null, line));
+                                        changed = true;
+                                    } else {
+                                        updated.add(line);
+                                    }
+                                }
+                                if (changed) {
+                                    template.getBaseItemData().put(net.Indyuce.mmoitems.ItemStats.LORE,
+                                            new net.Indyuce.mmoitems.stat.data.StringListData(updated));
+                                    modified = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         } catch (Throwable t) {
             LOGGER.log(Level.FINE, "[SeriaMMOItemsAE] Failed to preprocess template " + template.getId() + ": " + t.getMessage());
         }

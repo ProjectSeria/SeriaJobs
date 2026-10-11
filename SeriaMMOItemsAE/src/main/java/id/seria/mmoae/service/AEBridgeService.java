@@ -82,7 +82,7 @@ public class AEBridgeService {
             return item;
         }
 
-        // 1. Resolve unparsed placeholders in item display name ONLY (Lore is never touched)
+        // 1. Resolve unparsed placeholders in item display name
         if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
             String rawName = item.getItemMeta().getDisplayName();
             if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(rawName)) {
@@ -93,6 +93,37 @@ public class AEBridgeService {
                     meta.displayName(id.seria.mmoae.util.PlaceholderHelper.parseToComponent(null, rawName));
                 } catch (Throwable ignored) {}
                 item.setItemMeta(meta);
+            }
+        }
+
+        // 2. Resolve unparsed placeholders in item lore lines
+        if (item.hasItemMeta() && item.getItemMeta().hasLore()) {
+            List<String> lore = item.getItemMeta().getLore();
+            if (lore != null && !lore.isEmpty()) {
+                boolean loreChanged = false;
+                java.util.List<String> updatedLore = new java.util.ArrayList<>(lore.size());
+                for (String line : lore) {
+                    if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(line)) {
+                        updatedLore.add(id.seria.mmoae.util.PlaceholderHelper.parseToLegacy(null, line));
+                        loreChanged = true;
+                    } else {
+                        updatedLore.add(line);
+                    }
+                }
+                if (loreChanged) {
+                    org.bukkit.inventory.meta.ItemMeta meta = item.getItemMeta();
+                    meta.setLore(updatedLore);
+                    try {
+                        java.util.List<net.kyori.adventure.text.Component> compLore = new java.util.ArrayList<>(updatedLore.size());
+                        for (String l : updatedLore) {
+                            compLore.add(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection()
+                                    .deserialize(l)
+                                    .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false));
+                        }
+                        meta.lore(compLore);
+                    } catch (Throwable ignored) {}
+                    item.setItemMeta(meta);
+                }
             }
         }
 
@@ -614,7 +645,21 @@ public class AEBridgeService {
             String currentHash = computeSpecHash(item, aeEnchants);
             if (storedHash != null && storedHash.equals(currentHash)) {
                 if (isLoreNonItalic(meta)) {
-                    return true; // Already processed and 100% up to date & non-italic! 0ms CPU.
+                    boolean hasPendingPlaceholders = false;
+                    if (meta.hasDisplayName() && id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(meta.getDisplayName())) {
+                        hasPendingPlaceholders = true;
+                    }
+                    if (!hasPendingPlaceholders && meta.hasLore() && meta.getLore() != null) {
+                        for (String l : meta.getLore()) {
+                            if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(l)) {
+                                hasPendingPlaceholders = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!hasPendingPlaceholders) {
+                        return true; // Already processed and 100% up to date & non-italic! 0ms CPU.
+                    }
                 }
             }
         }
@@ -623,11 +668,18 @@ public class AEBridgeService {
             return true;
         }
 
-        // Check if item still has unparsed placeholder tags in display name
+        // Check if item still has unparsed placeholder tags in display name or lore
         if (meta.hasDisplayName()) {
             String name = meta.getDisplayName();
             if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(name)) {
                 return false;
+            }
+        }
+        if (meta.hasLore() && meta.getLore() != null) {
+            for (String l : meta.getLore()) {
+                if (id.seria.mmoae.util.PlaceholderHelper.hasPlaceholders(l)) {
+                    return false;
+                }
             }
         }
 

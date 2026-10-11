@@ -37,6 +37,19 @@ public class MMOItemsReloadListener implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onServerLoad(org.bukkit.event.server.ServerLoadEvent event) {
+        // Automatically runs once the server has fully finished booting and all plugins are enabled
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (MMOItemsHook.isAvailable()) {
+                MMOItemsHook.preProcessAllTemplates();
+                try {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mmoitems reload");
+                } catch (Throwable ignored) {}
+            }
+        }, 10L);
+    }
+
     private void scheduleTemplateReprocess() {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (MMOItemsHook.isAvailable()) {
