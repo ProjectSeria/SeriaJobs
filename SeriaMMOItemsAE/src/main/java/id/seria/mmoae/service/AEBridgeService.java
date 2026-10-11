@@ -170,9 +170,33 @@ public class AEBridgeService {
     }
 
     /**
+     * Identifies whether a lore line belongs to MMOItems status/stats/attributes section.
+     */
+    public static boolean isStatusOrStatLine(String line) {
+        if (line == null) return false;
+        String s = org.bukkit.ChatColor.stripColor(line).trim().toLowerCase();
+        if (s.isEmpty()) return false;
+        return s.contains("---")
+                || s.startsWith("status")
+                || s.startsWith("statistik")
+                || s.startsWith("attack damage")
+                || s.startsWith("attack speed")
+                || s.startsWith("critical strike")
+                || s.startsWith("requires")
+                || s.startsWith("required level")
+                || s.startsWith("tier")
+                || s.startsWith("type")
+                || s.startsWith("pvp damage")
+                || s.startsWith("pve damage")
+                || s.startsWith("durability")
+                || s.startsWith("two-handed")
+                || s.startsWith("one-handed");
+    }
+
+    /**
      * Adjusts spacing around the AE enchantment block in lore:
      * - Removes any blank/empty lines immediately before the first AE enchant.
-     * - Removes any accidental blank/empty lines between AE enchants.
+     * - Removes any accidental blank/empty lines between AE enchants (including between default & manual enchants).
      * - Adds exactly one blank/empty line immediately after the last AE enchant.
      * - Collapses any duplicate consecutive empty lines throughout the entire lore.
      */
@@ -206,11 +230,11 @@ public class AEBridgeService {
             if (stripped.isEmpty()) continue;
 
             for (String name : cleanNames) {
-                if (!name.isEmpty() && stripped.startsWith(name)) {
+                if (!name.isEmpty() && (stripped.startsWith(name) || stripped.contains(name))) {
                     if (firstAEIndex == -1) {
                         firstAEIndex = i;
                     }
-                    lastAEIndex = i;
+                    lastAEIndex = Math.max(lastAEIndex, i);
                     break;
                 }
             }
@@ -218,6 +242,25 @@ public class AEBridgeService {
 
         if (firstAEIndex == -1) {
             return enforceNonItalicLore(item);
+        }
+
+        // Locate status section boundary
+        int statusBoundary = -1;
+        for (int i = firstAEIndex + 1; i < lore.size(); i++) {
+            if (isStatusOrStatLine(lore.get(i))) {
+                statusBoundary = i;
+                break;
+            }
+        }
+
+        // Expand lastAEIndex to include any manual enchant lines before the status boundary
+        int scanEnd = (statusBoundary != -1) ? statusBoundary : lore.size();
+        for (int i = scanEnd - 1; i > firstAEIndex; i--) {
+            String line = lore.get(i);
+            if (line != null && !org.bukkit.ChatColor.stripColor(line).trim().isEmpty()) {
+                lastAEIndex = Math.max(lastAEIndex, i);
+                break;
+            }
         }
 
         List<String> list = new java.util.ArrayList<>(lore);
@@ -395,11 +438,11 @@ public class AEBridgeService {
             if (stripped.isEmpty()) continue;
 
             for (String name : cleanNames) {
-                if (!name.isEmpty() && stripped.startsWith(name)) {
+                if (!name.isEmpty() && (stripped.startsWith(name) || stripped.contains(name))) {
                     if (firstAEIndex == -1) {
                         firstAEIndex = i;
                     }
-                    lastAEIndex = i;
+                    lastAEIndex = Math.max(lastAEIndex, i);
                     break;
                 }
             }
@@ -407,6 +450,25 @@ public class AEBridgeService {
 
         if (firstAEIndex == -1) {
             return true;
+        }
+
+        // Locate status section boundary
+        int statusBoundary = -1;
+        for (int i = firstAEIndex + 1; i < lore.size(); i++) {
+            if (isStatusOrStatLine(lore.get(i))) {
+                statusBoundary = i;
+                break;
+            }
+        }
+
+        // Expand lastAEIndex to include any manual enchant lines before the status boundary
+        int scanEnd = (statusBoundary != -1) ? statusBoundary : lore.size();
+        for (int i = scanEnd - 1; i > firstAEIndex; i--) {
+            String line = lore.get(i);
+            if (line != null && !org.bukkit.ChatColor.stripColor(line).trim().isEmpty()) {
+                lastAEIndex = Math.max(lastAEIndex, i);
+                break;
+            }
         }
 
         // Check before firstAEIndex

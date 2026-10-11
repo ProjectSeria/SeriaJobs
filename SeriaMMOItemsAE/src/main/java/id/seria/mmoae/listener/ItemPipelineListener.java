@@ -128,6 +128,22 @@ public class ItemPipelineListener implements Listener {
                 }
             } catch (Throwable ignored) {}
 
+            // Check clicked inventory directly if present
+            try {
+                if (event.getClickedInventory() != null) {
+                    int slot = event.getSlot();
+                    if (slot >= 0 && slot < event.getClickedInventory().getSize()) {
+                        ItemStack clicked = event.getClickedInventory().getItem(slot);
+                        if (clicked != null && !clicked.getType().isAir() && !bridgeService.isFullyEnchanted(clicked)) {
+                            ItemStack updated = bridgeService.processItem(clicked);
+                            if (updated != null && updated != clicked) {
+                                event.getClickedInventory().setItem(slot, updated);
+                            }
+                        }
+                    }
+                }
+            } catch (Throwable ignored) {}
+
             checkAndFixPlayerEquipment(player);
         });
     }
@@ -288,15 +304,21 @@ public class ItemPipelineListener implements Listener {
             }
         }
 
-        // Check hotbar (slots 0 to 8)
-        for (int i = 0; i < 9; i++) {
-            ItemStack it = inv.getItem(i);
+        // Check full storage inventory (slots 0 to 35)
+        ItemStack[] storage = inv.getStorageContents();
+        boolean storageChanged = false;
+        for (int i = 0; i < storage.length; i++) {
+            ItemStack it = storage[i];
             if (it != null && !it.getType().isAir() && !bridgeService.isFullyEnchanted(it)) {
                 ItemStack updated = bridgeService.processItem(it);
                 if (updated != null && updated != it) {
-                    inv.setItem(i, updated);
+                    storage[i] = updated;
+                    storageChanged = true;
                 }
             }
+        }
+        if (storageChanged) {
+            inv.setStorageContents(storage);
         }
     }
 }
