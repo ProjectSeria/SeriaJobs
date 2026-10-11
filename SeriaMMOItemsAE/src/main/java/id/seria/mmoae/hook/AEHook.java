@@ -18,6 +18,7 @@ public class AEHook {
     private static Method hasEnchantMethod1 = null;   // hasEnchant(String, ItemStack)
     private static Method hasEnchantMethod2 = null;   // hasEnchant(ItemStack, String)
     private static Method getEnchantsMethod = null;   // getEnchantments(ItemStack) or getEnchantsOnItem(ItemStack)
+    private static Method isBlackScrollMethod = null; // isBlackScroll(ItemStack)
 
     private static final Logger LOGGER = Logger.getLogger("SeriaMMOItemsAE");
     private static final Set<String> WARNED_ENCHANTS = Collections.newSetFromMap(new java.util.concurrent.ConcurrentHashMap<>());
@@ -54,6 +55,11 @@ public class AEHook {
                         getEnchantsMethod = aeApiClass.getMethod("getEnchantsOnItem", ItemStack.class);
                     } catch (NoSuchMethodException ignored) {}
                 }
+
+                // Check isBlackScroll method
+                try {
+                    isBlackScrollMethod = aeApiClass.getMethod("isBlackScroll", ItemStack.class);
+                } catch (NoSuchMethodException ignored) {}
 
                 available = (applyEnchantMethod1 != null || applyEnchantMethod2 != null);
                 if (available) {
@@ -262,5 +268,23 @@ public class AEHook {
         }
 
         return currentItem;
+    }
+
+    /**
+     * Checks if an ItemStack is an AdvancedEnchantments Black Scroll.
+     */
+    public static boolean isBlackScroll(ItemStack item) {
+        if (item == null || item.getType().isAir()) return false;
+        if (isBlackScrollMethod != null) {
+            try {
+                Object res = isBlackScrollMethod.invoke(null, item);
+                if (res instanceof Boolean && (Boolean) res) return true;
+            } catch (Throwable ignored) {}
+        }
+        if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+            String name = org.bukkit.ChatColor.stripColor(item.getItemMeta().getDisplayName()).toLowerCase();
+            return name.contains("black scroll");
+        }
+        return false;
     }
 }

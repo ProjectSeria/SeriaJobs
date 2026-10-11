@@ -97,6 +97,20 @@ public class ItemPipelineListener implements Listener {
         if (!onInventoryClick || !AEHook.isAvailable()) return;
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
+        // Check if player applied a Black Scroll on an MMOItem
+        ItemStack scrollItem = event.getCursor();
+        ItemStack targetItem = event.getCurrentItem();
+        if (scrollItem != null && !scrollItem.getType().isAir() && targetItem != null && !targetItem.getType().isAir()) {
+            if (AEHook.isBlackScroll(scrollItem) && id.seria.mmoae.hook.MMOItemsHook.isMMOItem(targetItem)) {
+                if (targetItem.hasItemMeta()) {
+                    org.bukkit.inventory.meta.ItemMeta m = targetItem.getItemMeta();
+                    m.getPersistentDataContainer().set(AEBridgeService.KEY_DISENCHANTED,
+                            org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
+                    targetItem.setItemMeta(m);
+                }
+            }
+        }
+
         // Schedule 1-tick delay: allows Bukkit & AdvancedEnchantments to finish item transfer,
         // book consumption, and slot mutations completely before checking.
         // Guarantees zero cursor conflict and ZERO item duplication!

@@ -20,6 +20,8 @@ public class AEBridgeService {
             new org.bukkit.NamespacedKey("seriammoitemsae", "processed_hash");
     public static final org.bukkit.NamespacedKey KEY_INITIALIZED =
             new org.bukkit.NamespacedKey("seriammoitemsae", "baseline_initialized");
+    public static final org.bukkit.NamespacedKey KEY_DISENCHANTED =
+            new org.bukkit.NamespacedKey("seriammoitemsae", "disenchanted");
 
     private final boolean debug;
     private final Logger logger = Logger.getLogger("SeriaMMOItemsAE");
@@ -30,39 +32,42 @@ public class AEBridgeService {
 
     /**
      * Checks if the item has already undergone initial baseline enchantment setup.
-     * Once initialized, player actions like Black Scrolls (disenchanting) or manual book applications
-     * are strictly preserved and template baseline enchants will NEVER be forcefully re-applied.
      */
     public boolean isBaselineInitialized(ItemStack item) {
         if (item == null || !item.hasItemMeta()) return false;
         org.bukkit.inventory.meta.ItemMeta meta = item.getItemMeta();
 
-        // 1. Direct PDC marker
+        // 1. Direct PDC marker set when baseline enchants are applied
         if (meta.getPersistentDataContainer().has(KEY_INITIALIZED, org.bukkit.persistence.PersistentDataType.BYTE)) {
             return true;
         }
 
-        // 2. Previously processed marker (backward compatibility with items already in circulation)
-        if (meta.getPersistentDataContainer().has(KEY_PROCESSED, org.bukkit.persistence.PersistentDataType.STRING)) {
-            return true;
-        }
-
-        // 3. MythicLib NBT tag check
+        // 2. Custom NBT tag set when baseline enchants are applied
         try {
             NBTItem nbt = NBTItem.get(item);
-            if (nbt.hasTag("MMOAE_INITIALIZED") || nbt.hasTag(AEEnchantsStat.NBT_TAG)) {
+            if (nbt.hasTag("MMOAE_INITIALIZED")) {
                 return true;
             }
         } catch (Throwable ignored) {}
 
-        // 4. If the item currently has any AE enchantments, it has already been initialized
-        if (AEHook.isAvailable()) {
-            Map<String, Integer> currentAE = AEHook.getEnchantments(item);
-            if (!currentAE.isEmpty()) {
+        return false;
+    }
+
+    /**
+     * Checks if the item has been modified by a Black Scroll (disenchanted).
+     */
+    public boolean isDisenchanted(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return false;
+        org.bukkit.inventory.meta.ItemMeta meta = item.getItemMeta();
+        if (meta.getPersistentDataContainer().has(KEY_DISENCHANTED, org.bukkit.persistence.PersistentDataType.BYTE)) {
+            return true;
+        }
+        try {
+            NBTItem nbt = NBTItem.get(item);
+            if (nbt.hasTag("MMOAE_DISENCHANTED")) {
                 return true;
             }
-        }
-
+        } catch (Throwable ignored) {}
         return false;
     }
 
@@ -142,12 +147,13 @@ public class AEBridgeService {
         }
 
         boolean isInitialized = isBaselineInitialized(item);
+        boolean isDisenchanted = isDisenchanted(item);
         boolean needsEnchantApply = false;
 
-        // ONLY apply baseline template enchants if the item has NEVER been initialized before!
-        // Once initialized, player modifications (Black Scrolls, custom enchant books, disenchanting)
-        // must be strictly respected and NEVER overridden by template configs!
-        if (!isInitialized && hasAeSpecs) {
+        // Apply baseline template enchants IF:
+        // 1. Item has not been initialized yet, OR
+        // 2. Item currently has ZERO AE enchantments and has not been explicitly disenchanted by Black Scroll
+        if (hasAeSpecs && (!isInitialized || (currentAE.isEmpty() && !isDisenchanted))) {
             needsEnchantApply = true;
         }
 
@@ -186,8 +192,10 @@ public class AEBridgeService {
         // High-speed PDC marker: prevents repeated reflection or parsing on subsequent ticks
         if (modified.hasItemMeta()) {
             org.bukkit.inventory.meta.ItemMeta m = modified.getItemMeta();
-            m.getPersistentDataContainer().set(KEY_INITIALIZED,
-                    org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
+            if (needsEnchantApply || !currentAE.isEmpty()) {
+                m.getPersistentDataContainer().set(KEY_INITIALIZED,
+                        org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1);
+            }
             m.getPersistentDataContainer().set(KEY_PROCESSED,
                     org.bukkit.persistence.PersistentDataType.STRING,
                     computeSpecHash(modified, aeEnchants));
@@ -697,11 +705,9 @@ public class AEBridgeService {
             return true;
         }
 
-        // If not initialized yet and has baseline specs, it needs to be processed to apply baseline
-        if (!isBaselineInitialized(item)) {
-            if (hasAeSpecs) {
-                return false;
-            }
+        // If baseline enchants need to be applied, it's not fully enchanted
+        if (hasAeSpecs && (!isBaselineInitialized(item) || (currentAE.isEmpty() && !isDisenchanted(item)))) {
+            return false;
         }
 
         // If hash changed (e.g. Black Scroll removed an enchant or book added one),
