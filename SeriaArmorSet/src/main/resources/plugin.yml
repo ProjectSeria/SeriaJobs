@@ -1,9 +1,9 @@
-﻿name: SeriaArmorSet
+name: SeriaArmorSet
 version: '${project.version}'
 main: id.seria.armorset.SeriaArmorSetPlugin
 api-version: '1.20'
 author: Seria Team
-description: MMOItems Armor Set Telepathy drops plugin for Project Seria.
+description: Custom MMOItems Armor Set Skills & Bonus Engine for Project Seria.
 depend:
   - MMOItems
   - MythicLib
@@ -13,21 +13,27 @@ softdepend:
   - PlaceholderAPI
 
 commands:
-  settelepathy:
-    description: SetTelepathy commands for armor set drops
-    permission: settelepathy.reload
+  armorset:
+    description: Primary SeriaArmorSet admin command
+    permission: seriaarmorset.reload
     aliases:
       - seriaarmorset
-      - armorset
+  settelepathy:
+    description: Legacy alias for telepathy drop collector
+    permission: settelepathy.reload
+    aliases:
       - telepathy
 
 permissions:
-  settelepathy.reload:
-    description: Allows reloading the SetTelepathy configuration
-    default: op
-  settelepathy.status:
-    description: Allows viewing armor set telepathy status
+  seriaarmorset.admin:
+    description: Full access to SeriaArmorSet administrative commands
     default: op
   seriaarmorset.reload:
-    description: Alias permission for reloading configuration
+    description: Allows reloading the SeriaArmorSet configuration
+    default: op
+  seriaarmorset.status:
+    description: Allows inspecting player armor set status and active skills
+    default: op
+  settelepathy.reload:
+    description: Compatibility permission for reloading
     default: op

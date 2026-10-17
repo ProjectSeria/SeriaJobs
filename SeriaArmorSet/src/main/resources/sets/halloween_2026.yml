@@ -1,0 +1,24 @@
+# ==============================================================================
+#                 Halloween 2026 Armor Sets Configuration
+# ==============================================================================
+
+sets:
+  HALLOWEEN2026_FREE:
+    pieces-required: 4
+    skills:
+      telepathy:
+        enabled: true
+        blocks: true
+        mobs: true
+        xp: true
+        play-sound: true
+
+  HALLOWEEN2026_PREMIUM:
+    pieces-required: 4
+    skills:
+      telepathy:
+        enabled: true
+        blocks: true
+        mobs: true
+        xp: true
+        play-sound: true

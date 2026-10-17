@@ -1,12 +1,13 @@
 package id.seria.armorset;
 
-import id.seria.armorset.command.SetTelepathyCommand;
+import id.seria.armorset.command.ArmorSetCommand;
 import id.seria.armorset.config.ArmorSetConfig;
 import id.seria.armorset.hook.MMOItemsHook;
 import id.seria.armorset.hook.MythicMobsHook;
 import id.seria.armorset.hook.SeriaCoreHook;
 import id.seria.armorset.listener.BlockDropListener;
 import id.seria.armorset.listener.EntityDeathListener;
+import id.seria.armorset.skill.SkillManager;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,6 +16,7 @@ public class SeriaArmorSetPlugin extends JavaPlugin {
     private static SeriaArmorSetPlugin instance;
 
     private ArmorSetConfig configuration;
+    private SkillManager skillManager;
     private MMOItemsHook mmoItemsHook;
     private MythicMobsHook mythicMobsHook;
     private SeriaCoreHook seriaCoreHook;
@@ -24,11 +26,15 @@ public class SeriaArmorSetPlugin extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
 
-        // 1. Initialize Configuration
+        // 1. Initialize Skill Manager & Registry
+        skillManager = new SkillManager(this);
+        skillManager.initialize();
+
+        // 2. Initialize Configuration & Sets
         configuration = new ArmorSetConfig(this);
         configuration.reload();
 
-        // 2. Initialize Hooks
+        // 3. Initialize Hooks
         mmoItemsHook = new MMOItemsHook(this);
         seriaCoreHook = new SeriaCoreHook(this);
         seriaCoreHook.initialize();
@@ -36,28 +42,37 @@ public class SeriaArmorSetPlugin extends JavaPlugin {
         mythicMobsHook = new MythicMobsHook(this);
         mythicMobsHook.initialize();
 
-        // 3. Register Event Listeners
+        // 4. Register Event Listeners
         getServer().getPluginManager().registerEvents(new BlockDropListener(this), this);
         getServer().getPluginManager().registerEvents(new EntityDeathListener(this), this);
 
-        // 4. Register Commands
-        PluginCommand cmd = getCommand("settelepathy");
-        if (cmd != null) {
-            SetTelepathyCommand handler = new SetTelepathyCommand(this);
-            cmd.setExecutor(handler);
-            cmd.setTabCompleter(handler);
-        }
+        // 5. Register Commands
+        ArmorSetCommand commandHandler = new ArmorSetCommand(this);
+        registerCommand("armorset", commandHandler);
+        registerCommand("settelepathy", commandHandler);
 
         getLogger().info("=================================================");
-        getLogger().info(" SeriaArmorSet (SetTelepathy) v" + getDescription().getVersion() + " Enabled!");
-        getLogger().info(" Active Sets: " + configuration.getSets().keySet());
+        getLogger().info(" SeriaArmorSet Skill Engine v" + getDescription().getVersion() + " Enabled!");
+        getLogger().info(" Registered Sets: " + configuration.getSetDefinitions().keySet());
+        getLogger().info(" Registered Skills: " + skillManager.getRegisteredSkills().size());
         getLogger().info(" SeriaCore: " + (seriaCoreHook.isAvailable() ? "HOOKED" : "NOT FOUND"));
         getLogger().info(" MythicMobs: " + (mythicMobsHook.isAvailable() ? "HOOKED" : "NOT FOUND"));
         getLogger().info("=================================================");
     }
 
+    private void registerCommand(String name, ArmorSetCommand handler) {
+        PluginCommand cmd = getCommand(name);
+        if (cmd != null) {
+            cmd.setExecutor(handler);
+            cmd.setTabCompleter(handler);
+        }
+    }
+
     @Override
     public void onDisable() {
+        if (skillManager != null) {
+            skillManager.unregisterAll();
+        }
         if (seriaCoreHook != null) {
             seriaCoreHook.unregister();
         }
@@ -74,6 +89,10 @@ public class SeriaArmorSetPlugin extends JavaPlugin {
 
     public ArmorSetConfig getConfiguration() {
         return configuration;
+    }
+
+    public SkillManager getSkillManager() {
+        return skillManager;
     }
 
     public MMOItemsHook getMmoItemsHook() {

@@ -1,82 +1,98 @@
-﻿# SeriaArmorSet (SetTelepathy)
+# SeriaArmorSet
 
-Spigot/Paper plugin untuk ekosistem **Project Seria** yang mengirimkan drop langsung ke inventory pemain (*Telepathy drop collector*) ketika mereka mengenakan armor set MMOItems tertentu yang telah dikonfigurasi.
+Engine kustom untuk **Project Seria** yang menangani kemampuan dan skill khusus dari **MMOItems Armor Set Bonus** yang tidak dapat ditangani secara native oleh MythicLib atau MythicMobs.
 
-Plugin ini menggantikan enchant Telepathy konvensional dan beroperasi penuh dari bonus set armor MMOItems.
+Plugin ini dibangun dengan arsitektur modular extensible skill, di mana pengembang dapat mendaftarkan berbagai skill unik (seperti Telepathy drop collector, custom vacuum, shield, evasion, custom triggers, dll.) tanpa harus mengubah core listener.
 
 ---
 
 ## Fitur Utama
 
-- **Block Break Telepathy**: Drop dari blok yang dihancurkan oleh pemain langsung masuk ke inventory pemain secara instan.
-- **Mob Kill Telepathy**: Drop dari monster/mob (termasuk vanilla mob dan custom MythicMobs) langsung masuk ke inventory pemain yang membunuh (*killer*).
-- **XP Direct Transfer**: EXP dari mob yang dibunuh langsung ditransfer ke pemain killer (dapat dikonfigurasi).
-- **Full Inventory Handling**: Jika inventory pemain penuh atau hanya muat sebagian, sisa item (*leftover*) tetap jatuh di tanah secara normal.
-- **MMOItems & MythicLib Set Detection**:
-  - *Metode Utama*: Menggunakan API resmi `PlayerData#getInventory()#getEquipped()` untuk memeriksa set armor aktif.
-  - *Metode Fallback*: Memeriksa tag NBT `MMOITEMS_ITEM_SET` pada setiap slot armor pemain menggunakan MythicLib `NBTItem`.
-  - ID set bersifat *case-insensitive*.
-- **MythicMobs Support**: Mendukung custom drop tables MythicMobs sehingga item drop khusus tetap terkirim ke inventory killer.
-- **SeriaCore Integration**:
-  - Mengikuti layout konfigurasi standar Project Seria (`debug`, `sets`, `options`, `hooks`, `messages`).
-  - Mendukung MiniMessage gradient, SeriaCore semantic color tags (`<sc:prefix>`, `<title-color>`, `<sc:success-color>`), dan legacy color codes.
-  - Registrasi placeholder PlaceholderAPI: `%settelepathy_has_set%`, `%settelepathy_active_set%`, `%settelepathy_pieces_worn%`, `%settelepathy_pieces_required%`.
+- **Extensible Skill Engine**:
+  - Menyediakan sistem `ArmorSkill` modular.
+  - Mengizinkan satu armor set memiliki banyak custom skills sekaligus.
+  - Terintegrasi dengan MythicLib & MMOItems secara non-intrusif.
+- **Skill Bawaan: Telepathy Drop Collector**:
+  - **Block Break Telepathy**: Drop dari blok yang dihancurkan pemain langsung masuk ke inventory secara instan.
+  - **Mob Kill Telepathy**: Drop dari mob/monster (vanilla dan MythicMobs) langsung masuk ke inventory killer.
+  - **XP Direct Transfer**: EXP dari mob langsung diberikan ke killer.
+  - **Inventory Overflow Handling**: Item yang tidak muat tetap jatuh di tanah secara aman.
+- **Dual Set Detection Engine**:
+  - *Metode Utama (Preferred API)*: Membaca slot armor via MMOItems `PlayerData#getInventory()#getEquipped()`.
+  - *Metode Fallback (MythicLib NBT)*: Memeriksa tag NBT `MMOITEMS_ITEM_SET` pada slot armor pemain via MythicLib `NBTItem`.
+  - Case-insensitive set IDs.
+- **Dukungan MythicMobs Drop Tables**:
+  - Mengintersepsi event `MythicMobDeathEvent` sehingga custom drop tables MythicMobs terjamin masuk ke inventory pemain.
+- **Standarisasi Ekosistem SeriaCore**:
+  - Struktur folder modular: mendukung `config.yml` dan file definisi terpisah di folder `sets/*.yml`.
+  - Pesan mendukung Adventure MiniMessage, SeriaCore semantic tags (`<sc:prefix>`, `<title-color>`, `<sc:success-color>`, dll.), dan format warna legacy `&`.
+  - Menyediakan PlaceholderAPI:
+    - `%seriaarmorset_has_set%`
+    - `%seriaarmorset_active_set%`
+    - `%seriaarmorset_pieces_worn%`
+    - `%seriaarmorset_pieces_required%`
+    - `%seriaarmorset_active_skills%`
+    - *(Serta alias backwards-compatible `%settelepathy_...%`)*
 
 ---
 
-## Versi Pengujian & Kompatibilitas
+## Struktur Folder Standar
 
-- **Java Version**: Java 17 / Java 21
-- **Server Software**: Paper / Purpur 1.20.x & 1.21.x
-- **MMOItems Version**: 6.10.x (diuji dengan MMOItems-API 6.10.1-SNAPSHOT)
-- **MythicLib Version**: 1.7.x (diuji dengan MythicLib-dist 1.7.1-SNAPSHOT)
-- **MythicMobs Version**: 5.6.x / 5.7.x (diuji dengan Mythic-Dist 5.7.2)
-- **SeriaCore Version**: 2.0.0
-
----
-
-## Langkah Build (Maven)
-
-1. Buka terminal pada folder plugin ini:
-   ```bash
-   cd "C:\Users\chuen\OneDrive\Documents\Personal Data\Project Seria\SeriaArmorSet"
-   ```
-2. Jalankan kompilasi dengan Maven (Java 17 atau 21):
-   ```bash
-   mvn clean package
-   ```
-3. File `.jar` hasil kompilasi akan berada di:
-   - `target/SeriaArmorSet-1.0.0.jar`
-   - Serta otomatis disalin ke folder `OutputJar/` Project Seria:
-     `C:\Users\chuen\OneDrive\Documents\Personal Data\Project Seria\OutputJar\SeriaArmorSet-1.0.0.jar`
+```
+SeriaArmorSet/
+├── config.yml                # Pengaturan umum, hooks, opsi default & fallback
+├── sets/                     # Folder modular definisi armor set (standar SeriaCore)
+│   └── halloween_2026.yml    # Definisi set Halloween 2026
+```
 
 ---
 
-## Perintah & Permission
+## Perintah & Permissions
 
 | Perintah | Deskripsi | Permission | Default |
 |---|---|---|---|
-| `/settelepathy reload` | Memuat ulang konfigurasi `config.yml` tanpa restart | `settelepathy.reload` | OP |
-| `/settelepathy status [player]` | Memeriksa set telepathy yang sedang dipakai pemain | `settelepathy.status` | OP |
-| `/settelepathy help` | Menampilkan bantuan perintah | - | Semua |
+| `/armorset reload` | Memuat ulang seluruh konfigurasi & set | `seriaarmorset.reload` | OP |
+| `/armorset status [player]` | Mengecek set dan skill aktif pada pemain | `seriaarmorset.status` | OP |
+| `/armorset list` | Melihat daftar seluruh set & skill terdaftar | `seriaarmorset.admin` | OP |
+| `/armorset help` | Menampilkan menu bantuan | - | Semua |
 
-*Aliases perintah: `/seriaarmorset`, `/armorset`, `/telepathy`.*
+*Aliases perintah: `/seriaarmorset`, `/settelepathy`, `/telepathy`.*
 
 ---
 
-## Konfigurasi (`config.yml`)
+## Contoh Konfigurasi (`sets/halloween_2026.yml`)
 
 ```yaml
 sets:
   HALLOWEEN2026_FREE:
     pieces-required: 4
+    skills:
+      telepathy:
+        enabled: true
+        blocks: true
+        mobs: true
+        xp: true
+        play-sound: true
+
   HALLOWEEN2026_PREMIUM:
     pieces-required: 4
-
-options:
-  blocks: true         # Block drop -> inventory
-  mobs: true           # Mob drop -> killer inventory
-  xp: true             # Mob XP -> killer
-  play-sound: true     # Mainkan efek suara pickup
-  armor-slots-only: true
+    skills:
+      telepathy:
+        enabled: true
+        blocks: true
+        mobs: true
+        xp: true
+        play-sound: true
+      # Contoh skill kustom mendatang:
+      # eclipse_vacuum:
+      #   radius: 6.0
 ```
+
+---
+
+## Langkah Build (Maven)
+
+```bash
+mvn clean package
+```
+File jar hasil kompilasi otomatis berada di `OutputJar/SeriaArmorSet-1.0.0.jar`.

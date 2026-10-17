@@ -1,40 +1,10 @@
-﻿# ==============================================================================
+# ==============================================================================
 #                      SeriaArmorSet Configuration
-#        Armor Set Bonus Plugin: Telepathy Drop Handling for Project Seria
+#        Custom MMOItems Armor Set Skills Engine for Project Seria
 # ==============================================================================
 
 # Aktifkan mode debug untuk melihat log detail di console server
 debug: false
-
-# Daftar armor set MMOItems yang mengaktifkan efek Telepathy (drop langsung masuk inventory).
-# Key = MMOItems item-set ID (case-insensitive, sesuai konfigurasi item-sets.yml).
-# pieces-required = jumlah item armor dari set ini yang wajib dikenakan oleh pemain.
-sets:
-  HALLOWEEN2026_FREE:
-    pieces-required: 4
-  HALLOWEEN2026_PREMIUM:
-    pieces-required: 4
-
-# Pengaturan opsi fungsionalitas telepathy
-options:
-  # Drop dari blok yang dihancurkan langsung masuk ke inventory pemain
-  blocks: true
-
-  # Drop dari monster / mob (termasuk MythicMobs) langsung masuk ke inventory killer
-  mobs: true
-
-  # EXP dari mob yang dibunuh langsung diberikan ke killer
-  xp: true
-
-  # Mainkan efek suara saat item berhasil masuk ke inventory
-  play-sound: true
-  sound-name: "ENTITY_ITEM_PICKUP"
-  sound-volume: 0.5
-  sound-pitch: 1.2
-
-  # Hanya periksa slot armor (HELMET, CHESTPLATE, LEGGINGS, BOOTS).
-  # Jika false, slot accessory MMOItems juga dapat dihitung jika memiliki set tag.
-  armor-slots-only: true
 
 # Integrasi & Hook plugin eksternal
 hooks:
@@ -44,15 +14,60 @@ hooks:
   mythicmobs: true
   placeholderapi: true
 
+# Pengaturan umum pemeriksaan armor
+settings:
+  # Hanya periksa slot armor utama (HELMET, CHESTPLATE, LEGGINGS, BOOTS).
+  # Jika false, slot accessory MMOItems juga akan ikut dihitung jika memiliki tag set.
+  armor-slots-only: true
+
+# Opsi default untuk skill Telepathy bawaan
+options:
+  blocks: true         # Block drop -> inventory
+  mobs: true           # Mob drop -> killer inventory
+  xp: true             # Mob XP -> killer
+  play-sound: true     # Mainkan efek suara saat item masuk ke inventory
+  sound-name: "ENTITY_ITEM_PICKUP"
+  sound-volume: 0.5
+  sound-pitch: 1.2
+
 # Pesan sistem (Mendukung Adventure MiniMessage, SeriaCore semantic tags, & legacy color codes)
 messages:
-  prefix: "<gradient:#FF8A00:#E52E71><bold>SeriaSet</bold></gradient> <dark_gray>»</dark_gray> "
+  prefix: "<gradient:#FF8A00:#E52E71><bold>SeriaArmorSet</bold></gradient> <dark_gray>»</dark_gray> "
   reload: "<green>Konfigurasi SeriaArmorSet berhasil dimuat ulang!</green>"
   no-permission: "<red>Kamu tidak memiliki izin untuk menggunakan perintah ini.</red>"
   player-not-found: "<red>Pemain <yellow>{player}</yellow> tidak ditemukan atau sedang offline.</red>"
-  status-wearing: "<gray>Pemain <white>{player}</white> sedang mengenakan set <gold><bold>{set}</bold></gold> (<green>{pieces}/{required}</green> bagian). Efek Telepathy: <green><bold>AKTIF</bold></green>.</gray>"
-  status-not-wearing: "<gray>Pemain <white>{player}</white> <red>tidak mengenakan</red> set armor telepathy yang aktif.</gray>"
+  status-wearing: "<gray>Pemain <white>{player}</white> mengenakan set <gold><bold>{set}</bold></gold> (<green>{pieces}/{required}</green> bagian). Skills aktif: <green>{skills}</green>.</gray>"
+  status-not-wearing: "<gray>Pemain <white>{player}</white> <red>tidak mengenakan</red> armor set kustom yang aktif.</gray>"
   help:
-    - "<gradient:#FF8A00:#E52E71><bold>SeriaArmorSet (SetTelepathy)</bold></gradient> <gray>v{version}</gray>"
-    - "<gray>/settelepathy reload <dark_gray>-</dark_gray> <white>Muat ulang konfigurasi plugin</white></gray>"
-    - "<gray>/settelepathy status [player] <dark_gray>-</dark_gray> <white>Periksa status armor set pemain</white></gray>"
+    - "<gradient:#FF8A00:#E52E71><bold>SeriaArmorSet Engine</bold></gradient> <gray>v{version}</gray>"
+    - "<gray>/armorset reload <dark_gray>-</dark_gray> <white>Muat ulang konfigurasi plugin</white></gray>"
+    - "<gray>/armorset status [player] <dark_gray>-</dark_gray> <white>Periksa status armor set pemain</white></gray>"
+    - "<gray>/armorset list <dark_gray>-</dark_gray> <white>Daftar seluruh armor set dan skill terdaftar</white></gray>"
+
+# ==============================================================================
+#                      Armor Sets & Skill Modules
+# ==============================================================================
+# Anda dapat mendaftarkan set langsung di sini ATAU membuat file terpisah
+# di dalam folder 'sets/*.yml' (misalnya: sets/halloween_2026.yml).
+sets:
+  HALLOWEEN2026_FREE:
+    pieces-required: 4
+    skills:
+      telepathy:
+        enabled: true
+        blocks: true
+        mobs: true
+        xp: true
+
+  HALLOWEEN2026_PREMIUM:
+    pieces-required: 4
+    skills:
+      telepathy:
+        enabled: true
+        blocks: true
+        mobs: true
+        xp: true
+      # Di sini nantinya dapat ditambahkan custom skill baru yang tidak bisa
+      # ditangani oleh MythicLib/MMOItems bawaan:
+      # eclipse_vacuum:
+      #   radius: 6.0

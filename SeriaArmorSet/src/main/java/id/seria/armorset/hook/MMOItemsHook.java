@@ -2,6 +2,7 @@ package id.seria.armorset.hook;
 
 import id.seria.armorset.SeriaArmorSetPlugin;
 import id.seria.armorset.config.ArmorSetConfig;
+import id.seria.armorset.model.ArmorSetDefinition;
 import io.lumine.mythic.lib.api.item.NBTItem;
 import io.lumine.mythic.lib.api.player.EquipmentSlot;
 import net.Indyuce.mmoitems.api.ItemSet;
@@ -33,23 +34,29 @@ public class MMOItemsHook {
     }
 
     public @Nullable String getActiveSet(@NotNull Player player) {
+        ArmorSetDefinition def = getActiveSetDefinition(player);
+        return def != null ? def.getId() : null;
+    }
+
+    public @Nullable ArmorSetDefinition getActiveSetDefinition(@NotNull Player player) {
         ArmorSetConfig config = plugin.getConfiguration();
-        Map<String, Integer> configuredSets = config.getSets();
+        Map<String, ArmorSetDefinition> configuredSets = config.getSetDefinitions();
         if (configuredSets.isEmpty()) return null;
 
         Map<String, Integer> wornCounts = getWornSetCounts(player);
 
-        for (Map.Entry<String, Integer> entry : configuredSets.entrySet()) {
+        for (Map.Entry<String, ArmorSetDefinition> entry : configuredSets.entrySet()) {
             String setId = entry.getKey();
-            int required = entry.getValue();
+            ArmorSetDefinition def = entry.getValue();
+            int required = def.getPiecesRequired();
             int worn = wornCounts.getOrDefault(setId, 0);
 
             if (worn >= required) {
                 if (config.isDebug()) {
-                    plugin.getLogger().info("[Debug] " + player.getName() + " has active telepathy set: "
-                            + setId + " (" + worn + "/" + required + " pieces)");
+                    plugin.getLogger().info("[Debug] " + player.getName() + " has active armor set: "
+                            + setId + " (" + worn + "/" + required + " pieces). Skills: " + def.getSkillIds());
                 }
-                return setId;
+                return def;
             }
         }
 

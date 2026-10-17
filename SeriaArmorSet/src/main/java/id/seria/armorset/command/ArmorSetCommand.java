@@ -3,6 +3,8 @@ package id.seria.armorset.command;
 import id.seria.armorset.SeriaArmorSetPlugin;
 import id.seria.armorset.config.ArmorSetConfig;
 import id.seria.armorset.hook.MMOItemsHook;
+import id.seria.armorset.model.ArmorSetDefinition;
+import id.seria.armorset.skill.ArmorSkill;
 import id.seria.armorset.util.TextUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,11 +20,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class SetTelepathyCommand implements CommandExecutor, TabCompleter {
+public class ArmorSetCommand implements CommandExecutor, TabCompleter {
 
     private final SeriaArmorSetPlugin plugin;
 
-    public SetTelepathyCommand(SeriaArmorSetPlugin plugin) {
+    public ArmorSetCommand(SeriaArmorSetPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -38,7 +40,7 @@ public class SetTelepathyCommand implements CommandExecutor, TabCompleter {
         String sub = args[0].toLowerCase(Locale.ROOT);
 
         if (sub.equals("reload")) {
-            if (!sender.hasPermission("settelepathy.reload") && !sender.hasPermission("seriaarmorset.reload")) {
+            if (!hasPermission(sender, "reload")) {
                 TextUtil.sendPrefixMessage(sender, config.getMessageNoPermission());
                 return true;
             }
@@ -47,9 +49,26 @@ public class SetTelepathyCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (sub.equals("list")) {
+            if (!hasPermission(sender, "admin")) {
+                TextUtil.sendPrefixMessage(sender, config.getMessageNoPermission());
+                return true;
+            }
+
+            TextUtil.sendMessage(sender, "<gradient:#FF8A00:#E52E71><bold>SeriaArmorSet Registered Sets & Skills</bold></gradient>");
+            for (ArmorSetDefinition def : config.getSetDefinitions().values()) {
+                TextUtil.sendMessage(sender, " <dark_gray>•</dark_gray> <gold><bold>" + def.getId() + "</bold></gold> <gray>("
+                        + def.getPiecesRequired() + " pieces)</gray> <dark_gray>»</dark_gray> <green>" + def.getSkillIds() + "</green>");
+            }
+            TextUtil.sendMessage(sender, "<gray>Registered Skills in Engine:</gray>");
+            for (ArmorSkill skill : plugin.getSkillManager().getRegisteredSkills()) {
+                TextUtil.sendMessage(sender, " <dark_gray>•</dark_gray> <yellow>" + skill.getName() + "</yellow> <dark_gray>(" + skill.getId() + ")</dark_gray>");
+            }
+            return true;
+        }
+
         if (sub.equals("status")) {
-            if (!sender.hasPermission("settelepathy.status") && !sender.hasPermission("settelepathy.reload")
-                    && !sender.hasPermission("seriaarmorset.reload")) {
+            if (!hasPermission(sender, "status")) {
                 TextUtil.sendPrefixMessage(sender, config.getMessageNoPermission());
                 return true;
             }
@@ -64,22 +83,24 @@ public class SetTelepathyCommand implements CommandExecutor, TabCompleter {
             } else if (sender instanceof Player) {
                 target = (Player) sender;
             } else {
-                sender.sendMessage("Usage from console: /settelepathy status <player>");
+                sender.sendMessage("Usage from console: /" + label + " status <player>");
                 return true;
             }
 
             MMOItemsHook hook = plugin.getMmoItemsHook();
-            String activeSet = hook.getActiveSet(target);
+            ArmorSetDefinition activeSet = hook.getActiveSetDefinition(target);
 
             if (activeSet != null) {
-                int pieces = hook.getPieceCount(target, activeSet);
-                int required = config.getRequiredPieces(activeSet);
+                int pieces = hook.getPieceCount(target, activeSet.getId());
+                int required = activeSet.getPiecesRequired();
+                String skills = String.join(", ", activeSet.getSkillIds());
 
                 String msg = config.getMessageStatusWearing()
                         .replace("{player}", target.getName())
-                        .replace("{set}", activeSet)
+                        .replace("{set}", activeSet.getId())
                         .replace("{pieces}", String.valueOf(pieces))
-                        .replace("{required}", String.valueOf(required));
+                        .replace("{required}", String.valueOf(required))
+                        .replace("{skills}", skills);
                 TextUtil.sendPrefixMessage(sender, msg);
             } else {
                 String msg = config.getMessageStatusNotWearing()
@@ -91,6 +112,13 @@ public class SetTelepathyCommand implements CommandExecutor, TabCompleter {
 
         sendHelp(sender);
         return true;
+    }
+
+    private boolean hasPermission(CommandSender sender, String action) {
+        return sender.hasPermission("seriaarmorset." + action)
+                || sender.hasPermission("seriaarmorset.admin")
+                || sender.hasPermission("settelepathy." + action)
+                || sender.hasPermission("settelepathy.reload");
     }
 
     private void sendHelp(CommandSender sender) {
@@ -105,7 +133,7 @@ public class SetTelepathyCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             List<String> completions = new ArrayList<>();
             String prefix = args[0].toLowerCase(Locale.ROOT);
-            for (String sub : List.of("reload", "status", "help")) {
+            for (String sub : List.of("reload", "status", "list", "help")) {
                 if (sub.startsWith(prefix)) {
                     completions.add(sub);
                 }
