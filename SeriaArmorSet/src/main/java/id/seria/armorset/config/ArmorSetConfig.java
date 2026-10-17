@@ -2,8 +2,13 @@ package id.seria.armorset.config;
 
 import id.seria.armorset.SeriaArmorSetPlugin;
 import id.seria.armorset.model.ArmorSetDefinition;
+import net.Indyuce.mmoitems.MMOItems;
+import net.Indyuce.mmoitems.api.ItemSet;
+import net.Indyuce.mmoitems.stat.data.AbilityData;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -21,6 +26,7 @@ public class ArmorSetConfig {
 
     private boolean debug = false;
     private final Map<String, ArmorSetDefinition> setDefinitions = new HashMap<>();
+    private final Map<String, String> abilityMapping = new HashMap<>();
 
     private boolean blocksEnabled = true;
     private boolean mobsEnabled = true;
@@ -86,6 +92,20 @@ public class ArmorSetConfig {
             );
         }
 
+        // Ability Mappings (MMOItems item-sets.yml ability type -> SeriaArmorSet internal skill)
+        abilityMapping.clear();
+        abilityMapping.put("HALLOWEEN_DREAD_DECOY", "dread_decoy");
+        abilityMapping.put("HALLOWEEN_ECLIPSE_VACUUM", "telepathy");
+        abilityMapping.put("TELEPATHY", "telepathy");
+        abilityMapping.put("SERIA_TELEPATHY", "telepathy");
+
+        ConfigurationSection mappingSec = config.getConfigurationSection("ability-mapping");
+        if (mappingSec != null) {
+            for (String key : mappingSec.getKeys(false)) {
+                abilityMapping.put(key.toUpperCase(Locale.ROOT), mappingSec.getString(key));
+            }
+        }
+
         // Clear existing sets
         setDefinitions.clear();
 
@@ -98,13 +118,16 @@ public class ArmorSetConfig {
         // 2. Load sets from sets/ directory
         loadSetsFromDirectory();
 
+        // 3. Auto-hook & sync directly from MMOItems item-sets.yml
+        syncFromMMOItems();
+
         plugin.getLogger().info("Loaded " + setDefinitions.size() + " custom armor set(s): " + setDefinitions.keySet());
     }
 
     private void loadSetsFromSection(ConfigurationSection section) {
         for (String key : section.getKeys(false)) {
             int required = section.getInt(key + ".pieces-required", 4);
-            ArmorSetDefinition def = new ArmorSetDefinition(key, required);
+            ArmorSetDefinition def = setDefinitions.computeIfAbsent(key.toUpperCase(Locale.ROOT), k -> new ArmorSetDefinition(k, required));
 
             ConfigurationSection skillsSec = section.getConfigurationSection(key + ".skills");
             if (skillsSec != null) {
@@ -116,15 +139,13 @@ public class ArmorSetConfig {
                 }
             } else {
                 // Backwards compatibility: attach default telepathy skill
-                ConfigurationSection telepathyConf = section.createSection("temp_telepathy");
+                ConfigurationSection telepathyConf = new MemoryConfiguration();
                 telepathyConf.set("blocks", blocksEnabled);
                 telepathyConf.set("mobs", mobsEnabled);
                 telepathyConf.set("xp", xpEnabled);
                 telepathyConf.set("play-sound", playSound);
                 def.addSkill("telepathy", telepathyConf);
             }
-
-            setDefinitions.put(def.getId(), def);
         }
     }
 
@@ -132,7 +153,6 @@ public class ArmorSetConfig {
         File setsFolder = new File(plugin.getDataFolder(), "sets");
         if (!setsFolder.exists()) {
             setsFolder.mkdirs();
-            // If default file doesn't exist, save it
             plugin.saveResource("sets/halloween_2026.yml", false);
         }
 
@@ -146,13 +166,80 @@ public class ArmorSetConfig {
                 if (sec != null) {
                     loadSetsFromSection(sec);
                 } else {
-                    // Check if the root itself is a map of sets
                     loadSetsFromSection(yaml);
                 }
             } catch (Throwable t) {
                 plugin.getLogger().warning("Failed loading armor sets from file: " + file.getName() + " - " + t.getMessage());
             }
         }
+    }
+
+    /**
+     * Automatically inspects MMOItems ItemSets and imports abilities defined under bonuses directly from item-sets.yml!
+     */
+    public void syncFromMMOItems() {
+        if (!Bukkit.getPluginManager().isPluginEnabled("MMOItems")) return;
+
+        try {
+            if (MMOItems.plugin == null || MMOItems.plugin.getSets() == null) return;
+
+            for (ItemSet itemSet : MMOItems.plugin.getSets().getAll()) {
+                String setId = itemSet.getId().toUpperCase(Locale.ROOT);
+
+                // Check tiers from 2 to 10
+                for (int tier = 2; tier <= 10; tier++) {
+                    ItemSet.SetBonuses bonuses = itemSet.getBonuses(tier);
+                    if (bonuses == null) continue;
+
+                    List<AbilityData> abilities = bonuses.getAbilities();
+                    if (abilities == null || abilities.isEmpty()) continue;
+
+                    for (AbilityData ability : abilities) {
+                        if (ability == null || ability.getHandler() == null) continue;
+
+                        String handlerId = ability.getHandler().getId().toUpperCase(Locale.ROOT);
+                        String mappedSkill = getMappedSkill(handlerId);
+
+                        // If mapped or matches a known skill in SeriaArmorSet
+                        if (plugin.getSkillManager().getSkill(mappedSkill) != null) {
+                            final int requiredPieces = tier;
+                            ArmorSetDefinition def = setDefinitions.computeIfAbsent(setId, k -> new ArmorSetDefinition(k, requiredPieces));
+
+                            ConfigurationSection abilityConf = new MemoryConfiguration();
+                            abilityConf.set("mmoitems-ability", handlerId);
+                            abilityConf.set("mode", ability.getTrigger() != null ? ability.getTrigger().name() : "DEFAULT");
+
+                            for (String modifier : ability.getModifiers()) {
+                                abilityConf.set(modifier, ability.getModifier(modifier));
+                            }
+
+                            // If telepathy/vacuum, also ensure block & mob drops flags are active
+                            if (mappedSkill.equalsIgnoreCase("telepathy") || mappedSkill.contains("vacuum")) {
+                                abilityConf.set("blocks", true);
+                                abilityConf.set("mobs", true);
+                                abilityConf.set("xp", true);
+                            }
+
+                            def.addSkill(mappedSkill, abilityConf);
+
+                            if (debug) {
+                                plugin.getLogger().info("[Debug] Auto-hooked ability '" + handlerId + "' from MMOItems set '"
+                                        + setId + "' (" + tier + " pieces) -> Skill: " + mappedSkill);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Throwable t) {
+            if (debug) {
+                plugin.getLogger().warning("[Debug] Could not sync abilities directly from MMOItems: " + t.getMessage());
+            }
+        }
+    }
+
+    public String getMappedSkill(String abilityId) {
+        String mapped = abilityMapping.get(abilityId.toUpperCase(Locale.ROOT));
+        return mapped != null ? mapped : abilityId.toLowerCase(Locale.ROOT);
     }
 
     public boolean isDebug() {

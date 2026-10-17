@@ -20,6 +20,19 @@ settings:
   # Jika false, slot accessory MMOItems juga akan ikut dihitung jika memiliki tag set.
   armor-slots-only: true
 
+# ==============================================================================
+#              Pemetaan Ability MMOItems (item-sets.yml Hook)
+# ==============================================================================
+# Memetakan nama ability yang Anda tulis di plugins/MMOItems/item-sets.yml
+# ke engine skill Java SeriaArmorSet.
+# Contoh: Jika di item-sets.yml ada 'type: HALLOWEEN_DREAD_DECOY', sistem otomatis
+# mengaitkannya ke skill Java 'dread_decoy'.
+ability-mapping:
+  HALLOWEEN_DREAD_DECOY: dread_decoy
+  HALLOWEEN_ECLIPSE_VACUUM: telepathy
+  TELEPATHY: telepathy
+  SERIA_TELEPATHY: telepathy
+
 # Opsi default untuk skill Telepathy bawaan
 options:
   blocks: true         # Block drop -> inventory
@@ -47,27 +60,15 @@ messages:
 # ==============================================================================
 #                      Armor Sets & Skill Modules
 # ==============================================================================
-# Anda dapat mendaftarkan set langsung di sini ATAU membuat file terpisah
-# di dalam folder 'sets/*.yml' (misalnya: sets/halloween_2026.yml).
+# Catatan: Jika ability sudah dikonfigurasikan di plugins/MMOItems/item-sets.yml,
+# plugin ini akan MEN-SYNC OTOMATIS tanpa perlu Anda tulis ulang di sini!
+# Bagian ini opsional untuk override atau set non-MMOItems.
 sets:
-  HALLOWEEN2026_FREE:
-    pieces-required: 4
-    skills:
-      telepathy:
-        enabled: true
-        blocks: true
-        mobs: true
-        xp: true
-
   HALLOWEEN2026_PREMIUM:
     pieces-required: 4
     skills:
       telepathy:
         enabled: true
-        blocks: true
-        mobs: true
-        xp: true
-      # Di sini nantinya dapat ditambahkan custom skill baru yang tidak bisa
-      # ditangani oleh MythicLib/MMOItems bawaan:
-      # eclipse_vacuum:
-      #   radius: 6.0
+      dread_decoy:
+        enabled: true
+        cooldown: 30
