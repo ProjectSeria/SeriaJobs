@@ -1,0 +1,33 @@
+﻿name: SeriaArmorSet
+version: '${project.version}'
+main: id.seria.armorset.SeriaArmorSetPlugin
+api-version: '1.20'
+author: Seria Team
+description: MMOItems Armor Set Telepathy drops plugin for Project Seria.
+depend:
+  - MMOItems
+  - MythicLib
+softdepend:
+  - SeriaCore
+  - MythicMobs
+  - PlaceholderAPI
+
+commands:
+  settelepathy:
+    description: SetTelepathy commands for armor set drops
+    permission: settelepathy.reload
+    aliases:
+      - seriaarmorset
+      - armorset
+      - telepathy
+
+permissions:
+  settelepathy.reload:
+    description: Allows reloading the SetTelepathy configuration
+    default: op
+  settelepathy.status:
+    description: Allows viewing armor set telepathy status
+    default: op
+  seriaarmorset.reload:
+    description: Alias permission for reloading configuration
+    default: op
