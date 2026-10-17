@@ -7,6 +7,8 @@ import id.seria.armorset.hook.MythicMobsHook;
 import id.seria.armorset.hook.SeriaCoreHook;
 import id.seria.armorset.listener.BlockDropListener;
 import id.seria.armorset.listener.EntityDeathListener;
+import id.seria.armorset.listener.PlayerCombatListener;
+import id.seria.armorset.listener.PlayerEquipmentListener;
 import id.seria.armorset.skill.SkillManager;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,8 +45,10 @@ public class SeriaArmorSetPlugin extends JavaPlugin {
         mythicMobsHook.initialize();
 
         // 4. Register Event Listeners
+        getServer().getPluginManager().registerEvents(new PlayerEquipmentListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockDropListener(this), this);
         getServer().getPluginManager().registerEvents(new EntityDeathListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerCombatListener(this), this);
 
         // 5. Register Commands
         ArmorSetCommand commandHandler = new ArmorSetCommand(this);
@@ -57,6 +61,7 @@ public class SeriaArmorSetPlugin extends JavaPlugin {
         getLogger().info(" Registered Skills: " + skillManager.getRegisteredSkills().size());
         getLogger().info(" SeriaCore: " + (seriaCoreHook.isAvailable() ? "HOOKED" : "NOT FOUND"));
         getLogger().info(" MythicMobs: " + (mythicMobsHook.isAvailable() ? "HOOKED" : "NOT FOUND"));
+        getLogger().info(" Performance Cache: ACTIVE (O(1) in-memory resolution)");
         getLogger().info("=================================================");
     }
 
@@ -76,10 +81,16 @@ public class SeriaArmorSetPlugin extends JavaPlugin {
         if (seriaCoreHook != null) {
             seriaCoreHook.unregister();
         }
+        if (mmoItemsHook != null) {
+            mmoItemsHook.invalidateAll();
+        }
         getLogger().info("SeriaArmorSet disabled.");
     }
 
     public void reload() {
+        if (mmoItemsHook != null) {
+            mmoItemsHook.invalidateAll();
+        }
         configuration.reload();
     }
 
