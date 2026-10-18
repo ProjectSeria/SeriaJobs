@@ -5,7 +5,13 @@ Setiap kali selesai melakukan build / compile plugin apa pun di workspace ini (m
 1. **PASTIKAN SELALU menyalin / memindahkan file `.jar` hasil kompilasi ke folder:**
    `C:\Users\chuen\OneDrive\Documents\Personal Data\Project Seria\OutputJar`
 2. Jangan menyalin file non-final seperti `original-*.jar`.
-3. Selalu verifikasi bahwa file `.jar` di `OutputJar` telah ter-update dengan versi dan timestamp terbaru setelah proses build selesai.
+3. **Standar Penamaan Versi JAR (Semantic Versioning `MAJOR.MINOR.PATCH[-SNAPSHOT]`):**
+   - Setiap plugin wajib memiliki penamaan versi terstruktur: `<PluginName>-<X>.<Y>.<Z>[-SNAPSHOT].jar`
+   - **MAJOR (X)**: Update besar / perombakan fungsi total / breaking changes arsitektur.
+   - **MINOR (Y)**: Bertambah (+1) setiap kali pengerjaan fitur baru / branch `feat/*`. Saat MINOR bertambah, PATCH di-reset ke 0.
+   - **PATCH (Z)**: Bertambah (+1) setiap kali perbaikan bug / branch `fix/*`.
+   - **SNAPSHOT**: Wajib menyertakan `-SNAPSHOT` selama branch masih dalam status pengembangan (`feat/*` atau `fix/*`) dan belum dimerge ke `main`. Sufiks ini hanya dihapus saat branch resmi dimerge ke `main`.
+4. Selalu verifikasi bahwa file `.jar` di `OutputJar` telah ter-update dengan penamaan versi yang benar dan timestamp terbaru setelah proses build selesai.
 
 ## Personal Assistant & YAML Auto-Detection Rule (MANDATORY)
 1. **Peran Utama:** Bertindak sebagai Personal Assistant resmi untuk Project Seria di sesi percakapan ini dan seluruh percakapan berikutnya.
