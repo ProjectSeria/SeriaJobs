@@ -1,0 +1,28 @@
+# ==============================================================================
+# SeriaCounter - Central Multi-Step Global Counter Engine
+# ==============================================================================
+
+settings:
+  # Izinkan nilai negatif saat menjalankan /counter add (default: false)
+  allow-negative: false
+  # Interval auto-save data counter runtime ke disk (dalam detik)
+  auto-save-interval: 60
+  # Output log detail aksi & pemicu step di server console
+  debug: false
+
+# Format pesan menggunakan Adventure MiniMessage & tag semantik SeriaCore (<sc:...>)
+messages:
+  prefix: "<sc:prefix> <dark_gray>»</dark_gray> "
+  no-permission: "<red>Anda tidak memiliki izin untuk menggunakan perintah ini.</red>"
+  counter-not-found: "<red>Counter dengan ID '<yellow>{id}</yellow>' tidak ditemukan!</red>"
+  invalid-amount: "<red>Jumlah harus berupa angka valid (bilangan bulat).</red>"
+  negative-not-allowed: "<red>Jumlah penambahan tidak boleh bernilai negatif.</red>"
+  add-success: "<green>Berhasil menambahkan <yellow>{amount}</yellow> ke counter <aqua>{name}</aqua> ({id}). Nilai: <yellow>{value}</yellow>/<gold>{goal}</gold> (Step: {step_name}).</green>"
+  set-success: "<green>Berhasil mengatur counter <aqua>{name}</aqua> ({id}) ke nilai <yellow>{value}</yellow>.</green>"
+  reset-success: "<green>Counter <aqua>{name}</aqua> ({id}) berhasil di-reset ke 0 dan step pertama.</green>"
+  reload-success: "<green>Semua konfigurasi counter berhasil dimuat ulang! (<yellow>{count}</yellow> counter terdaftar).</green>"
+  get-info:
+    - "<sc:prefix> <gray>Status Counter: <aqua>{name}</aqua> (<yellow>{id}</yellow>)</gray>"
+    - "<dark_gray>•</dark_gray> <gray>Nilai Saat Ini: <yellow>{value}</yellow> / <gold>{goal}</gold> (<green>{progress}%</green>)</gray>"
+    - "<dark_gray>•</dark_gray> <gray>Step Aktif: <aqua>{step_name}</aqua> (Step <yellow>{step}</yellow> dari <gold>{total_steps}</gold>)</gray>"
+    - "<dark_gray>•</dark_gray> <gray>Sisa Target: <yellow>{remaining}</yellow></gray>"

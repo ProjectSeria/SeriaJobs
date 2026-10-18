@@ -1,0 +1,32 @@
+name: SeriaCounter
+version: '${project.version}'
+main: id.seria.counter.SeriaCounterPlugin
+api-version: '1.21'
+author: Seria Network
+description: Multi-step global counter system for the Seria plugin ecosystem
+depend: [SeriaCore]
+softdepend: [PlaceholderAPI]
+commands:
+  counter:
+    description: SeriaCounter main command
+    aliases: [scounter, counters]
+    permission: seria.counter.use
+permissions:
+  seria.counter.use:
+    description: Base permission for /counter
+    default: true
+  seria.counter.add:
+    description: Permission to add amount to counter
+    default: op
+  seria.counter.set:
+    description: Permission to set counter value directly
+    default: op
+  seria.counter.get:
+    description: Permission to view counter value and active step
+    default: op
+  seria.counter.reset:
+    description: Permission to reset counter
+    default: op
+  seria.counter.reload:
+    description: Permission to reload counter configurations
+    default: op

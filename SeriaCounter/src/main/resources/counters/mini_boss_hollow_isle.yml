@@ -1,0 +1,9 @@
+name: "Skeleton Leader"
+
+steps:
+  - name: "Apparition"
+    goal: 3000
+    actions:
+      - "[console] broadcaster broadcast mini_boss_hollow_isle"
+    once-actions:
+      - "[console] event start bosses mini_boss_hollow_isle --templates=spawn"
