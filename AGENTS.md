@@ -144,8 +144,10 @@ Setiap kali mengerjakan task (baik di repository utama maupun sub-repository plu
 1. **Pembuatan Branch Sebelum Mengubah Kode:**
    - **Fitur Baru / Enhancement:** Buat dan beralih ke branch spesifik `feat/<nama-fitur>`
      *(Contoh: `git checkout -b feat/ui-inventory` atau `git checkout -b feat/custom-fishing`)*.
+     *Aturan Khusus:* **TIDAK PERLU** membuat branch `feat/` baru apabila fungsi/fitur yang akan dikerjakan sudah ada / relevan dengan branch fitur sebelumnya yang sedang aktif, atau hanya berupa penambahan minor. Cukup lanjutkan pengerjaan dan commit pada branch yang sudah ada.
    - **Perbaikan Bug / Hotfix:** Buat dan beralih ke branch spesifik `fix/<nama-bug>`
      *(Contoh: `git checkout -b fix/progressbar-syntax` atau `git checkout -b fix/placeholder-null`)*.
+     *Aturan Khusus:* Jika perbaikan merupakan kelanjutan dari bugfix yang sedang berjalan di branch `fix/` aktif, lanjutkan commit langsung pada branch tersebut.
 
 2. **Lakukan Perubahan Kode / Konfigurasi:**
    - Terapkan modifikasi file yang dibutuhkan sesuai instruksi task.
@@ -170,3 +172,53 @@ Setiap kali mengerjakan task (baik di repository utama maupun sub-repository plu
 6. **Larangan Otomatis Merge ke Main (MANDATORY):**
    - **DILARANG KERAS melakukan merge ke branch `main` (atau branch default lain) secara otomatis**, kecuali user secara eksplisit meminta atau menginstruksikan proses merge.
    - Setelah proses push selesai, tetap berada pada branch fitur/fix (`feat/*` atau `fix/*`) dan laporkan status branch/PR kepada user untuk ditinjau.
+
+## MythicMobs Spawner Configuration Standard (MANDATORY)
+Setiap kali membuat, mengedit, atau memperbaiki file konfigurasi MythicMobs Spawner (`plugins/MythicMobs/spawners/**/*.yml`):
+
+1. **Struktur Root & Hirarki Indentasi (2 Spasi):**
+   - Root key **wajib** berupa identifier spawner (biasanya sama dengan nama file tanpa `.yml`).
+   - Seluruh properti spawner diletakkan langsung di bawah root key dengan indentasi 2 spasi.
+   - **DILARANG KERAS** menyisipkan sub-section `yml:` di bawah root key (bug umum yang terjadi bila spawner dibuat dengan menyertakan ekstensi `.yml` pada identifier spawner).
+   - **DILARANG** meninggalkan sisa trailing dummy fields kosong di tingkat root (seperti `MobName: ''`, `CooldownTimer: 0`, `WarmupTimer: 0`, `ActiveMobs: 0`).
+
+2. **Format Standar Properti Spawner (Ground Truth):**
+   ```yaml
+   <spawner_internal_name>:
+     MobName: <mythicmob_id>
+     World: <world_name>
+     SpawnerGroup: <spawner_group_name>
+     X: <x_pos>
+     Y: <y_pos>
+     Z: <z_pos>
+     Radius: 1
+     RadiusY: 0
+     UseTimer: true
+     Yaw: 0.0
+     Pitch: 0.0
+     MobLevel: '1'
+     Cooldown: 30
+     CooldownTimer: 0
+     Warmup: 30
+     WarmupTimer: 0
+     CheckForPlayers: false
+     ActivationRange: 25
+     ScalingRange: -1.0
+     LeashRange: 30
+     HealOnLeash: true
+     ResetThreatOnLeash: true
+     ShowFlames: false
+     Breakable: false
+     MobsPerSpawn: 5
+     ActiveMobs: 0
+   ```
+
+3. **Konsistensi Format & File Encoding:**
+   - Gunakan encoding **UTF-8 (without BOM)** dengan line endings **LF**.
+   - Setiap file spawner individual mewakili satu entitas spawner unik dengan koordinat dan konfigurasi target mob yang terdefinisi dengan jelas.
+
+## External Plugin API Inquiry Rule (MANDATORY)
+Setiap kali membutuhkan API, event, method, class internal, atau dependency dari plugin eksternal Seria (seperti MythicMobs, MMOItems, PacketEvents, AuraSkills, LuckPerms, Eco, dll.) untuk membangun, memperluas, atau mengupdate plugin Seria:
+- **WAJIB selalu bertanya dan meminta konfirmasi kepada user terlebih dahulu** sebelum berasumsi, mengintegrasikan, atau memodifikasi hook API plugin eksternal tersebut.
+
+
