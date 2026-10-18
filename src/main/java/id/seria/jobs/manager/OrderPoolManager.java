@@ -21,6 +21,7 @@ public class OrderPoolManager {
 
     private final SeriaJobs plugin;
     private final Map<String, List<JobOrder>> activeOrders = new ConcurrentHashMap<>();
+    private final Map<String, JobOrder> activeEventOrders = new ConcurrentHashMap<>();
     private String currentShiftId;
     private long nextRotationTimestamp;
     private BukkitTask timerTask;
@@ -60,6 +61,19 @@ public class OrderPoolManager {
                     }
                 }
             }
+
+            if (config.isConfigurationSection("active-event-orders")) {
+                for (String jobId : config.getConfigurationSection("active-event-orders").getKeys(false)) {
+                    String orderId = config.getString("active-event-orders." + jobId);
+                    Job job = plugin.getJobRegistry().getJob(jobId);
+                    if (job != null && orderId != null) {
+                        JobOrder order = job.getOrder(orderId);
+                        if (order != null) {
+                            activeEventOrders.put(jobId.toLowerCase(), order);
+                        }
+                    }
+                }
+            }
         }
 
         // If no active shift or expired, generate now
@@ -83,6 +97,12 @@ public class OrderPoolManager {
                 ids.add(order.getId());
             }
             config.set("active-orders." + entry.getKey(), ids);
+        }
+
+        for (Map.Entry<String, JobOrder> entry : activeEventOrders.entrySet()) {
+            if (entry.getValue() != null) {
+                config.set("active-event-orders." + entry.getKey(), entry.getValue().getId());
+            }
         }
 
         try {
@@ -156,6 +176,7 @@ public class OrderPoolManager {
     public void rollAllOrders() {
         currentShiftId = "shift_" + System.currentTimeMillis();
         activeOrders.clear();
+        activeEventOrders.clear();
 
         for (Job job : plugin.getJobRegistry().getJobs()) {
             rollJobOrders(job);
@@ -177,7 +198,6 @@ public class OrderPoolManager {
     public void rollJobOrders(Job job) {
         String currentEvent = plugin.getConfigManager().getCurrentEvent();
         boolean eventActive = plugin.getConfigManager().isEventActive();
-        int eventSlot = plugin.getConfigManager().getEventSlot();
 
         List<JobOrder> regularPool = new ArrayList<>();
         List<JobOrder> eventPool = new ArrayList<>();
@@ -195,41 +215,32 @@ public class OrderPoolManager {
         Collections.shuffle(regularPool);
         Collections.shuffle(eventPool);
 
-        int totalSlots = Math.max(5, job.getActiveOrdersCount());
-        List<JobOrder> selected = new ArrayList<>(Collections.nCopies(totalSlots, null));
-
-        int regIdx = 0;
-        for (int slot = 1; slot <= totalSlots; slot++) {
-            if (eventActive && slot == eventSlot) {
-                continue; // Reserved for event order
-            }
-            if (regIdx < regularPool.size()) {
-                selected.set(slot - 1, regularPool.get(regIdx++));
+        // 1. Regular Order Pool (murni regular orders, tidak terganggu oleh event slot)
+        int needed = Math.max(1, job.getActiveOrdersCount());
+        List<JobOrder> selected = new ArrayList<>();
+        for (int i = 0; i < needed; i++) {
+            if (i < regularPool.size()) {
+                selected.add(regularPool.get(i));
+            } else if (!regularPool.isEmpty()) {
+                selected.add(regularPool.get(i % regularPool.size()));
             }
         }
-
-        // Fill event slot if event is active and event orders exist
-        if (eventActive && !eventPool.isEmpty() && eventSlot >= 1 && eventSlot <= totalSlots) {
-            selected.set(eventSlot - 1, eventPool.get(0));
-        }
-
-        // Fill any null slots with fallback from regular pool if available
-        for (int i = 0; i < selected.size(); i++) {
-            if (selected.get(i) == null && !regularPool.isEmpty()) {
-                selected.set(i, regularPool.get(i % regularPool.size()));
-            }
-        }
-
-        // Remove trailing nulls if any
-        while (!selected.isEmpty() && selected.get(selected.size() - 1) == null) {
-            selected.remove(selected.size() - 1);
-        }
-
         activeOrders.put(job.getId().toLowerCase(), selected);
+
+        // 2. Active Event Order terpisah
+        if (eventActive && !eventPool.isEmpty()) {
+            activeEventOrders.put(job.getId().toLowerCase(), eventPool.get(0));
+        } else {
+            activeEventOrders.remove(job.getId().toLowerCase());
+        }
     }
 
     public List<JobOrder> getActiveOrders(String jobId) {
         return activeOrders.getOrDefault(jobId.toLowerCase(), Collections.emptyList());
+    }
+
+    public JobOrder getActiveEventOrder(String jobId) {
+        return activeEventOrders.get(jobId.toLowerCase());
     }
 
     public String getCurrentShiftId() {

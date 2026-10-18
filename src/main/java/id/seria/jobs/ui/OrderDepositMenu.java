@@ -98,8 +98,48 @@ public class OrderDepositMenu extends BaseMenu {
         return List.of(20, 22, 24, 30, 32);
     }
 
+    public int getEventInventorySlot() {
+        if (menuConfig != null) {
+            if (menuConfig.contains("layout.event-slot.slot")) {
+                return menuConfig.getInt("layout.event-slot.slot");
+            }
+            if (menuConfig.isList("layout.event-slot.slots")) {
+                List<Integer> s = menuConfig.getIntegerList("layout.event-slot.slots");
+                if (!s.isEmpty()) return s.get(0);
+            }
+            if (menuConfig.contains("layout.event-slot")) {
+                return menuConfig.getInt("layout.event-slot");
+            }
+            if (menuConfig.contains("events.inventory-slot")) {
+                return menuConfig.getInt("events.inventory-slot");
+            }
+            if (menuConfig.contains("events.event-slot")) {
+                return menuConfig.getInt("events.event-slot");
+            }
+        }
+        return plugin.getConfigManager().getEventSlot();
+    }
+
     public org.bukkit.configuration.ConfigurationSection getOrderCardSection(boolean isCompleted) {
+        return getOrderCardSection(isCompleted, false);
+    }
+
+    public org.bukkit.configuration.ConfigurationSection getOrderCardSection(boolean isCompleted, boolean isEvent) {
         if (menuConfig == null) return null;
+        if (isEvent) {
+            if (isCompleted) {
+                if (menuConfig.isConfigurationSection("items.event_completed")) {
+                    return menuConfig.getConfigurationSection("items.event_completed");
+                }
+            } else {
+                if (menuConfig.isConfigurationSection("items.event_order")) {
+                    return menuConfig.getConfigurationSection("items.event_order");
+                }
+                if (menuConfig.isConfigurationSection("items.event_incomplete")) {
+                    return menuConfig.getConfigurationSection("items.event_incomplete");
+                }
+            }
+        }
         if (isCompleted) {
             if (menuConfig.isConfigurationSection("items.completed")) {
                 return menuConfig.getConfigurationSection("items.completed");
@@ -131,36 +171,65 @@ public class OrderDepositMenu extends BaseMenu {
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
 
         for (int i = 0; i < slots.size(); i++) {
-            renderOrderCard(slots.get(i), i + 1, profile, shiftId);
+            renderOrderCard(slots.get(i), i + 1, profile, shiftId, false);
+        }
+
+        if (plugin.getConfigManager().isEventActive()) {
+            int eventInvSlot = getEventInventorySlot();
+            if (eventInvSlot >= 0 && eventInvSlot < inventory.getSize()) {
+                renderOrderCard(eventInvSlot, 100, profile, shiftId, true);
+            }
         }
     }
 
     @Override
     protected boolean refreshCustomSlot(int slot) {
+        JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+        String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
+
+        if (plugin.getConfigManager().isEventActive() && slot == getEventInventorySlot()) {
+            renderOrderCard(slot, 100, profile, shiftId, true);
+            return true;
+        }
+
         List<Integer> slots = getOrderSlots();
         int idx = slots.indexOf(slot);
         if (idx != -1) {
-            JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
-            String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
-            renderOrderCard(slot, idx + 1, profile, shiftId);
+            renderOrderCard(slot, idx + 1, profile, shiftId, false);
             return true;
         }
         return false;
     }
 
     private void renderOrderCard(int slot, int slotNumber, JobProfile profile, String shiftId) {
+        renderOrderCard(slot, slotNumber, profile, shiftId, slotNumber == 100);
+    }
+
+    private void renderOrderCard(int slot, int slotNumber, JobProfile profile, String shiftId, boolean isEventCard) {
         if (job == null) return;
-        List<JobOrder> activeOrders = plugin.getOrderPoolManager().getActiveOrders(job.getId());
 
         JobOrder order = null;
         id.seria.jobs.model.WorkOrder wo = null;
-        if (profile != null && profile.getActiveOrder(slotNumber) != null) {
-            wo = profile.getActiveOrder(slotNumber);
-            order = job.getOrder(wo.getTemplate().getTemplateId());
+
+        if (isEventCard || slotNumber == 100) {
+            if (profile != null && profile.getActiveOrder(100) != null) {
+                wo = profile.getActiveOrder(100);
+                order = job.getOrder(wo.getTemplate().getTemplateId());
+            }
+            if (order == null) {
+                order = plugin.getOrderPoolManager().getActiveEventOrder(job.getId());
+            }
+        } else {
+            List<JobOrder> activeOrders = plugin.getOrderPoolManager().getActiveOrders(job.getId());
+            if (profile != null && profile.getActiveOrder(slotNumber) != null) {
+                wo = profile.getActiveOrder(slotNumber);
+                order = job.getOrder(wo.getTemplate().getTemplateId());
+            }
+            if (order == null && (slotNumber - 1) < activeOrders.size()) {
+                order = activeOrders.get(slotNumber - 1);
+            }
         }
-        if (order == null && (slotNumber - 1) < activeOrders.size()) {
-            order = activeOrders.get(slotNumber - 1);
-        }
+
         if (order == null) return;
 
         int jobLevel = profile != null ? profile.getJobLevel(job.getId()) : 1;
@@ -196,8 +265,8 @@ public class OrderDepositMenu extends BaseMenu {
                 : repStr;
         String activeRepDisplay = (wo != null && wo.getGeneratedReputationAmount() > 0) ? repStr : repRange;
 
-        boolean isEventOrder = order.isEventOrder() || (wo != null && wo.isEventOrder());
-        boolean isRerollable = order.isRerollable() && (wo == null || wo.isRerollable());
+        boolean isEventOrder = isEventCard || order.isEventOrder() || (wo != null && wo.isEventOrder());
+        boolean isRerollable = !isEventOrder && order.isRerollable() && (wo == null || wo.isRerollable());
         String eventName = order.getEvent() != null ? order.getEvent() : (wo != null ? wo.getEvent() : "");
 
         ItemStack cardItem = null;
@@ -215,7 +284,7 @@ public class OrderDepositMenu extends BaseMenu {
                 cardItem = plugin.getHookManager().getSeriaCraftingHook().generateItem(order.getCustomItemId(), 1);
             }
         }
-        org.bukkit.configuration.ConfigurationSection cardSec = getOrderCardSection(isCompleted);
+        org.bukkit.configuration.ConfigurationSection cardSec = getOrderCardSection(isCompleted, isEventOrder);
 
         if (cardItem == null) {
             Material cardMat = null;
@@ -746,7 +815,13 @@ public class OrderDepositMenu extends BaseMenu {
     private void handleDepositAll() {
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
-        List<JobOrder> activeOrders = plugin.getOrderPoolManager().getActiveOrders(job.getId());
+        List<JobOrder> activeOrders = new ArrayList<>(plugin.getOrderPoolManager().getActiveOrders(job.getId()));
+        if (plugin.getConfigManager().isEventActive()) {
+            JobOrder evOrder = plugin.getOrderPoolManager().getActiveEventOrder(job.getId());
+            if (evOrder != null && !activeOrders.contains(evOrder)) {
+                activeOrders.add(evOrder);
+            }
+        }
 
         int jobLevel = profile != null ? profile.getJobLevel(job.getId()) : 1;
         int totalItemsDeposited = 0;

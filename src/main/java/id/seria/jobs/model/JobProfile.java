@@ -205,13 +205,8 @@ public class JobProfile {
      * - Slot lainnya (slot 4 & slot 5 normal) mengikuti kapasitas maxAllowedSlots.
      */
     public boolean isSlotUnlocked(@Nullable org.bukkit.entity.Player player, int slotIndex) {
+        if (slotIndex == 100) return true;
         if (slotIndex <= 3) return true;
-        if (id.seria.jobs.SeriaJobs.getInstance() != null && id.seria.jobs.SeriaJobs.getInstance().getConfigManager() != null) {
-            if (id.seria.jobs.SeriaJobs.getInstance().getConfigManager().isEventActive()
-                    && slotIndex == id.seria.jobs.SeriaJobs.getInstance().getConfigManager().getEventSlot()) {
-                return true;
-            }
-        }
         return slotIndex <= getMaxAllowedSlots(player);
     }
 

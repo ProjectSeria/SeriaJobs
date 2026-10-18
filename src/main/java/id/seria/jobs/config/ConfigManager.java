@@ -208,7 +208,15 @@ public class ConfigManager {
     }
 
     public int getEventSlot() {
-        return config != null ? config.getInt("events.event-slot", 5) : 5;
+        if (config != null) {
+            if (config.contains("events.event-slot")) {
+                return config.getInt("events.event-slot");
+            }
+            if (config.contains("events.inventory-slot")) {
+                return config.getInt("events.inventory-slot");
+            }
+        }
+        return 8;
     }
 
     public String getEventDenyRerollMessage() {

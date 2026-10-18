@@ -103,38 +103,54 @@ public class HookManager {
         }
 
         // SeriaMagicBundle Hook
-        if (plugin.getConfigManager().isHookEnabled("seriamagicbundle")) {
-            seriaMagicBundleHook = new SeriaMagicBundleHook();
-            if (seriaMagicBundleHook.setup()) {
-                seriaMagicBundleLoaded = true;
-                plugin.getLogger().info("Successfully hooked into SeriaMagicBundle.");
+        if (plugin.getConfigManager().isHookEnabled("seriamagicbundle") && Bukkit.getPluginManager().getPlugin("SeriaMagicBundle") != null) {
+            try {
+                seriaMagicBundleHook = new SeriaMagicBundleHook();
+                if (seriaMagicBundleHook.setup()) {
+                    seriaMagicBundleLoaded = true;
+                    plugin.getLogger().info("Successfully hooked into SeriaMagicBundle.");
+                }
+            } catch (Throwable t) {
+                plugin.getLogger().warning("Could not hook into SeriaMagicBundle: " + t.getMessage());
             }
         }
 
         // SeriaCrafting Hook
-        if (plugin.getConfigManager().isHookEnabled("seriacrafting")) {
-            seriaCraftingHook = new SeriaCraftingHook();
-            if (seriaCraftingHook.setup()) {
-                seriaCraftingLoaded = true;
-                plugin.getLogger().info("Successfully hooked into SeriaCrafting.");
+        if (plugin.getConfigManager().isHookEnabled("seriacrafting") && Bukkit.getPluginManager().getPlugin("SeriaCrafting") != null) {
+            try {
+                seriaCraftingHook = new SeriaCraftingHook();
+                if (seriaCraftingHook.setup()) {
+                    seriaCraftingLoaded = true;
+                    plugin.getLogger().info("Successfully hooked into SeriaCrafting.");
+                }
+            } catch (Throwable t) {
+                plugin.getLogger().warning("Could not hook into SeriaCrafting: " + t.getMessage());
             }
         }
 
         // SeriaCore Hook (Backend)
-        if (plugin.getConfigManager().isHookEnabled("seriacore.enabled")) {
-            seriaCoreHook = new SeriaCoreHook();
-            if (seriaCoreHook.setup()) {
-                seriaCoreLoaded = true;
-                plugin.getLogger().info("Successfully hooked into SeriaCore backbone.");
+        if (plugin.getConfigManager().isHookEnabled("seriacore.enabled") && Bukkit.getPluginManager().getPlugin("SeriaCore") != null) {
+            try {
+                seriaCoreHook = new SeriaCoreHook();
+                if (seriaCoreHook.setup()) {
+                    seriaCoreLoaded = true;
+                    plugin.getLogger().info("Successfully hooked into SeriaCore backbone.");
+                }
+            } catch (Throwable t) {
+                plugin.getLogger().warning("Could not hook into SeriaCore: " + t.getMessage());
             }
         }
 
         // SeriaTranslator Hook (Localization)
-        if (plugin.getConfigManager().isHookEnabled("seriatranslator.enabled")) {
-            seriaTranslatorHook = new SeriaTranslatorHook();
-            if (seriaTranslatorHook.setup()) {
-                seriaTranslatorLoaded = true;
-                plugin.getLogger().info("Successfully hooked into SeriaTranslator / TritonAPI.");
+        if (plugin.getConfigManager().isHookEnabled("seriatranslator.enabled") && Bukkit.getPluginManager().getPlugin("SeriaTranslator") != null) {
+            try {
+                seriaTranslatorHook = new SeriaTranslatorHook();
+                if (seriaTranslatorHook.setup()) {
+                    seriaTranslatorLoaded = true;
+                    plugin.getLogger().info("Successfully hooked into SeriaTranslator / TritonAPI.");
+                }
+            } catch (Throwable t) {
+                plugin.getLogger().warning("Could not hook into SeriaTranslator: " + t.getMessage());
             }
         }
 

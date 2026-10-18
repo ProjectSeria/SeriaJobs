@@ -71,6 +71,18 @@ public class OrderRotationTask extends BukkitRunnable {
                             profile.setActiveOrder(slot, workOrder);
                         }
                     }
+
+                    // Re-populate event order to slot 100 if event is active
+                    if (plugin.getConfigManager().isEventActive()) {
+                        JobOrder eventTemplate = plugin.getOrderPoolManager().getActiveEventOrder(jobId);
+                        if (eventTemplate != null) {
+                            int jobLevel = profile.getJobLevel(jobId);
+                            WorkOrder eventWorkOrder = plugin.getOrderGenerationService().generateOrder(eventTemplate, jobLevel, orderMult);
+                            profile.setActiveOrder(100, eventWorkOrder);
+                        }
+                    } else {
+                        profile.setActiveOrder(100, null);
+                    }
                 }
 
                 plugin.getPlayerDataManager().saveProfileAsync(profile);
