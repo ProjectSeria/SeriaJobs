@@ -154,35 +154,29 @@ HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
   - `getTextUpdateInterval()` / `setTextUpdateInterval(int)`: Interval auto-update placeholder (-1 untuk disable).
   - `getTextAlignment()` / `setTextAlignment(TextAlignment)`: Alignment teks (`LEFT`, `CENTER`, `RIGHT`).
 
-### 6.3 ChatColorHandler Parser Engine (Semantic MiniMessage Tag Injection)
-FancyHolograms merender seluruh baris hologram melalui pipeline `ChatColorHandler`:
-```java
-import de.oliver.fancyholograms.libs.chatcolorhandler.ChatColorHandler;
-import de.oliver.fancyholograms.libs.chatcolorhandler.parsers.Parser;
-
-Parser seriaParser = new Parser() {
-    @Override
-    public String getType() {
-        return "seriaprefix";
-    }
-
-    @Override
-    public String parseString(String text, OutputType outputType) {
-        return BaseSeriaMenu.formatSemanticColorTags(text);
-    }
-
-    @Override
-    public String parseString(String text, OutputType outputType, Player player) {
-        String formatted = BaseSeriaMenu.formatSemanticColorTags(text);
-        if (player != null && SeriaCorePlugin.getInstance() != null) {
-            formatted = SeriaCorePlugin.getInstance().getPlaceholderManager().parsePlaceholders(player, formatted);
-        }
-        return formatted;
-    }
-};
-
-ChatColorHandler.parsers().register(seriaParser, 5);
-```
+### 6.3 Semantic MiniMessage Tag Injection & Cross-Version Architecture
+> [!NOTE]
+> Dependency internal `ChatColorHandler` mengalami perubahan struktur paket drastis antar-versi FancyHolograms:
+> - **v2.9.x**: `de.oliver.fancyholograms.libs.chatcolorhandler.parsers.Parser`
+> - **v2.10.x**: `de.oliver.fancyholograms.libs.chatcolorhandler.common.parser.Parser`
+> - **v2.11.x**: Refaktor ke `org.lushplugins` / Kyori MiniMessage langsung.
+> 
+> Mengimpor `ChatColorHandler` secara langsung di compile-time akan menyebabkan `NoClassDefFoundError` saat dijalankan pada versi yang berbeda.
+> 
+> **Pendekatan Standar & Stabil (Official API):**
+> Format seluruh baris teks hologram langsung melalui model `TextHologramData` menggunakan event lifecycle Bukkit (`HologramCreateEvent`, `HologramUpdateEvent`, `HologramsLoadedEvent`) serta scanning saat plugin startup via `FancyHologramsPlugin.get().getHologramManager().getHolograms()`.
+> FancyHolograms secara native merender string yang telah diformat menggunakan Adventure MiniMessage.
+>
+> ```java
+> if (data instanceof TextHologramData textData) {
+>     List<String> formatted = textData.getText().stream()
+>         .map(line -> BaseSeriaMenu.formatSemanticColorTags(line))
+>         .toList();
+>     textData.setText(formatted);
+>     hologram.queueUpdate();
+>     hologram.refreshForViewers();
+> }
+> ```
 
 ### 6.4 Event Listeners (`de.oliver.fancyholograms.api.events.*`)
 | Event Class | Keterangan & Trigger |
