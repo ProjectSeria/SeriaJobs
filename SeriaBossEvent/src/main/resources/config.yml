@@ -1,0 +1,4 @@
+# SeriaBossEvent Global Configuration
+settings:
+  debug: false
+  data-save-interval: 60

@@ -1,0 +1,49 @@
+name: SeriaBossEvent
+version: '${project.version}'
+main: id.seria.bossevent.SeriaBossEventPlugin
+api-version: '1.21'
+author: Seria
+description: Dynamic boss event, countdown, damage tracking, and leaderboard plugin
+
+depend:
+  - MythicMobs
+  - LuckPerms
+  - SeriaCore
+
+softdepend:
+  - DiscordSRV
+  - PlaceholderAPI
+
+commands:
+  seriabossevent:
+    description: Main command for SeriaBossEvent
+    aliases:
+      - sbe
+    permission: seriabossevent.admin
+    usage: /sbe <start|stop|list|status|reload>
+
+permissions:
+  seriabossevent.admin:
+    description: Root administrative permission
+    default: op
+    children:
+      seriabossevent.admin.start: true
+      seriabossevent.admin.stop: true
+      seriabossevent.admin.list: true
+      seriabossevent.admin.status: true
+      seriabossevent.admin.reload: true
+  seriabossevent.admin.start:
+    description: Allows starting a boss event
+    default: op
+  seriabossevent.admin.stop:
+    description: Allows stopping a boss event
+    default: op
+  seriabossevent.admin.list:
+    description: Allows listing boss events
+    default: op
+  seriabossevent.admin.status:
+    description: Allows viewing status of a boss event
+    default: op
+  seriabossevent.admin.reload:
+    description: Allows reloading configurations and messages
+    default: op

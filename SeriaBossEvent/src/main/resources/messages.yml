@@ -1,0 +1,48 @@
+# SeriaBossEvent Default Messages (MiniMessage format supported)
+prefix: "<sc:prefix> <dark_gray>»</dark_gray> "
+
+countdown:
+  notify: "<sc:prefix> <yellow>Boss <gold><bold>{boss}</bold></gold> akan muncul dalam <aqua>{time}</aqua> detik!</yellow>"
+  title:
+    title: "<gold><bold>{boss}</bold></gold>"
+    subtitle: "<yellow>Muncul dalam <aqua>{time}</aqua> detik</yellow>"
+    fade-in: 5
+    stay: 20
+    fade-out: 5
+  sound: "BLOCK_NOTE_BLOCK_PLING"
+
+boss:
+  spawned: "<sc:prefix> <red><bold>PERHATIAN!</bold> Boss <gold><bold>{boss}</bold></gold> telah muncul di <yellow>{world}</yellow>!</red>"
+  spawned-sound: "ENTITY_WITHER_SPAWN"
+
+event:
+  timeout: "<sc:prefix> <red>Waktu pertarungan melawan <gold>{boss}</gold> telah habis!</red>"
+  stopped: "<sc:prefix> <yellow>Event boss <gold>{boss}</gold> telah dihentikan oleh admin.</yellow>"
+  uncontested: "<sc:prefix> <gray>Boss <gold>{boss}</gold> gugur tanpa perlawanan. Leaderboard dan reward dibatalkan.</gray>"
+
+leaderboard:
+  header: "        <gold><bold>{boss} TELAH DIKALAHKAN!</bold></gold>"
+  last-hit: "   <gray>Last hit dilancarkan oleh</gray> {killer_prefix}{killer_name}"
+  top-entry: "   {rank_color}#{rank}. {prefix}{player} <gray>-</gray> {damage} damage{percent_text}"
+  rank-colors:
+    1: "<yellow>"
+    2: "<gold>"
+    3: "<red>"
+    default: "<white>"
+    self: "<green>"
+  percent-format: " <gray>({percent}%)</gray>"
+  personal-contribution: "   <white>Kontribusi Damage:</white> <yellow>{damage}</yellow> <gray>({percent}%)</gray> <gold>(#{rank}/{total_players})</gold>"
+  fight-duration: "   <white>Lama pertarungan:</white> <aqua>{duration}</aqua>"
+
+error:
+  no-permission: "<sc:prefix> <red>Kamu tidak memiliki izin untuk menjalankan perintah ini!</red>"
+  event-already-running: "<sc:prefix> <red>Event '{event}' sedang berjalan!</red>"
+  event-not-running: "<sc:prefix> <red>Event '{event}' sedang tidak aktif.</red>"
+  event-not-found: "<sc:prefix> <red>Event '{event}' tidak ditemukan di konfigurasi!</red>"
+  world-not-loaded: "<sc:prefix> <red>World '{world}' belum dimuat atau tidak tersedia!</red>"
+  mob-not-found: "<sc:prefix> <red>MythicMob '{mob}' tidak terdaftar di sistem MythicMobs!</red>"
+
+command:
+  reloaded: "<sc:prefix> <green>Konfigurasi SeriaBossEvent berhasil dimuat ulang!</green>"
+  started: "<sc:prefix> <green>Event '{event}' berhasil dimulai.</green>"
+  stopped: "<sc:prefix> <yellow>Event '{event}' berhasil dihentikan.</yellow>"

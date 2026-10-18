@@ -1,0 +1,89 @@
+name: "mini_boss_hollow_isle"
+
+game:
+  display-name: "Skeleton Leader"
+  duration: -1
+  override-messages: false
+  shutdown-event-after-duration: false
+  global-score: false
+
+countdown:
+  enabled: true
+  duration: 60
+  notify-at: [60, 30, 10, 5, 4, 3, 2, 1]
+  delay: 0
+
+task:
+  enabled: true
+  period: 1000
+  delay: 0
+
+bosses:
+  mob: "Skeleton_Leader"
+  world: "event_halloween2026"
+  x: -139.5
+  y: 41.0
+  z: 150.5
+  yaw: 0.0
+  pitch: 0.0
+
+leaderboard:
+  enabled: true
+  tracking:
+    mode: "hp-delta"
+    poll-interval: 1
+    attribute-unowned-damage: false
+  display:
+    top: 3
+    centered: true
+    min-players-for-percent: 2
+    show-last-hit: true
+    show-personal: true
+    show-fight-duration: true
+    show-on-fail: false
+    scope: "server"
+  discord:
+    enabled: true
+    channel: "broadcasts"
+    max-entries: 25
+    color: "#FFAA00"
+  number-format:
+    locale: "id-ID"
+
+rewards:
+  - id: "shard"
+    only-mobs: []
+    min-damage-percent: 0
+    commands:
+      - "shard give <player> <amount>"
+    amount: 10
+    group-amount:
+      Viscount: 15
+      Count: 15
+      Earl: 15
+      Marquis: 20
+      Duke: 20
+      Saint: 20
+      Prince: 30
+      King: 30
+      Divine: 30
+    message: "<yellow>Shards: <aqua>+<amount> <group-bonus>"
+    group-bonus-message: "<red>(+<bonus> <group> Bonus)"
+    default-bonus-message: "<red>(Viscount+ untuk dapatkan lebih!)"
+
+  - id: "ancient_tome"
+    only-mobs: []
+    min-damage-percent: 1
+    commands:
+      - "mi give CONSUMABLE ANCIENT_TOME_BUNDLE_II <player> <amount>"
+    amount:
+      min: 1
+      max: 3
+    bonus:
+      top-dps:
+        min: 1
+        max: 4
+      last-hit:
+        min: 1
+        max: 4
+    message: "<light_purple>+<amount> Ancient Tome Bundle II <dark_purple>(<tags>)"
