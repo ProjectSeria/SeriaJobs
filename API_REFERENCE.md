@@ -116,3 +116,80 @@ PacketEvents.getAPI().getEventManager().registerListener(listener, PacketListene
 - **Package:** `id.seria.prefix`
 - **Tujuan:** Engine registrasi placeholder dan filter packet tingkat rendah.
 - **Catatan Arsitektur:** `SeriaPrefix` hanya mendaftarkan placeholder dan packet filtering. Seluruh logika inti pemrosesan semantik warna dan integrasi plugin ditangani oleh `SeriaCore`.
+
+---
+
+## 6. FancyHolograms API (External)
+- **Official Docs:** [https://fancyinnovations.com/docs/minecraft-plugins/fancyholograms/api/getting-started](https://fancyinnovations.com/docs/minecraft-plugins/fancyholograms/api/getting-started)
+- **Repository Maven:**
+  ```xml
+  <repository>
+      <id>fancyinnovations-releases</id>
+      <name>FancyInnovations Repository</name>
+      <url>https://repo.fancyinnovations.com/releases</url>
+  </repository>
+  ```
+- **Maven Dependency:** `de.oliver:FancyHolograms:2.9.1` / Scope: `provided`
+
+### 6.1 Entry Point & Hologram Manager
+```java
+import de.oliver.fancyholograms.api.FancyHologramsPlugin;
+import de.oliver.fancyholograms.api.HologramManager;
+import de.oliver.fancyholograms.api.hologram.Hologram;
+import de.oliver.fancyholograms.api.data.HologramData;
+import de.oliver.fancyholograms.api.data.TextHologramData;
+
+HologramManager manager = FancyHologramsPlugin.get().getHologramManager();
+```
+
+### 6.2 Data Model & Manipulasi Text Hologram
+- **`Hologram` (`de.oliver.fancyholograms.api.hologram.Hologram`)**:
+  - `getData()`: Mendapatkan data konfigurasi hologram (`HologramData`).
+  - `queueUpdate()` / `forceUpdate()`: Memicu render ulang hologram ke viewer.
+  - `refreshForViewers()`: Refresh tampilan hologram untuk pemain yang berada di radius jangkauan.
+- **`TextHologramData` (`de.oliver.fancyholograms.api.data.TextHologramData`)**:
+  - `getText()`: Membaca list baris teks (`List<String>`).
+  - `setText(List<String>)`: Mengubah seluruh baris teks hologram.
+  - `addLine(String)` / `removeLine(int)`: Menambah atau menghapus baris individual.
+  - `getTextUpdateInterval()` / `setTextUpdateInterval(int)`: Interval auto-update placeholder (-1 untuk disable).
+  - `getTextAlignment()` / `setTextAlignment(TextAlignment)`: Alignment teks (`LEFT`, `CENTER`, `RIGHT`).
+
+### 6.3 ChatColorHandler Parser Engine (Semantic MiniMessage Tag Injection)
+FancyHolograms merender seluruh baris hologram melalui pipeline `ChatColorHandler`:
+```java
+import de.oliver.fancyholograms.libs.chatcolorhandler.ChatColorHandler;
+import de.oliver.fancyholograms.libs.chatcolorhandler.parsers.Parser;
+
+Parser seriaParser = new Parser() {
+    @Override
+    public String getType() {
+        return "seriaprefix";
+    }
+
+    @Override
+    public String parseString(String text, OutputType outputType) {
+        return BaseSeriaMenu.formatSemanticColorTags(text);
+    }
+
+    @Override
+    public String parseString(String text, OutputType outputType, Player player) {
+        String formatted = BaseSeriaMenu.formatSemanticColorTags(text);
+        if (player != null && SeriaCorePlugin.getInstance() != null) {
+            formatted = SeriaCorePlugin.getInstance().getPlaceholderManager().parsePlaceholders(player, formatted);
+        }
+        return formatted;
+    }
+};
+
+ChatColorHandler.parsers().register(seriaParser, 5);
+```
+
+### 6.4 Event Listeners (`de.oliver.fancyholograms.api.events.*`)
+| Event Class | Keterangan & Trigger |
+|---|---|
+| `HologramCreateEvent` | Dipanggil saat hologram baru dibuat di server (`getHologram()`, `getPlayer()`). |
+| `HologramUpdateEvent` | Dipanggil saat properti atau teks hologram diubah (`getUpdatedData()`, `getModification()`). |
+| `HologramsLoadedEvent` | Dipanggil saat FancyHolograms selesai memuat semua file hologram dari disk (`getManager()`). |
+| `HologramDeleteEvent` | Dipanggil saat hologram dihapus. |
+| `HologramShowEvent` / `HologramHideEvent` | Dipanggil saat hologram ditampilkan atau disembunyikan dari pemain. |
+
