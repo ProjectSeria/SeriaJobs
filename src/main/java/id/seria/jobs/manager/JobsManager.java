@@ -382,6 +382,7 @@ public class JobsManager {
     }
 
     public boolean isSlotNonRerollable(@NotNull Player player, @NotNull Job job, @NotNull JobProfile profile, int slotIndex) {
+        if (slotIndex == 100) return true;
         WorkOrder wo = profile.getActiveOrder(slotIndex);
         if (wo != null) {
             return !wo.isRerollable() || wo.isEventOrder();
@@ -391,7 +392,7 @@ public class JobsManager {
             if (slotIndex > 0 && slotIndex <= active.size()) {
                 JobOrder jo = active.get(slotIndex - 1);
                 if (jo != null) {
-                    return !jo.isRerollable() || jo.isEventOrder();
+                    return !jo.isRerollable();
                 }
             }
         }

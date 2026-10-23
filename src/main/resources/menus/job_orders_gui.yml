@@ -5,7 +5,7 @@ fillers:
   glass:
     material: "YELLOW_STAINED_GLASS_PANE"
     name: " "
-    slots: [0, 1, 7, 8, 9, 36, 44, 45, 46, 52, 53]
+    slots: [0, 1, 7, 9, 17, 36, 44, 45, 46, 52, 53]
     item-flags:
       - "HIDE_ADDITIONAL_TOOLTIP"
 
@@ -21,10 +21,36 @@ layout:
           comparison: "=="
           value: true  
 items:
+  incomplete_bedrock:
+    name: "<sc:error-color>{order_display_name}"
+    taints:
+      orders-item: true
+    priority: 2
+    lore:
+      - ""
+      - "<sc:sub-title-color>Progres"
+      - "       <sc:lore-color>Item: <sc:highlight-color>{progress}<sc:lore-color>/<sc:highlight-color>{required_amount} <dark_gray>({percentage}%)"
+      - "{progress_bar}"
+      - ""
+      - "<sc:sub-title-color>Hadiah"
+      - "{rewards_list}"
+      - ""
+      - "<sc:action-icon> <sc:action-color>Buka Opsi Kontrak"
+    view-requirement:
+      requirements:
+        check_bedrock:
+          type: "placeholder"
+          input: "%floodgate_isbedrock%"
+          comparison: "=="
+          output: "true"
+    left-click-action:
+      - "[OPEN_ORDER_ACTION]"
+
   incomplete:
     name: "<sc:error-color>{order_display_name}"
     taints:
       orders-item: true
+    priority: 1
     lore:
 #      - "{order_lore}"
       - ""

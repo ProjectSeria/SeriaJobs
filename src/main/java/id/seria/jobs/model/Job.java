@@ -185,7 +185,17 @@ public class Job {
 
     @Nullable
     public JobOrder getOrder(String orderId) {
-        return ordersPool.get(orderId);
+        if (orderId == null) return null;
+        JobOrder jo = ordersPool.get(orderId);
+        if (jo != null) return jo;
+        jo = ordersPool.get(orderId.toLowerCase());
+        if (jo != null) return jo;
+        for (JobOrder o : ordersPool.values()) {
+            if (o.getId().equalsIgnoreCase(orderId)) {
+                return o;
+            }
+        }
+        return null;
     }
 
     @NotNull

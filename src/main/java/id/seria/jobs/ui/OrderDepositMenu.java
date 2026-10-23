@@ -126,6 +126,42 @@ public class OrderDepositMenu extends BaseMenu {
 
     public org.bukkit.configuration.ConfigurationSection getOrderCardSection(boolean isCompleted, boolean isEvent) {
         if (menuConfig == null) return null;
+
+        // Dynamic candidate evaluation from items: with priority and view-requirement
+        org.bukkit.configuration.ConfigurationSection itemsSec = menuConfig.getConfigurationSection("items");
+        if (itemsSec != null) {
+            List<org.bukkit.configuration.ConfigurationSection> candidates = new ArrayList<>();
+            for (String key : itemsSec.getKeys(false)) {
+                if (!itemsSec.isConfigurationSection(key)) continue;
+                org.bukkit.configuration.ConfigurationSection sec = itemsSec.getConfigurationSection(key);
+                if (sec == null) continue;
+
+                boolean matchesTaint;
+                if (isEvent) {
+                    matchesTaint = sec.contains("taints.event-order") || sec.contains("taints.event-item")
+                            || sec.getBoolean("taints.event", false) || key.startsWith("event_");
+                } else {
+                    matchesTaint = sec.contains("taints.orders-item") || sec.contains("taints.order-item")
+                            || sec.getBoolean("taints.order", false) || key.startsWith("incomplete") || key.startsWith("completed");
+                }
+                if (!matchesTaint) continue;
+
+                boolean candidateCompleted = key.contains("completed") || sec.getBoolean("completed", false);
+                if (candidateCompleted != isCompleted) continue;
+
+                candidates.add(sec);
+            }
+
+            if (!candidates.isEmpty()) {
+                candidates.sort((a, b) -> Integer.compare(b.getInt("priority", 1), a.getInt("priority", 1)));
+                for (org.bukkit.configuration.ConfigurationSection candidate : candidates) {
+                    if (checkCandidateViewRequirement(candidate)) {
+                        return candidate;
+                    }
+                }
+            }
+        }
+
         if (isEvent) {
             if (isCompleted) {
                 if (menuConfig.isConfigurationSection("items.event_completed")) {
@@ -644,13 +680,16 @@ public class OrderDepositMenu extends BaseMenu {
             String trimmed = act.trim();
             if (trimmed.equalsIgnoreCase("[TURN_IN]") || trimmed.equalsIgnoreCase("[DEPOSIT]")) {
                 handleDepositOrder(order, profile, shiftId, slotNumber);
+            } else if (trimmed.equalsIgnoreCase("[OPEN_ORDER_ACTION]") || trimmed.equalsIgnoreCase("[ORDER_ACTION]")) {
+                new OrderActionMenu(plugin, player, job, slotNumber, order).open();
+                return;
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll]") || trimmed.equalsIgnoreCase("[reroll]")) {
-                if (plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || !order.isRerollable()) {
+                if (slotNumber == 100 || plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || (order != null && !order.isRerollable())) {
                     player.sendMessage(plugin.getConfigManager().getEventDenyRerollMessage());
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                     return;
                 }
-                if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
+                if (profile != null && order != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                             "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
@@ -662,12 +701,12 @@ public class OrderDepositMenu extends BaseMenu {
                     }
                 }
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_auto]") || trimmed.equalsIgnoreCase("[reroll_auto]")) {
-                if (plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || !order.isRerollable()) {
+                if (slotNumber == 100 || plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || (order != null && !order.isRerollable())) {
                     player.sendMessage(plugin.getConfigManager().getEventDenyRerollMessage());
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                     return;
                 }
-                if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
+                if (profile != null && order != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                             "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
@@ -675,12 +714,12 @@ public class OrderDepositMenu extends BaseMenu {
                 }
                 handleAutoReroll(profile, slotNumber, slot, hasRefresh);
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_gins]") || trimmed.equalsIgnoreCase("[reroll_gins]")) {
-                if (plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || !order.isRerollable()) {
+                if (slotNumber == 100 || plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || (order != null && !order.isRerollable())) {
                     player.sendMessage(plugin.getConfigManager().getEventDenyRerollMessage());
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                     return;
                 }
-                if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
+                if (profile != null && order != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                             "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
@@ -692,12 +731,12 @@ public class OrderDepositMenu extends BaseMenu {
                     }
                 }
             } else if (trimmed.equalsIgnoreCase("[jobs_reroll_serium]") || trimmed.equalsIgnoreCase("[reroll_serium]")) {
-                if (plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || !order.isRerollable()) {
+                if (slotNumber == 100 || plugin.getJobsManager().isSlotNonRerollable(player, job, profile, slotNumber) || (order != null && !order.isRerollable())) {
                     player.sendMessage(plugin.getConfigManager().getEventDenyRerollMessage());
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                     return;
                 }
-                if (profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
+                if (profile != null && order != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
                     player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed",
                             "<red>Pesanan ini sudah selesai dan tidak dapat di-reroll!</red>"));
                     player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
@@ -734,7 +773,7 @@ public class OrderDepositMenu extends BaseMenu {
         }
     }
 
-    private void handleDepositOrder(JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
+    public void handleDepositOrder(JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
         if (profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed"));
             return;

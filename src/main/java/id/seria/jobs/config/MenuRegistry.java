@@ -29,6 +29,7 @@ public class MenuRegistry {
         saveDefaultMenu("main_jobs_menu.yml");
         saveDefaultMenu("job_orders_gui.yml");
         saveDefaultMenu("job_progression_gui.yml");
+        saveDefaultMenu("job_order_action_gui.yml");
 
         scanMenuDirectory(menuFolder, menuFolder);
         plugin.getLogger().info("Loaded " + menuCache.size() + " GUI menu configuration key(s) from menus/ directory and subfolders.");

@@ -1,0 +1,1985 @@
+id: "farmer"
+display-name: "Petani"
+icon: "DIAMOND_HOE"
+description:
+  - "<sc:lore-color>Memasok hasil <sc:highlight-color>pertanian"
+  - "<sc:lore-color>dan <sc:highlight-color>peternakan <sc:lore-color>untuk "
+  - "<sc:lore-color>memenuhi kebutuhan pasar server."
+
+# Pengaturan leveling progression equation
+max-level: 100
+leveling-progression-equation: "100 * (joblevel ^ 2)"
+
+# Jumlah pesanan yang diundi aktif per rotasi
+active-orders-count: 5
+
+# Hadiah milestone pada tingkatan level tertentu
+# Hadiah milestone dan level progression Farmer (Level 1 - 100)
+# Hadiah milestone dan level progression Farmer (Level 1 - 100)
+level-rewards:
+  1:
+    rewards:
+      - type: "VAULT"
+        amount: 4000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE OPENEDCANFOOD %player% 2"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>4.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>2x Opened Can Food"
+
+  2:
+    rewards:
+      - type: "VAULT"
+        amount: 6000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 300
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>6.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>300 Farming XP"
+
+  3:
+    rewards:
+      - type: "VAULT"
+        amount: 8000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 2 COMMON"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>8.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>2x Common Dust"
+
+  4:
+    rewards:
+      - type: "VAULT"
+        amount: 10000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>10.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>1x Old Key"
+
+  5:
+    rewards:
+      - type: "VAULT"
+        amount: 12000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 25000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Experience 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>12.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>25.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Experience 1"
+
+  6:
+    rewards:
+      - type: "VAULT"
+        amount: 14000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE OPENEDCANFOOD %player% 4"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>14.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>4x Opened Can Food"
+
+  7:
+    rewards:
+      - type: "VAULT"
+        amount: 16000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Hasten 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>16.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Hasten 1"
+
+  8:
+    rewards:
+      - type: "VAULT"
+        amount: 18000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 4 COMMON"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>18.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>4x Common Dust"
+
+  9:
+    rewards:
+      - type: "VAULT"
+        amount: 20000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>20.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>1x Old Key"
+
+  10:
+    rewards:
+      - type: "VAULT"
+        amount: 22000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Glowing 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>22.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Glowing 1"
+
+  11:
+    rewards:
+      - type: "VAULT"
+        amount: 24000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 500
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>24.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>500 Farming XP"
+
+  12:
+    rewards:
+      - type: "VAULT"
+        amount: 26000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE OPENEDCANFOOD %player% 8"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>26.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>8x Opened Can Food"
+
+  13:
+    rewards:
+      - type: "VAULT"
+        amount: 28000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Famine 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>28.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Famine 1"
+
+  14:
+    rewards:
+      - type: "VAULT"
+        amount: 30000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 8 COMMON"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>30.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>8x Common Dust"
+
+  15:
+    rewards:
+      - type: "VAULT"
+        amount: 32000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 40000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Lucid 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>32.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>40.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Lucid 1"
+
+  16:
+    rewards:
+      - type: "VAULT"
+        amount: 34000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>34.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>1x Old Key"
+
+  17:
+    rewards:
+      - type: "VAULT"
+        amount: 36000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 800
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>36.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>800 Farming XP"
+
+  18:
+    rewards:
+      - type: "VAULT"
+        amount: 38000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE OPENEDCANFOOD %player% 16"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>38.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>16x Opened Can Food"
+
+  19:
+    rewards:
+      - type: "VAULT"
+        amount: 40000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae giveitem %player% blackscroll 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>40.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>1x Black Scroll"
+
+  20:
+    rewards:
+      - type: "VAULT"
+        amount: 42000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Ward 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>42.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Ward 1"
+
+  21:
+    rewards:
+      - type: "VAULT"
+        amount: 44000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 16 COMMON"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>44.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>16x Common Dust"
+
+  22:
+    rewards:
+      - type: "VAULT"
+        amount: 46000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 2"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>46.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>2x Old Key"
+
+  23:
+    rewards:
+      - type: "VAULT"
+        amount: 48000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 1200
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>48.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>1.200 Farming XP"
+
+  24:
+    rewards:
+      - type: "VAULT"
+        amount: 50000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Haste 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>50.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Haste 1"
+
+  25:
+    rewards:
+      - type: "VAULT"
+        amount: 52000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 55000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae giveitem %player% whitescroll 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>52.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>55.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>1x White Scroll"
+
+  26:
+    rewards:
+      - type: "VAULT"
+        amount: 54000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Telepathy 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>54.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Telepathy 1"
+
+  27:
+    rewards:
+      - type: "VAULT"
+        amount: 56000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 2 RARE"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>56.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <blue>2x Rare Dust"
+
+  28:
+    rewards:
+      - type: "VAULT"
+        amount: 58000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 2"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>58.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>2x Old Key"
+
+  29:
+    rewards:
+      - type: "VAULT"
+        amount: 60000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 1600
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>60.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>1.600 Farming XP"
+
+  30:
+    rewards:
+      - type: "VAULT"
+        amount: 62000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Devour 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>62.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Devour 1"
+
+  31:
+    rewards:
+      - type: "VAULT"
+        amount: 64000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE OPENEDCANFOOD %player% 16"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>64.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>16x Opened Can Food"
+
+  32:
+    rewards:
+      - type: "VAULT"
+        amount: 66000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Ravenous 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>66.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Ravenous 1"
+
+  33:
+    rewards:
+      - type: "VAULT"
+        amount: 68000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 4 RARE"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>68.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <blue>4x Rare Dust"
+
+  34:
+    rewards:
+      - type: "VAULT"
+        amount: 70000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 2"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>70.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>2x Old Key"
+
+  35:
+    rewards:
+      - type: "VAULT"
+        amount: 72000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 70000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Featherweight 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>72.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>70.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Featherweight 1"
+
+  36:
+    rewards:
+      - type: "VAULT"
+        amount: 74000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 2200
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>74.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>2.200 Farming XP"
+
+  37:
+    rewards:
+      - type: "VAULT"
+        amount: 76000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE PIYAGRA %player% 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>76.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>1x Piya-Gra"
+
+  38:
+    rewards:
+      - type: "VAULT"
+        amount: 78000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae giveitem %player% blackscroll 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>78.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>1x Black Scroll"
+
+  39:
+    rewards:
+      - type: "VAULT"
+        amount: 80000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 8 RARE"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>80.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <blue>8x Rare Dust"
+
+  40:
+    rewards:
+      - type: "VAULT"
+        amount: 82000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Berserk 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>82.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Berserk 1"
+
+  41:
+    rewards:
+      - type: "VAULT"
+        amount: 84000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 3"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>84.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>3x Old Key"
+
+  42:
+    rewards:
+      - type: "VAULT"
+        amount: 86000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 3000
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>86.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>3.000 Farming XP"
+
+  43:
+    rewards:
+      - type: "VAULT"
+        amount: 88000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE PIYAGRA %player% 2"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>88.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>2x Piya-Gra"
+
+  44:
+    rewards:
+      - type: "VAULT"
+        amount: 90000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Reforged 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>90.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Reforged 1"
+
+  45:
+    rewards:
+      - type: "VAULT"
+        amount: 92000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 85000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Restore 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>92.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>85.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Restore 1"
+
+  46:
+    rewards:
+      - type: "VAULT"
+        amount: 94000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 16 RARE"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>94.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <blue>16x Rare Dust"
+
+  47:
+    rewards:
+      - type: "VAULT"
+        amount: 96000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey holy_key %player% 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>96.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <gold>1x Holy Key"
+
+  48:
+    rewards:
+      - type: "VAULT"
+        amount: 98000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 4000
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>98.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>4.000 Farming XP"
+
+  49:
+    rewards:
+      - type: "VAULT"
+        amount: 100000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE PIYAGRA %player% 4"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>100.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>4x Piya-Gra"
+
+  50:
+    rewards:
+      - type: "VAULT"
+        amount: 102000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae giveitem %player% whitescroll 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>102.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>1x White Scroll"
+
+  51:
+    rewards:
+      - type: "VAULT"
+        amount: 104000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Replenish 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>104.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Replenish 1"
+
+  52:
+    rewards:
+      - type: "VAULT"
+        amount: 106000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 2 EPIC"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>106.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <dark_purple>2x Epic Dust"
+
+  53:
+    rewards:
+      - type: "VAULT"
+        amount: 108000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 3"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>108.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>3x Old Key"
+
+  54:
+    rewards:
+      - type: "VAULT"
+        amount: 110000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 5000
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>110.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>5.000 Farming XP"
+
+  55:
+    rewards:
+      - type: "VAULT"
+        amount: 112000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 100000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE PIYAGRA %player% 8"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>112.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>100.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <yellow>8x Piya-Gra"
+
+  56:
+    rewards:
+      - type: "VAULT"
+        amount: 114000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% BluntForce 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>114.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Blunt Force 1"
+
+  57:
+    rewards:
+      - type: "VAULT"
+        amount: 116000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 4 EPIC"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>116.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <dark_purple>4x Epic Dust"
+
+  58:
+    rewards:
+      - type: "VAULT"
+        amount: 118000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae giveitem %player% blackscroll 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>118.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>1x Black Scroll"
+
+  59:
+    rewards:
+      - type: "VAULT"
+        amount: 120000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 6500
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>120.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>6.500 Farming XP"
+
+  60:
+    rewards:
+      - type: "VAULT"
+        amount: 122000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Critical 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>122.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Critical 1"
+
+  61:
+    rewards:
+      - type: "VAULT"
+        amount: 124000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE PIYAGRA %player% 16"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>124.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>16x Piya-Gra"
+
+  62:
+    rewards:
+      - type: "VAULT"
+        amount: 126000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Rebreather 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>126.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Rebreather 1"
+
+  63:
+    rewards:
+      - type: "VAULT"
+        amount: 128000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 8 EPIC"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>128.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <dark_purple>8x Epic Dust"
+
+  64:
+    rewards:
+      - type: "VAULT"
+        amount: 130000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 4"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>130.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>4x Old Key"
+
+  65:
+    rewards:
+      - type: "VAULT"
+        amount: 132000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 120000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Replanter 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>132.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>120.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Replanter 1"
+
+  66:
+    rewards:
+      - type: "VAULT"
+        amount: 134000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 8500
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>134.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>8.500 Farming XP"
+
+  67:
+    rewards:
+      - type: "VAULT"
+        amount: 136000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE PIYAGRA %player% 16"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>136.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>16x Piya-Gra"
+
+  68:
+    rewards:
+      - type: "VAULT"
+        amount: 138000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Planter 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>138.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Planter 1"
+
+  69:
+    rewards:
+      - type: "VAULT"
+        amount: 140000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 16 EPIC"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>140.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <dark_purple>16x Epic Dust"
+
+  70:
+    rewards:
+      - type: "VAULT"
+        amount: 142000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% CarrotPlanter 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>142.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Carrot Planter 1"
+
+  71:
+    rewards:
+      - type: "VAULT"
+        amount: 144000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% PotatoPlanter 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>144.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Potato Planter 1"
+
+  72:
+    rewards:
+      - type: "VAULT"
+        amount: 146000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 11000
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>146.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>11.000 Farming XP"
+
+  73:
+    rewards:
+      - type: "VAULT"
+        amount: 148000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE ARCHONPIYAGRA %player% 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>148.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>1x Archon Piya-Gra"
+
+  74:
+    rewards:
+      - type: "VAULT"
+        amount: 150000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Harvest 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>150.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Harvest 1"
+
+  75:
+    rewards:
+      - type: "VAULT"
+        amount: 152000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 140000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae giveitem %player% whitescroll 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>152.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>140.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>1x White Scroll"
+
+  76:
+    rewards:
+      - type: "VAULT"
+        amount: 154000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 2 LEGENDARY"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>154.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <gold>2x Legendary Dust"
+
+  77:
+    rewards:
+      - type: "VAULT"
+        amount: 156000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey holy_key %player% 2"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>156.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <gold>2x Holy Key"
+
+  78:
+    rewards:
+      - type: "VAULT"
+        amount: 158000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 14000
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>158.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>14.000 Farming XP"
+
+  79:
+    rewards:
+      - type: "VAULT"
+        amount: 160000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE ARCHONPIYAGRA %player% 2"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>160.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>2x Archon Piya-Gra"
+
+  80:
+    rewards:
+      - type: "VAULT"
+        amount: 162000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Unbreakable 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>162.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Unbreakable 1"
+
+  81:
+    rewards:
+      - type: "VAULT"
+        amount: 164000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae giveitem %player% blackscroll 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>164.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>1x Black Scroll"
+
+  82:
+    rewards:
+      - type: "VAULT"
+        amount: 166000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 4 LEGENDARY"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>166.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <gold>4x Legendary Dust"
+
+  83:
+    rewards:
+      - type: "VAULT"
+        amount: 168000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Trench 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>168.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Trench 1"
+
+  84:
+    rewards:
+      - type: "VAULT"
+        amount: 170000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 18000
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>170.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>18.000 Farming XP"
+
+  85:
+    rewards:
+      - type: "VAULT"
+        amount: 172000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 165000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Tunnel 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>172.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>165.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Tunnel 1"
+
+  86:
+    rewards:
+      - type: "VAULT"
+        amount: 174000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE ARCHONPIYAGRA %player% 3"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>174.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>3x Archon Piya-Gra"
+
+  87:
+    rewards:
+      - type: "VAULT"
+        amount: 176000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Daybreaker 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>176.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Daybreaker 1"
+
+  88:
+    rewards:
+      - type: "VAULT"
+        amount: 178000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 8 LEGENDARY"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>178.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <gold>8x Legendary Dust"
+
+  89:
+    rewards:
+      - type: "VAULT"
+        amount: 180000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey holy_key %player% 3"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>180.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <gold>3x Holy Key"
+
+  90:
+    rewards:
+      - type: "VAULT"
+        amount: 182000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 1"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Moonglade 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>182.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>1 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Moonglade 1"
+
+  91:
+    rewards:
+      - type: "VAULT"
+        amount: 184000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 24000
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>184.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>24.000 Farming XP"
+
+  92:
+    rewards:
+      - type: "VAULT"
+        amount: 186000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "mi give CONSUMABLE ARCHONPIYAGRA %player% 4"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>186.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>4x Archon Piya-Gra"
+
+  93:
+    rewards:
+      - type: "VAULT"
+        amount: 188000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Rebound 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>188.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Rebound 1"
+
+  94:
+    rewards:
+      - type: "VAULT"
+        amount: 190000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 4 MYTHIC"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>190.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <light_purple>4x Mythic Dust"
+
+  95:
+    rewards:
+      - type: "VAULT"
+        amount: 192000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "shards give %player% 200000"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae givebook %player% Thunderlord 1"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>192.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:shard-color>200.000 <sc:shard-icon>"
+      - "<sc:lore-color>▪ <white>Buku CE Thunderlord 1"
+
+  96:
+    rewards:
+      - type: "VAULT"
+        amount: 194000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "crates giveKey old_key %player% 8"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>194.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <yellow>8x Old Key"
+
+  97:
+    rewards:
+      - type: "VAULT"
+        amount: 196000.0
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 32000
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>196.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <green>32.000 Farming XP"
+
+  98:
+    rewards:
+      - type: "VAULT"
+        amount: 198000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "advancedenchantments giveitem %player% magic 2 DIVINE"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>198.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <red>2x Divine Dust"
+
+  99:
+    rewards:
+      - type: "VAULT"
+        amount: 200000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "ae giveitem %player% blackscroll 2"
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>200.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <white>2x Black Scroll"
+
+  100:
+    rewards:
+      - type: "VAULT"
+        amount: 202000.0
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: "serium give %player% 2"
+      - type: "COMMAND"
+        executor: "CONSOLE"
+        command: 'lp user %player% meta setsuffix 100 " &a[Farmer Master]"'
+    display-rewards:
+      - "<sc:lore-color>▪ <sc:gins-color>202.000 <sc:gins-icon>"
+      - "<sc:lore-color>▪ <sc:serium-color>2 <sc:serium-icon>"
+      - "<sc:lore-color>▪ <green>Tag [Farmer Master]"
+
+# Pool daftar kontrak yang akan diundi oleh server
+orders-pool:
+  halloween_pumpkin_harvest:
+    display-name: "Pumpkin Halloween"
+    event: "halloween"
+    rerollable: false
+    lore:
+      - "<gray>Status: <yellow>{progress}/{required} Labu</yellow>"
+      - "<gray>Kumpulkan labu halloween untuk festival musim gugur!"
+    min-reputation: 5
+    max-reputation: 15
+    required-item:
+      source: "VANILLA"
+      material: "PUMPKIN"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 50000.0
+        display: "  <sc:lore-color>▪ <money-color>50.000 $"
+      - type: "JOB_XP"
+        amount: 350
+        display: "  <sc:lore-color>▪ <yellow>350 Job XP"
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 700
+        display: "  <sc:lore-color>▪ <green>700 Farming XP"
+    display-rewards:
+      - "  <sc:lore-color>▪ <sc:gins-color>50.000 <sc:gins-icon>"
+      - "  <sc:lore-color>▪ <yellow>350 Job XP"
+      - "  <sc:lore-color>▪ <green>700 Farming XP"
+      - "  <sc:lore-color>▪ <aqua>+{reputation} Reputasi Pasar"
+
+  wheat:
+    display-name: "Wheat"
+    lore:
+      - "<gray>Status: {progress}/{required} Wheat"
+      - "<gray>Kirimkan komoditas hasil panen gandum terbaik Anda."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "WHEAT"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 10000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>10.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  carrot:
+    display-name: "Carrot"
+    lore:
+      - "<gray>Status: {progress}/{required} Carrot"
+      - "<gray>Pasokan wortel segar untuk persediaan lumbung."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "CARROT"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 10000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>10.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  potato:
+    display-name: "Potato"
+    lore:
+      - "<gray>Status: {progress}/{required} Potato"
+      - "<gray>Pasokan kentang mentah untuk bahan pokok dapur."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "POTATO"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 10000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>10.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  beetroot:
+    display-name: "Beetroot"
+    lore:
+      - "<gray>Status: {progress}/{required} Beetroot"
+      - "<gray>Hasil panen bit merah segar berkualitas tinggi."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "BEETROOT"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 10000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>10.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  nether_wart:
+    display-name: "Nether Wart"
+    lore:
+      - "<gray>Status: {progress}/{required} Nether Wart"
+      - "<gray>Komoditas tumbuhan magis dari Nether."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "NETHER_WART"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 22000.0
+      - type: "JOB_XP"
+        amount: 150
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 350
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>22.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>150 Job XP"
+      - " <sc:lore-color>▪ <green>350 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  chorus_fruit:
+    display-name: "Chorus Fruit"
+    lore:
+      - "<gray>Status: {progress}/{required} Chorus Fruit"
+      - "<gray>Buah dimensi End dengan energi teleportasi unik."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "CHORUS_FRUIT"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 25000.0
+      - type: "JOB_XP"
+        amount: 175
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 400
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>25.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>175 Job XP"
+      - " <sc:lore-color>▪ <green>400 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  melon_slice:
+    display-name: "Melon Slice"
+    lore:
+      - "<gray>Status: {progress}/{required} Melon Slice"
+      - "<gray>Irisan semangka segar penyejuk dahaga."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "MELON_SLICE"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 10000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 200
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>10.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>200 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  sweet_berries:
+    display-name: "Sweet Berries"
+    lore:
+      - "<gray>Status: {progress}/{required} Sweet Berries"
+      - "<gray>Buah beri hutan yang manis."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "SWEET_BERRIES"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 12000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 200
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>12.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>200 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  glow_berries:
+    display-name: "Glow Berries"
+    lore:
+      - "<gray>Status: {progress}/{required} Glow Berries"
+      - "<gray>Beri bersinar dari gua rimbun."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "GLOW_BERRIES"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 12000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 220
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>12.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>220 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  baked_potato:
+    display-name: "Baked Potato"
+    lore:
+      - "<gray>Status: {progress}/{required} Baked Potato"
+      - "<gray>Kentang panggang hangat siap konsumsi."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "BAKED_POTATO"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 20000.0
+      - type: "JOB_XP"
+        amount: 150
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 300
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>20.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>150 Job XP"
+      - " <sc:lore-color>▪ <green>300 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  bread:
+    display-name: "Bread"
+    lore:
+      - "<gray>Status: {progress}/{required} Bread"
+      - "<gray>Roti gandum segar hasil olahan baker."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "BREAD"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 22000.0
+      - type: "JOB_XP"
+        amount: 160
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 320
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>22.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>160 Job XP"
+      - " <sc:lore-color>▪ <green>320 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  hay_bale:
+    display-name: "Hay Bale"
+    lore:
+      - "<gray>Status: {progress}/{required} Hay Bale"
+      - "<gray>Buntalan jerami kompresi untuk pakan ternak massal."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "HAY_BLOCK"
+      amount: 16
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 50000.0
+      - type: "JOB_XP"
+        amount: 300
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 600
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>50.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>300 Job XP"
+      - " <sc:lore-color>▪ <green>600 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  melon_block:
+    display-name: "Melon Block"
+    lore:
+      - "<gray>Status: {progress}/{required} Melon Block"
+      - "<gray>Semangka utuh dari kebun pertanian."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "MELON"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 28000.0
+      - type: "JOB_XP"
+        amount: 200
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 400
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>28.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>200 Job XP"
+      - " <sc:lore-color>▪ <green>400 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  pumpkin:
+    display-name: "Pumpkin"
+    lore:
+      - "<gray>Status: {progress}/{required} Pumpkin"
+      - "<gray>Labu kuning hasil panen ladang."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "PUMPKIN"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 30000.0
+      - type: "JOB_XP"
+        amount: 200
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 400
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>30.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>200 Job XP"
+      - " <sc:lore-color>▪ <green>400 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  raw_beef:
+    display-name: "Raw Beef"
+    lore:
+      - "<gray>Status: {progress}/{required} Raw Beef"
+      - "<gray>Daging sapi segar langsung dari peternakan."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "BEEF"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 18000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>18.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  raw_porkchop:
+    display-name: "Raw Porkchop"
+    lore:
+      - "<gray>Status: {progress}/{required} Raw Porkchop"
+      - "<gray>Daging babi mentah segar berkualitas."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "PORKCHOP"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 18000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>18.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  raw_mutton:
+    display-name: "Raw Mutton"
+    lore:
+      - "<gray>Status: {progress}/{required} Raw Mutton"
+      - "<gray>Daging domba segar hasil ternak padang rumput."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "MUTTON"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 16000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>16.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  raw_chicken:
+    display-name: "Raw Chicken"
+    lore:
+      - "<gray>Status: {progress}/{required} Raw Chicken"
+      - "<gray>Daging ayam segar dari kandang peternakan."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "CHICKEN"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 15000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>15.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  raw_rabbit:
+    display-name: "Raw Rabbit"
+    lore:
+      - "<gray>Status: {progress}/{required} Raw Rabbit"
+      - "<gray>Daging kelinci lembut hasil ternak."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "RABBIT"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 15000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 250
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>15.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>250 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  steak:
+    display-name: "Steak"
+    lore:
+      - "<gray>Status: {progress}/{required} Steak"
+      - "<gray>Daging steak panggang sempurna dengan nutrisi tinggi."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "COOKED_BEEF"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 32000.0
+      - type: "JOB_XP"
+        amount: 200
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 400
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>32.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>200 Job XP"
+      - " <sc:lore-color>▪ <green>400 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  cooked_porkchop:
+    display-name: "Cooked Porkchop"
+    lore:
+      - "<gray>Status: {progress}/{required} Cooked Porkchop"
+      - "<gray>Daging babi panggang matang dan lezat."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "COOKED_PORKCHOP"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 32000.0
+      - type: "JOB_XP"
+        amount: 200
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 400
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>32.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>200 Job XP"
+      - " <sc:lore-color>▪ <green>400 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  cooked_mutton:
+    display-name: "Cooked Mutton"
+    lore:
+      - "<gray>Status: {progress}/{required} Cooked Mutton"
+      - "<gray>Daging domba panggang matang beraroma gurih."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "COOKED_MUTTON"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 30000.0
+      - type: "JOB_XP"
+        amount: 190
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 380
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>30.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>190 Job XP"
+      - " <sc:lore-color>▪ <green>380 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  cooked_chicken:
+    display-name: "Cooked Chicken"
+    lore:
+      - "<gray>Status: {progress}/{required} Cooked Chicken"
+      - "<gray>Ayam panggang renyah siap santap."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "COOKED_CHICKEN"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 26000.0
+      - type: "JOB_XP"
+        amount: 175
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 350
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>26.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>175 Job XP"
+      - " <sc:lore-color>▪ <green>350 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  cooked_rabbit:
+    display-name: "Cooked Rabbit"
+    lore:
+      - "<gray>Status: {progress}/{required} Cooked Rabbit"
+      - "<gray>Daging kelinci panggang bergizi tinggi."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "COOKED_RABBIT"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 26000.0
+      - type: "JOB_XP"
+        amount: 175
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 350
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>26.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>175 Job XP"
+      - " <sc:lore-color>▪ <green>350 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  egg:
+    display-name: "Egg"
+    lore:
+      - "<gray>Status: {progress}/{required} Egg"
+      - "<gray>Telur ayam segar untuk penetasan atau bahan kue."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "EGG"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 12000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 200
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>12.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>200 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  cocoa_beans:
+    display-name: "Cocoa Beans"
+    lore:
+      - "<gray>Status: {progress}/{required} Cocoa Beans"
+      - "<gray>Biji kakao tropis untuk pembuatan cookies dan pewarna cokelat."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "COCOA_BEANS"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 14000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 220
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>14.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>220 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  sugar_cane:
+    display-name: "Sugar Cane"
+    lore:
+      - "<gray>Status: {progress}/{required} Sugar Cane"
+      - "<gray>Tebu manis untuk bahan dasar kertas dan gula rafinasi."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "SUGAR_CANE"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 14000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 220
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>14.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>220 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  cactus:
+    display-name: "Cactus"
+    lore:
+      - "<gray>Status: {progress}/{required} Cactus"
+      - "<gray>Kaktus gurun untuk bahan pewarna hijau alami."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "CACTUS"
+      amount: 64
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 12000.0
+      - type: "JOB_XP"
+        amount: 100
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 200
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>12.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>100 Job XP"
+      - " <sc:lore-color>▪ <green>200 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"
+
+  dried_kelp_block:
+    display-name: "Dried Kelp Block"
+    lore:
+      - "<gray>Status: {progress}/{required} Dried Kelp Block"
+      - "<gray>Blok rumput laut kering, bahan bakar efisien dan padat."
+    min-reputation: 1
+    max-reputation: 5
+    required-item:
+      source: "VANILLA"
+      material: "DRIED_KELP_BLOCK"
+      amount: 32
+      strict-nbt: false
+    rewards:
+      - type: "VAULT"
+        amount: 50000.0
+      - type: "JOB_XP"
+        amount: 280
+      - type: "AURASKILLS_XP"
+        skill: "farming"
+        amount: 500
+    display-rewards:
+      - " <sc:lore-color>▪ <sc:gins-color>50.000 <sc:gins-icon>"
+      - " <sc:lore-color>▪ <yellow>280 Job XP"
+      - " <sc:lore-color>▪ <green>500 Farming XP"
+      - " <sc:lore-color>▪ <gray>+<white>{reputation} Reputasi"

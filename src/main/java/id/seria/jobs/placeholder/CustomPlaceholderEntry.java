@@ -74,6 +74,9 @@ public class CustomPlaceholderEntry {
                 if (mgr != null && (evaluatedInput.contains("%custom_") || evaluatedInput.contains("%seriajobs_custom_"))) {
                     evaluatedInput = resolveCustomPlaceholdersDirectly(player, evaluatedInput, mgr);
                 }
+                if (evaluatedInput.contains("%jobsorder_")) {
+                    evaluatedInput = resolveJobsOrderPlaceholdersDirectly(player, evaluatedInput);
+                }
             }
             if (evaluatedInput.equals(prev)) break;
             depth++;
@@ -246,6 +249,9 @@ public class CustomPlaceholderEntry {
                 if (mgr != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
                     text = resolveCustomPlaceholdersDirectly(player, text, mgr);
                 }
+                if (text != null && text.contains("%jobsorder_")) {
+                    text = resolveJobsOrderPlaceholdersDirectly(player, text);
+                }
             }
             if (text == null || text.equals(prev)) break;
             depth++;
@@ -257,6 +263,28 @@ public class CustomPlaceholderEntry {
                     .replace("{player}", player.getName());
         }
         return text != null ? text : "";
+    }
+
+    private String resolveJobsOrderPlaceholdersDirectly(Player player, String text) {
+        if (text == null || text.isEmpty()) return text;
+        id.seria.jobs.hook.JobsPlaceholderExpansion expansion = SeriaJobs.getInstance().getHookManager() != null
+                ? SeriaJobs.getInstance().getHookManager().getJobsOrderExpansion()
+                : null;
+        if (expansion == null) expansion = new id.seria.jobs.hook.JobsPlaceholderExpansion(SeriaJobs.getInstance());
+        int start;
+        while ((start = text.indexOf("%jobsorder_")) != -1) {
+            int end = text.indexOf('%', start + 11);
+            if (end == -1) break;
+            String token = text.substring(start, end + 1);
+            String param = text.substring(start + 11, end);
+            String resolved = expansion.onRequest(player, param);
+            if (resolved != null) {
+                text = text.replace(token, resolved);
+            } else {
+                break;
+            }
+        }
+        return text;
     }
 
     private String resolveCustomPlaceholdersDirectly(Player player, String text, CustomPlaceholderManager mgr) {

@@ -998,6 +998,9 @@ public abstract class BaseMenu implements InventoryHolder {
         if (this instanceof OrderDepositMenu orderMenu) {
             return orderMenu.getJob();
         }
+        if (this instanceof OrderActionMenu actionMenu) {
+            return actionMenu.getJob();
+        }
         if (this instanceof JobProgressionMenu progMenu) {
             return progMenu.getJob();
         }

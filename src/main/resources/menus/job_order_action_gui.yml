@@ -1,0 +1,106 @@
+title: "<sc:menu-prefix>Kontrak ⏵ {order_display_name}"
+size: 27
+
+fillers:
+  glass:
+    material: "YELLOW_STAINED_GLASS_PANE"
+    name: " "
+    slots: [0, 1, 7, 8, 9, 17, 18, 19, 25, 26]
+    item-flags:
+      - "HIDE_ADDITIONAL_TOOLTIP"
+
+items:
+  # ==============================================================
+  # PREVIEW KONTRAK AKTIF
+  # ==============================================================
+  order_preview:
+    name: "<sc:title-color>{order_display_name}"
+    material: "CHEST"
+    taints:
+      order-preview: true
+    slot: 11
+    lore:
+      - ""
+      - "<sc:sub-title-color>Progres"
+      - "       <sc:lore-color>Item: <sc:highlight-color>{progress}<sc:lore-color>/<sc:highlight-color>{required_amount} <dark_gray>({percentage}%)"
+      - "{progress_bar}"
+      - ""
+      - "<sc:sub-title-color>Hadiah"
+      - "{rewards_list}"
+
+  # ==============================================================
+  # TOMBOL 1: SETOR BARANG
+  # ==============================================================
+  button_deposit:
+    name: "<sc:success-color>Setor Barang"
+    material: "HOPPER"
+    slot: 13
+    lore:
+      - ""
+      - "<sc:lore-color>Setorkan item dari inventaris"
+      - "<sc:lore-color>untuk menyelesaikan pesanan ini."
+      - ""
+      - "<sc:action-icon> <sc:action-color>Setor"
+    actions:
+      - "[DEPOSIT]"
+
+  # ==============================================================
+  # TOMBOL 2: REROLL KONTRAK (MULTI-STATE: LOCKED VS AVAILABLE)
+  # ==============================================================
+  button_reroll_locked:
+    name: "<gray>Reroll Kontrak <dark_gray>(Terkunci)"
+    material: "BARRIER"
+    slot: 15
+    priority: 2
+    lore:
+      - ""
+      - "<sc:info-icon> <gray>Pesanan ini tidak dapat di-reroll."
+    view-requirement:
+      requirements:
+        check_locked:
+          type: "placeholder"
+          input: "{is_rerollable}"
+          comparison: "=="
+          output: "false"
+    actions:
+      - "[sound] entity.villager.no 1 1"
+
+  button_reroll:
+    name: "<sc:highlight-color>Reroll Kontrak"
+    material: "ENDER_PEARL"
+    slot: 15
+    priority: 1
+    lore:
+      - ""
+      - "<sc:lore-color>Ganti pesanan ini dengan"
+      - "<sc:lore-color>kontrak kerja baru yang berbeda."
+      - ""
+      - "%custom_reroll_status%"
+    click-requirement:
+      requirements:
+        has_currency:
+          type: "placeholder"
+          input: "%custom_reroll_choice%"
+          comparison: "!="
+          output: "none"
+      deny-message: "%custom_reroll_deny-message%"
+      deny-actions:
+        - "[sound] entity.villager.no 1 1"
+    actions:
+      - "[console] %custom_reroll_command%"
+      - "[jobs_reroll]"
+
+  # ==============================================================
+  # TOMBOL KEMBALI
+  # ==============================================================
+  button_back:
+    name: "<sc:error-color>Kembali"
+    material: "RED_DYE"
+    slot: 22
+    lore:
+      - ""
+      - "<sc:lore-color>Kembali ke daftar bursa kerja."
+      - ""
+      - "<sc:action-icon> <sc:action-color>Kembali"
+    actions:
+      - "[BACK]"
