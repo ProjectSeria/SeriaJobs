@@ -1,5 +1,5 @@
 name: SeriaJobs
-version: 2.0.0
+version: '${project.version}'
 main: id.seria.jobs.SeriaJobs
 api-version: '1.21'
 author: Seria Network
