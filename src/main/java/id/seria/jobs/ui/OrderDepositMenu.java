@@ -303,7 +303,10 @@ public class OrderDepositMenu extends BaseMenu {
 
         boolean isEventOrder = isEventCard || order.isEventOrder() || (wo != null && wo.isEventOrder());
         boolean isRerollable = !isEventOrder && order.isRerollable() && (wo == null || wo.isRerollable());
-        String eventName = order.getEvent() != null ? order.getEvent() : (wo != null ? wo.getEvent() : "");
+        String eventName = (order.getEvent() != null && !order.getEvent().isBlank())
+                ? order.getEvent()
+                : ((wo != null && wo.getEvent() != null && !wo.getEvent().isBlank()) ? wo.getEvent() : "");
+        if (eventName == null) eventName = "";
 
         ItemStack cardItem = null;
         if (!isCompleted) {
@@ -347,17 +350,24 @@ public class OrderDepositMenu extends BaseMenu {
 
         ItemMeta meta = cardItem.getItemMeta();
         if (meta != null) {
-            String nameFormat = cardSec != null
-                    ? cardSec.getString("name", order.getDisplayName())
-                    : order.getDisplayName();
+            String orderDisplayName = order.getDisplayName() != null ? order.getDisplayName() : "";
+            String orderId = order.getId() != null ? order.getId() : "";
+            String jobDisplayName = job.getDisplayName() != null ? job.getDisplayName() : "";
+            String jobId = job.getId() != null ? job.getId() : "";
+            String itemName = ItemMatcher.getItemDisplayName(order);
+            if (itemName == null) itemName = "";
 
-            nameFormat = nameFormat.replace("{order_display_name}", order.getDisplayName())
-                    .replace("{order_id}", order.getId())
-                    .replace("{job_name}", job.getDisplayName())
-                    .replace("{job_id}", job.getId())
+            String nameFormat = cardSec != null
+                    ? cardSec.getString("name", orderDisplayName)
+                    : orderDisplayName;
+
+            nameFormat = nameFormat.replace("{order_display_name}", orderDisplayName)
+                    .replace("{order_id}", orderId)
+                    .replace("{job_name}", jobDisplayName)
+                    .replace("{job_id}", jobId)
                     .replace("{required_amount}", String.valueOf(required))
                     .replace("{required}", String.valueOf(required))
-                    .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
+                    .replace("{item_name}", itemName)
                     .replace("{progress}", String.valueOf(progress))
                     .replace("{percentage}", String.valueOf(percentage))
                     .replace("{multiplier}", multFormatted)
@@ -390,11 +400,11 @@ public class OrderDepositMenu extends BaseMenu {
                                 .replace("{required}", String.valueOf(required))
                                 .replace("{required_amount}", String.valueOf(required))
                                 .replace("{percentage}", String.valueOf(percentage))
-                                .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
-                                .replace("{order_display_name}", order.getDisplayName())
-                                .replace("{order_id}", order.getId())
-                                .replace("{job_name}", job.getDisplayName())
-                                .replace("{job_id}", job.getId())
+                                .replace("{item_name}", itemName)
+                                .replace("{order_display_name}", orderDisplayName)
+                                .replace("{order_id}", orderId)
+                                .replace("{job_name}", jobDisplayName)
+                                .replace("{job_id}", jobId)
                                 .replace("{multiplier}", multFormatted)
                                 .replace("{resource_multiplier}", multFormatted)
                                 .replace("{reward_multiplier}", rewardMultFormatted)
@@ -453,13 +463,13 @@ public class OrderDepositMenu extends BaseMenu {
                                 ? "<sc:info-icon> <gray>Pesanan Khusus Event <dark_gray>(Non-Rerollable)"
                                 : "<sc:info-icon> <gray>Pesanan Khusus <dark_gray>(Non-Rerollable)");
                     }
-                    replaced = replaced.replace("{order_display_name}", order.getDisplayName())
-                            .replace("{order_id}", order.getId())
-                            .replace("{job_name}", job.getDisplayName())
-                            .replace("{job_id}", job.getId())
+                    replaced = replaced.replace("{order_display_name}", orderDisplayName)
+                            .replace("{order_id}", orderId)
+                            .replace("{job_name}", jobDisplayName)
+                            .replace("{job_id}", jobId)
                             .replace("{required_amount}", String.valueOf(required))
                             .replace("{required}", String.valueOf(required))
-                            .replace("{item_name}", ItemMatcher.getItemDisplayName(order))
+                            .replace("{item_name}", itemName)
                             .replace("{progress}", String.valueOf(progress))
                             .replace("{percentage}", String.valueOf(percentage))
                             .replace("{multiplier}", multFormatted)

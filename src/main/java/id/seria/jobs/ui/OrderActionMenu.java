@@ -215,14 +215,22 @@ public class OrderActionMenu extends BaseMenu {
 
         boolean isEvent = slotNumber == 100 || (order != null && order.isEventOrder());
         boolean isRerollable = !isEvent && (order == null || order.isRerollable());
+        String eventName = (order != null && order.getEvent() != null && !order.getEvent().isBlank())
+                ? order.getEvent()
+                : ((wo != null && wo.getEvent() != null && !wo.getEvent().isBlank()) ? wo.getEvent() : "");
+        if (eventName == null) eventName = "";
 
-        String orderName = order != null ? order.getDisplayName() : "Pesanan";
+        String orderName = (order != null && order.getDisplayName() != null) ? order.getDisplayName() : "Pesanan";
+        String orderId = (order != null && order.getId() != null) ? order.getId() : "";
+        String jobName = (job != null && job.getDisplayName() != null) ? job.getDisplayName() : "";
+        String jobId = (job != null && job.getId() != null) ? job.getId() : "";
         String itemName = order != null ? ItemMatcher.getItemDisplayName(order) : "";
+        if (itemName == null) itemName = "";
 
         String replaced = text.replace("{order_display_name}", orderName)
-                .replace("{order_id}", order != null ? order.getId() : "")
-                .replace("{job_name}", job.getDisplayName())
-                .replace("{job_id}", job.getId())
+                .replace("{order_id}", orderId)
+                .replace("{job_name}", jobName)
+                .replace("{job_id}", jobId)
                 .replace("{job_level}", String.valueOf(jobLevel))
                 .replace("{progress}", String.valueOf(progress))
                 .replace("{required_amount}", String.valueOf(required))
@@ -232,7 +240,9 @@ public class OrderActionMenu extends BaseMenu {
                 .replace("{item_name}", itemName)
                 .replace("{is_completed}", String.valueOf(isCompleted))
                 .replace("{is_rerollable}", String.valueOf(isRerollable))
-                .replace("{is_event}", String.valueOf(isEvent));
+                .replace("{is_event}", String.valueOf(isEvent))
+                .replace("{event_name}", eventName)
+                .replace("{event}", eventName);
 
         if (!isRerollable && replaced.contains("%custom_reroll_status%")) {
             replaced = replaced.replace("%custom_reroll_status%", isEvent
