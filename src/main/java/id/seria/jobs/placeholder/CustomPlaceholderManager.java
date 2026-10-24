@@ -40,6 +40,7 @@ public class CustomPlaceholderManager {
         // Check and copy default templates
         saveTemplateFile(folder, "playerlevel.yml");
         saveTemplateFile(folder, "reroll.yml");
+        saveTemplateFile(folder, "progressbar.yml");
     }
 
     private void saveTemplateFile(File folder, String fileName) {
@@ -124,7 +125,7 @@ public class CustomPlaceholderManager {
                 }
             }
 
-            CustomPlaceholderEntry entry = new CustomPlaceholderEntry(key, group, type, function, input, tracks);
+            CustomPlaceholderEntry entry = new CustomPlaceholderEntry(key, group, type, function, input, tracks, sec);
 
             // Register various formats for accessibility
             // 1. Full group + key: e.g. playerlevel_math-message-next
@@ -170,19 +171,24 @@ public class CustomPlaceholderManager {
 
     @Nullable
     public String evaluate(@Nullable Player player, @NotNull String params) {
+        return evaluate(player, params, null);
+    }
+
+    @Nullable
+    public String evaluate(@Nullable Player player, @NotNull String params, @Nullable Map<String, String> context) {
         String clean = params.trim();
         String lower = clean.toLowerCase();
 
-        // 1. Direct match in registry (e.g. playerlevel_math-message-next)
+        // 1. Direct match in registry (e.g. playerlevel_math-message-next or progressbar_job-xp-progress)
         CustomPlaceholderEntry entry = placeholderRegistry.get(lower);
         if (entry != null) {
-            return entry.evaluate(player);
+            return entry.evaluate(player, context);
         }
 
-        // 2. Check fallback registry by key alone (e.g. math-message-next)
+        // 2. Check fallback registry by key alone (e.g. math-message-next or job-xp-progress)
         entry = fallbackRegistry.get(lower);
         if (entry != null) {
-            return entry.evaluate(player);
+            return entry.evaluate(player, context);
         }
 
         // 3. Strip prefixes if present: custom_, jobs_, seriajobs_
@@ -190,14 +196,14 @@ public class CustomPlaceholderManager {
             String stripped = lower.substring(7);
             entry = placeholderRegistry.get(stripped);
             if (entry == null) entry = fallbackRegistry.get(stripped);
-            if (entry != null) return entry.evaluate(player);
+            if (entry != null) return entry.evaluate(player, context);
         }
 
         if (lower.startsWith("seriajobs_")) {
             String stripped = lower.substring(10);
             entry = placeholderRegistry.get(stripped);
             if (entry == null) entry = fallbackRegistry.get(stripped);
-            if (entry != null) return entry.evaluate(player);
+            if (entry != null) return entry.evaluate(player, context);
         }
 
         return null;
@@ -205,5 +211,9 @@ public class CustomPlaceholderManager {
 
     public Map<String, CustomPlaceholderEntry> getPlaceholderRegistry() {
         return Collections.unmodifiableMap(placeholderRegistry);
+    }
+
+    public Map<String, CustomPlaceholderEntry> getFallbackRegistry() {
+        return Collections.unmodifiableMap(fallbackRegistry);
     }
 }

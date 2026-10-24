@@ -1,0 +1,22 @@
+# ==============================================================
+# SeriaJobs - Custom Progress Bar Placeholders
+# File: placeholder/progressbar.yml
+# Usage:
+#   %custom_progressbar_job-xp-progress%
+#   %custom_job-xp-progress%
+# ==============================================================
+
+job-xp-progress:
+  type: "function"
+  function: "progress"
+
+  first-completing: "<dark_gray>[</dark_gray><sc:title-color>■"
+  first-remaining: "<dark_gray>[</dark_gray><sc:lore-color>■"
+  completing: "<sc:title-color>■"
+  remaining: "<sc:lore-color>■"
+  last-completing: "<sc:title-color>■<dark_gray>]</dark_gray>"
+  last-remaining: "<sc:lore-color>■<dark_gray>]</dark_gray>"
+  
+  value: "%seriajobs_xp%"
+  max: "%seriajobs_required_xp%"
+  length: 20

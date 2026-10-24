@@ -20,18 +20,61 @@ public class CustomPlaceholderEntry {
     private final String input;
     private final Map<String, String> tracks;
 
+    // Progress bar fields
+    private final String valueExpr;
+    private final String maxExpr;
+    private final int length;
+    private final String firstCompleting;
+    private final String firstRemaining;
+    private final String completing;
+    private final String remaining;
+    private final String lastCompleting;
+    private final String lastRemaining;
+
     public CustomPlaceholderEntry(@NotNull String id,
                                   @NotNull String group,
                                   @Nullable String type,
                                   @Nullable String function,
                                   @Nullable String input,
                                   @Nullable Map<String, String> tracks) {
+        this(id, group, type, function, input, tracks, null);
+    }
+
+    public CustomPlaceholderEntry(@NotNull String id,
+                                  @NotNull String group,
+                                  @Nullable String type,
+                                  @Nullable String function,
+                                  @Nullable String input,
+                                  @Nullable Map<String, String> tracks,
+                                  @Nullable org.bukkit.configuration.ConfigurationSection sec) {
         this.id = id;
         this.group = group;
         this.type = type != null ? type : "function";
         this.function = function != null ? function : "short-track";
         this.input = input != null ? input : "";
         this.tracks = tracks != null ? new LinkedHashMap<>(tracks) : Collections.emptyMap();
+
+        if (sec != null) {
+            this.valueExpr = sec.getString("value", sec.getString("input", "0"));
+            this.maxExpr = sec.getString("max", "100");
+            this.length = sec.getInt("length", 20);
+            this.firstCompleting = sec.getString("first-completing", sec.getString("completing", "<green>|"));
+            this.firstRemaining = sec.getString("first-remaining", sec.getString("remaining", "<gray>|"));
+            this.completing = sec.getString("completing", "<green>|");
+            this.remaining = sec.getString("remaining", "<gray>|");
+            this.lastCompleting = sec.getString("last-completing", sec.getString("completing", "<green>|"));
+            this.lastRemaining = sec.getString("last-remaining", sec.getString("remaining", "<gray>|"));
+        } else {
+            this.valueExpr = this.input;
+            this.maxExpr = "100";
+            this.length = 20;
+            this.firstCompleting = "<green>|";
+            this.firstRemaining = "<gray>|";
+            this.completing = "<green>|";
+            this.remaining = "<gray>|";
+            this.lastCompleting = "<green>|";
+            this.lastRemaining = "<gray>|";
+        }
     }
 
     public String getId() {
@@ -60,38 +103,22 @@ public class CustomPlaceholderEntry {
 
     @NotNull
     public String evaluate(@Nullable Player player) {
+        return evaluate(player, null);
+    }
+
+    @NotNull
+    public String evaluate(@Nullable Player player, @Nullable Map<String, String> context) {
+        if ("progress".equalsIgnoreCase(function) || "progressbar".equalsIgnoreCase(function)) {
+            return evaluateProgressBar(player, context);
+        }
+
         String evaluatedInput = input != null ? input : "";
-        int depth = 0;
-        while (evaluatedInput.contains("%") && depth < 6) {
-            String prev = evaluatedInput;
-            if (player != null && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-                try {
-                    evaluatedInput = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, evaluatedInput);
-                } catch (Throwable ignored) {}
-            }
-            if (evaluatedInput.equals(prev)) {
-                var mgr = SeriaJobs.getInstance().getCustomPlaceholderManager();
-                if (mgr != null && (evaluatedInput.contains("%custom_") || evaluatedInput.contains("%seriajobs_custom_"))) {
-                    evaluatedInput = resolveCustomPlaceholdersDirectly(player, evaluatedInput, mgr);
-                }
-                if (evaluatedInput.contains("%jobsorder_")) {
-                    evaluatedInput = resolveJobsOrderPlaceholdersDirectly(player, evaluatedInput);
-                }
-            }
-            if (evaluatedInput.equals(prev)) break;
-            depth++;
-        }
-        if (player != null && evaluatedInput != null) {
-            evaluatedInput = evaluatedInput.replace("%player_name%", player.getName())
-                    .replace("{player_name}", player.getName())
-                    .replace("%player%", player.getName())
-                    .replace("{player}", player.getName());
-        }
+        evaluatedInput = resolveTextRecursively(player, evaluatedInput, context);
         evaluatedInput = evaluatedInput.trim();
 
         if ("function".equalsIgnoreCase(type) || "track".equalsIgnoreCase(type)) {
             if ("short-track".equalsIgnoreCase(function) || "track".equalsIgnoreCase(function)) {
-                return evaluateTrack(player, evaluatedInput);
+                return evaluateTrack(player, evaluatedInput, context);
             } else if ("math".equalsIgnoreCase(function)) {
                 return evaluateMath(player, evaluatedInput);
             }
@@ -101,13 +128,45 @@ public class CustomPlaceholderEntry {
 
         // Fallback: evaluate tracks or return evaluatedInput
         if (!tracks.isEmpty()) {
-            return evaluateTrack(player, evaluatedInput);
+            return evaluateTrack(player, evaluatedInput, context);
         }
 
-        return resolveOutput(player, evaluatedInput);
+        return resolveOutput(player, evaluatedInput, context);
     }
 
-    private String evaluateTrack(@Nullable Player player, @NotNull String rawInput) {
+    private String evaluateProgressBar(@Nullable Player player, @Nullable Map<String, String> context) {
+        String valRaw = valueExpr != null && !valueExpr.isBlank() ? valueExpr : (input != null && !input.isBlank() ? input : "0");
+        String maxRaw = maxExpr != null && !maxExpr.isBlank() ? maxExpr : "100";
+
+        String valStr = resolveTextRecursively(player, valRaw, context);
+        String maxStr = resolveTextRecursively(player, maxRaw, context);
+
+        double val = 0;
+        double max = 100;
+        try { val = Double.parseDouble(valStr.replace(",", "").trim()); } catch (NumberFormatException ignored) {}
+        try { max = Double.parseDouble(maxStr.replace(",", "").trim()); } catch (NumberFormatException ignored) {}
+        if (max <= 0) max = 1;
+
+        int barLength = length > 0 ? length : 20;
+        double percent = Math.min(1.0, Math.max(0.0, val / max));
+        int completedBars = (int) Math.round(percent * barLength);
+
+        StringBuilder bar = new StringBuilder();
+        for (int i = 0; i < barLength; i++) {
+            boolean isCompleted = i < completedBars;
+            if (i == 0) {
+                bar.append(isCompleted ? firstCompleting : firstRemaining);
+            } else if (i == barLength - 1) {
+                bar.append(isCompleted ? lastCompleting : lastRemaining);
+            } else {
+                bar.append(isCompleted ? completing : remaining);
+            }
+        }
+
+        return bar.toString();
+    }
+
+    private String evaluateTrack(@Nullable Player player, @NotNull String rawInput, @Nullable Map<String, String> context) {
         Double numericInput = null;
         try {
             numericInput = Double.parseDouble(rawInput.replace(",", ""));
@@ -127,39 +186,39 @@ public class CustomPlaceholderEntry {
             if (cond.startsWith("==") || cond.startsWith("=")) {
                 String valStr = cond.startsWith("==") ? cond.substring(2).trim() : cond.substring(1).trim();
                 if (matchesEquality(numericInput, rawInput, valStr)) {
-                    return resolveOutput(player, output);
+                    return resolveOutput(player, output, context);
                 }
             } else if (cond.startsWith("!=")) {
                 String valStr = cond.substring(2).trim();
                 if (!matchesEquality(numericInput, rawInput, valStr)) {
-                    return resolveOutput(player, output);
+                    return resolveOutput(player, output, context);
                 }
             } else if (cond.startsWith("<=")) {
                 if (numericInput != null) {
                     try {
                         double val = Double.parseDouble(cond.substring(2).trim());
-                        if (numericInput <= val) return resolveOutput(player, output);
+                        if (numericInput <= val) return resolveOutput(player, output, context);
                     } catch (NumberFormatException ignored) {}
                 }
             } else if (cond.startsWith("<")) {
                 if (numericInput != null) {
                     try {
                         double val = Double.parseDouble(cond.substring(1).trim());
-                        if (numericInput < val) return resolveOutput(player, output);
+                        if (numericInput < val) return resolveOutput(player, output, context);
                     } catch (NumberFormatException ignored) {}
                 }
             } else if (cond.startsWith(">=")) {
                 if (numericInput != null) {
                     try {
                         double val = Double.parseDouble(cond.substring(2).trim());
-                        if (numericInput >= val) return resolveOutput(player, output);
+                        if (numericInput >= val) return resolveOutput(player, output, context);
                     } catch (NumberFormatException ignored) {}
                 }
             } else if (cond.startsWith(">")) {
                 if (numericInput != null) {
                     try {
                         double val = Double.parseDouble(cond.substring(1).trim());
-                        if (numericInput > val) return resolveOutput(player, output);
+                        if (numericInput > val) return resolveOutput(player, output, context);
                     } catch (NumberFormatException ignored) {}
                 }
             } else if (cond.contains("..")) {
@@ -169,19 +228,19 @@ public class CustomPlaceholderEntry {
                         double min = Double.parseDouble(range[0].trim());
                         double max = Double.parseDouble(range[1].trim());
                         if (numericInput >= min && numericInput <= max) {
-                            return resolveOutput(player, output);
+                            return resolveOutput(player, output, context);
                         }
                     } catch (NumberFormatException ignored) {}
                 }
             } else {
                 // Direct value match (e.g. "0": "...")
                 if (matchesEquality(numericInput, rawInput, cond)) {
-                    return resolveOutput(player, output);
+                    return resolveOutput(player, output, context);
                 }
             }
         }
 
-        return defaultResult != null ? resolveOutput(player, defaultResult) : "";
+        return defaultResult != null ? resolveOutput(player, defaultResult, context) : "";
     }
 
     private boolean matchesEquality(@Nullable Double numericInput, @NotNull String rawInput, @NotNull String target) {
@@ -234,8 +293,13 @@ public class CustomPlaceholderEntry {
         return String.format(java.util.Locale.US, "%.2f", val);
     }
 
-    private String resolveOutput(@Nullable Player player, @Nullable String text) {
-        if (text == null) return "";
+    private String resolveTextRecursively(@Nullable Player player, @Nullable String text, @Nullable Map<String, String> context) {
+        if (text == null || text.isEmpty()) return "";
+        if (context != null && !context.isEmpty()) {
+            for (Map.Entry<String, String> entry : context.entrySet()) {
+                text = text.replace(entry.getKey(), entry.getValue());
+            }
+        }
         int depth = 0;
         while (text != null && text.contains("%") && depth < 6) {
             String prev = text;
@@ -244,10 +308,15 @@ public class CustomPlaceholderEntry {
                     text = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, text);
                 } catch (Throwable ignored) {}
             }
+            if (context != null && !context.isEmpty()) {
+                for (Map.Entry<String, String> entry : context.entrySet()) {
+                    text = text.replace(entry.getKey(), entry.getValue());
+                }
+            }
             if (text != null && text.equals(prev)) {
                 var mgr = SeriaJobs.getInstance().getCustomPlaceholderManager();
                 if (mgr != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
-                    text = resolveCustomPlaceholdersDirectly(player, text, mgr);
+                    text = resolveCustomPlaceholdersDirectly(player, text, mgr, context);
                 }
                 if (text != null && text.contains("%jobsorder_")) {
                     text = resolveJobsOrderPlaceholdersDirectly(player, text);
@@ -263,6 +332,10 @@ public class CustomPlaceholderEntry {
                     .replace("{player}", player.getName());
         }
         return text != null ? text : "";
+    }
+
+    private String resolveOutput(@Nullable Player player, @Nullable String text, @Nullable Map<String, String> context) {
+        return resolveTextRecursively(player, text, context);
     }
 
     private String resolveJobsOrderPlaceholdersDirectly(Player player, String text) {
@@ -287,14 +360,14 @@ public class CustomPlaceholderEntry {
         return text;
     }
 
-    private String resolveCustomPlaceholdersDirectly(Player player, String text, CustomPlaceholderManager mgr) {
+    private String resolveCustomPlaceholdersDirectly(Player player, String text, CustomPlaceholderManager mgr, @Nullable Map<String, String> context) {
         int start;
         while ((start = text.indexOf("%custom_")) != -1) {
             int end = text.indexOf('%', start + 8);
             if (end == -1) break;
             String token = text.substring(start, end + 1);
             String param = text.substring(start + 8, end);
-            String resolved = mgr.evaluate(player, param);
+            String resolved = mgr.evaluate(player, param, context);
             if (resolved != null) {
                 text = text.replace(token, resolved);
             } else {
@@ -306,7 +379,7 @@ public class CustomPlaceholderEntry {
             if (end == -1) break;
             String token = text.substring(start, end + 1);
             String param = text.substring(start + 18, end);
-            String resolved = mgr.evaluate(player, param);
+            String resolved = mgr.evaluate(player, param, context);
             if (resolved != null) {
                 text = text.replace(token, resolved);
             } else {

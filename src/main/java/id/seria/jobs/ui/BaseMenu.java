@@ -166,9 +166,22 @@ public abstract class BaseMenu implements InventoryHolder {
             }
         } catch (Throwable ignored) {}
 
+        if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
+            text = resolveCustomPlaceholdersDirectly(text);
+        }
+
+        if (text.contains("%jobsorder_")) {
+            text = resolveJobsOrderPlaceholdersDirectly(text);
+        }
+
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && text.contains("%")) {
             text = PlaceholderAPI.setPlaceholders(player, text);
         }
+
+        if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
+            text = resolveCustomPlaceholdersDirectly(text);
+        }
+
         return text;
     }
 
@@ -546,41 +559,117 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
     protected String resolveCustomPlaceholdersDirectly(String text) {
+        return resolveCustomPlaceholdersDirectly(text, null);
+    }
+
+    protected String resolveCustomPlaceholdersDirectly(String text, Map<String, String> context) {
         if (text == null || text.isEmpty() || plugin.getCustomPlaceholderManager() == null) {
             return text;
         }
         var mgr = plugin.getCustomPlaceholderManager();
         int maxLoop = 5;
-        while (maxLoop-- > 0 && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
+        while (maxLoop-- > 0) {
             String prev = text;
+
+            // 1. %custom_<param>%
             int start;
             while ((start = text.indexOf("%custom_")) != -1) {
                 int end = text.indexOf('%', start + 8);
                 if (end == -1) break;
                 String token = text.substring(start, end + 1);
                 String param = text.substring(start + 8, end);
-                String resolved = mgr.evaluate(player, param);
+                String resolved = mgr.evaluate(player, param, context);
                 if (resolved != null) {
                     text = text.replace(token, resolved);
                 } else {
                     break;
                 }
             }
+
+            // 2. %seriajobs_custom_<param>%
             while ((start = text.indexOf("%seriajobs_custom_")) != -1) {
                 int end = text.indexOf('%', start + 18);
                 if (end == -1) break;
                 String token = text.substring(start, end + 1);
                 String param = text.substring(start + 18, end);
-                String resolved = mgr.evaluate(player, param);
+                String resolved = mgr.evaluate(player, param, context);
                 if (resolved != null) {
                     text = text.replace(token, resolved);
                 } else {
                     break;
                 }
             }
+
+            // 3. %seriajobs_<param>% check in custom placeholder registry
+            int sjIdx = 0;
+            while ((sjIdx = text.indexOf("%seriajobs_", sjIdx)) != -1) {
+                int end = text.indexOf('%', sjIdx + 11);
+                if (end == -1) break;
+                String token = text.substring(sjIdx, end + 1);
+                String param = text.substring(sjIdx + 11, end);
+                String resolved = mgr.evaluate(player, param, context);
+                if (resolved != null) {
+                    text = text.replace(token, resolved);
+                } else {
+                    sjIdx = end + 1;
+                }
+            }
+
+            // 4. Direct keys from registry: %<key>%, {<key>}
+            for (String key : mgr.getPlaceholderRegistry().keySet()) {
+                String pct = "%" + key + "%";
+                if (text.toLowerCase().contains(pct)) {
+                    String resolved = mgr.evaluate(player, key, context);
+                    if (resolved != null) {
+                        text = replaceIgnoreCase(text, pct, resolved);
+                    }
+                }
+                String brace = "{" + key + "}";
+                if (text.toLowerCase().contains(brace)) {
+                    String resolved = mgr.evaluate(player, key, context);
+                    if (resolved != null) {
+                        text = replaceIgnoreCase(text, brace, resolved);
+                    }
+                }
+            }
+
+            for (String key : mgr.getFallbackRegistry().keySet()) {
+                String pct = "%" + key + "%";
+                if (text.toLowerCase().contains(pct)) {
+                    String resolved = mgr.evaluate(player, key, context);
+                    if (resolved != null) {
+                        text = replaceIgnoreCase(text, pct, resolved);
+                    }
+                }
+                String brace = "{" + key + "}";
+                if (text.toLowerCase().contains(brace)) {
+                    String resolved = mgr.evaluate(player, key, context);
+                    if (resolved != null) {
+                        text = replaceIgnoreCase(text, brace, resolved);
+                    }
+                }
+            }
+
             if (text.equals(prev)) break;
         }
         return text;
+    }
+
+    private String replaceIgnoreCase(String source, String target, String replacement) {
+        if (source == null || target == null || replacement == null) return source;
+        int idx = source.toLowerCase().indexOf(target.toLowerCase());
+        if (idx == -1) return source;
+        StringBuilder sb = new StringBuilder();
+        int lastIdx = 0;
+        int targetLen = target.length();
+        while (idx != -1) {
+            sb.append(source, lastIdx, idx);
+            sb.append(replacement);
+            lastIdx = idx + targetLen;
+            idx = source.toLowerCase().indexOf(target.toLowerCase(), lastIdx);
+        }
+        sb.append(source.substring(lastIdx));
+        return sb.toString();
     }
 
     protected String resolveJobsOrderPlaceholdersDirectly(String text) {

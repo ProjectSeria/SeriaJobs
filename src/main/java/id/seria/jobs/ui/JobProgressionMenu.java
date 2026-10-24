@@ -70,7 +70,13 @@ public class JobProgressionMenu extends BaseMenu {
                 .replace("{required_xp}", String.valueOf(reqXp))
                 .replace("%required_xp%", String.valueOf(reqXp))
                 .replace("{req_xp}", String.valueOf(reqXp))
-                .replace("%req_xp%", String.valueOf(reqXp));
+                .replace("%req_xp%", String.valueOf(reqXp))
+                .replace("%seriajobs_xp%", String.valueOf(xp))
+                .replace("%seriajobs_job_xp%", String.valueOf(xp))
+                .replace("%seriajobs_required_xp%", String.valueOf(reqXp))
+                .replace("%seriajobs_job_required_xp%", String.valueOf(reqXp))
+                .replace("%seriajobs_level%", String.valueOf(level))
+                .replace("%seriajobs_job_level%", String.valueOf(level));
 
         int maxPage = calculateMaxPage();
         int nextPage = Math.min(maxPage, page + 1);
@@ -237,7 +243,8 @@ public class JobProgressionMenu extends BaseMenu {
             percentage = 0;
         }
 
-        int progressForBar = isReached ? requiredXp : (isNext ? currentXp : 0);
+        int reqForCard = level == 1 ? (requiredXp > 0 ? requiredXp : 1) : Math.max(1, requiredXp);
+        int progressForBar = isReached ? reqForCard : (isNext ? currentXp : 0);
         String progressBar = createProgressBar(progressForBar, requiredXp);
 
         Map<String, String> placeholders = new HashMap<>();
@@ -249,13 +256,33 @@ public class JobProgressionMenu extends BaseMenu {
         placeholders.put("{xp}", String.valueOf(currentXp));
         placeholders.put("{needed_xp}", String.valueOf(needed));
         placeholders.put("{percentage}", String.valueOf(percentage));
-        placeholders.put("{progress_bar}", progressBar);
         placeholders.put("{status}", isReached ? "TERCAPAI" : (isNext ? "LEVEL BERIKUTNYA" : "TERKUNCI"));
         placeholders.put("{status_color}", isReached ? "<green>" : (isNext ? "<yellow>" : "<gray>"));
         placeholders.put("{is_reached}", String.valueOf(isReached));
         placeholders.put("{is_next}", String.valueOf(isNext));
         placeholders.put("{is_locked}", String.valueOf(!isReached && !isNext));
         placeholders.put("{has_milestone}", String.valueOf(hasMilestone));
+
+        // Contextual tokens for custom progress bar / placeholder engines
+        placeholders.put("%seriajobs_xp%", String.valueOf(progressForBar));
+        placeholders.put("%seriajobs_required_xp%", String.valueOf(reqForCard));
+        placeholders.put("%seriajobs_job_xp%", String.valueOf(progressForBar));
+        placeholders.put("%seriajobs_job_required_xp%", String.valueOf(reqForCard));
+        placeholders.put("%seriajobs_level%", String.valueOf(level));
+        placeholders.put("%seriajobs_job_level%", String.valueOf(level));
+        placeholders.put("%seriajobs_percentage%", String.valueOf(percentage));
+
+        // Evaluate custom progress bar if registered (e.g. from placeholder/progressbar.yml)
+        if (plugin.getCustomPlaceholderManager() != null) {
+            String customBar = plugin.getCustomPlaceholderManager().evaluate(player, "job-xp-progress", placeholders);
+            if (customBar != null) {
+                progressBar = customBar;
+                placeholders.put("{job-xp-progress}", customBar);
+                placeholders.put("%job-xp-progress%", customBar);
+            }
+        }
+        placeholders.put("{progress_bar}", progressBar);
+        placeholders.put("%progress_bar%", progressBar);
 
         // 1. Check if specific custom icon/item is configured for this level in job config
         org.bukkit.configuration.ConfigurationSection customIconSec = job.getLevelIcon(level);
@@ -397,6 +424,7 @@ public class JobProgressionMenu extends BaseMenu {
 
             if (sec.contains("name")) {
                 String rawName = sec.getString("name");
+                rawName = resolveCustomPlaceholdersDirectly(rawName, placeholders);
                 for (Map.Entry<String, String> entry : placeholders.entrySet()) {
                     rawName = rawName.replace(entry.getKey(), entry.getValue());
                 }
@@ -419,7 +447,7 @@ public class JobProgressionMenu extends BaseMenu {
                         continue;
                     }
 
-                    String replaced = line;
+                    String replaced = resolveCustomPlaceholdersDirectly(line, placeholders);
                     for (Map.Entry<String, String> entry : placeholders.entrySet()) {
                         replaced = replaced.replace(entry.getKey(), entry.getValue());
                     }
