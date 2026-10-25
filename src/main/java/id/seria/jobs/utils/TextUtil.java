@@ -19,6 +19,9 @@ public class TextUtil {
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
     private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacySection();
     private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
+    private static final Pattern PATTERN_LP_META = Pattern.compile("\\{(?:luckperms_meta|lp_meta):([a-zA-Z0-9._-]+)\\}");
+    private static final Pattern PATTERN_HEX_AMP = Pattern.compile("[&§]#([A-Fa-f0-9]{6})");
+    private static final Pattern PATTERN_BUKKIT_HEX = Pattern.compile("[&§]x([&§][A-Fa-f0-9]){6}");
 
     public static Component parse(@Nullable String text) {
         if (text == null || text.isEmpty()) {
@@ -48,7 +51,7 @@ public class TextUtil {
      */
     private static String formatSemanticColors(String text) {
         if (text == null || text.isEmpty()) return "";
-        if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
+        if (org.bukkit.Bukkit.getServer() != null && org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
             try {
                 text = id.seria.core.placeholder.CustomPlaceholderManager.parse(null, text);
             } catch (Throwable ignored) {}
@@ -58,7 +61,7 @@ public class TextUtil {
         }
 
         // Direct fallback replacements for common SeriaPrefix and semantic tags
-        if (text.contains("<sc:") || text.contains("<p:") || text.contains("<prefix>") || text.contains("%sc_") || text.contains("%menu-prefix%")) {
+        if (text.contains("<sc:") || text.contains("<p:") || text.contains("<prefix>") || text.contains("<menu-prefix>") || text.contains("%sc_") || text.contains("%menu-prefix%")) {
             text = text
                     .replace("<sc:menu-prefix>", "<black><bold>| </bold><dark_gray>")
                     .replace("<p:menu-prefix>", "<black><bold>| </bold><dark_gray>")
@@ -104,26 +107,30 @@ public class TextUtil {
             return Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         }
 
-        if (player != null) {
+        // Fast short-circuit: if string has no placeholders, tags, or legacy color codes, parse directly
+        if (text.indexOf('%') == -1 && text.indexOf('{') == -1 && text.indexOf('<') == -1 && text.indexOf('&') == -1 && text.indexOf('§') == -1) {
+            return Component.text(text).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+        }
+
+        if (player != null && (text.indexOf('{') != -1 || text.indexOf('%') != -1)) {
             text = replaceLuckPermsPlaceholders(player, text);
         }
 
-        // Delegate to SeriaCore universal placeholder & semantic engine first
-        if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
-            try {
-                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
-            } catch (Throwable ignored) {}
-        }
-
-        // Parse PAPI if player is available
-        if (player != null && SeriaJobs.getInstance().getHookManager().isPapiLoaded()) {
-            try {
-                text = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, text);
-            } catch (Throwable ignored) {}
+        // Only parse if unresolved placeholders remain
+        if (text.indexOf('%') != -1) {
+            if (org.bukkit.Bukkit.getServer() != null && org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
+                try {
+                    text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
+                } catch (Throwable ignored) {}
+            } else if (player != null && SeriaJobs.getInstance().getHookManager().isPapiLoaded()) {
+                try {
+                    text = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, text);
+                } catch (Throwable ignored) {}
+            }
         }
 
         // Apply SeriaTranslator translation if hooked
-        if (player != null && SeriaJobs.getInstance().getHookManager().isSeriaTranslatorLoaded()) {
+        if (player != null && SeriaJobs.getInstance().getHookManager().isSeriaTranslatorLoaded() && text.contains("<tr:")) {
             try {
                 text = SeriaJobs.getInstance().getHookManager().getSeriaTranslatorHook().translate(player, text);
             } catch (Throwable ignored) {}
@@ -154,8 +161,7 @@ public class TextUtil {
 
         // Pattern matching for {luckperms_meta:<key>} and {lp_meta:<key>}
         if (text.contains("{luckperms_meta:") || text.contains("{lp_meta:")) {
-            java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\{(?:luckperms_meta|lp_meta):([a-zA-Z0-9._-]+)\\}");
-            java.util.regex.Matcher matcher = pattern.matcher(text);
+            java.util.regex.Matcher matcher = PATTERN_LP_META.matcher(text);
             StringBuilder sb = new StringBuilder();
             while (matcher.find()) {
                 String metaKey = matcher.group(1);
@@ -183,10 +189,14 @@ public class TextUtil {
     }
 
     private static String prepareLegacyAndHex(String text) {
-        if (text == null) return "";
+        if (text == null || text.isEmpty()) return "";
+        // Fast short-circuit: if string has no legacy color codes, return as-is
+        if (text.indexOf('&') == -1 && text.indexOf('§') == -1) {
+            return text;
+        }
 
         // Convert &#RRGGBB or §#RRGGBB to <#RRGGBB>
-        Matcher hexMatcher = Pattern.compile("[&§]#([A-Fa-f0-9]{6})").matcher(text);
+        Matcher hexMatcher = PATTERN_HEX_AMP.matcher(text);
         StringBuffer sb = new StringBuffer();
         while (hexMatcher.find()) {
             hexMatcher.appendReplacement(sb, "<#" + hexMatcher.group(1) + ">");
@@ -195,7 +205,7 @@ public class TextUtil {
         String hexConverted = sb.toString();
 
         // Convert Minecraft Bukkit legacy hex format &x&r&r&g&g&b&b or §x§r§r§g§g§b§b
-        Matcher bukkitHexMatcher = Pattern.compile("[&§]x([&§][A-Fa-f0-9]){6}").matcher(hexConverted);
+        Matcher bukkitHexMatcher = PATTERN_BUKKIT_HEX.matcher(hexConverted);
         StringBuffer sbBukkit = new StringBuffer();
         while (bukkitHexMatcher.find()) {
             String found = bukkitHexMatcher.group();

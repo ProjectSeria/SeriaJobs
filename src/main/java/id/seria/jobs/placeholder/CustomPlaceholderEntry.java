@@ -295,6 +295,9 @@ public class CustomPlaceholderEntry {
 
     private String resolveTextRecursively(@Nullable Player player, @Nullable String text, @Nullable Map<String, String> context) {
         if (text == null || text.isEmpty()) return "";
+        if (text.indexOf('%') == -1 && text.indexOf('{') == -1 && (context == null || context.isEmpty())) {
+            return text;
+        }
         if (context != null && !context.isEmpty()) {
             for (Map.Entry<String, String> entry : context.entrySet()) {
                 text = text.replace(entry.getKey(), entry.getValue());
