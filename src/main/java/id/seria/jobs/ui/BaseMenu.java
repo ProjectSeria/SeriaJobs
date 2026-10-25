@@ -32,6 +32,9 @@ public abstract class BaseMenu implements InventoryHolder {
     protected final FileConfiguration menuConfig;
     protected Inventory inventory;
 
+    protected org.bukkit.scheduler.BukkitTask pendingRefreshTask;
+    protected long lastRefreshTime = 0L;
+
     protected final Map<Integer, Consumer<InventoryClickEvent>> clickActions = new HashMap<>();
     protected final Map<Integer, Consumer<InventoryClickEvent>> leftClickActions = new HashMap<>();
     protected final Map<Integer, Consumer<InventoryClickEvent>> rightClickActions = new HashMap<>();
@@ -158,13 +161,11 @@ public abstract class BaseMenu implements InventoryHolder {
     }
 
     protected String replacePlaceholders(String text) {
-        if (text == null)
+        if (text == null || text.isEmpty())
             return "";
-        try {
-            if (Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
-                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
-            }
-        } catch (Throwable ignored) {}
+        if (text.indexOf('%') == -1 && text.indexOf('{') == -1 && !text.contains("$e(")) {
+            return text;
+        }
 
         if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
             text = resolveCustomPlaceholdersDirectly(text);
@@ -174,13 +175,13 @@ public abstract class BaseMenu implements InventoryHolder {
             text = resolveJobsOrderPlaceholdersDirectly(text);
         }
 
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && text.contains("%")) {
-            text = PlaceholderAPI.setPlaceholders(player, text);
-        }
-
-        if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
-            text = resolveCustomPlaceholdersDirectly(text);
-        }
+        try {
+            if (Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
+                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
+            } else if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && text.contains("%")) {
+                text = PlaceholderAPI.setPlaceholders(player, text);
+            }
+        } catch (Throwable ignored) {}
 
         return text;
     }
@@ -512,6 +513,9 @@ public abstract class BaseMenu implements InventoryHolder {
     private String resolvePlaceholdersAndFunctions(String text) {
         if (text == null || text.isEmpty())
             return "";
+        if (text.indexOf('%') == -1 && text.indexOf('{') == -1 && text.indexOf('<') == -1 && !text.contains("$e(")) {
+            return text;
+        }
 
         if (menuConfig != null && menuConfig.isConfigurationSection("placeholders")
                 && text.contains("%placeholders_")) {
@@ -527,32 +531,10 @@ public abstract class BaseMenu implements InventoryHolder {
             }
         }
 
-        // 1. SeriaCore universal placeholder engine
-        try {
-            if (Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
-                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
-            }
-        } catch (Throwable ignored) {}
-
-        // 2. Direct custom placeholder resolution (%custom_...% and %seriajobs_custom_...%)
-        if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
-            text = resolveCustomPlaceholdersDirectly(text);
-        }
-
-        // 3. Direct jobsorder placeholder resolution (%jobsorder_...)
-        if (text.contains("%jobsorder_")) {
-            text = resolveJobsOrderPlaceholdersDirectly(text);
-        }
-
         text = replacePlaceholders(text);
-        text = MenuRequirementEvaluator.evaluateMathExpressions(text);
 
-        // 3. Fallback pass for nested custom placeholders after PAPI / Math
-        if (plugin.getCustomPlaceholderManager() != null && (text.contains("%custom_") || text.contains("%seriajobs_custom_"))) {
-            text = resolveCustomPlaceholdersDirectly(text);
-        }
-        if (text.contains("%jobsorder_")) {
-            text = resolveJobsOrderPlaceholdersDirectly(text);
+        if (text.contains("$e(")) {
+            text = MenuRequirementEvaluator.evaluateMathExpressions(text);
         }
 
         return text;
@@ -913,6 +895,20 @@ public abstract class BaseMenu implements InventoryHolder {
         }
     }
 
+    public void scheduleThrottledRefresh(long delayTicks) {
+        if (pendingRefreshTask != null && !pendingRefreshTask.isCancelled()) {
+            return;
+        }
+        pendingRefreshTask = Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            pendingRefreshTask = null;
+            long now = System.currentTimeMillis();
+            if (now - lastRefreshTime >= 40L) {
+                lastRefreshTime = now;
+                refresh();
+            }
+        }, Math.max(1L, delayTicks));
+    }
+
     private void handleRefreshAction(String actionStr) {
         long delay = 1L;
         if (actionStr.contains("delay=")) {
@@ -934,7 +930,7 @@ public abstract class BaseMenu implements InventoryHolder {
 
         final long finalDelay = delay;
         if (param.isEmpty() || param.equalsIgnoreCase("all")) {
-            Bukkit.getScheduler().runTaskLater(plugin, this::refresh, finalDelay);
+            scheduleThrottledRefresh(finalDelay);
         } else {
             String[] tokens = param.split("[,\\s]+");
             List<Integer> slots = new ArrayList<>();
@@ -952,7 +948,7 @@ public abstract class BaseMenu implements InventoryHolder {
                 }
             }
             if (slots.isEmpty()) {
-                Bukkit.getScheduler().runTaskLater(plugin, this::refresh, finalDelay);
+                scheduleThrottledRefresh(finalDelay);
             } else {
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
                     for (int s : slots) {
