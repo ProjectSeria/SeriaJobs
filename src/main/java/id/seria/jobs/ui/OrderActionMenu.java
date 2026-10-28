@@ -130,16 +130,7 @@ public class OrderActionMenu extends BaseMenu {
                 List<Component> finalLore = new ArrayList<>();
                 for (String line : rawLore) {
                     if (line.contains("{rewards_list}")) {
-                        double rewardMult = plugin.getReputationBridgeService() != null
-                                ? plugin.getReputationBridgeService().getRewardMultiplier(player)
-                                : 1.0;
-                        for (Reward r : order.getRewards()) {
-                            String disp = r.getFormattedDisplay(rewardMult);
-                            if (!disp.startsWith(" ") && !disp.startsWith("<lore-color>▪") && !disp.startsWith("▪")) {
-                                disp = "  " + disp;
-                            }
-                            finalLore.add(TextUtil.parseForPlayer(player, disp));
-                        }
+                        appendRewardsList(finalLore);
                     } else {
                         finalLore.add(TextUtil.parseForPlayer(player, replacePlaceholders(line)));
                     }
@@ -185,10 +176,12 @@ public class OrderActionMenu extends BaseMenu {
             } else if (trimmed.equalsIgnoreCase("[REFRESH]")) {
                 refresh();
                 return;
+            } else {
+                // Action generik ([console], [player], [sound], dst.) dijalankan berurutan sebelum
+                // action khusus di bawahnya, mis. "[console] eco take" harus selesai sebelum "[jobs_reroll]".
+                super.handleActions(List.of(act));
             }
         }
-
-        super.handleActions(actions);
     }
 
     @Override
@@ -254,16 +247,65 @@ public class OrderActionMenu extends BaseMenu {
     }
 
     private String createProgressBar(int progress, int required) {
-        int totalBars = 10;
-        int filled = (int) Math.min(totalBars, Math.round(((double) progress / Math.max(1, required)) * totalBars));
-        StringBuilder sb = new StringBuilder("<green>");
-        for (int i = 0; i < filled; i++) {
-            sb.append("|");
+        return OrderDepositMenu.createProgressBar(progress, required);
+    }
+
+    /** Sama seperti {rewards_list} di OrderDepositMenu: display-rewards kustom bila ada, selain itu daftar reward + reputasi. */
+    private void appendRewardsList(List<Component> lore) {
+        JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+        WorkOrder wo = (profile != null && slotNumber > 0) ? profile.getActiveOrder(slotNumber) : null;
+
+        int jobLevel = profile != null ? profile.getJobLevel(job.getId()) : 1;
+        String multFormatted = String.format(java.util.Locale.US, "%.2fx", plugin.getConfigManager().getResourceMultiplier(jobLevel));
+        double rewardMult = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getRewardMultiplier(player)
+                : 1.0;
+        double orderMult = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                : 1.0;
+        id.seria.jobs.model.ReputationTier repTier = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getPlayerTier(player)
+                : null;
+        String repTierName = repTier != null ? repTier.getDisplayName() : "Default";
+        String rewardMultFormatted = String.format(java.util.Locale.US, "%.2fx", rewardMult);
+        String orderMultFormatted = String.format(java.util.Locale.US, "%.2fx", orderMult);
+
+        int currentRep = (wo != null && wo.getGeneratedReputationAmount() > 0)
+                ? wo.getGeneratedReputationAmount()
+                : Math.max(0, order.getMinReputationAmount());
+        String repStr = String.valueOf(currentRep);
+        String repRange = (order.getMinReputationAmount() > 0 && order.getMaxReputationAmount() > order.getMinReputationAmount())
+                ? (order.getMinReputationAmount() + "-" + order.getMaxReputationAmount())
+                : repStr;
+        String activeRepDisplay = (wo != null && wo.getGeneratedReputationAmount() > 0) ? repStr : repRange;
+
+        if (order.hasCustomRewardsDisplay()) {
+            for (String rLine : order.getCustomRewardsDisplay()) {
+                String parsed = rLine.replace("{reputation}", activeRepDisplay)
+                        .replace("{order_reputation}", activeRepDisplay)
+                        .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
+                        .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
+                        .replace("{reputation_range}", repRange)
+                        .replace("{multiplier}", multFormatted)
+                        .replace("{resource_multiplier}", multFormatted)
+                        .replace("{reward_multiplier}", rewardMultFormatted)
+                        .replace("{order_multiplier}", orderMultFormatted)
+                        .replace("{reputation_tier}", repTierName)
+                        .replace("{tier_name}", repTierName);
+                lore.add(TextUtil.parseForPlayer(player, parsed));
+            }
+            return;
         }
-        sb.append("<gray>");
-        for (int i = filled; i < totalBars; i++) {
-            sb.append("|");
+
+        for (Reward r : order.getRewards()) {
+            String disp = r.getFormattedDisplay(rewardMult);
+            if (!disp.startsWith(" ") && !disp.startsWith("<lore-color>▪") && !disp.startsWith("▪")) {
+                disp = "  " + disp;
+            }
+            lore.add(TextUtil.parseForPlayer(player, disp));
         }
-        return sb.toString();
+        if (currentRep > 0 || order.getMaxReputationAmount() > 0) {
+            lore.add(TextUtil.parseForPlayer(player, "  <lore-color>▪ <aqua>+" + activeRepDisplay + " Reputasi</aqua>"));
+        }
     }
 }

@@ -952,7 +952,7 @@ public class OrderDepositMenu extends BaseMenu {
         }
     }
 
-    private String createProgressBar(int progress, int total) {
+    static String createProgressBar(int progress, int total) {
         int barLength = 20;
         double percentage = (double) progress / Math.max(1, total);
         int filled = (int) Math.round(percentage * barLength);
