@@ -123,6 +123,11 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             }
 
             case "reroll": {
+                // Reroll pemain hanya lewat GUI (click-actions YAML); command ini khusus admin/OP.
+                if (!sender.hasPermission("seriajobs.admin")) {
+                    sender.sendMessage(plugin.getLanguageManager().getMessage(sender instanceof Player p ? p : null, "general.no-permission"));
+                    return true;
+                }
                 if (!(sender instanceof Player player)) {
                     sender.sendMessage(plugin.getLanguageManager().getMessage(null, "general.player-only"));
                     return true;
@@ -576,8 +581,8 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             completions.add("progression");
             completions.add("leaderboard");
             completions.add("top");
-            completions.add("reroll");
             if (sender.hasPermission("seriajobs.admin")) {
+                completions.add("reroll");
                 completions.add("admin");
                 completions.add("reload");
             }
@@ -585,7 +590,7 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("reroll")) {
+            if (args[0].equalsIgnoreCase("reroll") && sender.hasPermission("seriajobs.admin")) {
                 completions.addAll(List.of("1", "2", "3", "4", "5"));
                 return filterCompletions(completions, args[1]);
             }
@@ -614,7 +619,7 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("reroll")) {
+            if (args[0].equalsIgnoreCase("reroll") && sender.hasPermission("seriajobs.admin")) {
                 completions.add("gins");
                 completions.add("serium");
                 return filterCompletions(completions, args[2]);
@@ -649,7 +654,7 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 4) {
-            if (args[0].equalsIgnoreCase("reroll")) {
+            if (args[0].equalsIgnoreCase("reroll") && sender.hasPermission("seriajobs.admin")) {
                 completions.addAll(plugin.getJobRegistry().getJobs().stream().map(Job::getId).toList());
                 return filterCompletions(completions, args[3]);
             }
