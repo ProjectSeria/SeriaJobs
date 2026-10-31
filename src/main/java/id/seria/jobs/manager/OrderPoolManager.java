@@ -216,14 +216,12 @@ public class OrderPoolManager {
         Collections.shuffle(eventPool);
 
         // 1. Regular Order Pool (murni regular orders, tidak terganggu oleh event slot)
+        // Tiap order hanya muncul sekali; bila pool lebih kecil dari jumlah slot, sisa slot dibiarkan kosong
         int needed = Math.max(1, job.getActiveOrdersCount());
-        List<JobOrder> selected = new ArrayList<>();
-        for (int i = 0; i < needed; i++) {
-            if (i < regularPool.size()) {
-                selected.add(regularPool.get(i));
-            } else if (!regularPool.isEmpty()) {
-                selected.add(regularPool.get(i % regularPool.size()));
-            }
+        List<JobOrder> selected = new ArrayList<>(regularPool.subList(0, Math.min(needed, regularPool.size())));
+        if (regularPool.size() < needed) {
+            plugin.getLogger().warning("Job '" + job.getId() + "' only has " + regularPool.size()
+                    + " regular order(s) for " + needed + " slot(s); remaining slots stay empty to avoid duplicate orders.");
         }
         activeOrders.put(job.getId().toLowerCase(), selected);
 

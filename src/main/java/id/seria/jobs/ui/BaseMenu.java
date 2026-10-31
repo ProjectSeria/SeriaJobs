@@ -189,6 +189,17 @@ public abstract class BaseMenu extends BaseSeriaMenu {
         openMenuByName(menuTarget);
     }
 
+    /**
+     * Apakah daftar action menjalankan reroll order ([jobs_reroll], [reroll], dan varian gins/serium/auto).
+     */
+    protected static boolean isRerollList(List<String> actions) {
+        for (String act : actions) {
+            String lower = act == null ? "" : act.trim().toLowerCase();
+            if (lower.startsWith("[jobs_reroll") || lower.startsWith("[reroll")) return true;
+        }
+        return false;
+    }
+
     private static String afterTag(String action) {
         int closing = action.indexOf(']');
         return closing != -1 && closing + 1 < action.length() ? action.substring(closing + 1).trim() : "";

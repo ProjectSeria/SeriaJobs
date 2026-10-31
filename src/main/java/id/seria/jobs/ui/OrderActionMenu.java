@@ -134,6 +134,11 @@ public class OrderActionMenu extends BaseMenu {
         if (actions == null || actions.isEmpty()) return;
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
+        // Biaya reroll dipotong oleh action sebelum [jobs_reroll]; cek ketersediaan order pengganti lebih dulu
+        if (isRerollList(actions) && profile != null && slotNumber != 100
+                && plugin.getJobsManager().denyIfNoRerollCandidate(player, job, profile, slotNumber)) {
+            return;
+        }
 
         for (String act : actions) {
             if (act == null || act.isBlank()) continue;

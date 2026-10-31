@@ -19,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -217,6 +219,11 @@ public class JobsManager {
             return false;
         }
 
+        // 0.2 Harus ada order pengganti yang belum tampil di menu dan belum selesai pada shift ini
+        if (denyIfNoRerollCandidate(player, job, profile, slotIndex)) {
+            return false;
+        }
+
         // 1. Validasi kuota reroll (kuota Gins; Serium dapat digunakan setelahnya)
         int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
         boolean allowSeriumAfterMax = plugin.getConfig().getBoolean("reroll.allow-serium-after-max", true);
@@ -268,6 +275,11 @@ public class JobsManager {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-event-denied",
                     plugin.getConfigManager().getEventDenyRerollMessage()));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            return false;
+        }
+
+        // 0.2 Harus ada order pengganti yang belum tampil di menu dan belum selesai pada shift ini
+        if (denyIfNoRerollCandidate(player, job, profile, slotIndex)) {
             return false;
         }
 
@@ -335,6 +347,11 @@ public class JobsManager {
             return false;
         }
 
+        // 0.2 Harus ada order pengganti yang belum tampil di menu dan belum selesai pada shift ini
+        if (denyIfNoRerollCandidate(player, job, profile, slotIndex)) {
+            return false;
+        }
+
         // 1. Validasi kuota reroll
         int maxReroll = plugin.getConfig().getInt("reroll.max-count", 10);
         boolean allowSeriumAfterMax = plugin.getConfig().getBoolean("reroll.allow-serium-after-max", true);
@@ -370,15 +387,69 @@ public class JobsManager {
     public boolean isSlotOrderCompleted(@NotNull Player player, @NotNull Job job, @NotNull JobProfile profile, int slotIndex) {
         if (plugin.getOrderPoolManager() == null) return false;
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
-        WorkOrder wo = profile.getActiveOrder(slotIndex);
-        String orderId = (wo != null && wo.getTemplate() != null) ? wo.getTemplate().getTemplateId() : null;
-        if (orderId == null) {
-            List<JobOrder> activeOrders = plugin.getOrderPoolManager().getActiveOrders(job.getId());
-            if (slotIndex > 0 && slotIndex <= activeOrders.size()) {
-                orderId = activeOrders.get(slotIndex - 1).getId();
-            }
-        }
+        String orderId = getSlotOrderId(job, profile, slotIndex);
         return orderId != null && profile.isOrderCompleted(shiftId, job.getId(), orderId);
+    }
+
+    /**
+     * ID order yang tampil di slot menu job, dengan urutan yang sama seperti OrderDepositMenu:
+     * order hasil reroll di profil, lalu order rotasi dari OrderPoolManager (slot 100 = order event).
+     */
+    @Nullable
+    public String getSlotOrderId(@NotNull Job job, @NotNull JobProfile profile, int slotIndex) {
+        WorkOrder wo = profile.getActiveOrder(slotIndex);
+        if (wo != null && wo.getTemplate() != null && job.getOrder(wo.getTemplate().getTemplateId()) != null) {
+            return wo.getTemplate().getTemplateId();
+        }
+        if (plugin.getOrderPoolManager() == null) return null;
+        if (slotIndex == 100) {
+            JobOrder event = plugin.getOrderPoolManager().getActiveEventOrder(job.getId());
+            return event != null ? event.getId() : null;
+        }
+        List<JobOrder> activeOrders = plugin.getOrderPoolManager().getActiveOrders(job.getId());
+        return slotIndex > 0 && slotIndex <= activeOrders.size() ? activeOrders.get(slotIndex - 1).getId() : null;
+    }
+
+    /**
+     * Order reguler yang boleh menggantikan slot saat reroll: belum tampil di slot mana pun pada menu
+     * (termasuk slot yang di-reroll dan slot event) dan belum diselesaikan pada shift ini.
+     */
+    @NotNull
+    public List<JobOrder> getRerollCandidates(@NotNull Job job, @NotNull JobProfile profile) {
+        Set<String> shown = new HashSet<>();
+        int lastSlot = plugin.getOrderPoolManager() != null ? plugin.getOrderPoolManager().getActiveOrders(job.getId()).size() : 0;
+        for (int slot : profile.getActiveOrders().keySet()) {
+            if (slot != 100) lastSlot = Math.max(lastSlot, slot);
+        }
+        for (int slot = 1; slot <= lastSlot; slot++) {
+            String id = getSlotOrderId(job, profile, slot);
+            if (id != null) shown.add(id.toLowerCase());
+        }
+        String eventId = getSlotOrderId(job, profile, 100);
+        if (eventId != null) shown.add(eventId.toLowerCase());
+
+        String shiftId = plugin.getOrderPoolManager() != null ? plugin.getOrderPoolManager().getCurrentShiftId() : "";
+        List<JobOrder> candidates = new ArrayList<>();
+        for (JobOrder jo : job.getOrdersPool().values()) {
+            if (jo.isEventOrder()) continue;
+            if (shown.contains(jo.getId().toLowerCase())) continue;
+            if (profile.isOrderCompleted(shiftId, job.getId(), jo.getId())) continue;
+            candidates.add(jo);
+        }
+        return candidates;
+    }
+
+    /**
+     * Tolak reroll (dengan pesan) bila tidak ada order pengganti. Dipanggil sebelum biaya reroll dipotong.
+     *
+     * @return true bila reroll ditolak
+     */
+    public boolean denyIfNoRerollCandidate(@NotNull Player player, @NotNull Job job, @NotNull JobProfile profile, int slotIndex) {
+        if (!getRerollCandidates(job, profile).isEmpty()) return false;
+        player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.reroll-no-candidate",
+                "<red>Tidak ada pesanan lain yang tersedia untuk di-reroll pada rotasi ini!</red>"));
+        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+        return true;
     }
 
     public boolean isSlotNonRerollable(@NotNull Player player, @NotNull Job job, @NotNull JobProfile profile, int slotIndex) {
@@ -400,25 +471,9 @@ public class JobsManager {
     }
 
     private void rollNewOrderForSlot(Player player, Job job, JobProfile profile, int slotIndex) {
-        List<JobOrder> pool = new ArrayList<>();
-        for (JobOrder jo : job.getOrdersPool().values()) {
-            if (!jo.isEventOrder()) {
-                pool.add(jo);
-            }
-        }
-        if (pool.isEmpty()) return;
-
-        // Filter out currently active orders on other slots to ensure variety
-        WorkOrder current = profile.getActiveOrder(slotIndex);
-        String currentId = current != null ? current.getTemplate().getTemplateId() : null;
-
-        List<JobOrder> available = new ArrayList<>();
-        for (JobOrder jo : pool) {
-            if (!jo.getId().equalsIgnoreCase(currentId)) {
-                available.add(jo);
-            }
-        }
-        if (available.isEmpty()) available = pool;
+        // Tidak pernah memilih order yang sedang tampil di menu atau yang sudah selesai pada shift ini
+        List<JobOrder> available = getRerollCandidates(job, profile);
+        if (available.isEmpty()) return;
 
         JobOrder chosen = available.get(ThreadLocalRandom.current().nextInt(available.size()));
         int jobLevel = profile.getJobLevel(job.getId());

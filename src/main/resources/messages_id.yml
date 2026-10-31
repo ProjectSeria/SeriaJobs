@@ -27,6 +27,7 @@ orders:
   stash-delivered: "<aqua>[Stash]</aqua> <yellow>Inventaris Anda penuh! Hadiah item dikirimkan ke kotak pos /stash SeriaCore.</yellow>"
   already-completed: "<yellow>Pesanan ini sudah selesai pada rotasi saat ini!</yellow>"
   reroll-max-reached: "<red>Batas maksimal reroll (10x) periode ini sudah habis!</red>"
+  reroll-no-candidate: "<red>Tidak ada pesanan lain yang tersedia untuk di-reroll pada rotasi ini!</red>"
   reroll-insufficient-gins: "<red>Saldo Gins tidak mencukupi untuk reroll! Dibutuhkan: <gold>{cost} Gins</gold>.</red>"
   reroll-insufficient-serium: "<red>Saldo Serium tidak mencukupi untuk reroll! Dibutuhkan: <aqua>{cost} Serium</aqua>.</red>"
 

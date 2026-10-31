@@ -671,6 +671,11 @@ public class OrderDepositMenu extends BaseMenu {
 
     private void executeOrderActions(List<String> actions, JobOrder order, JobProfile profile, String shiftId, int slotNumber, int slot) {
         if (actions == null || actions.isEmpty()) return;
+        // Biaya reroll dipotong oleh action sebelum [jobs_reroll]; cek ketersediaan order pengganti lebih dulu
+        if (isRerollList(actions) && profile != null && slotNumber != 100
+                && plugin.getJobsManager().denyIfNoRerollCandidate(player, job, profile, slotNumber)) {
+            return;
+        }
         boolean hasRefresh = actions.stream().anyMatch(a -> a.trim().toLowerCase().startsWith("[refresh"));
         for (String act : actions) {
             String trimmed = act.trim();
