@@ -155,7 +155,7 @@ public class OrderDepositMenu extends BaseMenu {
             if (!candidates.isEmpty()) {
                 candidates.sort((a, b) -> Integer.compare(b.getInt("priority", 1), a.getInt("priority", 1)));
                 for (org.bukkit.configuration.ConfigurationSection candidate : candidates) {
-                    if (checkCandidateViewRequirement(candidate)) {
+                    if (checkViewRequirement(candidate)) {
                         return candidate;
                     }
                 }
@@ -199,7 +199,7 @@ public class OrderDepositMenu extends BaseMenu {
     public void build() {
         createInventory(54, "<gradient:#2c3e50:#3498db>Bursa Kerja: " + job.getDisplayName() + "</gradient>");
         applyFillers();
-        applyStaticItems();
+        applyMenuItems();
 
         List<Integer> slots = getOrderSlots();
 
@@ -308,21 +308,7 @@ public class OrderDepositMenu extends BaseMenu {
                 : ((wo != null && wo.getEvent() != null && !wo.getEvent().isBlank()) ? wo.getEvent() : "");
         if (eventName == null) eventName = "";
 
-        ItemStack cardItem = null;
-        if (!isCompleted) {
-            String src = order.getSource().toUpperCase();
-            if (src.equals("MMOITEMS") && plugin.getHookManager().isMMOItemsLoaded()) {
-                cardItem = plugin.getHookManager().getMMOItemsHook().getItem(order.getMmoItemType(), order.getMmoItemId());
-            } else if ((src.equals("MYTHICMOBS") || src.equals("MYTHIC")) && plugin.getHookManager().isMythicMobsLoaded()) {
-                cardItem = plugin.getHookManager().getMythicMobsHook().generateItem(order.getCustomItemId(), 1);
-            } else if ((src.equals("CUSTOMFISHING") || src.equals("FISHING")) && plugin.getHookManager().isCustomFishingLoaded()) {
-                cardItem = plugin.getHookManager().getCustomFishingHook().generateItem(order.getCustomItemId(), 1);
-            } else if ((src.equals("SERIAMAGICBUNDLE") || src.equals("MAGICBUNDLE")) && plugin.getHookManager().isSeriaMagicBundleLoaded()) {
-                cardItem = plugin.getHookManager().getSeriaMagicBundleHook().generateItem(order.getCustomItemId(), 1);
-            } else if ((src.equals("SERIACRAFTING") || src.equals("CRAFTING")) && plugin.getHookManager().isSeriaCraftingLoaded()) {
-                cardItem = plugin.getHookManager().getSeriaCraftingHook().generateItem(order.getCustomItemId(), 1);
-            }
-        }
+        ItemStack cardItem = !isCompleted ? ItemMatcher.createOrderItem(order) : null;
         org.bukkit.configuration.ConfigurationSection cardSec = getOrderCardSection(isCompleted, isEventOrder);
 
         if (cardItem == null) {
@@ -645,7 +631,7 @@ public class OrderDepositMenu extends BaseMenu {
 
     private boolean checkClickRequirement(org.bukkit.configuration.ConfigurationSection reqSec) {
         if (reqSec == null) return true;
-        if (!id.seria.core.gui.menu.MenuRequirementEvaluator.checkRequirement(reqSec, player)) {
+        if (!id.seria.core.gui.menu.MenuRequirementEvaluator.checkRequirement(reqSec, player, this::replaceCustomAndPapiPlaceholders)) {
             String denyMsg = reqSec.getString("deny-message", reqSec.getString("deny_message"));
             if (denyMsg != null && !denyMsg.isBlank()) {
                 player.sendMessage(TextUtil.parseForPlayer(player, denyMsg));

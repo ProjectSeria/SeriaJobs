@@ -41,8 +41,6 @@ market-shifts:
 
 hooks:
   auraskills: true
-  mmoitems: true
-  mythicmobs: true
   customfishing: true
   seriamagicbundle: true
   seriacrafting: true

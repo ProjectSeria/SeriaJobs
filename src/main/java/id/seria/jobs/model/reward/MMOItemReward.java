@@ -2,6 +2,7 @@ package id.seria.jobs.model.reward;
 
 import id.seria.jobs.SeriaJobs;
 import id.seria.jobs.model.Job;
+import id.seria.jobs.utils.ItemMatcher;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -37,12 +38,8 @@ public class MMOItemReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
-        if (!SeriaJobs.getInstance().getHookManager().isMmoItemsLoaded()) {
-            return;
-        }
-
         int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
-        ItemStack item = SeriaJobs.getInstance().getHookManager().getMmoItemsHook().generateItem(mmoType, mmoId, effective);
+        ItemStack item = ItemMatcher.generateItem("mmoitems", mmoType, mmoId, effective);
         if (item == null) {
             SeriaJobs.getInstance().getLogger().warning("Failed to generate MMOItem reward: " + mmoType + ":" + mmoId);
             return;

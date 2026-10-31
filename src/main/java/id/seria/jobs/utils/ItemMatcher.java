@@ -1,5 +1,8 @@
 package id.seria.jobs.utils;
 
+import id.seria.core.SeriaCorePlugin;
+import id.seria.core.item.ItemProvider;
+import id.seria.core.item.ItemProviderRegistry;
 import id.seria.jobs.SeriaJobs;
 import id.seria.jobs.hook.SeriaMagicBundleHook;
 import id.seria.jobs.model.JobOrder;
@@ -26,19 +29,13 @@ public class ItemMatcher {
 
         switch (source) {
             case "MMOITEMS":
-                if (!SeriaJobs.getInstance().getHookManager().isMmoItemsLoaded()) {
-                    return false;
-                }
-                return SeriaJobs.getInstance().getHookManager().getMmoItemsHook()
-                        .matches(item, order.getMmoItemType(), order.getMmoItemId());
+                return order.getMmoItemType() != null && order.getMmoItemId() != null
+                        && itemProviders().matches("mmoitems", item, order.getMmoItemType(), order.getMmoItemId());
 
             case "MYTHICMOBS":
             case "MYTHIC":
-                if (!SeriaJobs.getInstance().getHookManager().isMythicMobsLoaded()) {
-                    return false;
-                }
                 for (String mId : order.getCustomItemIds()) {
-                    if (SeriaJobs.getInstance().getHookManager().getMythicMobsHook().matches(item, mId)) {
+                    if (itemProviders().matches("mythicmobs", item, null, mId)) {
                         return true;
                     }
                 }
@@ -104,6 +101,53 @@ public class ItemMatcher {
                 }
 
                 return true;
+        }
+    }
+
+    private static ItemProviderRegistry itemProviders() {
+        return SeriaCorePlugin.getInstance().getPlaceholderManager().getItemProviderRegistry();
+    }
+
+    /**
+     * Freshly generated item from a SeriaCore item provider (no cache, so MMOItems roll their stats per call).
+     */
+    @Nullable
+    public static ItemStack generateItem(@NotNull String providerId, @Nullable String category, @NotNull String id, int amount) {
+        ItemProvider provider = itemProviders().getProvider(providerId);
+        if (provider == null || !provider.isAvailable() || amount <= 0) return null;
+        ItemStack item = provider.getItem(category, id);
+        if (item == null) return null;
+        item = item.clone();
+        item.setAmount(amount);
+        return item;
+    }
+
+    /**
+     * Item shown on an order card for the order's required item, or null when it cannot be built (vanilla orders).
+     */
+    @Nullable
+    public static ItemStack createOrderItem(@NotNull JobOrder order) {
+        var hooks = SeriaJobs.getInstance().getHookManager();
+        String src = order.getSource() != null ? order.getSource().toUpperCase() : "VANILLA";
+        switch (src) {
+            case "MMOITEMS":
+                return order.getMmoItemType() != null && order.getMmoItemId() != null
+                        ? itemProviders().resolveItem("mmoitems", order.getMmoItemType(), order.getMmoItemId())
+                        : null;
+            case "MYTHICMOBS":
+            case "MYTHIC":
+                return itemProviders().resolveItem("mythicmobs", order.getCustomItemId());
+            case "CUSTOMFISHING":
+            case "FISHING":
+                return hooks.isCustomFishingLoaded() ? hooks.getCustomFishingHook().generateItem(order.getCustomItemId(), 1) : null;
+            case "SERIAMAGICBUNDLE":
+            case "MAGICBUNDLE":
+                return hooks.isSeriaMagicBundleLoaded() ? hooks.getSeriaMagicBundleHook().generateItem(order.getCustomItemId(), 1) : null;
+            case "SERIACRAFTING":
+            case "CRAFTING":
+                return hooks.isSeriaCraftingLoaded() ? hooks.getSeriaCraftingHook().generateItem(order.getCustomItemId(), 1) : null;
+            default:
+                return null;
         }
     }
 

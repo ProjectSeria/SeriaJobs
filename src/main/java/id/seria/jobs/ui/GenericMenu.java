@@ -19,6 +19,6 @@ public class GenericMenu extends BaseMenu {
         String rawTitle = menuConfig != null ? menuConfig.getString("title", "Menu") : "Menu";
         createInventory(size, rawTitle);
         applyFillers();
-        applyStaticItems();
+        applyMenuItems();
     }
 }

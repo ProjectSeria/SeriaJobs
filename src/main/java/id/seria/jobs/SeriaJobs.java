@@ -12,7 +12,6 @@ import id.seria.jobs.manager.OrderPoolManager;
 import id.seria.jobs.manager.PlayerConnectionListener;
 import id.seria.jobs.manager.PlayerDataManager;
 import id.seria.jobs.manager.SlotPermissionManager;
-import id.seria.jobs.ui.MenuListener;
 import id.seria.jobs.utils.TranslationExporter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
@@ -41,7 +40,6 @@ public class SeriaJobs extends JavaPlugin {
     private id.seria.jobs.service.ReputationBridgeService reputationBridgeService;
     private id.seria.jobs.service.OrderGenerationService orderGenerationService;
     private id.seria.jobs.manager.JobsManager jobsManager;
-    private id.seria.jobs.ui.JobsMenuService jobsMenuService;
 
     @Override
     public void onEnable() {
@@ -99,11 +97,7 @@ public class SeriaJobs extends JavaPlugin {
                 this.orderGenerationService
         );
 
-        this.jobsMenuService = new id.seria.jobs.ui.JobsMenuService(this);
-
-        // 6. Register Listeners
-        Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
-        Bukkit.getPluginManager().registerEvents(new id.seria.jobs.ui.JobsMenuListener(this), this);
+        // 6. Register Listeners (menu clicks are handled by SeriaCore's SeriaMenuListener)
         Bukkit.getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
 
         // 7. Register Commands
@@ -228,9 +222,5 @@ public class SeriaJobs extends JavaPlugin {
 
     public id.seria.jobs.manager.JobsManager getJobsManager() {
         return jobsManager;
-    }
-
-    public id.seria.jobs.ui.JobsMenuService getJobsMenuService() {
-        return jobsMenuService;
     }
 }

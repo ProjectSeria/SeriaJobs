@@ -402,7 +402,7 @@ public class JobProgressionMenu extends BaseMenu {
                                               List<String> rewardLines,
                                               boolean isReached,
                                               boolean isNext) {
-        ItemStack item = resolveBaseItem(sec, player);
+        ItemStack item = resolveBaseItem(sec);
         int amount = sec.getInt("amount", 1);
         item.setAmount(Math.max(1, amount));
 
@@ -455,7 +455,7 @@ public class JobProgressionMenu extends BaseMenu {
     }
 
     private void applyCustomStaticItems() {
-        applyStaticItems();
+        applyMenuItems();
 
         if (menuConfig != null && menuConfig.isConfigurationSection("items")) {
             for (String key : menuConfig.getConfigurationSection("items").getKeys(false)) {

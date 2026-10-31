@@ -2,6 +2,7 @@ package id.seria.jobs.model.reward;
 
 import id.seria.jobs.SeriaJobs;
 import id.seria.jobs.model.Job;
+import id.seria.jobs.utils.ItemMatcher;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -44,12 +45,8 @@ public class MythicItemReward implements Reward {
 
     @Override
     public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
-        if (!SeriaJobs.getInstance().getHookManager().isMythicMobsLoaded()) {
-            return;
-        }
-
         int effective = multiplier > 0.0 ? Math.max(1, (int) Math.round(amount * multiplier)) : amount;
-        ItemStack item = SeriaJobs.getInstance().getHookManager().getMythicMobsHook().generateItem(itemId, effective);
+        ItemStack item = ItemMatcher.generateItem("mythicmobs", null, itemId, effective);
         if (item != null) {
             Reward.giveOrStash(player, item, job);
         } else {

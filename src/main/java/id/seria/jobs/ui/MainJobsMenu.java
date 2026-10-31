@@ -102,7 +102,7 @@ public class MainJobsMenu extends BaseMenu {
     public void build() {
         createInventory(54, "<gradient:#1e3a8a:#3b82f6>Bursa Pekerjaan Seria</gradient>");
         applyFillers();
-        applyStaticItems();
+        applyMenuItems();
 
         List<Integer> slots = menuConfig != null
                 ? menuConfig.getIntegerList("job-slots")

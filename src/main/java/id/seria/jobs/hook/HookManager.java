@@ -17,8 +17,6 @@ public class HookManager {
 
     private LuckPermsHook luckPermsHook;
     private AuraSkillsHook auraSkillsHook;
-    private MMOItemsHook mmoItemsHook;
-    private MythicMobsHook mythicMobsHook;
     private CustomFishingHook customFishingHook;
     private SeriaMagicBundleHook seriaMagicBundleHook;
     private SeriaCraftingHook seriaCraftingHook;
@@ -28,8 +26,6 @@ public class HookManager {
 
     private boolean luckPermsLoaded = false;
     private boolean auraSkillsLoaded = false;
-    private boolean mmoItemsLoaded = false;
-    private boolean mythicMobsLoaded = false;
     private boolean customFishingLoaded = false;
     private boolean seriaMagicBundleLoaded = false;
     private boolean seriaCraftingLoaded = false;
@@ -56,24 +52,6 @@ public class HookManager {
             if (auraSkillsHook.setup()) {
                 auraSkillsLoaded = true;
                 plugin.getLogger().info("Successfully hooked into AuraSkills API.");
-            }
-        }
-
-        // MMOItems Hook
-        if (plugin.getConfigManager().isHookEnabled("mmoitems")) {
-            mmoItemsHook = new MMOItemsHook();
-            if (mmoItemsHook.setup()) {
-                mmoItemsLoaded = true;
-                plugin.getLogger().info("Successfully hooked into MMOItems & MythicLib.");
-            }
-        }
-
-        // MythicMobs Hook
-        if (plugin.getConfigManager().isHookEnabled("mythicmobs")) {
-            mythicMobsHook = new MythicMobsHook();
-            if (mythicMobsHook.setup()) {
-                mythicMobsLoaded = true;
-                plugin.getLogger().info("Successfully hooked into MythicMobs item engine.");
             }
         }
 
@@ -198,30 +176,6 @@ public class HookManager {
 
     public AuraSkillsHook getAuraSkillsHook() {
         return auraSkillsHook;
-    }
-
-    public boolean isMmoItemsLoaded() {
-        return mmoItemsLoaded;
-    }
-
-    public boolean isMMOItemsLoaded() {
-        return mmoItemsLoaded;
-    }
-
-    public MMOItemsHook getMmoItemsHook() {
-        return mmoItemsHook;
-    }
-
-    public MMOItemsHook getMMOItemsHook() {
-        return mmoItemsHook;
-    }
-
-    public boolean isMythicMobsLoaded() {
-        return mythicMobsLoaded;
-    }
-
-    public MythicMobsHook getMythicMobsHook() {
-        return mythicMobsHook;
     }
 
     public boolean isCustomFishingLoaded() {

@@ -62,7 +62,7 @@ public class OrderActionMenu extends BaseMenu {
 
         createInventory(size, rawTitle);
         applyFillers();
-        applyStaticItems();
+        applyMenuItems();
         renderOrderPreview();
     }
 
@@ -88,21 +88,7 @@ public class OrderActionMenu extends BaseMenu {
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
         boolean isCompleted = profile != null && profile.isOrderCompleted(shiftId, job.getId(), order.getId());
 
-        ItemStack cardItem = null;
-        if (!isCompleted) {
-            String src = order.getSource().toUpperCase();
-            if (src.equals("MMOITEMS") && plugin.getHookManager().isMMOItemsLoaded()) {
-                cardItem = plugin.getHookManager().getMMOItemsHook().getItem(order.getMmoItemType(), order.getMmoItemId());
-            } else if ((src.equals("MYTHICMOBS") || src.equals("MYTHIC")) && plugin.getHookManager().isMythicMobsLoaded()) {
-                cardItem = plugin.getHookManager().getMythicMobsHook().generateItem(order.getCustomItemId(), 1);
-            } else if ((src.equals("CUSTOMFISHING") || src.equals("FISHING")) && plugin.getHookManager().isCustomFishingLoaded()) {
-                cardItem = plugin.getHookManager().getCustomFishingHook().generateItem(order.getCustomItemId(), 1);
-            } else if ((src.equals("SERIAMAGICBUNDLE") || src.equals("MAGICBUNDLE")) && plugin.getHookManager().isSeriaMagicBundleLoaded()) {
-                cardItem = plugin.getHookManager().getSeriaMagicBundleHook().generateItem(order.getCustomItemId(), 1);
-            } else if ((src.equals("SERIACRAFTING") || src.equals("CRAFTING")) && plugin.getHookManager().isSeriaCraftingLoaded()) {
-                cardItem = plugin.getHookManager().getSeriaCraftingHook().generateItem(order.getCustomItemId(), 1);
-            }
-        }
+        ItemStack cardItem = !isCompleted ? ItemMatcher.createOrderItem(order) : null;
 
         if (cardItem == null) {
             Material cardMat = null;
