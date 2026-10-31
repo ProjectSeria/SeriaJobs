@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 
 public class MMOItemReward implements Reward {
 
@@ -49,20 +48,7 @@ public class MMOItemReward implements Reward {
             return;
         }
 
-        HashMap<Integer, ItemStack> leftovers = player.getInventory().addItem(item);
-        if (!leftovers.isEmpty()) {
-            for (ItemStack leftover : leftovers.values()) {
-                if (SeriaJobs.getInstance().getHookManager().isSeriaCoreLoaded()) {
-                    boolean stashed = SeriaJobs.getInstance().getHookManager().getSeriaCoreHook()
-                            .addDelivery(player.getUniqueId(), leftover, "SeriaJobs: " + job.getId());
-                    if (stashed) {
-                        player.sendMessage(SeriaJobs.getInstance().getLanguageManager().getMessage(player, "orders.stash-delivered"));
-                        continue;
-                    }
-                }
-                player.getWorld().dropItemNaturally(player.getLocation(), leftover);
-            }
-        }
+        Reward.giveOrStash(player, item, job);
     }
 
     @NotNull

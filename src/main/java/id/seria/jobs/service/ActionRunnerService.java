@@ -36,20 +36,17 @@ public class ActionRunnerService {
             String cmd = trimmed.substring(9).trim();
             if (!cmd.isEmpty()) {
                 String lower = cmd.toLowerCase();
-                if ((lower.startsWith("reputasi give ") || lower.startsWith("reputation give "))
-                        && id.seria.jobs.SeriaJobs.getInstance().getHookManager() != null
-                        && id.seria.jobs.SeriaJobs.getInstance().getHookManager().isExcellentEconomyLoaded()) {
+                EconomyService economy = id.seria.jobs.SeriaJobs.getInstance().getEconomyService();
+                if (lower.startsWith("reputasi give ") || lower.startsWith("reputation give ")) {
                     String[] parts = cmd.split("\\s+");
                     double amt = parts.length > 3 ? parseDoubleSafe(parts[3], reputationAmount) : reputationAmount;
-                    if (id.seria.jobs.SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook().deposit(player, "reputasi", amt)) {
+                    if (economy.isCurrencyEngineAvailable() && economy.deposit(player, "reputasi", amt)) {
                         return;
                     }
-                } else if (lower.startsWith("serium give ")
-                        && id.seria.jobs.SeriaJobs.getInstance().getHookManager() != null
-                        && id.seria.jobs.SeriaJobs.getInstance().getHookManager().isExcellentEconomyLoaded()) {
+                } else if (lower.startsWith("serium give ")) {
                     String[] parts = cmd.split("\\s+");
                     double amt = parts.length > 3 ? parseDoubleSafe(parts[3], 1.0) : 1.0;
-                    if (id.seria.jobs.SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook().deposit(player, "serium", amt)) {
+                    if (economy.isCurrencyEngineAvailable() && economy.deposit(player, "serium", amt)) {
                         return;
                     }
                 }

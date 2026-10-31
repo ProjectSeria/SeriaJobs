@@ -109,50 +109,34 @@ public class JobsPlaceholderExpansion extends PlaceholderExpansion {
         // %jobsorder_has_gins%
         if (lower.equals("has_gins")) {
             int cost = plugin.getOrderGenerationService().calculateRerollCost(profile.getRerollCount());
-            boolean has = plugin.getJobsManager().getEconomyService() != null
-                    && plugin.getJobsManager().getEconomyService().has(player, cost);
-            return String.valueOf(has);
+            return String.valueOf(plugin.getEconomyService().has(player, cost));
         }
 
         // %jobsorder_balance% / %jobsorder_gins_balance%
         if (lower.equals("balance") || lower.equals("gins_balance")) {
-            double bal = plugin.getJobsManager().getEconomyService() != null
-                    ? plugin.getJobsManager().getEconomyService().getBalance(player)
-                    : 0.0;
-            return String.valueOf((long) bal);
+            return String.valueOf((long) plugin.getEconomyService().getBalance(player));
         }
 
         // %jobsorder_has_serium%
         if (lower.equals("has_serium")) {
             int seriumCost = plugin.getConfig().getInt("reroll.serium-cost", 1);
-            if (plugin.getHookManager() != null && plugin.getHookManager().isExcellentEconomyLoaded()) {
-                double current = plugin.getHookManager().getExcellentEconomyHook().getBalance(player, "serium");
-                return String.valueOf(current >= seriumCost);
-            }
-            return "false";
+            return String.valueOf(plugin.getEconomyService().getBalance(player, "serium") >= seriumCost);
         }
 
         // %jobsorder_serium_balance%
         if (lower.equals("serium_balance")) {
-            if (plugin.getHookManager() != null && plugin.getHookManager().isExcellentEconomyLoaded()) {
-                double current = plugin.getHookManager().getExcellentEconomyHook().getBalance(player, "serium");
-                return String.valueOf((long) current);
-            }
-            return "0";
+            return String.valueOf((long) plugin.getEconomyService().getBalance(player, "serium"));
         }
 
         // %jobsorder_reroll_choice%
         if (lower.equals("reroll_choice")) {
             if (!profile.canReroll()) return "none";
             int cost = plugin.getOrderGenerationService().calculateRerollCost(profile.getRerollCount());
-            if (plugin.getJobsManager().getEconomyService() != null && plugin.getJobsManager().getEconomyService().has(player, cost)) {
+            if (plugin.getEconomyService().has(player, cost)) {
                 return "gins";
             }
             int seriumCost = plugin.getConfig().getInt("reroll.serium-cost", 1);
-            if (plugin.getHookManager() != null && plugin.getHookManager().isExcellentEconomyLoaded()) {
-                double current = plugin.getHookManager().getExcellentEconomyHook().getBalance(player, "serium");
-                if (current >= seriumCost) return "serium";
-            }
+            if (plugin.getEconomyService().getBalance(player, "serium") >= seriumCost) return "serium";
             return "none";
         }
 

@@ -515,15 +515,16 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage("§6§l================ [SeriaJobs Debug Reroll] ================");
         sender.sendMessage("§ePlayer: §f" + target.getName() + " §7(UUID: " + target.getUniqueId() + ")");
 
-        // 1. Vault Economy Direct
-        var eco = plugin.getJobsManager().getEconomyService();
-        if (eco != null && eco.getVaultEconomy() != null) {
+        // 1. Economy (SeriaCore EconomyHook)
+        var eco = plugin.getEconomyService();
+        if (eco.isVaultAvailable()) {
             double bal = eco.getBalance(target);
-            sender.sendMessage("§aVault Economy Provider: §f" + eco.getVaultEconomy().getName());
             sender.sendMessage("§aVault Direct Balance: §f" + String.format(java.util.Locale.US, "%,.2f", bal) + " §7(Raw: " + (long) bal + ")");
         } else {
-            sender.sendMessage("§cVault Economy Service: NOT LOADED / NULL!");
+            sender.sendMessage("§cVault Economy: NOT AVAILABLE!");
         }
+        sender.sendMessage("§aExcellentEconomy: §f" + (eco.isCurrencyEngineAvailable() ? "available" : "not available")
+                + " §7(serium: " + (long) eco.getBalance(target, "serium") + ")");
 
         // 2. Profile Reroll Counter & Quota
         var prof = plugin.getPlayerDataManager().getProfile(target.getUniqueId());
@@ -537,8 +538,8 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage("§cJobProfile: NULL!");
         }
 
-        // 3. PAPI & Custom Placeholders Resolution
-        sender.sendMessage("§d--- Placeholder Resolution Test ---");
+        // 3. Placeholder resolution via the SeriaCore engine (same path as GUI lore & requirements)
+        sender.sendMessage("§d--- Placeholder Resolution Test (SeriaCore engine) ---");
         String[] placeholders = {
                 "%vault_eco_balance%",
                 "%vault_eco_balance_raw%",
@@ -553,15 +554,11 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
         };
 
         for (String ph : placeholders) {
-            String resolved = ph;
-            if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-                try {
-                    resolved = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(target, ph);
-                } catch (Throwable t) {
-                    resolved = "ERROR: " + t.getMessage();
-                }
-            } else {
-                resolved = "PAPI NOT ENABLED";
+            String resolved;
+            try {
+                resolved = id.seria.core.placeholder.CustomPlaceholderManager.parse(target, ph);
+            } catch (Throwable t) {
+                resolved = "ERROR: " + t.getMessage();
             }
             sender.sendMessage("§7" + ph + " §8-> §f" + resolved);
         }

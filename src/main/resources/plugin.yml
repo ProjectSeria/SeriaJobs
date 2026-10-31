@@ -5,6 +5,8 @@ api-version: '1.21'
 author: Seria Network
 description: Supply-Chain Fulfillment and Market Work Order plugin for Seria Network
 
+depend: [SeriaCore]
+
 softdepend:
   - Vault
   - ExcellentEconomy
@@ -15,7 +17,6 @@ softdepend:
   - MythicLib
   - MythicMobs
   - CustomFishing
-  - SeriaCore
   - SeriaTranslator
   - SeriaMagicBundle
   - MagicBundle

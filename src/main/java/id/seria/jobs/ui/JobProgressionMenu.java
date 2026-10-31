@@ -1,5 +1,6 @@
 package id.seria.jobs.ui;
 
+import id.seria.core.SeriaCorePlugin;
 import id.seria.jobs.SeriaJobs;
 import id.seria.jobs.model.Job;
 import id.seria.jobs.model.JobProfile;
@@ -273,13 +274,11 @@ public class JobProgressionMenu extends BaseMenu {
         placeholders.put("%seriajobs_percentage%", String.valueOf(percentage));
 
         // Evaluate custom progress bar if registered (e.g. from placeholder/progressbar.yml)
-        if (plugin.getCustomPlaceholderManager() != null) {
-            String customBar = plugin.getCustomPlaceholderManager().evaluate(player, "job-xp-progress", placeholders);
-            if (customBar != null) {
-                progressBar = customBar;
-                placeholders.put("{job-xp-progress}", customBar);
-                placeholders.put("%job-xp-progress%", customBar);
-            }
+        String customBar = SeriaCorePlugin.getInstance().getPlaceholderManager().evaluateCustom(player, "job-xp-progress", placeholders);
+        if (customBar != null) {
+            progressBar = customBar;
+            placeholders.put("{job-xp-progress}", customBar);
+            placeholders.put("%job-xp-progress%", customBar);
         }
         placeholders.put("{progress_bar}", progressBar);
         placeholders.put("%progress_bar%", progressBar);
@@ -424,11 +423,7 @@ public class JobProgressionMenu extends BaseMenu {
 
             if (sec.contains("name")) {
                 String rawName = sec.getString("name");
-                rawName = resolveCustomPlaceholdersDirectly(rawName, placeholders);
-                for (Map.Entry<String, String> entry : placeholders.entrySet()) {
-                    rawName = rawName.replace(entry.getKey(), entry.getValue());
-                }
-                rawName = replacePlaceholders(rawName);
+                rawName = replacePlaceholders(rawName, placeholders);
                 meta.displayName(TextUtil.parseForPlayer(player, rawName));
             }
 
@@ -447,11 +442,7 @@ public class JobProgressionMenu extends BaseMenu {
                         continue;
                     }
 
-                    String replaced = resolveCustomPlaceholdersDirectly(line, placeholders);
-                    for (Map.Entry<String, String> entry : placeholders.entrySet()) {
-                        replaced = replaced.replace(entry.getKey(), entry.getValue());
-                    }
-                    replaced = replacePlaceholders(replaced);
+                    String replaced = replacePlaceholders(line, placeholders);
                     lore.add(TextUtil.parseForPlayer(player, replaced));
                 }
                 meta.lore(lore);

@@ -154,13 +154,9 @@ public class ReputationBridgeService {
         if (player == null) return 0;
 
         // 1. Direct ExcellentEconomy Hook check if available
-        if (plugin.getHookManager() != null && plugin.getHookManager().isExcellentEconomyLoaded()) {
-            try {
-                double bal = plugin.getHookManager().getExcellentEconomyHook().getBalance(player, "reputasi");
-                if (bal > 0) {
-                    return (int) Math.round(bal);
-                }
-            } catch (Throwable ignored) {}
+        double bal = plugin.getEconomyService().getBalance(player, "reputasi");
+        if (bal > 0) {
+            return (int) Math.round(bal);
         }
 
         // 2. PlaceholderAPI parsing

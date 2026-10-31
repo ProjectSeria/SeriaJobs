@@ -40,8 +40,6 @@ market-shifts:
     - "18:00"
 
 hooks:
-  vault: true
-  excellenteconomy: true
   auraskills: true
   mmoitems: true
   mythicmobs: true
@@ -51,10 +49,10 @@ hooks:
   placeholderapi: true
   luckperms: true
   # Seria Ecosystem hooks
+  # SeriaCore wajib (backbone): ekonomi Vault/ExcellentEconomy, placeholder engine dan delivery stash
   seriacore:
-    enabled: true
+    # true = pakai koneksi database pusat SeriaCore, false = database internal SeriaJobs
     use-central-database: true
-    use-delivery-stash-on-full-inv: true
   seriatranslator:
     enabled: true
     auto-translate-gui: true

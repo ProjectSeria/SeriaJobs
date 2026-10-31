@@ -1,7 +1,7 @@
 package id.seria.jobs.model.reward;
 
 import id.seria.jobs.SeriaJobs;
-import id.seria.jobs.hook.ExcellentEconomyHook;
+import id.seria.core.hooks.economy.EconomyHook;
 import id.seria.jobs.model.Job;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -44,12 +44,7 @@ public class ExcellentEconomyReward implements Reward {
     @Override
     public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
         double effective = multiplier > 0.0 ? amount * multiplier : amount;
-        ExcellentEconomyHook hook = SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook();
-        if (hook != null && hook.isLoaded()) {
-            hook.deposit(player, currencyId, effective);
-        } else if (SeriaJobs.getInstance().getHookManager().isVaultLoaded()) {
-            SeriaJobs.getInstance().getHookManager().getVaultHook().deposit(player, effective);
-        }
+        SeriaJobs.getInstance().getEconomyService().deposit(player, currencyId, effective);
     }
 
     @NotNull
@@ -68,9 +63,8 @@ public class ExcellentEconomyReward implements Reward {
                     .replace("{amount_raw}", String.valueOf(effective))
                     .replace("{currency}", currencyId != null ? currencyId : "");
         }
-        ExcellentEconomyHook hook = SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook();
-        if (hook != null && hook.isLoaded()) {
-            String formatted = hook.format(currencyId, effective);
+        if (SeriaJobs.getInstance().getEconomyService().isCurrencyEngineAvailable()) {
+            String formatted = EconomyHook.getInstance().format(currencyId, effective);
             return "<green>+ " + formatted + "</green>";
         }
         String name = currencyId != null ? currencyId : "Currency";

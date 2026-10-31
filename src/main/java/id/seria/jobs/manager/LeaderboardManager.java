@@ -413,17 +413,9 @@ public class LeaderboardManager {
             if (player != null && player.isOnline()) {
                 // Deliver directly online
                 if ("VAULT".equals(type)) {
-                    if (plugin.getHookManager().isVaultLoaded()) {
-                        plugin.getHookManager().getVaultHook().deposit(player, amount);
-                    } else if (plugin.getHookManager().isExcellentEconomyLoaded()) {
-                        plugin.getHookManager().getExcellentEconomyHook().deposit(player, null, amount);
-                    }
+                    plugin.getEconomyService().deposit(player, amount);
                 } else if ("EXCELLENT_ECONOMY".equals(type) || "CURRENCY".equals(type)) {
-                    if (plugin.getHookManager().isExcellentEconomyLoaded()) {
-                        plugin.getHookManager().getExcellentEconomyHook().deposit(player, extraData, amount);
-                    } else if (plugin.getHookManager().isVaultLoaded()) {
-                        plugin.getHookManager().getVaultHook().deposit(player, amount);
-                    }
+                    plugin.getEconomyService().deposit(player, extraData, amount);
                 } else if ("COMMAND".equals(type)) {
                     String cmd = extraData.replace("%player%", player.getName()).replace("{player}", player.getName());
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);

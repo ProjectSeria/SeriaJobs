@@ -431,11 +431,8 @@ public class JobsManager {
 
     public boolean deductSerium(Player player, int amount) {
         // 1. Check ExcellentEconomy / CoinsEngine
-        if (plugin.getHookManager() != null && plugin.getHookManager().isExcellentEconomyLoaded()) {
-            double current = plugin.getHookManager().getExcellentEconomyHook().getBalance(player, "serium");
-            if (current >= amount) {
-                return plugin.getHookManager().getExcellentEconomyHook().withdraw(player, "serium", amount);
-            }
+        if (economyService.getBalance(player, "serium") >= amount) {
+            return economyService.withdraw(player, "serium", amount);
         }
 
         // 2. Custom Command fallback from config

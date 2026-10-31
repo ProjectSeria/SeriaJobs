@@ -1,5 +1,6 @@
 package id.seria.jobs.manager;
 
+import id.seria.core.SeriaCorePlugin;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import id.seria.jobs.SeriaJobs;
@@ -42,8 +43,7 @@ public class PlayerDataManager {
 
     public void init() {
         if (plugin.getConfigManager().isHookEnabled("seriacore.use-central-database")
-                && plugin.getHookManager().isSeriaCoreLoaded()
-                && plugin.getHookManager().getSeriaCoreHook().getConnection() != null) {
+                && SeriaCorePlugin.getInstance().getPlayerDataManager().getConnection() != null) {
             useSeriaCoreDb = true;
             plugin.getLogger().info("Using SeriaCore centralized database connection.");
         } else {
@@ -85,7 +85,7 @@ public class PlayerDataManager {
 
     public Connection getConnection() throws SQLException {
         if (useSeriaCoreDb) {
-            Connection conn = plugin.getHookManager().getSeriaCoreHook().getConnection();
+            Connection conn = SeriaCorePlugin.getInstance().getPlayerDataManager().getConnection();
             if (conn != null && !conn.isClosed()) {
                 return conn;
             }
@@ -98,7 +98,7 @@ public class PlayerDataManager {
 
     public void runAsync(Consumer<Connection> action) {
         if (useSeriaCoreDb) {
-            plugin.getHookManager().getSeriaCoreHook().runAsync(action);
+            SeriaCorePlugin.getInstance().getPlayerDataManager().runAsync(action);
             return;
         }
 
@@ -700,17 +700,9 @@ public class PlayerDataManager {
                             Bukkit.getScheduler().runTask(plugin, () -> {
                                 if (!player.isOnline()) return;
                                 if ("VAULT".equalsIgnoreCase(type)) {
-                                    if (plugin.getHookManager().isVaultLoaded()) {
-                                        plugin.getHookManager().getVaultHook().deposit(player, amount);
-                                    } else if (plugin.getHookManager().isExcellentEconomyLoaded()) {
-                                        plugin.getHookManager().getExcellentEconomyHook().deposit(player, null, amount);
-                                    }
+                                    plugin.getEconomyService().deposit(player, amount);
                                 } else if ("EXCELLENT_ECONOMY".equalsIgnoreCase(type) || "CURRENCY".equalsIgnoreCase(type)) {
-                                    if (plugin.getHookManager().isExcellentEconomyLoaded()) {
-                                        plugin.getHookManager().getExcellentEconomyHook().deposit(player, extraData, amount);
-                                    } else if (plugin.getHookManager().isVaultLoaded()) {
-                                        plugin.getHookManager().getVaultHook().deposit(player, amount);
-                                    }
+                                    plugin.getEconomyService().deposit(player, extraData, amount);
                                 } else if ("COMMAND".equalsIgnoreCase(type)) {
                                     if (extraData != null && !extraData.isBlank()) {
                                         String cmd = extraData.replace("%player%", player.getName()).replace("{player}", player.getName());

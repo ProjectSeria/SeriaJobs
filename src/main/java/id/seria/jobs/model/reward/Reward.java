@@ -1,7 +1,10 @@
 package id.seria.jobs.model.reward;
 
+import id.seria.core.SeriaCorePlugin;
+import id.seria.jobs.SeriaJobs;
 import id.seria.jobs.model.Job;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public interface Reward {
@@ -53,5 +56,15 @@ public interface Reward {
      */
     default String getCustomDisplay() {
         return null;
+    }
+
+    /**
+     * Gives an item to the player; whatever does not fit goes to the SeriaCore delivery stash.
+     */
+    static void giveOrStash(@NotNull Player player, @NotNull ItemStack item, @NotNull Job job) {
+        for (ItemStack leftover : player.getInventory().addItem(item).values()) {
+            SeriaCorePlugin.getInstance().getDeliveryManager().addDelivery(player.getUniqueId(), leftover, "SeriaJobs: " + job.getId());
+            player.sendMessage(SeriaJobs.getInstance().getLanguageManager().getMessage(player, "orders.stash-delivered"));
+        }
     }
 }

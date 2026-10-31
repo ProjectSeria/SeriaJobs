@@ -1,5 +1,6 @@
 package id.seria.jobs;
 
+import id.seria.core.SeriaCorePlugin;
 import id.seria.jobs.command.JobsCommand;
 import id.seria.jobs.config.ConfigManager;
 import id.seria.jobs.config.LanguageManager;
@@ -18,6 +19,8 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public class SeriaJobs extends JavaPlugin {
 
     private static SeriaJobs instance;
@@ -31,7 +34,6 @@ public class SeriaJobs extends JavaPlugin {
     private PlayerDataManager playerDataManager;
     private SlotPermissionManager slotPermissionManager;
     private LeaderboardManager leaderboardManager;
-    private id.seria.jobs.placeholder.CustomPlaceholderManager customPlaceholderManager;
 
     // Blueprint Services & Managers
     private id.seria.jobs.service.EconomyService economyService;
@@ -61,12 +63,13 @@ public class SeriaJobs extends JavaPlugin {
         // 2. Export translation folders (cache/, translator/, translations/)
         TranslationExporter.setupTranslationFolders(this);
 
-        // 3. Hooks (Vault, AuraSkills, MMOItems, SeriaCore, SeriaTranslator, PAPI)
+        // 3. Hooks (AuraSkills, MMOItems, SeriaTranslator, PAPI) + registrasi placeholder ke SeriaCore
+        saveDefaultPlaceholders();
         this.hookManager = new HookManager(this);
         this.hookManager.init();
 
         // 4. Core Blueprint Services
-        this.economyService = new id.seria.jobs.service.EconomyService(this);
+        this.economyService = new id.seria.jobs.service.EconomyService();
         this.actionRunnerService = new id.seria.jobs.service.ActionRunnerService();
         this.reputationBridgeService = new id.seria.jobs.service.ReputationBridgeService(this);
         this.orderGenerationService = new id.seria.jobs.service.OrderGenerationService(this);
@@ -85,9 +88,6 @@ public class SeriaJobs extends JavaPlugin {
 
         this.leaderboardManager = new LeaderboardManager(this);
         this.leaderboardManager.init();
-
-        this.customPlaceholderManager = new id.seria.jobs.placeholder.CustomPlaceholderManager(this);
-        this.customPlaceholderManager.init();
 
         this.jobsManager = new id.seria.jobs.manager.JobsManager(
                 this,
@@ -127,10 +127,6 @@ public class SeriaJobs extends JavaPlugin {
     public void onDisable() {
         getLogger().info("Disabling SeriaJobs...");
 
-        if (customPlaceholderManager != null) {
-            customPlaceholderManager.unregisterExpansion();
-        }
-
         if (leaderboardManager != null) {
             leaderboardManager.shutdown();
         }
@@ -155,14 +151,23 @@ public class SeriaJobs extends JavaPlugin {
         languageManager.load();
         menuRegistry.load();
         jobRegistry.load();
-        if (customPlaceholderManager != null) {
-            customPlaceholderManager.load();
-        }
+        SeriaCorePlugin.getInstance().getPlaceholderManager().load();
         if (reputationBridgeService != null) {
             reputationBridgeService.reload();
         }
         TranslationExporter.setupTranslationFolders(this);
         getLogger().info("SeriaJobs configurations and job registries reloaded.");
+    }
+
+    /**
+     * Salin template placeholder/ bawaan bila belum ada. Isinya dimuat dan dievaluasi oleh engine SeriaCore.
+     */
+    private void saveDefaultPlaceholders() {
+        for (String name : new String[]{"playerlevel.yml", "reroll.yml", "progressbar.yml"}) {
+            if (!new File(getDataFolder(), "placeholder/" + name).exists() && getResource("placeholder/" + name) != null) {
+                saveResource("placeholder/" + name, false);
+            }
+        }
     }
 
     public static SeriaJobs getInstance() {
@@ -203,10 +208,6 @@ public class SeriaJobs extends JavaPlugin {
 
     public LeaderboardManager getLeaderboardManager() {
         return leaderboardManager;
-    }
-
-    public id.seria.jobs.placeholder.CustomPlaceholderManager getCustomPlaceholderManager() {
-        return customPlaceholderManager;
     }
 
     public id.seria.jobs.service.EconomyService getEconomyService() {

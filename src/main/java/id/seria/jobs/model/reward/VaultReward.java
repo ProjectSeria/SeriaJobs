@@ -36,11 +36,7 @@ public class VaultReward implements Reward {
     @Override
     public void apply(@NotNull Player player, @NotNull Job job, double multiplier) {
         double effective = multiplier > 0.0 ? amount * multiplier : amount;
-        if (SeriaJobs.getInstance().getHookManager().isVaultLoaded()) {
-            SeriaJobs.getInstance().getHookManager().getVaultHook().deposit(player, effective);
-        } else if (SeriaJobs.getInstance().getHookManager().isExcellentEconomyLoaded()) {
-            SeriaJobs.getInstance().getHookManager().getExcellentEconomyHook().deposit(player, null, effective);
-        }
+        SeriaJobs.getInstance().getEconomyService().deposit(player, effective);
     }
 
     @NotNull

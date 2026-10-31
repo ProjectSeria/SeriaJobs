@@ -1,5 +1,7 @@
 package id.seria.jobs.utils;
 
+import id.seria.core.gui.menu.BaseSeriaMenu;
+import id.seria.core.placeholder.CustomPlaceholderManager;
 import id.seria.jobs.SeriaJobs;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -46,19 +48,11 @@ public class TextUtil {
      * Ubah tag warna semantik Seria ({@code <title-color>}, {@code <lore-color>}, {@code <money-color>}, ...)
      * menjadi tag MiniMessage biasa memakai palet SeriaCore. Tanpa ini, tag tersebut tampil mentah di GUI
      * karena MiniMessage tidak mengenalnya.
-     *
-     * <p>SeriaCore hanya softdepend, jadi kelasnya dipanggil setelah dicek aktif.
      */
     private static String formatSemanticColors(String text) {
         if (text == null || text.isEmpty()) return "";
-        if (org.bukkit.Bukkit.getServer() != null && org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
-            try {
-                text = id.seria.core.placeholder.CustomPlaceholderManager.parse(null, text);
-            } catch (Throwable ignored) {}
-            try {
-                text = id.seria.core.gui.menu.BaseSeriaMenu.formatSemanticColorTags(text);
-            } catch (Throwable ignored) {}
-        }
+        text = CustomPlaceholderManager.parse(null, text);
+        text = BaseSeriaMenu.formatSemanticColorTags(text);
 
         // Direct fallback replacements for common SeriaPrefix and semantic tags
         if (text.contains("<sc:") || text.contains("<p:") || text.contains("<prefix>") || text.contains("<menu-prefix>") || text.contains("%sc_") || text.contains("%menu-prefix%")) {
@@ -118,15 +112,7 @@ public class TextUtil {
 
         // Only parse if unresolved placeholders remain
         if (text.indexOf('%') != -1) {
-            if (org.bukkit.Bukkit.getServer() != null && org.bukkit.Bukkit.getPluginManager().isPluginEnabled("SeriaCore")) {
-                try {
-                    text = id.seria.core.placeholder.CustomPlaceholderManager.parse(player, text);
-                } catch (Throwable ignored) {}
-            } else if (player != null && SeriaJobs.getInstance().getHookManager().isPapiLoaded()) {
-                try {
-                    text = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, text);
-                } catch (Throwable ignored) {}
-            }
+            text = CustomPlaceholderManager.parse(player, text);
         }
 
         // Apply SeriaTranslator translation if hooked

@@ -1,14 +1,20 @@
 package id.seria.jobs.hook;
 
+import id.seria.core.SeriaCorePlugin;
+import id.seria.core.placeholder.CustomPlaceholderManager;
+import id.seria.core.placeholder.SeriaPlaceholderProvider;
 import id.seria.jobs.SeriaJobs;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
 
 public class HookManager {
 
     private final SeriaJobs plugin;
 
-    private VaultHook vaultHook;
-    private ExcellentEconomyHook excellentEconomyHook;
     private LuckPermsHook luckPermsHook;
     private AuraSkillsHook auraSkillsHook;
     private MMOItemsHook mmoItemsHook;
@@ -16,13 +22,10 @@ public class HookManager {
     private CustomFishingHook customFishingHook;
     private SeriaMagicBundleHook seriaMagicBundleHook;
     private SeriaCraftingHook seriaCraftingHook;
-    private SeriaCoreHook seriaCoreHook;
     private SeriaTranslatorHook seriaTranslatorHook;
     private PAPIExpansion papiExpansion;
     private JobsPlaceholderExpansion jobsOrderExpansion;
 
-    private boolean vaultLoaded = false;
-    private boolean excellentEconomyLoaded = false;
     private boolean luckPermsLoaded = false;
     private boolean auraSkillsLoaded = false;
     private boolean mmoItemsLoaded = false;
@@ -30,7 +33,6 @@ public class HookManager {
     private boolean customFishingLoaded = false;
     private boolean seriaMagicBundleLoaded = false;
     private boolean seriaCraftingLoaded = false;
-    private boolean seriaCoreLoaded = false;
     private boolean seriaTranslatorLoaded = false;
     private boolean papiLoaded = false;
 
@@ -39,24 +41,6 @@ public class HookManager {
     }
 
     public void init() {
-        // Vault Hook
-        if (plugin.getConfigManager().isHookEnabled("vault")) {
-            vaultHook = new VaultHook();
-            if (vaultHook.setup()) {
-                vaultLoaded = true;
-                plugin.getLogger().info("Successfully hooked into Vault Economy.");
-            }
-        }
-
-        // ExcellentEconomy Hook
-        if (plugin.getConfigManager().isHookEnabled("excellenteconomy")) {
-            excellentEconomyHook = new ExcellentEconomyHook();
-            if (excellentEconomyHook.setup()) {
-                excellentEconomyLoaded = true;
-                plugin.getLogger().info("Successfully hooked into ExcellentEconomy API.");
-            }
-        }
-
         // LuckPerms Hook
         if (plugin.getConfigManager().isHookEnabled("luckperms")) {
             luckPermsHook = new LuckPermsHook();
@@ -128,19 +112,6 @@ public class HookManager {
             }
         }
 
-        // SeriaCore Hook (Backend)
-        if (plugin.getConfigManager().isHookEnabled("seriacore.enabled") && Bukkit.getPluginManager().getPlugin("SeriaCore") != null) {
-            try {
-                seriaCoreHook = new SeriaCoreHook();
-                if (seriaCoreHook.setup()) {
-                    seriaCoreLoaded = true;
-                    plugin.getLogger().info("Successfully hooked into SeriaCore backbone.");
-                }
-            } catch (Throwable t) {
-                plugin.getLogger().warning("Could not hook into SeriaCore: " + t.getMessage());
-            }
-        }
-
         // SeriaTranslator Hook (Localization)
         if (plugin.getConfigManager().isHookEnabled("seriatranslator.enabled") && Bukkit.getPluginManager().getPlugin("SeriaTranslator") != null) {
             try {
@@ -167,9 +138,40 @@ public class HookManager {
             }
         }
 
-        // Connect to SeriaCore hierarchy (internal placeholders and custom folder)
-        if (seriaCoreLoaded && seriaCoreHook != null) {
-            seriaCoreHook.registerToSeriaCore(plugin, papiExpansion);
+        registerToSeriaCore();
+    }
+
+    /**
+     * Daftarkan provider %seriajobs_*% / %jobsorder_*% dan folder placeholder/ SeriaJobs ke engine SeriaCore.
+     */
+    private void registerToSeriaCore() {
+        CustomPlaceholderManager placeholders = SeriaCorePlugin.getInstance().getPlaceholderManager();
+        placeholders.registerProvider(new SeriaPlaceholderProvider() {
+            @Override
+            public @NotNull String getPrefix() {
+                return "seriajobs";
+            }
+
+            @Override
+            public @Nullable String onRequest(@Nullable Player player, @NotNull String params) {
+                return papiExpansion.onRequest(player, params);
+            }
+        });
+        placeholders.registerProvider(new SeriaPlaceholderProvider() {
+            @Override
+            public @NotNull String getPrefix() {
+                return "jobsorder";
+            }
+
+            @Override
+            public @Nullable String onRequest(@Nullable Player player, @NotNull String params) {
+                return jobsOrderExpansion.onRequest(player, params);
+            }
+        });
+
+        File folder = new File(plugin.getDataFolder(), "placeholder");
+        if (folder.isDirectory()) {
+            placeholders.registerFolder(folder);
         }
     }
 
@@ -180,22 +182,6 @@ public class HookManager {
         if (jobsOrderExpansion != null) {
             jobsOrderExpansion.unregister();
         }
-    }
-
-    public boolean isVaultLoaded() {
-        return vaultLoaded;
-    }
-
-    public VaultHook getVaultHook() {
-        return vaultHook;
-    }
-
-    public boolean isExcellentEconomyLoaded() {
-        return excellentEconomyLoaded && (excellentEconomyHook != null && excellentEconomyHook.isLoaded());
-    }
-
-    public ExcellentEconomyHook getExcellentEconomyHook() {
-        return excellentEconomyHook;
     }
 
     public boolean isLuckPermsLoaded() {
@@ -260,14 +246,6 @@ public class HookManager {
 
     public SeriaCraftingHook getSeriaCraftingHook() {
         return seriaCraftingHook;
-    }
-
-    public boolean isSeriaCoreLoaded() {
-        return seriaCoreLoaded;
-    }
-
-    public SeriaCoreHook getSeriaCoreHook() {
-        return seriaCoreHook;
     }
 
     public boolean isSeriaTranslatorLoaded() {
