@@ -17,18 +17,14 @@ public class HookManager {
 
     private LuckPermsHook luckPermsHook;
     private AuraSkillsHook auraSkillsHook;
-    private CustomFishingHook customFishingHook;
     private SeriaMagicBundleHook seriaMagicBundleHook;
-    private SeriaCraftingHook seriaCraftingHook;
     private SeriaTranslatorHook seriaTranslatorHook;
     private PAPIExpansion papiExpansion;
     private JobsPlaceholderExpansion jobsOrderExpansion;
 
     private boolean luckPermsLoaded = false;
     private boolean auraSkillsLoaded = false;
-    private boolean customFishingLoaded = false;
     private boolean seriaMagicBundleLoaded = false;
-    private boolean seriaCraftingLoaded = false;
     private boolean seriaTranslatorLoaded = false;
     private boolean papiLoaded = false;
 
@@ -55,16 +51,7 @@ public class HookManager {
             }
         }
 
-        // CustomFishing Hook
-        if (plugin.getConfigManager().isHookEnabled("customfishing")) {
-            customFishingHook = new CustomFishingHook();
-            if (customFishingHook.setup()) {
-                customFishingLoaded = true;
-                plugin.getLogger().info("Successfully hooked into Custom-Fishing by XiaoMoMi.");
-            }
-        }
-
-        // SeriaMagicBundle Hook
+        // SeriaMagicBundle Hook (virtual storage / physical bundle). CustomFishing items come from SeriaCore's item provider.
         if (plugin.getConfigManager().isHookEnabled("seriamagicbundle") && Bukkit.getPluginManager().getPlugin("SeriaMagicBundle") != null) {
             try {
                 seriaMagicBundleHook = new SeriaMagicBundleHook();
@@ -74,19 +61,6 @@ public class HookManager {
                 }
             } catch (Throwable t) {
                 plugin.getLogger().warning("Could not hook into SeriaMagicBundle: " + t.getMessage());
-            }
-        }
-
-        // SeriaCrafting Hook
-        if (plugin.getConfigManager().isHookEnabled("seriacrafting") && Bukkit.getPluginManager().getPlugin("SeriaCrafting") != null) {
-            try {
-                seriaCraftingHook = new SeriaCraftingHook();
-                if (seriaCraftingHook.setup()) {
-                    seriaCraftingLoaded = true;
-                    plugin.getLogger().info("Successfully hooked into SeriaCrafting.");
-                }
-            } catch (Throwable t) {
-                plugin.getLogger().warning("Could not hook into SeriaCrafting: " + t.getMessage());
             }
         }
 
@@ -178,28 +152,12 @@ public class HookManager {
         return auraSkillsHook;
     }
 
-    public boolean isCustomFishingLoaded() {
-        return customFishingLoaded;
-    }
-
-    public CustomFishingHook getCustomFishingHook() {
-        return customFishingHook;
-    }
-
     public boolean isSeriaMagicBundleLoaded() {
         return seriaMagicBundleLoaded;
     }
 
     public SeriaMagicBundleHook getSeriaMagicBundleHook() {
         return seriaMagicBundleHook;
-    }
-
-    public boolean isSeriaCraftingLoaded() {
-        return seriaCraftingLoaded;
-    }
-
-    public SeriaCraftingHook getSeriaCraftingHook() {
-        return seriaCraftingHook;
     }
 
     public boolean isSeriaTranslatorLoaded() {

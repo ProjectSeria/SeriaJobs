@@ -16,11 +16,9 @@ softdepend:
   - MMOItems
   - MythicLib
   - MythicMobs
-  - CustomFishing
   - SeriaTranslator
   - SeriaMagicBundle
   - MagicBundle
-  - SeriaCrafting
 
 commands:
   seriajobs:

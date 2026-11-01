@@ -28,7 +28,7 @@ public class JobOrder {
     private final boolean strictNbt;
     private final String mmoItemType;
     private final String mmoItemId;
-    private final String customItemId; // Generic ID for MythicMobs, CustomFishing, SeriaMagicBundle, SeriaCrafting
+    private final String customItemId; // Generic ID for MythicMobs, CustomFishing
     private final List<String> customItemIds; // Multi-ID list for collective orders (e.g. fishing-ids, custom-item-ids)
     private final int amount;
 
