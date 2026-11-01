@@ -48,32 +48,14 @@ public class TextUtil {
      * Ubah tag warna semantik Seria ({@code <title-color>}, {@code <lore-color>}, {@code <money-color>}, ...)
      * menjadi tag MiniMessage biasa memakai palet SeriaCore. Tanpa ini, tag tersebut tampil mentah di GUI
      * karena MiniMessage tidak mengenalnya.
+     * <p>
+     * Fallback prefix / menu-prefix sepenuhnya ditangani SeriaCore ({@link BaseSeriaMenu#formatSemanticColorTags}),
+     * tag lain di-resolve dari SeriaPrefix atau registry YAML SeriaCore. Tidak ada nilai hardcoded di sini.
      */
     private static String formatSemanticColors(String text) {
         if (text == null || text.isEmpty()) return "";
         text = CustomPlaceholderManager.parse(null, text);
-        text = BaseSeriaMenu.formatSemanticColorTags(text);
-
-        // Direct fallback replacements for common SeriaPrefix and semantic tags
-        if (text.contains("<sc:") || text.contains("<p:") || text.contains("<prefix>") || text.contains("<menu-prefix>") || text.contains("%sc_") || text.contains("%menu-prefix%")) {
-            text = text
-                    .replace("<sc:menu-prefix>", "<black><bold>| </bold><dark_gray>")
-                    .replace("<p:menu-prefix>", "<black><bold>| </bold><dark_gray>")
-                    .replace("<menu-prefix>", "<black><bold>| </bold><dark_gray>")
-                    .replace("%sc_menu-prefix%", "<black><bold>| </bold><dark_gray>")
-                    .replace("%menu-prefix%", "<black><bold>| </bold><dark_gray>")
-                    .replace("<sc:prefix>", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
-                    .replace("<p:prefix>", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
-                    .replace("<prefix>", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
-                    .replace("%sc_prefix%", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
-                    .replace("%prefix%", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient> <white>┃</white> ")
-                    .replace("<sc:server-name>", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient>")
-                    .replace("%sc_server-name%", "<gradient:#ff0f7b:#f89b29><b>Seria</b></gradient>")
-                    .replace("<sc:success>", "<green><bold>SUCCESS</bold></green> <white>┃</white> ")
-                    .replace("<sc:error-prefix>", "<red><bold>ERROR</bold></red> <white>┃</white> ");
-        }
-
-        return text;
+        return BaseSeriaMenu.formatSemanticColorTags(text);
     }
 
     /**
