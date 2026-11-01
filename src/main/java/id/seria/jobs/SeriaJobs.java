@@ -46,6 +46,12 @@ public class SeriaJobs extends JavaPlugin {
         instance = this;
         long startTime = System.currentTimeMillis();
 
+        // 0. Pastikan SeriaCore cukup baru sebelum menyentuh API-nya
+        if (!id.seria.jobs.utils.CoreVersionCheck.verify(this)) {
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
         getLogger().info("Initializing SeriaJobs core systems...");
 
         // 1. Config and Languages

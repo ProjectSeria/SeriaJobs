@@ -6,6 +6,8 @@ author: Seria Network
 description: Supply-Chain Fulfillment and Market Work Order plugin for Seria Network
 
 depend: [SeriaCore]
+# Diisi otomatis dari pom (seriacore.min-version) saat build
+seriacore-min-version: '${seriacore.min-version}'
 
 softdepend:
   - Vault
