@@ -780,8 +780,8 @@ public class OrderDepositMenu extends BaseMenu {
             return;
         }
 
-        int jobLevel = profile.getJobLevel(job.getId());
-        int required = order.getRequiredAmount(jobLevel);
+        WorkOrder activeWo = slotNumber > 0 ? profile.getActiveOrder(slotNumber) : null;
+        int required = resolveRequiredAmount(order, profile, activeWo);
         int currentProgress = profile.getOrderProgress(shiftId, job.getId(), order.getId());
         int remainingNeeded = required - currentProgress;
         if (remainingNeeded <= 0) return;
@@ -852,6 +852,21 @@ public class OrderDepositMenu extends BaseMenu {
         refresh();
     }
 
+    /**
+     * Jumlah yang dibutuhkan, identik dengan yang ditampilkan di kartu order:
+     * target work order yang sudah di-generate bila ada, selain itu skala level + multiplier reputasi.
+     */
+    private int resolveRequiredAmount(JobOrder order, JobProfile profile, WorkOrder wo) {
+        if (wo != null && wo.getTemplate() != null) {
+            return wo.getTemplate().getTargetAmount();
+        }
+        int jobLevel = profile != null ? profile.getJobLevel(job.getId()) : 1;
+        double orderMult = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                : 1.0;
+        return order.getRequiredAmount(jobLevel, orderMult);
+    }
+
     private void handleDepositAll() {
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
@@ -870,7 +885,16 @@ public class OrderDepositMenu extends BaseMenu {
                 continue;
             }
 
-            int required = order.getRequiredAmount(jobLevel);
+            WorkOrder activeWo = null;
+            if (profile != null) {
+                for (WorkOrder w : profile.getActiveOrders().values()) {
+                    if (w != null && w.getTemplate() != null && w.getTemplate().getTemplateId().equalsIgnoreCase(order.getId())) {
+                        activeWo = w;
+                        break;
+                    }
+                }
+            }
+            int required = resolveRequiredAmount(order, profile, activeWo);
             int currentProgress = profile != null ? profile.getOrderProgress(shiftId, job.getId(), order.getId()) : 0;
             int remainingNeeded = required - currentProgress;
             if (remainingNeeded <= 0) continue;
