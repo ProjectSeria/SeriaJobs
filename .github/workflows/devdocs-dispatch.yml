@@ -1,0 +1,27 @@
+name: Notify devdocs
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: devdocs-dispatch-${{ github.repository }}
+  cancel-in-progress: false
+jobs:
+  notify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Request documentation sync
+        env:
+          GH_TOKEN: ${{ secrets.DEVDOCS_DISPATCH_TOKEN }}
+          SOURCE_REPO: ${{ github.event.repository.name }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          test -n "$GH_TOKEN" || { echo '::error::Configure DEVDOCS_DISPATCH_TOKEN before running this workflow'; exit 1; }
+          gh api --method POST repos/ProjectSeria/seria-devdocs/dispatches \
+            -f event_type=source-updated \
+            -f "client_payload[repo]=$SOURCE_REPO" \
+            -f 'client_payload[branch]=main' \
+            -f "client_payload[sha]=$SOURCE_SHA"
