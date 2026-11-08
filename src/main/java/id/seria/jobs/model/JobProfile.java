@@ -115,6 +115,22 @@ public class JobProfile {
         return System.currentTimeMillis() < expire;
     }
 
+    /**
+     * Cooldown resign berlaku global untuk semua job: ambil waktu kadaluarsa terjauh
+     * dari seluruh cooldown per-job yang tersimpan.
+     */
+    public long getGlobalLeaveCooldown() {
+        long max = 0L;
+        for (long expire : leaveCooldowns.values()) {
+            if (expire > max) max = expire;
+        }
+        return max;
+    }
+
+    public boolean isOnGlobalLeaveCooldown() {
+        return System.currentTimeMillis() < getGlobalLeaveCooldown();
+    }
+
     private String makeKey(String shiftId, String jobId, String orderId) {
         return shiftId + ":" + jobId.toLowerCase() + ":" + orderId.toLowerCase();
     }
