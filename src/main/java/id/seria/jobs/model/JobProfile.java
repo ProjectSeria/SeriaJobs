@@ -110,6 +110,15 @@ public class JobProfile {
         leaveCooldowns.put(jobId.toLowerCase(), expireTimestamp);
     }
 
+    /**
+     * Memulai cooldown resign global baru: seluruh cooldown lama dihapus dan
+     * digantikan oleh cooldown terbaru.
+     */
+    public void startLeaveCooldown(String jobId, long expireTimestamp) {
+        leaveCooldowns.clear();
+        leaveCooldowns.put(jobId.toLowerCase(), expireTimestamp);
+    }
+
     public boolean isLeaveOnCooldown(String jobId) {
         long expire = getLeaveCooldown(jobId);
         return System.currentTimeMillis() < expire;

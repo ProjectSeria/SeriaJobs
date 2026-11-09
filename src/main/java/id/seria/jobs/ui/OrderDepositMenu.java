@@ -513,15 +513,6 @@ public class OrderDepositMenu extends BaseMenu {
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
         if (profile == null) return;
 
-        if (profile.isOnGlobalLeaveCooldown()) {
-            long remainingMillis = profile.getGlobalLeaveCooldown() - System.currentTimeMillis();
-            long hours = remainingMillis / (1000 * 60 * 60);
-            long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
-            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.leave-cooldown",
-                    "{time}", hours + " jam " + minutes + " menit"));
-            return;
-        }
-
         id.seria.jobs.api.JobLeaveEvent event = new id.seria.jobs.api.JobLeaveEvent(player, job);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
@@ -530,7 +521,7 @@ public class OrderDepositMenu extends BaseMenu {
 
         profile.removeActiveJob(job.getId());
         long cooldownHours = plugin.getConfigManager().getLeaveCooldownHours();
-        profile.setLeaveCooldown(job.getId(), System.currentTimeMillis() + (cooldownHours * 3600 * 1000L));
+        profile.startLeaveCooldown(job.getId(), System.currentTimeMillis() + (cooldownHours * 3600 * 1000L));
 
         if (plugin.getConfigManager().isResetProgressOnLeave()) {
             profile.setJobLevel(job.getId(), 1);
