@@ -47,6 +47,13 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        // Pemain biasa hanya boleh memakai "/jobs" (membuka menu utama). Semua subcommand
+        // adalah admin-only; akses job/order/reward pemain lewat GUI yang memvalidasi keanggotaan.
+        if (!sender.hasPermission("seriajobs.admin")) {
+            sender.sendMessage(plugin.getLanguageManager().getMessage(sender instanceof Player p ? p : null, "general.no-permission"));
+            return true;
+        }
+
         String sub = args[0].toLowerCase();
 
         switch (sub) {
@@ -104,21 +111,24 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
                 String jobId = args.length >= 2 ? args[1] : "";
-                if (jobId.isEmpty()) {
-                    JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
-                    if (!profile.getActiveJobs().isEmpty()) {
-                        jobId = profile.getActiveJobs().iterator().next();
+                JobProfile orderProfile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+                if (jobId.isEmpty() && !orderProfile.getActiveJobs().isEmpty()) {
+                    jobId = orderProfile.getActiveJobs().iterator().next();
+                }
+                Job targetJob = jobId.isEmpty() ? null : plugin.getJobRegistry().getJob(jobId);
+                if (targetJob == null) {
+                    if (jobId.isEmpty()) {
+                        new id.seria.jobs.ui.MainJobsMenu(plugin, player).open();
+                    } else {
+                        player.sendMessage(plugin.getLanguageManager().getMessage(player, "general.job-not-found", "{job}", jobId));
                     }
+                    return true;
                 }
-                Job targetJob = plugin.getJobRegistry().getJob(jobId);
-                if (targetJob == null && !plugin.getJobRegistry().getJobs().isEmpty()) {
-                    targetJob = plugin.getJobRegistry().getJobs().iterator().next();
+                if (!orderProfile.hasJob(targetJob.getId())) {
+                    player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+                    return true;
                 }
-                if (targetJob != null) {
-                    new id.seria.jobs.ui.OrderDepositMenu(plugin, player, targetJob).open();
-                } else {
-                    new id.seria.jobs.ui.MainJobsMenu(plugin, player).open();
-                }
+                new id.seria.jobs.ui.OrderDepositMenu(plugin, player, targetJob).open();
                 return true;
             }
 
@@ -213,7 +223,7 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             return;
         }
 
-        if (plugin.getConfigManager().isLeaveJobEnabled() && profile.isOnGlobalLeaveCooldown()) {
+        if (plugin.getConfigManager().isLeaveJobEnabled() && !profile.getActiveJobs().isEmpty() && profile.isOnGlobalLeaveCooldown()) {
             long remainingMillis = profile.getGlobalLeaveCooldown() - System.currentTimeMillis();
             long hours = remainingMillis / (1000 * 60 * 60);
             long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
@@ -568,6 +578,10 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         List<String> completions = new ArrayList<>();
+
+        if (!sender.hasPermission("seriajobs.admin")) {
+            return Collections.emptyList();
+        }
 
         if (args.length == 1) {
             completions.add("join");

@@ -775,6 +775,10 @@ public class OrderDepositMenu extends BaseMenu {
     }
 
     public void handleDepositOrder(JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
+        if (!profile.hasJob(job.getId())) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+            return;
+        }
         if (profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed"));
             return;
@@ -869,6 +873,10 @@ public class OrderDepositMenu extends BaseMenu {
 
     private void handleDepositAll() {
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+        if (!profile.hasJob(job.getId())) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+            return;
+        }
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
         List<JobOrder> activeOrders = new ArrayList<>(plugin.getOrderPoolManager().getActiveOrders(job.getId()));
         if (plugin.getConfigManager().isEventActive()) {
