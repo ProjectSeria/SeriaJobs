@@ -119,6 +119,10 @@ public class JobProfile {
         leaveCooldowns.put(jobId.toLowerCase(), expireTimestamp);
     }
 
+    public void clearLeaveCooldowns() {
+        leaveCooldowns.clear();
+    }
+
     public boolean isLeaveOnCooldown(String jobId) {
         long expire = getLeaveCooldown(jobId);
         return System.currentTimeMillis() < expire;

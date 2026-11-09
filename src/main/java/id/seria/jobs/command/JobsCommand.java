@@ -359,6 +359,25 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                 }
                 break;
 
+            case "resetcooldown": {
+                if (args.length < 3) {
+                    sender.sendMessage("§eUsage: /seriajobs admin resetcooldown <player>");
+                    return;
+                }
+                Player cdTarget = Bukkit.getPlayer(args[2]);
+                if (cdTarget == null) {
+                    sender.sendMessage("§cPlayer not found or offline!");
+                    return;
+                }
+                JobProfile cdProfile = plugin.getPlayerDataManager().getProfile(cdTarget.getUniqueId());
+                if (cdProfile != null) {
+                    cdProfile.clearLeaveCooldowns();
+                    plugin.getPlayerDataManager().saveProfileAsync(cdProfile);
+                    sender.sendMessage("§a[SeriaJobs] Berhasil mereset cooldown resign untuk player " + cdTarget.getName() + "!");
+                }
+                break;
+            }
+
             case "debug":
                 Player dbgPlayer = sender instanceof Player p ? p : null;
                 if (args.length >= 3) {
@@ -622,6 +641,7 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                 completions.add("debug");
                 completions.add("event");
                 completions.add("resetreroll");
+                completions.add("resetcooldown");
                 completions.add("forceroll");
                 completions.add("setlevel");
                 completions.add("leaderboard");
@@ -658,7 +678,8 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
                     completions.add("update");
                     return filterCompletions(completions, args[2]);
                 }
-                if (args[1].equalsIgnoreCase("setlevel")) {
+                if (args[1].equalsIgnoreCase("setlevel") || args[1].equalsIgnoreCase("resetcooldown")
+                        || args[1].equalsIgnoreCase("resetreroll")) {
                     return null; // suggest player names
                 }
             }
