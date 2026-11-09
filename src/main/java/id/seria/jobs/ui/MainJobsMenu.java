@@ -245,6 +245,15 @@ public class MainJobsMenu extends BaseMenu {
             return;
         }
 
+        if (profile.isOnGlobalLeaveCooldown()) {
+            long remainingMillis = profile.getGlobalLeaveCooldown() - System.currentTimeMillis();
+            long hours = remainingMillis / (1000 * 60 * 60);
+            long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.leave-cooldown",
+                    "{time}", hours + " jam " + minutes + " menit"));
+            return;
+        }
+
         JobLeaveEvent event = new JobLeaveEvent(player, job);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {

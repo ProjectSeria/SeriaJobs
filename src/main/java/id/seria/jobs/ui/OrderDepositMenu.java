@@ -513,8 +513,8 @@ public class OrderDepositMenu extends BaseMenu {
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
         if (profile == null) return;
 
-        if (profile.isLeaveOnCooldown(job.getId())) {
-            long remainingMillis = profile.getLeaveCooldown(job.getId()) - System.currentTimeMillis();
+        if (profile.isOnGlobalLeaveCooldown()) {
+            long remainingMillis = profile.getGlobalLeaveCooldown() - System.currentTimeMillis();
             long hours = remainingMillis / (1000 * 60 * 60);
             long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.leave-cooldown",
