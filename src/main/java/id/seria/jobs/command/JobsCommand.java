@@ -223,7 +223,7 @@ public class JobsCommand implements CommandExecutor, TabCompleter {
             return;
         }
 
-        if (plugin.getConfigManager().isLeaveJobEnabled() && !profile.getActiveJobs().isEmpty() && profile.isOnGlobalLeaveCooldown()) {
+        if (plugin.getConfigManager().isLeaveJobEnabled() && profile.isOnGlobalLeaveCooldown()) {
             long remainingMillis = profile.getGlobalLeaveCooldown() - System.currentTimeMillis();
             long hours = remainingMillis / (1000 * 60 * 60);
             long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
