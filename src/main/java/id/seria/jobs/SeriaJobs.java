@@ -39,6 +39,7 @@ public class SeriaJobs extends JavaPlugin {
     private id.seria.jobs.service.ActionRunnerService actionRunnerService;
     private id.seria.jobs.service.ReputationBridgeService reputationBridgeService;
     private id.seria.jobs.service.OrderGenerationService orderGenerationService;
+    private id.seria.jobs.service.ProgressionService progressionService;
     private id.seria.jobs.manager.JobsManager jobsManager;
 
     @Override
@@ -78,6 +79,9 @@ public class SeriaJobs extends JavaPlugin {
 
         this.jobRegistry = new JobRegistry(this);
         this.jobRegistry.load();
+
+        this.progressionService = new id.seria.jobs.service.ProgressionService(this);
+        this.progressionService.load(getConfig().getConfigurationSection("progression"), jobRegistry.getAllJobs());
 
         this.slotPermissionManager = new SlotPermissionManager(this);
 
@@ -145,6 +149,9 @@ public class SeriaJobs extends JavaPlugin {
         languageManager.load();
         menuRegistry.load();
         jobRegistry.load();
+        if (progressionService != null) {
+            progressionService.load(getConfig().getConfigurationSection("progression"), jobRegistry.getAllJobs());
+        }
         SeriaCorePlugin.getInstance().getPlaceholderManager().load();
         if (reputationBridgeService != null) {
             reputationBridgeService.reload();
@@ -214,6 +221,10 @@ public class SeriaJobs extends JavaPlugin {
 
     public id.seria.jobs.service.ReputationBridgeService getReputationBridgeService() {
         return reputationBridgeService;
+    }
+
+    public id.seria.jobs.service.ProgressionService getProgressionService() {
+        return progressionService;
     }
 
     public id.seria.jobs.service.OrderGenerationService getOrderGenerationService() {
