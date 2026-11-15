@@ -7,8 +7,15 @@ description:
   - ""
   - "<yellow>Click to view open work orders!</yellow>"
 
+# JOB PROGRESSION : LEVEL / MONEY / POINTS / EXP / MAX LEVEL #
+leveling-progression-equation: "(joblevel>=0&joblevel<1)*10+(joblevel>=1&joblevel<13)*(1.54+2.11*(joblevel*2-1)+0.0774*(joblevel*2-1)^2+0.00256*(joblevel*2-1)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=13&joblevel<25)*(129+13*(joblevel*2-25)+(-0.546)*(joblevel*2-25)^2+0.0427*(joblevel*2-25)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=25&joblevel<38)*(774+67.9*(joblevel*2-50)+1.71*(joblevel*2-50)^2+0.0171*(joblevel*2-50)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=38&joblevel<50)*(3864+212*(joblevel*2-75)+3.65*(joblevel*2-75)^2+0.051*(joblevel*2-75)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=50&joblevel<63)*(12252+522*(joblevel*2-100)+2.89*(joblevel*2-100)^2+0.222*(joblevel*2-100)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=63&joblevel<75)*(30465+1039*(joblevel*2-125)+12.4*(joblevel*2-125)^2+0.212*(joblevel*2-125)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=75&joblevel<88)*(67641+1996*(joblevel*2-150)+31.6*(joblevel*2-150)^2+0.17*(joblevel*2-150)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=88&joblevel<95)*(140250+4023*(joblevel*2-175)+(-108)*(joblevel*2-175)^2+28.1*(joblevel*2-175)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=95&joblevel<100)*(269101+16924*(joblevel*2-190)+931*(joblevel*2-190)^2+(-21.9)*(joblevel*2-190)^3)*(1+(1*(joblevel*2-1)*0.08))+(joblevel>=100)*680000*(1+(1*(joblevel*2-1)*0.08))"
+income-progression-equation: baseincome+(baseincome*(joblevel-1)*0.58)-((baseincome+(baseincome*(joblevel-1)*0.01))*((3-1)*0.01))
+points-progression-equation: basepoints+(basepoints*(joblevel-1)*0.01)-((basepoints+(basepoints*(joblevel-1)*0.01))    * ((numjobs-1)*0.05))
+experience-progression-equation: baseexperience*(1+(joblevel-1)*0.08)
+max-level: 100
+
+# Fallback jika leveling-progression-equation tidak valid
 leveling:
-  max-level: 50
   base-xp: 150
   multiplier: 1.30
 
