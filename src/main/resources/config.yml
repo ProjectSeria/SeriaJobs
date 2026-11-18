@@ -325,3 +325,26 @@ events:
   event-slot: 5
   # Pesan penolakan saat pemain mencoba me-reroll pesanan event
   deny-reroll-message: "<red>Pesanan khusus event tidak dapat di-reroll! Tunggu rotasi pasar berikutnya.</red>"
+
+# ==============================================================
+# Rumus Progresi Reward Order (dihitung saat klaim)
+# ==============================================================
+# Prioritas: key di jobs/<job>.yml > key global ini > nilai base apa adanya.
+# Variabel : joblevel, baseincome (VAULT), baseexperience (JOB_XP),
+#            basepoints (reputasi order), numjobs (jumlah job aktif pemain).
+# Urutan   : base -> rumus -> (Gins saja) x reward-multiplier tier -> pembulatan -> minimal 0.
+# Tampilan : placeholder {gins}, {xp}, {reputation} di display-rewards / lore kartu order.
+progression:
+  income-progression-equation: "baseincome * (1 + (joblevel - 1) * 0.01)"
+  experience-progression-equation: "baseexperience"
+  points-progression-equation: "basepoints * (1 - (numjobs - 1) * 0.05)"
+  # mode: CEIL, FLOOR, ROUND, NONE
+  income-rounding:
+    mode: "CEIL"
+    step: 250
+  points-rounding:
+    mode: "ROUND"
+    step: 1
+  experience-rounding:
+    mode: "ROUND"
+    step: 1

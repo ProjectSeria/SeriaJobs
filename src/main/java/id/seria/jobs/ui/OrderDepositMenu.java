@@ -299,7 +299,10 @@ public class OrderDepositMenu extends BaseMenu {
         String repRange = (order.getMinReputationAmount() > 0 && order.getMaxReputationAmount() > order.getMinReputationAmount())
                 ? (order.getMinReputationAmount() + "-" + order.getMaxReputationAmount())
                 : repStr;
-        String activeRepDisplay = (wo != null && wo.getGeneratedReputationAmount() > 0) ? repStr : repRange;
+        id.seria.jobs.service.ProgressionService.Display progDisplay = plugin.getProgressionService().display(player, job, order, wo);
+        String activeRepDisplay = progDisplay.reputation();
+        String ginsDisplay = progDisplay.gins();
+        String xpDisplay = progDisplay.xp();
 
         boolean isEventOrder = isEventCard || order.isEventOrder() || (wo != null && wo.isEventOrder());
         boolean isRerollable = !isEventOrder && order.isRerollable() && (wo == null || wo.isRerollable());
@@ -362,7 +365,7 @@ public class OrderDepositMenu extends BaseMenu {
                     .replace("{order_multiplier}", orderMultFormatted)
                     .replace("{reputation_tier}", repTierName)
                     .replace("{tier_name}", repTierName)
-                    .replace("{reputation}", activeRepDisplay)
+                    .replace("{gins}", ginsDisplay).replace("{xp}", xpDisplay).replace("{reputation}", activeRepDisplay)
                     .replace("{order_reputation}", activeRepDisplay)
                     .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
                     .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
@@ -397,7 +400,7 @@ public class OrderDepositMenu extends BaseMenu {
                                 .replace("{order_multiplier}", orderMultFormatted)
                                 .replace("{reputation_tier}", repTierName)
                                 .replace("{tier_name}", repTierName)
-                                .replace("{reputation}", activeRepDisplay)
+                                .replace("{gins}", ginsDisplay).replace("{xp}", xpDisplay).replace("{reputation}", activeRepDisplay)
                                 .replace("{order_reputation}", activeRepDisplay)
                                 .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
                                 .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
@@ -411,7 +414,7 @@ public class OrderDepositMenu extends BaseMenu {
                 } else if (line.contains("{rewards_list}")) {
                     if (order.hasCustomRewardsDisplay()) {
                         for (String rLine : order.getCustomRewardsDisplay()) {
-                            String parsedRLine = rLine.replace("{reputation}", activeRepDisplay)
+                            String parsedRLine = rLine.replace("{gins}", ginsDisplay).replace("{xp}", xpDisplay).replace("{reputation}", activeRepDisplay)
                                     .replace("{order_reputation}", activeRepDisplay)
                                     .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
                                     .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
@@ -430,7 +433,7 @@ public class OrderDepositMenu extends BaseMenu {
                         }
                     } else {
                         for (Reward r : order.getRewards()) {
-                            String disp = r.getFormattedDisplay(rewardMult);
+                            String disp = plugin.getProgressionService().formatReward(player, job, r, rewardMult);
                             if (!disp.startsWith(" ") && !disp.startsWith("<lore-color>▪") && !disp.startsWith("▪")) {
                                 disp = "  " + disp;
                             }
@@ -464,7 +467,7 @@ public class OrderDepositMenu extends BaseMenu {
                             .replace("{order_multiplier}", orderMultFormatted)
                             .replace("{reputation_tier}", repTierName)
                             .replace("{tier_name}", repTierName)
-                            .replace("{reputation}", activeRepDisplay)
+                            .replace("{gins}", ginsDisplay).replace("{xp}", xpDisplay).replace("{reputation}", activeRepDisplay)
                             .replace("{order_reputation}", activeRepDisplay)
                             .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
                             .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
@@ -813,16 +816,15 @@ public class OrderDepositMenu extends BaseMenu {
             double rewardMult = plugin.getReputationBridgeService() != null
                     ? plugin.getReputationBridgeService().getRewardMultiplier(player)
                     : 1.0;
-            for (Reward reward : order.getRewards()) {
-                reward.apply(player, job, rewardMult);
-            }
+            plugin.getProgressionService().applyRewards(player, job, order, rewardMult);
 
             // Execute reward actions if present
             if (plugin.getActionRunnerService() != null) {
                 WorkOrder wo = (profile != null && slotNumber > 0) ? profile.getActiveOrder(slotNumber) : null;
-                int rep = (wo != null && wo.getGeneratedReputationAmount() > 0)
+                int baseRep = (wo != null && wo.getGeneratedReputationAmount() > 0)
                         ? wo.getGeneratedReputationAmount()
                         : (order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 10);
+                int rep = plugin.getProgressionService().points(player, job, baseRep);
 
                 if (!order.getRewardActions().isEmpty()) {
                     plugin.getActionRunnerService().executeAllActions(player, order.getRewardActions(), rep);
@@ -895,9 +897,7 @@ public class OrderDepositMenu extends BaseMenu {
                     double rewardMult = plugin.getReputationBridgeService() != null
                             ? plugin.getReputationBridgeService().getRewardMultiplier(player)
                             : 1.0;
-                    for (Reward reward : order.getRewards()) {
-                        reward.apply(player, job, rewardMult);
-                    }
+                    plugin.getProgressionService().applyRewards(player, job, order, rewardMult);
 
                     if (plugin.getActionRunnerService() != null) {
                         WorkOrder wo = null;
@@ -907,9 +907,10 @@ public class OrderDepositMenu extends BaseMenu {
                                 break;
                             }
                         }
-                        int rep = (wo != null && wo.getGeneratedReputationAmount() > 0)
+                        int baseRep = (wo != null && wo.getGeneratedReputationAmount() > 0)
                                 ? wo.getGeneratedReputationAmount()
                                 : (order.getMinReputationAmount() > 0 ? order.getMinReputationAmount() : 10);
+                        int rep = plugin.getProgressionService().points(player, job, baseRep);
 
                         if (!order.getRewardActions().isEmpty()) {
                             plugin.getActionRunnerService().executeAllActions(player, order.getRewardActions(), rep);

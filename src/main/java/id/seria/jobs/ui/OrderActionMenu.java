@@ -268,11 +268,14 @@ public class OrderActionMenu extends BaseMenu {
         String repRange = (order.getMinReputationAmount() > 0 && order.getMaxReputationAmount() > order.getMinReputationAmount())
                 ? (order.getMinReputationAmount() + "-" + order.getMaxReputationAmount())
                 : repStr;
-        String activeRepDisplay = (wo != null && wo.getGeneratedReputationAmount() > 0) ? repStr : repRange;
+        id.seria.jobs.service.ProgressionService.Display progDisplay = plugin.getProgressionService().display(player, job, order, wo);
+        String activeRepDisplay = progDisplay.reputation();
+        String ginsDisplay = progDisplay.gins();
+        String xpDisplay = progDisplay.xp();
 
         if (order.hasCustomRewardsDisplay()) {
             for (String rLine : order.getCustomRewardsDisplay()) {
-                String parsed = rLine.replace("{reputation}", activeRepDisplay)
+                String parsed = rLine.replace("{gins}", ginsDisplay).replace("{xp}", xpDisplay).replace("{reputation}", activeRepDisplay)
                         .replace("{order_reputation}", activeRepDisplay)
                         .replace("{min_reputation}", String.valueOf(order.getMinReputationAmount()))
                         .replace("{max_reputation}", String.valueOf(order.getMaxReputationAmount()))
@@ -289,7 +292,7 @@ public class OrderActionMenu extends BaseMenu {
         }
 
         for (Reward r : order.getRewards()) {
-            String disp = r.getFormattedDisplay(rewardMult);
+            String disp = plugin.getProgressionService().formatReward(player, job, r, rewardMult);
             if (!disp.startsWith(" ") && !disp.startsWith("<lore-color>▪") && !disp.startsWith("▪")) {
                 disp = "  " + disp;
             }
