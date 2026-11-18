@@ -70,6 +70,10 @@ public class JobsManager {
         JobProfile profile = dataManager.getProfile(player.getUniqueId());
         Job job = plugin.getJobRegistry().getJob(jobId);
         if (job == null) return false;
+        if (!profile.hasJob(job.getId())) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+            return false;
+        }
 
         WorkOrder order = profile.getActiveOrder(slotIndex);
         if (order == null) {
@@ -202,6 +206,10 @@ public class JobsManager {
         JobProfile profile = dataManager.getProfile(player.getUniqueId());
         Job job = plugin.getJobRegistry().getJob(jobId);
         if (job == null) return false;
+        if (!profile.hasJob(job.getId())) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+            return false;
+        }
 
         // 0. Cek apakah pesanan pada slot ini sudah selesai disetor di shift saat ini
         if (isSlotOrderCompleted(player, job, profile, slotIndex)) {
@@ -261,6 +269,10 @@ public class JobsManager {
         JobProfile profile = dataManager.getProfile(player.getUniqueId());
         Job job = plugin.getJobRegistry().getJob(jobId);
         if (job == null) return false;
+        if (!profile.hasJob(job.getId())) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+            return false;
+        }
 
         // 0. Cek apakah pesanan pada slot ini sudah selesai disetor di shift saat ini
         if (isSlotOrderCompleted(player, job, profile, slotIndex)) {
@@ -330,6 +342,10 @@ public class JobsManager {
         JobProfile profile = dataManager.getProfile(player.getUniqueId());
         Job job = plugin.getJobRegistry().getJob(jobId);
         if (job == null) return false;
+        if (!profile.hasJob(job.getId())) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+            return false;
+        }
 
         // 0. Cek apakah pesanan pada slot ini sudah selesai disetor di shift saat ini
         if (isSlotOrderCompleted(player, job, profile, slotIndex)) {

@@ -110,9 +110,38 @@ public class JobProfile {
         leaveCooldowns.put(jobId.toLowerCase(), expireTimestamp);
     }
 
+    /**
+     * Memulai cooldown resign global baru: seluruh cooldown lama dihapus dan
+     * digantikan oleh cooldown terbaru.
+     */
+    public void startLeaveCooldown(String jobId, long expireTimestamp) {
+        leaveCooldowns.clear();
+        leaveCooldowns.put(jobId.toLowerCase(), expireTimestamp);
+    }
+
+    public void clearLeaveCooldowns() {
+        leaveCooldowns.clear();
+    }
+
     public boolean isLeaveOnCooldown(String jobId) {
         long expire = getLeaveCooldown(jobId);
         return System.currentTimeMillis() < expire;
+    }
+
+    /**
+     * Cooldown resign berlaku global untuk semua job: ambil waktu kadaluarsa terjauh
+     * dari seluruh cooldown per-job yang tersimpan.
+     */
+    public long getGlobalLeaveCooldown() {
+        long max = 0L;
+        for (long expire : leaveCooldowns.values()) {
+            if (expire > max) max = expire;
+        }
+        return max;
+    }
+
+    public boolean isOnGlobalLeaveCooldown() {
+        return System.currentTimeMillis() < getGlobalLeaveCooldown();
     }
 
     private String makeKey(String shiftId, String jobId, String orderId) {

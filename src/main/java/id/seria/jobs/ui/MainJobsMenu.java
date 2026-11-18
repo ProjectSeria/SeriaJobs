@@ -207,6 +207,15 @@ public class MainJobsMenu extends BaseMenu {
     }
 
     private void handleJoinJob(Job job, JobProfile profile) {
+        if (plugin.getConfigManager().isLeaveJobEnabled() && profile.isOnGlobalLeaveCooldown()) {
+            long remainingMillis = profile.getGlobalLeaveCooldown() - System.currentTimeMillis();
+            long hours = remainingMillis / (1000 * 60 * 60);
+            long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.leave-cooldown",
+                    "{time}", hours + " jam " + minutes + " menit"));
+            return;
+        }
+
         if (!plugin.getSlotPermissionManager().canJoinJob(player, profile)) {
             int max = plugin.getSlotPermissionManager().getMaxSlots(player);
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.slot-full",
@@ -236,15 +245,6 @@ public class MainJobsMenu extends BaseMenu {
             return;
         }
 
-        if (profile.isLeaveOnCooldown(job.getId())) {
-            long remainingMillis = profile.getLeaveCooldown(job.getId()) - System.currentTimeMillis();
-            long hours = remainingMillis / (1000 * 60 * 60);
-            long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
-            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.leave-cooldown",
-                    "{time}", hours + " jam " + minutes + " menit"));
-            return;
-        }
-
         JobLeaveEvent event = new JobLeaveEvent(player, job);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
@@ -253,7 +253,7 @@ public class MainJobsMenu extends BaseMenu {
 
         profile.removeActiveJob(job.getId());
         long cooldownHours = plugin.getConfigManager().getLeaveCooldownHours();
-        profile.setLeaveCooldown(job.getId(), System.currentTimeMillis() + (cooldownHours * 3600 * 1000L));
+        profile.startLeaveCooldown(job.getId(), System.currentTimeMillis() + (cooldownHours * 3600 * 1000L));
 
         if (plugin.getConfigManager().isResetProgressOnLeave()) {
             profile.setJobLevel(job.getId(), 1);

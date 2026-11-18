@@ -516,15 +516,6 @@ public class OrderDepositMenu extends BaseMenu {
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
         if (profile == null) return;
 
-        if (profile.isLeaveOnCooldown(job.getId())) {
-            long remainingMillis = profile.getLeaveCooldown(job.getId()) - System.currentTimeMillis();
-            long hours = remainingMillis / (1000 * 60 * 60);
-            long minutes = (remainingMillis % (1000 * 60 * 60)) / (1000 * 60);
-            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.leave-cooldown",
-                    "{time}", hours + " jam " + minutes + " menit"));
-            return;
-        }
-
         id.seria.jobs.api.JobLeaveEvent event = new id.seria.jobs.api.JobLeaveEvent(player, job);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
@@ -533,7 +524,7 @@ public class OrderDepositMenu extends BaseMenu {
 
         profile.removeActiveJob(job.getId());
         long cooldownHours = plugin.getConfigManager().getLeaveCooldownHours();
-        profile.setLeaveCooldown(job.getId(), System.currentTimeMillis() + (cooldownHours * 3600 * 1000L));
+        profile.startLeaveCooldown(job.getId(), System.currentTimeMillis() + (cooldownHours * 3600 * 1000L));
 
         if (plugin.getConfigManager().isResetProgressOnLeave()) {
             profile.setJobLevel(job.getId(), 1);
@@ -778,13 +769,17 @@ public class OrderDepositMenu extends BaseMenu {
     }
 
     public void handleDepositOrder(JobOrder order, JobProfile profile, String shiftId, int slotNumber) {
+        if (!profile.hasJob(job.getId())) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+            return;
+        }
         if (profile.isOrderCompleted(shiftId, job.getId(), order.getId())) {
             player.sendMessage(plugin.getLanguageManager().getMessage(player, "orders.already-completed"));
             return;
         }
 
-        int jobLevel = profile.getJobLevel(job.getId());
-        int required = order.getRequiredAmount(jobLevel);
+        WorkOrder activeWo = slotNumber > 0 ? profile.getActiveOrder(slotNumber) : null;
+        int required = resolveRequiredAmount(order, profile, activeWo);
         int currentProgress = profile.getOrderProgress(shiftId, job.getId(), order.getId());
         int remainingNeeded = required - currentProgress;
         if (remainingNeeded <= 0) return;
@@ -854,8 +849,27 @@ public class OrderDepositMenu extends BaseMenu {
         refresh();
     }
 
+    /**
+     * Jumlah yang dibutuhkan, identik dengan yang ditampilkan di kartu order:
+     * target work order yang sudah di-generate bila ada, selain itu skala level + multiplier reputasi.
+     */
+    private int resolveRequiredAmount(JobOrder order, JobProfile profile, WorkOrder wo) {
+        if (wo != null && wo.getTemplate() != null) {
+            return wo.getTemplate().getTargetAmount();
+        }
+        int jobLevel = profile != null ? profile.getJobLevel(job.getId()) : 1;
+        double orderMult = plugin.getReputationBridgeService() != null
+                ? plugin.getReputationBridgeService().getOrderMultiplier(player)
+                : 1.0;
+        return order.getRequiredAmount(jobLevel, orderMult);
+    }
+
     private void handleDepositAll() {
         JobProfile profile = plugin.getPlayerDataManager().getProfile(player.getUniqueId());
+        if (!profile.hasJob(job.getId())) {
+            player.sendMessage(plugin.getLanguageManager().getMessage(player, "jobs.not-joined"));
+            return;
+        }
         String shiftId = plugin.getOrderPoolManager().getCurrentShiftId();
         List<JobOrder> activeOrders = new ArrayList<>(plugin.getOrderPoolManager().getActiveOrders(job.getId()));
         if (plugin.getConfigManager().isEventActive()) {
@@ -872,7 +886,16 @@ public class OrderDepositMenu extends BaseMenu {
                 continue;
             }
 
-            int required = order.getRequiredAmount(jobLevel);
+            WorkOrder activeWo = null;
+            if (profile != null) {
+                for (WorkOrder w : profile.getActiveOrders().values()) {
+                    if (w != null && w.getTemplate() != null && w.getTemplate().getTemplateId().equalsIgnoreCase(order.getId())) {
+                        activeWo = w;
+                        break;
+                    }
+                }
+            }
+            int required = resolveRequiredAmount(order, profile, activeWo);
             int currentProgress = profile != null ? profile.getOrderProgress(shiftId, job.getId(), order.getId()) : 0;
             int remainingNeeded = required - currentProgress;
             if (remainingNeeded <= 0) continue;
