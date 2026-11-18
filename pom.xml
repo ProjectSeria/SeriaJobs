@@ -6,7 +6,7 @@
 
     <groupId>id.seria</groupId>
     <artifactId>seriajobs</artifactId>
-    <version>2.2.1</version>
+    <version>2.3.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>SeriaJobs</name>
@@ -15,6 +15,8 @@
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Versi SeriaCore minimum yang dibutuhkan build ini; dicek saat enable (lihat CoreVersionCheck). -->
+        <seriacore.min-version>2.4.0</seriacore.min-version>
     </properties>
 
     <repositories>

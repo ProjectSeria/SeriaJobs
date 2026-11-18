@@ -41,9 +41,7 @@ market-shifts:
 
 hooks:
   auraskills: true
-  customfishing: true
   seriamagicbundle: true
-  seriacrafting: true
   placeholderapi: true
   luckperms: true
   # Seria Ecosystem hooks

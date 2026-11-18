@@ -43,35 +43,8 @@ public class ItemMatcher {
 
             case "CUSTOMFISHING":
             case "FISHING":
-                if (!SeriaJobs.getInstance().getHookManager().isCustomFishingLoaded()) {
-                    return false;
-                }
                 for (String fId : order.getCustomItemIds()) {
-                    if (SeriaJobs.getInstance().getHookManager().getCustomFishingHook().matches(item, fId)) {
-                        return true;
-                    }
-                }
-                return false;
-
-            case "SERIAMAGICBUNDLE":
-            case "MAGICBUNDLE":
-                if (!SeriaJobs.getInstance().getHookManager().isSeriaMagicBundleLoaded()) {
-                    return false;
-                }
-                for (String bId : order.getCustomItemIds()) {
-                    if (SeriaJobs.getInstance().getHookManager().getSeriaMagicBundleHook().matches(item, bId)) {
-                        return true;
-                    }
-                }
-                return false;
-
-            case "SERIACRAFTING":
-            case "CRAFTING":
-                if (!SeriaJobs.getInstance().getHookManager().isSeriaCraftingLoaded()) {
-                    return false;
-                }
-                for (String cId : order.getCustomItemIds()) {
-                    if (SeriaJobs.getInstance().getHookManager().getSeriaCraftingHook().matches(item, cId)) {
+                    if (itemProviders().matches("customfishing", item, null, fId)) {
                         return true;
                     }
                 }
@@ -127,7 +100,6 @@ public class ItemMatcher {
      */
     @Nullable
     public static ItemStack createOrderItem(@NotNull JobOrder order) {
-        var hooks = SeriaJobs.getInstance().getHookManager();
         String src = order.getSource() != null ? order.getSource().toUpperCase() : "VANILLA";
         switch (src) {
             case "MMOITEMS":
@@ -139,21 +111,10 @@ public class ItemMatcher {
                 return itemProviders().resolveItem("mythicmobs", order.getCustomItemId());
             case "CUSTOMFISHING":
             case "FISHING":
-                return hooks.isCustomFishingLoaded() ? hooks.getCustomFishingHook().generateItem(order.getCustomItemId(), 1) : null;
-            case "SERIAMAGICBUNDLE":
-            case "MAGICBUNDLE":
-                return hooks.isSeriaMagicBundleLoaded() ? hooks.getSeriaMagicBundleHook().generateItem(order.getCustomItemId(), 1) : null;
-            case "SERIACRAFTING":
-            case "CRAFTING":
-                return hooks.isSeriaCraftingLoaded() ? hooks.getSeriaCraftingHook().generateItem(order.getCustomItemId(), 1) : null;
+                return order.getCustomItemId() != null ? itemProviders().resolveItem("customfishing", order.getCustomItemId()) : null;
             default:
                 return null;
         }
-    }
-
-    public static boolean isBundleOrder(@NotNull JobOrder order) {
-        String source = order.getSource() != null ? order.getSource().toUpperCase() : "VANILLA";
-        return source.equals("SERIAMAGICBUNDLE") || source.equals("MAGICBUNDLE");
     }
 
     public static boolean isBundleItem(@Nullable ItemStack item) {
@@ -184,20 +145,16 @@ public class ItemMatcher {
             }
         }
 
+        // Also count items stored in Magic Bundles & sacks
+        // 1. Virtual SeriaMagicBundle storage (sacks / database)
         int virtualCount = 0;
-        int bundleCount = 0;
-
-        // If this order is not for the bundle itself, also count items in Magic Bundles & sacks!
-        if (!isBundleOrder(order)) {
-            // 1. Virtual SeriaMagicBundle storage (sacks / database)
-            SeriaMagicBundleHook hook = SeriaJobs.getInstance().getHookManager().getSeriaMagicBundleHook();
-            if (hook != null && hook.isAvailable()) {
-                virtualCount = hook.countVirtualStorageItems(player, order);
-            }
-
-            // 2. Physical Magic Bundles in player inventory / offhand
-            bundleCount = countItemsInBundles(player, order);
+        SeriaMagicBundleHook hook = SeriaJobs.getInstance().getHookManager().getSeriaMagicBundleHook();
+        if (hook != null && hook.isAvailable()) {
+            virtualCount = hook.countVirtualStorageItems(player, order);
         }
+
+        // 2. Physical Magic Bundles in player inventory / offhand
+        int bundleCount = countItemsInBundles(player, order);
 
         int total = looseCount + virtualCount + bundleCount;
         SeriaJobs.getInstance().getLogger().info("[SeriaJobs] Deposit check for " + player.getName() 
@@ -247,7 +204,7 @@ public class ItemMatcher {
         for (int i = 0; i < contents.length; i++) {
             ItemStack item = contents[i];
             if (item == null) continue;
-            if (!isBundleOrder(order) && isBundleItem(item)) continue;
+            if (isBundleItem(item)) continue;
 
             if (matches(item, order)) {
                 int currentAmount = item.getAmount();
@@ -264,8 +221,8 @@ public class ItemMatcher {
             }
         }
 
-        // 2. If more items are still needed and order is not for the bundle itself, pull from Magic Bundles!
-        if (remainingNeeded > 0 && !isBundleOrder(order)) {
+        // 2. If more items are still needed, pull from Magic Bundles!
+        if (remainingNeeded > 0) {
             // 2a. Check physical bundles in inventory/offhand first
             remainingNeeded = removeItemsFromBundles(player, order, remainingNeeded);
 

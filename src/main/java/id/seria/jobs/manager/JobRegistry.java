@@ -138,8 +138,6 @@ public class JobRegistry {
                 String customItemId = sec.getString("required-item.custom-item-id");
                 if (customItemId == null) customItemId = sec.getString("required-item.mythic-id");
                 if (customItemId == null) customItemId = sec.getString("required-item.fishing-id");
-                if (customItemId == null) customItemId = sec.getString("required-item.bundle-id");
-                if (customItemId == null) customItemId = sec.getString("required-item.crafting-id");
                 if (customItemId == null) customItemId = sec.getString("required-item.item-id");
 
                 List<String> customItemIds = new ArrayList<>();
@@ -331,29 +329,6 @@ public class JobRegistry {
                     Object amtObj = rMap.get("amount");
                     int rAmt = amtObj != null ? Integer.parseInt(String.valueOf(amtObj)) : 1;
                     rewards.add(new CustomFishingReward(itemId, rAmt, customDisplay));
-                    break;
-                }
-                case "SERIAMAGICBUNDLE":
-                case "MAGICBUNDLE":
-                case "BUNDLE": {
-                    Object idObj = rMap.get("item-id");
-                    if (idObj == null) idObj = rMap.get("bundle-id");
-                    if (idObj == null) idObj = rMap.get("id");
-                    String itemId = String.valueOf(idObj);
-                    Object amtObj = rMap.get("amount");
-                    int rAmt = amtObj != null ? Integer.parseInt(String.valueOf(amtObj)) : 1;
-                    rewards.add(new SeriaMagicBundleReward(itemId, rAmt, customDisplay));
-                    break;
-                }
-                case "SERIACRAFTING":
-                case "CRAFTING": {
-                    Object idObj = rMap.get("item-id");
-                    if (idObj == null) idObj = rMap.get("crafting-id");
-                    if (idObj == null) idObj = rMap.get("id");
-                    String itemId = String.valueOf(idObj);
-                    Object amtObj = rMap.get("amount");
-                    int rAmt = amtObj != null ? Integer.parseInt(String.valueOf(amtObj)) : 1;
-                    rewards.add(new SeriaCraftingReward(itemId, rAmt, customDisplay));
                     break;
                 }
                 case "COMMAND":

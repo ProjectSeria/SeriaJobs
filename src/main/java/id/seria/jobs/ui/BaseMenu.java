@@ -113,26 +113,12 @@ public abstract class BaseMenu extends BaseSeriaMenu {
 
         // 3. CustomFishing
         String fishingId = sec.getString("customfishing", sec.getString("fishing-id"));
-        if (fishingId != null && plugin.getHookManager().isCustomFishingLoaded()) {
-            ItemStack item = plugin.getHookManager().getCustomFishingHook().generateItem(fishingId, 1);
-            if (item != null) return item.clone();
+        if (fishingId != null) {
+            ItemStack item = items.resolveItem("customfishing", fishingId);
+            if (item != null) return item;
         }
 
-        // 4. SeriaMagicBundle
-        String bundleId = sec.getString("magicbundle", sec.getString("bundle-id"));
-        if (bundleId != null && plugin.getHookManager().isSeriaMagicBundleLoaded()) {
-            ItemStack item = plugin.getHookManager().getSeriaMagicBundleHook().generateItem(bundleId, 1);
-            if (item != null) return item.clone();
-        }
-
-        // 5. SeriaCrafting
-        String craftingId = sec.getString("seriacrafting", sec.getString("crafting-id"));
-        if (craftingId != null && plugin.getHookManager().isSeriaCraftingLoaded()) {
-            ItemStack item = plugin.getHookManager().getSeriaCraftingHook().generateItem(craftingId, 1);
-            if (item != null) return item.clone();
-        }
-
-        // 6. Material vanilla (SeriaCore)
+        // 4. Material vanilla (SeriaCore)
         return super.resolveBaseItem(sec);
     }
 

@@ -182,4 +182,4 @@ SeriaJobs terintegrasi secara *native* dengan seluruh sistem Seria Network:
 2. **Vault:** Pembayaran imbalan Gins dari setoran pesanan pasar.
 3. **AuraSkills:** Sinkronisasi penambahan XP skill Minecraft (Farming, Mining, Fishing, Foraging).
 4. **SeriaPrefix & MiniMessage:** Dukungan penuh tag warna (`<sc:title-color>`, `<sc:gins-icon>`, `<gold>`, dll.).
-5. **SeriaCrafting, SeriaMagicBundle, MMOItems, MythicMobs & CustomFishing:** Dukungan penuh sebagai target pesanan setoran bursa kerja maupun hadiah milestone kenaikan level.
+5. **MMOItems, MythicMobs & CustomFishing (via ItemProvider SeriaCore):** Dukungan penuh sebagai target pesanan setoran bursa kerja maupun hadiah milestone kenaikan level. Item di dalam SeriaMagicBundle (sack virtual & bundle fisik) ikut terhitung saat setor pesanan.

@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BundleMeta;
 import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -364,44 +363,5 @@ public class SeriaMagicBundleHook {
         } catch (Throwable ignored) {}
 
         return success;
-    }
-
-    @Nullable
-    public ItemStack generateItem(@Nullable String id, int amount) {
-        if (!isAvailable() || id == null || amount <= 0) return null;
-
-        try {
-            Class<?> managerClass = Class.forName("id.seria.magicbundle.BundleManager");
-            Method getBundle = managerClass.getMethod("getBundle", String.class);
-            Object res = getBundle.invoke(null, id);
-            if (res instanceof ItemStack is) {
-                ItemStack clone = is.clone();
-                clone.setAmount(amount);
-                return clone;
-            }
-        } catch (Throwable ignored) {}
-
-        return null;
-    }
-
-    public boolean matches(@Nullable ItemStack item, @Nullable String expectedId) {
-        if (item == null || expectedId == null) return false;
-
-        try {
-            if (item.hasItemMeta()) {
-                var pdc = item.getItemMeta().getPersistentDataContainer();
-                for (var key : pdc.getKeys()) {
-                    String ns = key.getNamespace().toLowerCase();
-                    if (ns.contains("magicbundle") || ns.contains("magic_bundle")) {
-                        String val = pdc.get(key, PersistentDataType.STRING);
-                        if (val != null && val.equalsIgnoreCase(expectedId)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        } catch (Throwable ignored) {}
-
-        return false;
     }
 }
